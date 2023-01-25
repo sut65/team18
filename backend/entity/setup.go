@@ -37,6 +37,9 @@ func SetupDatabase() {
 		&Typem{},
 		&Evidence{},
 		&Gender{},
+
+		//Payment system
+		&Status{}, &Bill{}, &PaymentMethod{}, &Payee{}, &Payment{},
 	)
 	db = database
 
@@ -240,4 +243,79 @@ func SetupDatabase() {
 	//ระบบจองสถานที่
 	//ระบบประชาสัมพันธ์
 	//ระบบชำระเงิน
+	//----Status-----
+	Status1 := Status{
+		Type: "ชำระเรียบร้อย",
+	}
+	db.Model(&Status{}).Create(&Status1)
+	Status2 := Status{
+		Type: "ค้างชำระ",
+	}
+	db.Model(&Status{}).Create(&Status2)
+
+	//----Bill-----
+	Bill1 := Bill{
+		Status: Status1,
+		Member: Somcai,
+	}
+	db.Model(&Bill{}).Create(&Bill1)
+	Bill2 := Bill{
+		Status: Status1,
+		Member: Baifern,
+	}
+	db.Model(&Bill{}).Create(&Bill2)
+	Bill3 := Bill{
+		Status: Status2,
+		Member: Somcai,
+	}
+	db.Model(&Bill{}).Create(&Bill3)
+
+	//----method
+	Transfer := PaymentMethod{
+		Method: "Transfer",
+	}
+	db.Model(&PaymentMethod{}).Create(&Transfer)
+	PromptPay := PaymentMethod{
+		Method: "PromptPay",
+	}
+	db.Model(&PaymentMethod{}).Create(&PromptPay)
+	Credit := PaymentMethod{
+		Method: "Credit Card",
+	}
+	db.Model(&PaymentMethod{}).Create(&Credit)
+	Debit := PaymentMethod{
+		Method: "Debit card",
+	}
+	db.Model(&PaymentMethod{}).Create(&Debit)
+
+	//-------payee
+	Payee1 := Payee{
+		AccountNo:   "110-0-00000-0",
+		AccountName: "สมาคมกีฬา",
+		Bank:        "กรุงไทย",
+	}
+	db.Model(&Payee{}).Create(&Payee1)
+	Payee2 := Payee{
+		AccountNo:   "120-0-00000-0",
+		AccountName: "สมาคมกีฬา",
+		Bank:        "กสิกร",
+	}
+	db.Model(&Payee{}).Create(&Payee2)
+
+	//-----payment----
+	Payment1 := Payment{
+		Bill:          Bill1,
+		PaymentMethod: Transfer,
+		Payee:         Payee2,
+		PayDate:       time.Date(2022, 1, 2, 10, 0, 0, 0, time.Now().Location()),
+	}
+	db.Model(&Payment{}).Create(&Payment1)
+	Payment2 := Payment{
+		Bill:          Bill2,
+		PaymentMethod: Credit,
+		Payee:         Payee2,
+		PayDate:       time.Date(2022, 3, 2, 10, 0, 0, 0, time.Now().Location()),
+	}
+	db.Model(&Payment{}).Create(&Payment2)
+
 }

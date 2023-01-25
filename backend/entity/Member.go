@@ -45,4 +45,5 @@ type Member struct {
 	// GenderID ทำหน้าที่เป็น FK
 	GenderID *uint
 	Gender   Gender `gorm:"references:ID"`
+	Bill []Bill `gorm:"foreignKey:MemberID"`
 }
