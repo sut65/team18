@@ -83,7 +83,78 @@ func SetupDatabase() {
 	}
 	db.Model(&Employee{}).Create(&admin1em)
 	//ระบบตารางงาน
+
+
 	//ระบบสมัครสมาชิก
+	//--- ประเภทสมาชิค ---//
+	Temporary := Typem{
+		Ttype: "ชั่วคราว",
+		Tpay:  500,
+	}
+	db.Model(&Typem{}).Create(&Temporary)
+
+	Permanent := Typem{
+		Ttype: "ถาวร",
+		Tpay:  2999,
+	}
+	db.Model(&Typem{}).Create(&Permanent)
+
+	//--- ชนิดหลักฐาน ---//
+	Identification := Evidence{
+		Etype: "บัตรประจำตัวประชาชน",
+	}
+	db.Model(&Evidence{}).Create(&Identification)
+
+	Student := Evidence{
+		Etype: "บัตรนักศึกษา",
+	}
+	db.Model(&Evidence{}).Create(&Student)
+
+	Driving := Evidence{
+		Etype: "ใบขับขี่",
+	}
+	db.Model(&Evidence{}).Create(&Driving)
+
+	Document := Evidence{
+		Etype: "สำเนาทะเบียนบ้าน",
+	}
+	db.Model(&Evidence{}).Create(&Document)
+
+	//--gender--//
+	Female := Gender{
+		Gtype: "หญิง",
+	}
+	db.Model(&Gender{}).Create(&Female)
+
+	Male := Gender{
+		Gtype: "ชาย",
+	}
+	db.Model(&Gender{}).Create(&Male)
+
+	//leave data1
+	db.Model(&Member{}).Create(&Member{
+		Name:      "Somcai Jaidi",
+		Email:     "Somcai@gmail.com",
+		Password:  "123456",
+		Bdate:     time.Date(2001, 7, 11, 0, 0, 0, 0, time.Now().Location()),
+		Age:       21,
+		Gender:    Male,
+		Evidence: Student,
+		Typem:     Temporary,
+	})
+	//leave data2
+	db.Model(&Member{}).Create(&Member{
+		Name:      "Baifern Pimdao",
+		Email:     "Baifern@gmail.com ",
+		Password:  "456789",
+		Bdate:     time.Date(2001, 9, 24, 0, 0, 0, 0, time.Now().Location()),
+		Age:       21,
+		Gender:    Female,
+		Evidence: Identification,
+		Typem:     Temporary,
+	})
+
+
 	//ระบบแจ้งชำรุด
 	//ระบบโปรแกรมออกกำลังกาย
 	// worm up
