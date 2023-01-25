@@ -1,6 +1,6 @@
 package entity
 
-// Update Entity
+// Update Entity 26/01/2023
 import (
 	"time"
 
