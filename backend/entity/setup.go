@@ -7,6 +7,7 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
+
 var db *gorm.DB
 
 func DB() *gorm.DB {
@@ -24,14 +25,18 @@ func SetupDatabase() {
 	database.AutoMigrate(
 		//signin
 		&User{},
-		
+
 		//employee system
 		&Gender{},
 		&Education{},
 		&Role{},
 		&Employee{},
 
-
+		//Member system
+		&Member{},
+		&Typem{},
+		&Evidence{},
+		&Gender{},
 	)
 	db = database
 
@@ -49,7 +54,7 @@ func SetupDatabase() {
 		return
 	}
 	userAdmin := User{
-		Name: "Admin",
+		Name:     "Admin",
 		Password: string(password),
 	}
 	db.Model(&User{}).Create(&userAdmin)
@@ -72,18 +77,17 @@ func SetupDatabase() {
 	}
 	db.Model(&Education{}).Create(&maDg)
 	admin1em := Employee{
-		Name: "Amin1em",
-		Tel: "090000000",
-		Email: "admin@email.com",
-		DOB: time.Now(),
-		Gender: male,
+		Name:      "Amin1em",
+		Tel:       "090000000",
+		Email:     "admin@email.com",
+		DOB:       time.Now(),
+		Gender:    male,
 		Education: baDg,
-		Role: admin,
-		User: userAdmin,
+		Role:      admin,
+		User:      userAdmin,
 	}
 	db.Model(&Employee{}).Create(&admin1em)
 	//ระบบตารางงาน
-
 
 	//ระบบสมัครสมาชิก
 	//--- ประเภทสมาชิก ---//
@@ -131,31 +135,36 @@ func SetupDatabase() {
 	}
 	db.Model(&Gender{}).Create(&Male)
 
-	//leave data1
+	//member data1
 	db.Model(&Member{}).Create(&Member{
-		Name:      "Somcai Jaidi",
-		Email:     "Somcai@gmail.com",
-		Password:  "123456",
-		Bdate:     time.Date(2001, 7, 11, 0, 0, 0, 0, time.Now().Location()),
-		Age:       21,
-		Gender:    Male,
+		Name:     "Somcai Jaidi",
+		Email:    "Somcai@gmail.com",
+		Password: "123456",
+		Bdate:    time.Date(2001, 7, 11, 0, 0, 0, 0, time.Now().Location()),
+		Age:      21,
+		Gender:   Male,
 		Evidence: Student,
-		Typem:     Temporary,
+		Typem:    Temporary,
 	})
-	//leave data2
+	//member data2
 	db.Model(&Member{}).Create(&Member{
-		Name:      "Baifern Pimdao",
-		Email:     "Baifern@gmail.com ",
-		Password:  "456789",
-		Bdate:     time.Date(2001, 9, 24, 0, 0, 0, 0, time.Now().Location()),
-		Age:       21,
-		Gender:    Female,
+		Name:     "Baifern Pimdao",
+		Email:    "Baifern@gmail.com",
+		Password: "456789",
+		Bdate:    time.Date(2001, 9, 24, 0, 0, 0, 0, time.Now().Location()),
+		Age:      21,
+		Gender:   Female,
 		Evidence: Identification,
-		Typem:     Temporary,
+		Typem:    Temporary,
 	})
 
+	var Somcai Member
+	var Baifern Member
+	db.Raw("SELECT * FROM members WHERE email = ?", "Somcai@gmail.com").Scan(&Somcai)
+	db.Raw("SELECT * FROM members WHERE email = ?", "Baifern@gmail.com").Scan(&Baifern)
 
 	//ระบบแจ้งชำรุด
+
 	//ระบบโปรแกรมออกกำลังกาย
 	// worm up
 	worm1 := WormUp{
