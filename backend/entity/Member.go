@@ -10,7 +10,7 @@ type Typem struct {
 	gorm.Model
 	Ttype string
 	Tpay  int
-	// 1  Ttype สามารถเป็น Member ได้หลายครั้ง
+	// 1  Ttype เป็น Member ได้หลายครั้ง
 	Member []Member `gorm:"foreignKey:TypemID"`
 }
 
