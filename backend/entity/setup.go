@@ -63,14 +63,18 @@ func SetupDatabase() {
 	db.Model(&User{}).Create(&userAdmin)
 
 	//ระบบพนักงาน
-	male := Gender{
-		Name: "ชาย",
+
+	//--gender--//
+	Female := Gender{
+		Gtype: "หญิง",
 	}
-	db.Model(&Gender{}).Create(&male)
-	female := Gender{
-		Name: "หญิง",
+	db.Model(&Gender{}).Create(&Female)
+
+	Male := Gender{
+		Gtype: "ชาย",
 	}
-	db.Model(&Gender{}).Create(&female)
+	db.Model(&Gender{}).Create(&Male)
+	
 	baDg := Education{
 		Level: "ปริญญาตรี",
 	}
@@ -84,7 +88,7 @@ func SetupDatabase() {
 		Tel:       "090000000",
 		Email:     "admin@email.com",
 		DOB:       time.Now(),
-		Gender:    male,
+		Gender:    Male,
 		Education: baDg,
 		Role:      admin,
 		User:      userAdmin,
@@ -127,16 +131,6 @@ func SetupDatabase() {
 	}
 	db.Model(&Evidence{}).Create(&Document)
 
-	//--gender--//
-	Female := Gender{
-		Gtype: "หญิง",
-	}
-	db.Model(&Gender{}).Create(&Female)
-
-	Male := Gender{
-		Gtype: "ชาย",
-	}
-	db.Model(&Gender{}).Create(&Male)
 
 	//member data1
 	db.Model(&Member{}).Create(&Member{

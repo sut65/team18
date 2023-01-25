@@ -26,6 +26,7 @@ type Gender struct {
 	Gtype string
 	// 1 gender เป็น Member ได้หลายครั้ง
 	Member []Member `gorm:"foreignKey:GenderID"`
+	Employee []Employee `gorm:"foreignKey:GenderID"`
 }
 type Member struct {
 	gorm.Model
