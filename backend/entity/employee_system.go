@@ -1,39 +1,40 @@
 package entity
 
+// Update Entity
 import (
 	"time"
 
 	"gorm.io/gorm"
 )
-type Education struct{
+
+type Education struct {
 	gorm.Model
 	Level string
 
 	Employee []Employee `gorm:"foreignKey:EducationID"`
 }
-type Role struct{
+type Role struct {
 	gorm.Model
 	Name string
 
 	Employee []Employee `gorm:"foreignKey:RoleID"`
 }
-type Employee struct{
+type Employee struct {
 	gorm.Model
-	Name string
-	Tel string
+	Name  string
+	Tel   string
 	Email string
-	DOB time.Time
+	DOB   time.Time
 
 	GenderID *uint
-	Gender Gender
+	Gender   Gender
 
 	EducationID *uint
-	Education Education
+	Education   Education
 
 	RoleID *uint
-	Role Role
+	Role   Role
 
 	UserID *uint
-	User User
-	
+	User   User
 }
