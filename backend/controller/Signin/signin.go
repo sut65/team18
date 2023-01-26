@@ -1,4 +1,4 @@
-package signin
+package controller
 
 import (
 	"net/http"
