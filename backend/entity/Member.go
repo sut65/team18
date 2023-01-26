@@ -18,7 +18,7 @@ type Evidence struct {
 	gorm.Model
 	Etype string
 	// 1 evidence เป็น Member ได้หลายครั้ง
-	Member []Member `gorm:"foreignKey:EvidencetID"`
+	Member []Member `gorm:"foreignKey:EvidenceID"`
 }
 
 type Gender struct {
