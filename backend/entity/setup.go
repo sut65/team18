@@ -37,24 +37,30 @@ func SetupDatabase() {
 		&Typem{},
 		&Evidence{},
 		&Gender{},
-        
+
 		//News system
 		&Recipient{},
 		&NewsType{},
 		&News{},
 
 		//Payment system
-		&Status{}, 
-		&Bill{}, 
-		&PaymentMethod{}, 
-		&Payee{}, 
+		&Status{},
+		&Bill{},
+		&PaymentMethod{},
+		&Payee{},
 		&Payment{},
+
+		//Equipment menagement system
+		&EquipmentName{},
+		&RunNumber{},
+		&EquipmentList{},
 	)
 	db = database
 
 	admin := Role{
 		Name: "admin",
 	}
+
 	db.Model(&Role{}).Create(admin)
 	trainer := Role{
 		Name: "trainer",
@@ -83,7 +89,7 @@ func SetupDatabase() {
 		Gtype: "ชาย",
 	}
 	db.Model(&Gender{}).Create(&Male)
-	
+
 	baDg := Education{
 		Level: "ปริญญาตรี",
 	}
@@ -103,6 +109,7 @@ func SetupDatabase() {
 		User:      userAdmin,
 	}
 	db.Model(&Employee{}).Create(&admin1em)
+
 	//ระบบตารางงาน
 
 	//ระบบสมัครสมาชิก
@@ -139,7 +146,6 @@ func SetupDatabase() {
 		Etype: "สำเนาทะเบียนบ้าน",
 	}
 	db.Model(&Evidence{}).Create(&Document)
-
 
 	//member data1
 	db.Model(&Member{}).Create(&Member{
@@ -241,69 +247,231 @@ func SetupDatabase() {
 	db.Model(&ExerciseProgramList{}).Create(&exeprogram2)
 	//ระบบเทรนเนอร์
 	//ระบบข้อมูลอุปกรณ์
+
+	//-------- equipment name --------
+
+	equipmentNameFitness1 := EquipmentName{
+		Name: "ลู่วิ่ง",
+	}
+	db.Model(&EquipmentName{}).Create(&equipmentNameFitness1)
+
+	equipmentNameFitness2 := EquipmentName{
+		Name: "จักรยานออกกำลังกาย",
+	}
+	db.Model(&EquipmentName{}).Create(&equipmentNameFitness2)
+
+	equipmentNameFitness3 := EquipmentName{
+		Name: "ม้านั่งออกกำลังกาย",
+	}
+	db.Model(&EquipmentName{}).Create(&equipmentNameFitness3)
+
+	equipmentNameFitness4 := EquipmentName{
+		Name: "สมิทแมชชีน",
+	}
+	db.Model(&EquipmentName{}).Create(&equipmentNameFitness4)
+
+	equipmentNameBasketball1 := EquipmentName{
+		Name: "รองเท้าบาสเกตบอล",
+	}
+	db.Model(&EquipmentName{}).Create(equipmentNameBasketball1)
+
+	equipmentNameBasketball2 := EquipmentName{
+		Name: "ลูกบาสเกตบอล",
+	}
+	db.Model(&EquipmentName{}).Create(equipmentNameBasketball2)
+
+	equipmentNameBadminton1 := EquipmentName{
+		Name: "รองเท้าแบดมินตัน",
+	}
+	db.Model(&EquipmentName{}).Create(equipmentNameBadminton1)
+
+	equipmentNameBadminton2 := EquipmentName{
+		Name: "ไม้แบดมินตัน",
+	}
+	db.Model(&EquipmentName{}).Create(equipmentNameBadminton2)
+
+	equipmentNameFootball1 := EquipmentName{
+		Name: "รองเท้าฟุคบอล",
+	}
+	db.Model(&EquipmentName{}).Create(equipmentNameFootball1)
+
+	equipmentNameFootball2 := EquipmentName{
+		Name: "ลูกฟุตบอล",
+	}
+	db.Model(&EquipmentName{}).Create(equipmentNameFootball2)
+
+	equipmentNameFutsal1 := EquipmentName{
+		Name: "รองเท้าฟุตซอล",
+	}
+	db.Model(&EquipmentName{}).Create(equipmentNameFutsal1)
+
+	equipmentNameFutsal2 := EquipmentName{
+		Name: "ลูกฟุตซอล",
+	}
+	db.Model(&EquipmentName{}).Create(equipmentNameFutsal2)
+
+	equipmentNameVolleyball1 := EquipmentName{
+		Name: "รองเท้าวอลเลย์บอล",
+	}
+	db.Model(&EquipmentName{}).Create(equipmentNameVolleyball1)
+
+	equipmentNameVolleyball2 := EquipmentName{
+		Name: "ลูกวอลเลย์บอล",
+	}
+	db.Model(&EquipmentName{}).Create(equipmentNameVolleyball2)
+
+	//-------- run number --------
+
+	runNumberFitness1 := RunNumber{
+		Number: "FN01",
+	}
+	db.Model(RunNumber{}).Create(runNumberFitness1)
+
+	runNumberFitness2 := RunNumber{
+		Number: "FN02",
+	}
+	db.Model(RunNumber{}).Create(runNumberFitness2)
+
+	runNumberFitness3 := RunNumber{
+		Number: "FN03",
+	}
+	db.Model(RunNumber{}).Create(runNumberFitness3)
+
+	runNumberFitness4 := RunNumber{
+		Number: "FN04",
+	}
+	db.Model(RunNumber{}).Create(runNumberFitness4)
+
+	runNumberBasketball1 := RunNumber{
+		Number: "BS01",
+	}
+	db.Model(RunNumber{}).Create(runNumberBasketball1)
+
+	runNumberBasketball2 := RunNumber{
+		Number: "BS02",
+	}
+	db.Model(RunNumber{}).Create(runNumberBasketball2)
+
+	runNumberBadminton1 := RunNumber{
+		Number: "BM01",
+	}
+	db.Model(RunNumber{}).Create(runNumberBadminton1)
+
+	runNumberBadminton2 := RunNumber{
+		Number: "BM02",
+	}
+	db.Model(RunNumber{}).Create(runNumberBadminton2)
+
+	runNumberFootball1 := RunNumber{
+		Number: "FB01",
+	}
+	db.Model(RunNumber{}).Create(runNumberFootball1)
+
+	runNumberFootball2 := RunNumber{
+		Number: "FB02",
+	}
+	db.Model(RunNumber{}).Create(runNumberFootball2)
+
+	runNumberFutsal1 := RunNumber{
+		Number: "รองเท้าฟุตซอล",
+	}
+	db.Model(&RunNumber{}).Create(runNumberFutsal1)
+
+	runNumberFutsal2 := RunNumber{
+		Number: "ลูกฟุตซอล",
+	}
+	db.Model(&RunNumber{}).Create(runNumberFutsal2)
+
+	runNumberVolleyball1 := RunNumber{
+		Number: "รองเท้าวอลเลย์บอล",
+	}
+	db.Model(&RunNumber{}).Create(runNumberVolleyball1)
+
+	runNumberVolleyball2 := RunNumber{
+		Number: "ลูกวอลเลย์บอล",
+	}
+	db.Model(&RunNumber{}).Create(runNumberVolleyball2)
+
+	//-------- equipmet list --------
+
+	EquipmentList1 := EquipmentList{
+		Employee:      admin1em,
+		EquipmentName: equipmentNameFitness3,
+		RunNumber:     runNumberFitness3,
+		dateTime:      time.Now(),
+	}
+	db.Model(&EquipmentList{}).Create(EquipmentList1)
+
+	EquipmentList2 := EquipmentList{
+		Employee:      admin1em,
+		EquipmentName: equipmentNameBasketball1,
+		RunNumber:     runNumberBasketball1,
+		dateTime:      time.Now(),
+	}
+	db.Model(&EquipmentList{}).Create(EquipmentList2)
+
 	//ระบบจองอุปกรณ์
 	//ระบบข้อมูลสถานที่
 	//ระบบจองสถานที่
-	
+
 	//ระบบประชาสัมพันธ์
 	//-------- Recipient------
 	everyone := Recipient{
-		Recipient:    "Everyone",
+		Recipient: "Everyone",
 	}
 	db.Model(&Recipient{}).Create(&everyone)
 	employ := Recipient{
-		Recipient:    "Employee",
+		Recipient: "Employee",
 	}
 	db.Model(&Recipient{}).Create(&employ)
 	members := Recipient{
-		Recipient:    "Member",
+		Recipient: "Member",
 	}
 	db.Model(&Recipient{}).Create(&members)
-    //---------NewsType-------
+	//---------NewsType-------
 	typeI := NewsType{
-		Type:    "ทั่วไป",
+		Type: "ทั่วไป",
 	}
 	db.Model(&NewsType{}).Create(&typeI)
 	typeII := NewsType{
-		Type:    "กีฬาและออกกำลังกาย",
+		Type: "กีฬาและออกกำลังกาย",
 	}
 	db.Model(&NewsType{}).Create(&typeII)
 	typeIII := NewsType{
-		Type:    "สมาคม",
+		Type: "สมาคม",
 	}
 	db.Model(&NewsType{}).Create(&typeIII)
 	//----------News------
 	news1 := News{
-		Headline:   "แจ้งหยุดพนักงาน",
-		Body:       "เนื่องจากเป็นวันสำคัญทางศาสนา จึงให้พนักงานหยุดระหว่างวันที่  2021-01-05 - 2021-01-06",
-		SDate:      time.Date(2023, 1, 2, 10, 0, 0, 0, time.Now().Location()),
-		DDate:      time.Date(2023, 1, 6, 10, 0, 0, 0, time.Now().Location()),
-		Recipient:  employ,
-		NewsType:   typeI,
-        Employee:   admin1em,
+		Headline:  "แจ้งหยุดพนักงาน",
+		Body:      "เนื่องจากเป็นวันสำคัญทางศาสนา จึงให้พนักงานหยุดระหว่างวันที่  2021-01-05 - 2021-01-06",
+		SDate:     time.Date(2023, 1, 2, 10, 0, 0, 0, time.Now().Location()),
+		DDate:     time.Date(2023, 1, 6, 10, 0, 0, 0, time.Now().Location()),
+		Recipient: employ,
+		NewsType:  typeI,
+		Employee:  admin1em,
 	}
 	db.Model(&News{}).Create(&news1)
 	news2 := News{
-		Headline:   "เลื่อนเวลาปิด",
-		Body:       "แจ้งสมาชิกทุกวัน เนื่องจากมีการแพร่ระบาดโควิด ทางสถานกีฬาจะเลื่อนเวลาปิดเป็น 18.00 น.",
-		SDate:      time.Date(2023, 3, 2, 10, 0, 0, 0, time.Now().Location()),
-		DDate:      time.Date(2023, 5, 2, 10, 0, 0, 0, time.Now().Location()),
-		Recipient:  members,
-		NewsType:   typeI,
-        Employee:   admin1em,
+		Headline:  "เลื่อนเวลาปิด",
+		Body:      "แจ้งสมาชิกทุกวัน เนื่องจากมีการแพร่ระบาดโควิด ทางสถานกีฬาจะเลื่อนเวลาปิดเป็น 18.00 น.",
+		SDate:     time.Date(2023, 3, 2, 10, 0, 0, 0, time.Now().Location()),
+		DDate:     time.Date(2023, 5, 2, 10, 0, 0, 0, time.Now().Location()),
+		Recipient: members,
+		NewsType:  typeI,
+		Employee:  admin1em,
 	}
 	db.Model(&News{}).Create(&news2)
 	news3 := News{
-		Headline:   "แจ้งการปรับปรุงห้องน้ำสนามกีฬา",
-		Body:       "มีการปรับปรุงห้องน้ำที่ 7 กรุณาใช้ห้องน้ำถัดไป",
-		SDate:      time.Date(2023, 2, 3, 10, 0, 0, 0, time.Now().Location()),
-		DDate:      time.Date(2023, 2, 10, 10, 0, 0, 0, time.Now().Location()),
-		Recipient:  everyone,
-		NewsType:   typeI,
-        Employee:   admin1em,
+		Headline:  "แจ้งการปรับปรุงห้องน้ำสนามกีฬา",
+		Body:      "มีการปรับปรุงห้องน้ำที่ 7 กรุณาใช้ห้องน้ำถัดไป",
+		SDate:     time.Date(2023, 2, 3, 10, 0, 0, 0, time.Now().Location()),
+		DDate:     time.Date(2023, 2, 10, 10, 0, 0, 0, time.Now().Location()),
+		Recipient: everyone,
+		NewsType:  typeI,
+		Employee:  admin1em,
 	}
 	db.Model(&News{}).Create(&news3)
-
 
 	//ระบบชำระเงิน
 	//----Status-----
