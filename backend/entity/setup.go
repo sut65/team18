@@ -66,7 +66,11 @@ func SetupDatabase() {
 		Name: "trainer",
 	}
 	db.Model(&Role{}).Create(&trainer)
-
+	mb := Role{
+		Name: "member",
+	}
+	db.Model(&Role{}).Create(mb)
+	
 	password, err := bcrypt.GenerateFromPassword([]byte("123456"), bcrypt.DefaultCost)
 	if err != nil {
 		return
