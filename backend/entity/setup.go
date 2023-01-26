@@ -37,9 +37,18 @@ func SetupDatabase() {
 		&Typem{},
 		&Evidence{},
 		&Gender{},
+        
+		//News system
+		&Recipient{},
+		&NewsType{},
+		&News{},
 
 		//Payment system
-		&Status{}, &Bill{}, &PaymentMethod{}, &Payee{}, &Payment{},
+		&Status{}, 
+		&Bill{}, 
+		&PaymentMethod{}, 
+		&Payee{}, 
+		&Payment{},
 	)
 	db = database
 
@@ -235,7 +244,67 @@ func SetupDatabase() {
 	//ระบบจองอุปกรณ์
 	//ระบบข้อมูลสถานที่
 	//ระบบจองสถานที่
+	
 	//ระบบประชาสัมพันธ์
+	//-------- Recipient------
+	everyone := Recipient{
+		Recipient:    "Everyone",
+	}
+	db.Model(&Recipient{}).Create(&everyone)
+	employ := Recipient{
+		Recipient:    "Employee",
+	}
+	db.Model(&Recipient{}).Create(&employ)
+	members := Recipient{
+		Recipient:    "Member",
+	}
+	db.Model(&Recipient{}).Create(&members)
+    //---------NewsType-------
+	typeI := NewsType{
+		Type:    "ทั่วไป",
+	}
+	db.Model(&NewsType{}).Create(&typeI)
+	typeII := NewsType{
+		Type:    "กีฬาและออกกำลังกาย",
+	}
+	db.Model(&NewsType{}).Create(&typeII)
+	typeIII := NewsType{
+		Type:    "สมาคม",
+	}
+	db.Model(&NewsType{}).Create(&typeIII)
+	//----------News------
+	news1 := News{
+		Headline:   "แจ้งหยุดพนักงาน",
+		Body:       "เนื่องจากเป็นวันสำคัญทางศาสนา จึงให้พนักงานหยุดระหว่างวันที่  2021-01-05 - 2021-01-06",
+		SDate:      time.Date(2023, 1, 2, 10, 0, 0, 0, time.Now().Location()),
+		DDate:      time.Date(2023, 1, 6, 10, 0, 0, 0, time.Now().Location()),
+		Recipient:  employ,
+		NewsType:   typeI,
+        Employee:   admin1em,
+	}
+	db.Model(&News{}).Create(&news1)
+	news2 := News{
+		Headline:   "เลื่อนเวลาปิด",
+		Body:       "แจ้งสมาชิกทุกวัน เนื่องจากมีการแพร่ระบาดโควิด ทางสถานกีฬาจะเลื่อนเวลาปิดเป็น 18.00 น.",
+		SDate:      time.Date(2023, 3, 2, 10, 0, 0, 0, time.Now().Location()),
+		DDate:      time.Date(2023, 5, 2, 10, 0, 0, 0, time.Now().Location()),
+		Recipient:  members,
+		NewsType:   typeI,
+        Employee:   admin1em,
+	}
+	db.Model(&News{}).Create(&news2)
+	news3 := News{
+		Headline:   "แจ้งการปรับปรุงห้องน้ำสนามกีฬา",
+		Body:       "มีการปรับปรุงห้องน้ำที่ 7 กรุณาใช้ห้องน้ำถัดไป",
+		SDate:      time.Date(2023, 2, 3, 10, 0, 0, 0, time.Now().Location()),
+		DDate:      time.Date(2023, 2, 10, 10, 0, 0, 0, time.Now().Location()),
+		Recipient:  everyone,
+		NewsType:   typeI,
+        Employee:   admin1em,
+	}
+	db.Model(&News{}).Create(&news3)
+
+
 	//ระบบชำระเงิน
 	//----Status-----
 	Status1 := Status{

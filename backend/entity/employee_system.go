@@ -37,4 +37,6 @@ type Employee struct {
 
 	UserID *uint
 	User   User
+
+	News      []News `gorm:"foreignKey:EmployeeID"`
 }
