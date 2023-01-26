@@ -70,7 +70,7 @@ func SetupDatabase() {
 		Name: "member",
 	}
 	db.Model(&Role{}).Create(mb)
-	
+
 	password, err := bcrypt.GenerateFromPassword([]byte("123456"), bcrypt.DefaultCost)
 	if err != nil {
 		return
@@ -178,8 +178,6 @@ func SetupDatabase() {
 	var Baifern Member
 	db.Raw("SELECT * FROM members WHERE email = ?", "Somcai@gmail.com").Scan(&Somcai)
 	db.Raw("SELECT * FROM members WHERE email = ?", "Baifern@gmail.com").Scan(&Baifern)
-
-	//ระบบแจ้งชำรุด
 
 	//ระบบโปรแกรมออกกำลังกาย
 	// worm up
@@ -295,7 +293,7 @@ func SetupDatabase() {
 	db.Model(&EquipmentName{}).Create(equipmentNameBadminton2)
 
 	equipmentNameFootball1 := EquipmentName{
-		Name: "รองเท้าฟุคบอล",
+		Name: "รองเท้าฟุตบอล",
 	}
 	db.Model(&EquipmentName{}).Create(equipmentNameFootball1)
 
@@ -326,82 +324,62 @@ func SetupDatabase() {
 
 	//-------- run number --------
 
-	runNumberFitness1 := RunNumber{
-		Number: "FN01",
+	run1 := RunNumber{
+		Number: "A001",
 	}
-	db.Model(RunNumber{}).Create(runNumberFitness1)
+	db.Model(RunNumber{}).Create(run1)
 
-	runNumberFitness2 := RunNumber{
-		Number: "FN02",
+	run2 := RunNumber{
+		Number: "A002",
 	}
-	db.Model(RunNumber{}).Create(runNumberFitness2)
+	db.Model(RunNumber{}).Create(run2)
 
-	runNumberFitness3 := RunNumber{
-		Number: "FN03",
+	run3 := RunNumber{
+		Number: "A003",
 	}
-	db.Model(RunNumber{}).Create(runNumberFitness3)
+	db.Model(RunNumber{}).Create(run3)
 
-	runNumberFitness4 := RunNumber{
-		Number: "FN04",
+	run4 := RunNumber{
+		Number: "A004",
 	}
-	db.Model(RunNumber{}).Create(runNumberFitness4)
+	db.Model(RunNumber{}).Create(run4)
 
-	runNumberBasketball1 := RunNumber{
-		Number: "BS01",
+	run5 := RunNumber{
+		Number: "A005",
 	}
-	db.Model(RunNumber{}).Create(runNumberBasketball1)
+	db.Model(RunNumber{}).Create(run5)
 
-	runNumberBasketball2 := RunNumber{
-		Number: "BS02",
+	run6 := RunNumber{
+		Number: "A006",
 	}
-	db.Model(RunNumber{}).Create(runNumberBasketball2)
+	db.Model(RunNumber{}).Create(run6)
 
-	runNumberBadminton1 := RunNumber{
-		Number: "BM01",
+	run7 := RunNumber{
+		Number: "A007",
 	}
-	db.Model(RunNumber{}).Create(runNumberBadminton1)
+	db.Model(RunNumber{}).Create(run7)
 
-	runNumberBadminton2 := RunNumber{
-		Number: "BM02",
+	run8 := RunNumber{
+		Number: "A008",
 	}
-	db.Model(RunNumber{}).Create(runNumberBadminton2)
+	db.Model(RunNumber{}).Create(run8)
 
-	runNumberFootball1 := RunNumber{
-		Number: "FB01",
+	run9 := RunNumber{
+		Number: "A009",
 	}
-	db.Model(RunNumber{}).Create(runNumberFootball1)
+	db.Model(RunNumber{}).Create(run9)
 
-	runNumberFootball2 := RunNumber{
-		Number: "FB02",
+	run10 := RunNumber{
+		Number: "A010",
 	}
-	db.Model(RunNumber{}).Create(runNumberFootball2)
-
-	runNumberFutsal1 := RunNumber{
-		Number: "รองเท้าฟุตซอล",
-	}
-	db.Model(&RunNumber{}).Create(runNumberFutsal1)
-
-	runNumberFutsal2 := RunNumber{
-		Number: "ลูกฟุตซอล",
-	}
-	db.Model(&RunNumber{}).Create(runNumberFutsal2)
-
-	runNumberVolleyball1 := RunNumber{
-		Number: "รองเท้าวอลเลย์บอล",
-	}
-	db.Model(&RunNumber{}).Create(runNumberVolleyball1)
-
-	runNumberVolleyball2 := RunNumber{
-		Number: "ลูกวอลเลย์บอล",
-	}
-	db.Model(&RunNumber{}).Create(runNumberVolleyball2)
+	db.Model(RunNumber{}).Create(run10)
 
 	//-------- equipmet list --------
 
 	EquipmentList1 := EquipmentList{
 		Employee:      admin1em,
 		EquipmentName: equipmentNameFitness3,
-		RunNumber:     runNumberFitness3,
+		RunNumber:     run3,
 		dateTime:      time.Now(),
 	}
 	db.Model(&EquipmentList{}).Create(EquipmentList1)
@@ -409,10 +387,26 @@ func SetupDatabase() {
 	EquipmentList2 := EquipmentList{
 		Employee:      admin1em,
 		EquipmentName: equipmentNameBasketball1,
-		RunNumber:     runNumberBasketball1,
+		RunNumber:     run1,
 		dateTime:      time.Now(),
 	}
 	db.Model(&EquipmentList{}).Create(EquipmentList2)
+
+	//ระบบแจ้งชำรุด
+	db.Model(&Notify{}).Create(&Notify{
+		Problem:       "เครื่องเปิดไม่ติด",
+		Date:          time.Date(2022, 12, 10, 0, 0, 0, 0, time.Now().Location()),
+		Member:        Somcai,
+		EquipmentName: equipmentNameFitness1,
+		RunNumber:     run1,
+	})
+	db.Model(&Notify{}).Create(&Notify{
+		Problem:       "ลูกบอลรั่ว",
+		Date:          time.Date(2022, 12, 21, 0, 0, 0, 0, time.Now().Location()),
+		Member:        Baifern,
+		EquipmentName: equipmentNameFootball2,
+		RunNumber:     run2,
+	})
 
 	//ระบบจองอุปกรณ์
 	//ระบบข้อมูลสถานที่

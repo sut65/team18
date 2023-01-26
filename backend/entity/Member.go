@@ -25,7 +25,7 @@ type Gender struct {
 	gorm.Model
 	Gtype string
 	// 1 gender เป็น Member ได้หลายครั้ง
-	Member []Member `gorm:"foreignKey:GenderID"`
+	Member   []Member   `gorm:"foreignKey:GenderID"`
 	Employee []Employee `gorm:"foreignKey:GenderID"`
 }
 type Member struct {
@@ -46,8 +46,10 @@ type Member struct {
 	// GenderID ทำหน้าที่เป็น FK
 	GenderID *uint
 	Gender   Gender `gorm:"references:ID"`
-	Bill []Bill `gorm:"foreignKey:MemberID"`
 
 	RoleID *uint
 	Role   Role
+
+	Notify []Notify `gorm:"foreignKey:MemberID"`
+	Bill   []Bill   `gorm:"foreignKey:MemberID"`
 }
