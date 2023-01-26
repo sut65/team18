@@ -11,6 +11,7 @@ type EquipmentName struct {
 
 	Name	string
 	EquipmentList	[]EquipmentList	`gorm:"foreignKey:EquipmentNameID"`
+	Notify []Notify `gorm:"foreignKey:EquipmentNameID"`
 
 }
 
@@ -18,7 +19,8 @@ type RunNumber struct{
 	gorm.Model
 
 	Number	string
-	EquipmentList	[]EquipmentList `gorm:"foreignKey:RunNamberID"`
+	EquipmentList	[]EquipmentList `gorm:"foreignKey:RunNumberID"`
+	Notify []Notify `gorm:"foreignKey:RunNumberID"`
 
 }
 
