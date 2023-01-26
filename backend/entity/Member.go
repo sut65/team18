@@ -47,4 +47,7 @@ type Member struct {
 	GenderID *uint
 	Gender   Gender `gorm:"references:ID"`
 	Bill []Bill `gorm:"foreignKey:MemberID"`
+
+	RoleID *uint
+	Role   Role
 }
