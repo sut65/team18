@@ -27,7 +27,6 @@ func SetupDatabase() {
 		&User{},
 
 		//employee system
-		&Gender{},
 		&Education{},
 		&Role{},
 		&Employee{},
@@ -54,13 +53,29 @@ func SetupDatabase() {
 		&EquipmentName{},
 		&RunNumber{},
 		&EquipmentList{},
+
+		//exerciseprogram system
+		&WormUp{},
+		&Exercise{},
+		&Stretch{},
+		&ExerciseProgramList{},
+		//Notify system
+		&Notify{},
+		//Place system
+		&Service{},
+		&Ocd{},
+		&Oct{},
+		&PlaceInfolist{},
+		//BookInfo sys
+		&Place{},
+		&TimePeriod{},
+		&BookInfolist{},
 	)
 	db = database
 
 	admin := Role{
 		Name: "admin",
 	}
-
 	db.Model(&Role{}).Create(admin)
 	trainer := Role{
 		Name: "trainer",
