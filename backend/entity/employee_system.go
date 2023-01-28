@@ -25,6 +25,7 @@ type Employee struct {
 	Name  string
 	Tel   string
 	Email string
+	Password string
 	DOB   time.Time
 
 	GenderID *uint
