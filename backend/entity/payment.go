@@ -14,11 +14,12 @@ type Status struct {
 
 type Bill struct {
 	gorm.Model
-	MemberID *uint
-	Member Member
-	StatusID *uint
-	Status   Status
-	Payment  []Payment `gorm:"foreignKey:BillID"`
+	MemberID  *uint
+	Member    Member
+	StatusID  *uint
+	Status    Status
+	PayableAM int
+	Payment   []Payment `gorm:"foreignKey:BillID"`
 }
 
 type PaymentMethod struct {
@@ -29,10 +30,10 @@ type PaymentMethod struct {
 
 type Payee struct {
 	gorm.Model
-	AccountNo    string
+	AccountNo   string
 	AccountName string
-	Bank         string
-	Payment      []Payment `gorm:"foreignKey:PayeeID"`
+	Bank        string
+	Payment     []Payment `gorm:"foreignKey:PayeeID"`
 }
 
 type Payment struct {

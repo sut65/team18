@@ -63,7 +63,7 @@ func ListBill(c *gin.Context) {
 
 	var payment []entity.Payment
 
-	if err := entity.DB().Preload("Typem").Preload("Member").Preload("Status").Raw("SELECT * FROM bills").Find(&payment).Error; err != nil {
+	if err := entity.DB().Preload("Status").Raw("SELECT * FROM bills").Find(&payment).Error; err != nil {
 
 		//ดึงตารางย่อยมา .preload
 
@@ -80,7 +80,7 @@ func ListBillByStatus(c *gin.Context) {
 
 	var payment []entity.Payment
 
-	if err := entity.DB().Preload("Typem").Preload("Member").Preload("Status").Raw("SELECT * FROM bills where status_id = 2").Find(&payment).Error; err != nil {
+	if err := entity.DB().Preload("Member").Preload("Status").Raw("SELECT * FROM bills where status_id = 2").Find(&payment).Error; err != nil {
 
 		//ดึงตารางย่อยมา .preload
 
