@@ -31,6 +31,8 @@ func SetupDatabase() {
 		&Role{},
 		&Employee{},
 
+		//Schedule
+
 		//Member system
 		&Member{},
 		&Typem{},
@@ -73,18 +75,26 @@ func SetupDatabase() {
 	)
 	db = database
 
+	//--Roles--
 	admin := Role{
 		Name: "admin",
 	}
 	db.Model(&Role{}).Create(admin)
+
 	trainer := Role{
 		Name: "trainer",
 	}
-	db.Model(&Role{}).Create(&trainer)
+	db.Model(&Role{}).Create(&trainer) //&trainer อ้างอิงว่าอยู่ในตาราง Role
+
 	mb := Role{
 		Name: "member",
 	}
-	db.Model(&Role{}).Create(mb)
+	db.Model(&Role{}).Create(&mb)
+
+	cl := Role{
+		Name: "cleaner",
+	}
+	db.Model(&Role{}).Create(&cl)
 
 	password, err := bcrypt.GenerateFromPassword([]byte("123456"), bcrypt.DefaultCost)
 	if err != nil {
@@ -109,14 +119,18 @@ func SetupDatabase() {
 	}
 	db.Model(&Gender{}).Create(&Male)
 
+	//--Education--//
+
 	baDg := Education{
 		Level: "ปริญญาตรี",
 	}
 	db.Model(&Education{}).Create(&baDg)
+
 	maDg := Education{
 		Level: "ปริญญาโท",
 	}
 	db.Model(&Education{}).Create(&maDg)
+
 	admin1em := Employee{
 		Name:      "Amin1em",
 		Tel:       "090000000",
