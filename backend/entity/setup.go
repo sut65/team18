@@ -515,16 +515,19 @@ func SetupDatabase() {
 	Bill1 := Bill{
 		Status: Status1,
 		Member: Somcai,
+		PayableAM: 500,
 	}
 	db.Model(&Bill{}).Create(&Bill1)
 	Bill2 := Bill{
 		Status: Status1,
 		Member: Baifern,
+		PayableAM: 500,
 	}
 	db.Model(&Bill{}).Create(&Bill2)
 	Bill3 := Bill{
 		Status: Status2,
 		Member: Somcai,
+		PayableAM: 500,
 	}
 	db.Model(&Bill{}).Create(&Bill3)
 
