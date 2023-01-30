@@ -32,6 +32,9 @@ func SetupDatabase() {
 		&Employee{},
 
 		//Schedule
+		&Schedule{},
+		&Time{},
+		&Duty{},
 
 		//Member system
 		&Member{},
@@ -92,7 +95,7 @@ func SetupDatabase() {
 	db.Model(&Role{}).Create(&mb)
 
 	cl := Role{
-		Name: "cleaner",
+		Name: "staff",
 	}
 	db.Model(&Role{}).Create(&cl)
 
@@ -144,6 +147,47 @@ func SetupDatabase() {
 	db.Model(&Employee{}).Create(&admin1em)
 
 	//ระบบตารางงาน
+	// --Time--
+	q1 := Time{
+		Range: "8:00 - 10:00",
+	}
+	db.Model(&Time{}).Create(&q1)
+
+	q2 := Time{
+		Range: "10:00 - 12:00",
+	}
+	db.Model(&Time{}).Create(&q2)
+
+	q3 := Time{
+		Range: "13:00 - 15:00",
+	}
+	db.Model(&Time{}).Create(&q3)
+
+	q4 := Time{
+		Range: "8:00 - 10:00",
+	}
+	db.Model(&Time{}).Create(&q4)
+	
+	// --Duty--
+	d_cleaner := Duty{
+		Name: "ทำความสะอาด",
+	}
+	db.Model(&Time{}).Create(&d_cleaner)
+
+	d_checker := Duty{
+		Name: "เช็คอุปกรณ์",
+	}
+	db.Model(&Time{}).Create(&d_checker)
+
+	d_fixeder := Duty{
+		Name: "ซ่อมบำรุง",
+	}
+	db.Model(&Time{}).Create(&d_fixeder)
+	
+	d_trainer := Duty{
+		Name: "เทรนสมาชิก",
+	}
+	db.Model(&Time{}).Create(&d_trainer)
 
 	//ระบบสมัครสมาชิก
 	//--- ประเภทสมาชิก ---//

@@ -17,6 +17,7 @@ type Ocd struct {
 	gorm.Model
 	days          string
 	PlaceInfolist []PlaceInfolist `gorm:"foreignKey:OcdID"`
+	Schedule	[]Schedule `gorm:"foreignKey:OcdID"`
 }
 
 type Oct struct {
@@ -38,4 +39,6 @@ type PlaceInfolist struct {
 	hours   *uint
 	Detail  string
 	PDate	time.Time
+
+	Schedule []Schedule `gorm:"foreignKey:PlaceInfolistID"`
 }
