@@ -2,8 +2,8 @@ package main
 
 import (
 	employee "github.com/sut65/team18/controller/Employee_System"
+	payment "github.com/sut65/team18/controller/Payment"
 	schedule "github.com/sut65/team18/controller/Schedule_System"
-	payment "github.com/sut65/team18/controller/payment"
 
 	// . "github.com/sut65/team18/controller/News"
 

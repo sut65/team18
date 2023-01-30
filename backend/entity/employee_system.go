@@ -18,19 +18,19 @@ type Role struct {
 	Name string
 
 	Employee []Employee `gorm:"foreignKey:RoleID"`
-	Member []Member `gorm:"foreignKey:RoleID"`
+	Member   []Member   `gorm:"foreignKey:RoleID"`
 	Schedule []Schedule `gorm:"foreignKey:RoleID"`
 }
 type Employee struct {
 	gorm.Model
-	Name  string
-	Tel   string
-	Email string
+	Name     string
+	Tel      string
+	Email    string
 	Password string
-	DOB   time.Time
+	DOB      time.Time
 
 	GenderID *uint
-	Gender   Gender 
+	Gender   Gender
 
 	EducationID *uint
 	Education   Education `gorm:"references:ID"`
@@ -41,7 +41,8 @@ type Employee struct {
 	UserID *uint
 	User   User
 
-	News      	[]News `gorm:"foreignKey:EmployeeID"`
-	Schedule 	[]Schedule `gorm:"foreignKey:EmployeeID"`
-	TrainerBookingList 	[]TrainerBookingList `gorm:"foreignKey:EmployeeID"`
+	News                 []News                 `gorm:"foreignKey:EmployeeID"`
+	Schedule             []Schedule             `gorm:"foreignKey:EmployeeID"`
+	TrainerBookingList   []TrainerBookingList   `gorm:"foreignKey:EmployeeID"`
+	EquipmentBookingList []EquipmentBookingList `gorm:"foreignKey:EmployeeID"`
 }
