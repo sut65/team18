@@ -58,6 +58,8 @@ func SetupDatabase() {
 		&EquipmentName{},
 		&RunNumber{},
 		&EquipmentList{},
+		//Equiment booking list
+		&EquipmentBookingList{},
 
 		//exerciseprogram system
 		&WormUp{},
@@ -167,7 +169,7 @@ func SetupDatabase() {
 		Range: "8:00 - 10:00",
 	}
 	db.Model(&Time{}).Create(&q4)
-	
+
 	// --Duty--
 	d_cleaner := Duty{
 		Name: "ทำความสะอาด",
@@ -482,6 +484,19 @@ func SetupDatabase() {
 	})
 
 	//ระบบจองอุปกรณ์
+
+	db.Model(&EquipmentBookingList{}).Create(&EquipmentBookingList{
+		Member:        Somcai,
+		EquipmentList: EquipmentList1,
+		Employee:      admin1em,
+	})
+
+	db.Model(&EquipmentBookingList{}).Create(&EquipmentBookingList{
+		Member:        Somcai,
+		EquipmentList: EquipmentList2,
+		Employee:      admin1em,
+	})
+
 	//ระบบข้อมูลสถานที่
 	//ระบบจองสถานที่
 
@@ -557,20 +572,20 @@ func SetupDatabase() {
 
 	//----Bill-----
 	Bill1 := Bill{
-		Status: Status1,
-		Member: Somcai,
+		Status:    Status1,
+		Member:    Somcai,
 		PayableAM: 500,
 	}
 	db.Model(&Bill{}).Create(&Bill1)
 	Bill2 := Bill{
-		Status: Status1,
-		Member: Baifern,
+		Status:    Status1,
+		Member:    Baifern,
 		PayableAM: 500,
 	}
 	db.Model(&Bill{}).Create(&Bill2)
 	Bill3 := Bill{
-		Status: Status2,
-		Member: Somcai,
+		Status:    Status2,
+		Member:    Somcai,
 		PayableAM: 500,
 	}
 	db.Model(&Bill{}).Create(&Bill3)

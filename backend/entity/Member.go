@@ -50,7 +50,8 @@ type Member struct {
 	RoleID *uint
 	Role   Role
 
-	Notify []Notify `gorm:"foreignKey:MemberID"`
-	Bill   []Bill   `gorm:"foreignKey:MemberID"`
+	Notify               []Notify               `gorm:"foreignKey:MemberID"`
+	Bill                 []Bill                 `gorm:"foreignKey:MemberID"`
 	TrainerBookingList   []TrainerBookingList   `gorm:"foreignKey:MemberID"`
+	EquipmentBookingList []EquipmentBookingList `gorm:"foreignKey:MemberID"`
 }
