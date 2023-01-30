@@ -9,33 +9,30 @@ import (
 type EquipmentName struct {
 	gorm.Model
 
-	Name	string
-	EquipmentList	[]EquipmentList	`gorm:"foreignKey:EquipmentNameID"`
-	Notify []Notify `gorm:"foreignKey:EquipmentNameID"`
-
+	Name          string
+	EquipmentList []EquipmentList `gorm:"foreignKey:EquipmentNameID"`
+	Notify        []Notify        `gorm:"foreignKey:EquipmentNameID"`
 }
 
-type RunNumber struct{
+type RunNumber struct {
 	gorm.Model
 
-	Number	string
-	EquipmentList	[]EquipmentList `gorm:"foreignKey:RunNumberID"`
-	Notify []Notify `gorm:"foreignKey:RunNumberID"`
-
+	Number        string
+	EquipmentList []EquipmentList `gorm:"foreignKey:RunNumberID"`
+	Notify        []Notify        `gorm:"foreignKey:RunNumberID"`
 }
 
-type EquipmentList struct{
+type EquipmentList struct {
 	gorm.Model
 
-	EmployeeID 		*uint
-	Employee 		Employee
+	EmployeeID *uint
+	Employee   Employee `gorm:"references:ID"`
 
-	EquipmentNameID	*uint
-	EquipmentName	EquipmentName
+	EquipmentNameID *uint
+	EquipmentName   EquipmentName `gorm:"references:ID"`
 
-	RunNumberID		*uint
-	RunNumber		RunNumber
+	RunNumberID *uint
+	RunNumber   RunNumber `gorm:"references:ID"`
 
-	dateTime 		time.Time
+	dateTime time.Time
 }
-
