@@ -26,7 +26,7 @@ type Schedule struct {
 
 	//ใส่ใน struct ของคนอื่น <-- ทำแล้ว
 	EmployeeID 	*uint
-	Employee	Employee 
+	Employee	Employee `gorm:"reference:ID"`
 
 	//ใส่ใน struct ของคนอื่น <-- ทำแล้ว
 	RoleID 	*uint

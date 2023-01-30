@@ -45,4 +45,5 @@ type Employee struct {
 	Schedule             []Schedule             `gorm:"foreignKey:EmployeeID"`
 	TrainerBookingList   []TrainerBookingList   `gorm:"foreignKey:EmployeeID"`
 	EquipmentBookingList []EquipmentBookingList `gorm:"foreignKey:EmployeeID"`
+	PlaceInfolist        []PlaceInfolist        `gorm:"foreignKey:EmployeeID"`
 }
