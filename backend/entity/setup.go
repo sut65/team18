@@ -147,7 +147,7 @@ func SetupDatabase() {
 	db.Model(&Employee{}).Create(&admin1em)
 
 	//ระบบตารางงาน
-	// --Time---
+	// --Time--
 	q1 := Time{
 		Range: "8:00 - 10:00",
 	}
