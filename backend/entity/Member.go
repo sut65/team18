@@ -52,4 +52,5 @@ type Member struct {
 
 	Notify []Notify `gorm:"foreignKey:MemberID"`
 	Bill   []Bill   `gorm:"foreignKey:MemberID"`
+	TrainerBookingList   []TrainerBookingList   `gorm:"foreignKey:MemberID"`
 }

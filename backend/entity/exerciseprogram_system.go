@@ -36,5 +36,8 @@ type ExerciseProgramList struct {
 	Exercise    Exercise
 	StretchID   *uint
 	Stretch     Stretch
-	Minute      uint
+	Minute      int
+
+	TrainerBookingList []TrainerBookingList `gorm:"foreignKey:ExerciseProgramListID"`
+	
 }
