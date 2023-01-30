@@ -1,105 +1,102 @@
 package main
 
 import (
-	
-	"github.com/sut65/team18/controller"
-	"github.com/sut65/team18/controller/Payment"
-  // . "github.com/sut65/team18/controller/News"
+	employee "github.com/sut65/team18/controller/Employee_System"
+	schedule "github.com/sut65/team18/controller/Schedule_System"
+	payment "github.com/sut65/team18/controller/payment"
+
+	// . "github.com/sut65/team18/controller/News"
 
 	"github.com/sut65/team18/entity"
 
 	"github.com/gin-gonic/gin"
 )
 
- 
-
 func main() {
 
-  entity.SetupDatabase()
+	entity.SetupDatabase()
 
- 
+	r := gin.Default()
 
-  r := gin.Default()
+	// Employee Routes
+	r.GET("/employees", employee.ListEmployees)
+	r.GET("/employee/:id", employee.GetEmployee)
+	r.POST("/employee", employee.CreateEmployee)
+	r.PATCH("/employee", employee.UpdateEmployee)
+	r.DELETE("/employee/:id", employee.DeleteEmployee)
 
-  // Employee Routes
-  r.GET("/employees", controller.ListEmployees)
-  r.GET("/employee/:id", controller.GetEmployee)
-  r.POST("/employee", controller.CreateEmployee)
-  r.PATCH("/employee", controller.UpdateEmployee)
-  r.DELETE("/employee/:id", controller.DeleteEmployee)
+	// Education Routes
+	r.GET("/education", employee.ListEducations)
+	r.GET("/educations/:id", employee.GetEducation)
+	r.POST("/education", employee.CreateEducation)
+	r.PATCH("/edcation", employee.UpdateEducation)
+	r.DELETE("/education/:id", employee.DeleteEducation)
 
-  // Education Routes
-  r.GET("/education", controller.ListEducations)
-  r.GET("/educations/:id", controller.Geteducation)
-  r.POST("/education", controller.CreateEducation)
-  r.PATCH("/edcation", controller.UpdateEducation)
-  r.DELETE("/education/:id", controller.DeleteEducation)
+	// Role Routes
+	r.GET("/roles", employee.ListRoles)
+	r.GET("/roles/:id", employee.GetRole)
+	r.POST("/role", employee.CreateRole)
+	r.PATCH("/role", employee.UpdateRole)
+	r.DELETE("/role/:id", employee.DeleteRole)
 
-  // Role Routes
-  r.GET("/roles", controller.ListRoles)
-  r.GET("/roles/:id", controller.GetRole)
-  r.POST("/role", controller.CreateRole)
-  r.PATCH("/role", controller.UpdateRole)
-  r.DELETE("/role/:id", controller.DeleteRole)
+	//Schedule Routes
+	r.GET("/schedules", schedule.ListSchedules)
+	r.GET("/schedule/:id", schedule.GetSchedule)
+	r.POST("/schedule", schedule.CreateSchedule)
+	r.PATCH("/schedule", schedule.UpdateSchedule)
+	r.DELETE("/schedule/:id", schedule.DeleteSchedule)
 
-  //Schedule Routes
-  r.GET("/schedules", controller.ListSchedules)
-  r.GET("/schedule/:id", controller.GetSchedule)
-  r.POST("/schedule", controller.CreateSchedule)
-  r.PATCH("/schedule", controller.UpdateSchedule)
-  r.DELETE("/schedule/:id", controller.DeleteSchedule)
+	//Duty Routes
+	r.GET("/dutys", schedule.ListDutys)
+	r.GET("/duty/:id", schedule.GetDuty)
+	r.POST("/duty", schedule.CreateDuty)
+	r.PATCH("/duty", schedule.UpdateDuty)
+	r.DELETE("/duty/:id", schedule.DeleteDuty)
 
-  //Duty Routes
-  r.GET("/dutys", controller.ListDutys)
-  r.GET("/duty/:id", controller.GetDuty)
-  r.POST("/duty", controller.CreateDuty)
-  r.PATCH("/duty", controller.UpdateDuty)
-  r.DELETE("/duty/:id", controller.DeleteDuty)
+	//Time Routes
+	r.GET("/times", schedule.ListTimes)
+	r.GET("/time/:id", schedule.GetTime)
+	r.POST("/time", schedule.CreateTime)
+	r.PATCH("/time", schedule.UpdateTime)
+	r.DELETE("/time/:id", schedule.DeleteTime)
 
-  //Time Routes
-  r.GET("/times", controller.ListTimes)
-  r.GET("/time/:id", controller.GetTime)
-  r.POST("/time", controller.CreateTime)
-  r.PATCH("/time", controller.UpdateTime)
-  r.DELETE("/time/:id", controller.DeleteTime)
- 
-  // User Routes
-  // Payment------------------------------
-  r.GET("/method", controller.ListPaymentMethod)
-  r.GET("/method/:id", controller.GetPaymentMethod)
+	// User Routes
+	// Payment------------------------------
+	r.GET("/method", payment.ListPaymentMethod)
+	r.GET("/method/:id", payment.GetPaymentMethod)
 
-  r.GET("/payee", controller.ListPayee)
-  r.GET("/payee/:id", controller.GetPayee)
+	r.GET("/payee", payment.ListPayee)
+	r.GET("/payee/:id", payment.GetPayee)
 
-  r.GET("/status", controller.ListStatus)
-  r.GET("/status/:id", controller.GetStatus)
+	r.GET("/status", payment.ListStatus)
+	r.GET("/status/:id", payment.GetStatus)
 
-  r.GET("/bill", controller.ListBill)
-  r.GET("/billbys", controller.ListBillByStatus)
-  r.GET("/bill/:id", controller.GetBill)
-  r.POST("/bill", controller.CreateBill)
-	r.PATCH("/bill", controller.UpdateBill)
-  
-  r.GET("/payment", controller.ListPayment)
-  r.GET("/payment/:id", controller.GetPayment)
-  r.POST("/payment", controller.CreatePayment)
-  r.DELETE("/payment/:id", controller.DeletePayment)
+	r.GET("/bill", payment.ListBill)
+	r.GET("/billbys", payment.ListBillByStatus)
+	r.GET("/bill/:id", payment.GetBill)
+	r.POST("/bill", payment.CreateBill)
+	r.PATCH("/bill", payment.UpdateBill)
 
-    // News------------------------------
-    // r.GET("/newstype", controller.ListNewsType)
-    // r.GET("/newstype/:id", controller.GetNewsType)
-  
-    // r.GET("/recipient", controller.ListRecipient)
-    // r.GET("/recipient/:id", controller.GetRecipient)
-    
-    // r.GET("/news", controller.ListNews)
-    // r.GET("/news/:id", controller.GetNews)
-    // r.POST("/news", controller.CreateNews)
-    // r.DELETE("/news/:id", controller.DeleteNews)
-    // r.PATCH("/news", controller.UpdateNews)
+	r.GET("/payment", payment.ListPayment)
+	r.GET("/payment/:id", payment.GetPayment)
+	r.POST("/payment", payment.CreatePayment)
+	r.DELETE("/payment/:id", payment.DeletePayment)
 
-  // Run the server
+	// News------------------------------
+	// r.GET("/newstype", controller.ListNewsType)
+	// r.GET("/newstype/:id", controller.GetNewsType)
 
-  r.Run()
+	// r.GET("/recipient", controller.ListRecipient)
+	// r.GET("/recipient/:id", controller.GetRecipient)
+
+	// r.GET("/news", controller.ListNews)
+	// r.GET("/news/:id", controller.GetNews)
+	// r.POST("/news", controller.CreateNews)
+	// r.DELETE("/news/:id", controller.DeleteNews)
+	// r.PATCH("/news", controller.UpdateNews)
+
+	// Run the server
+
+	r.Run()
 
 }
