@@ -4,6 +4,9 @@ import (
 	employee "github.com/sut65/team18/controller/Employee_System"
 	payment "github.com/sut65/team18/controller/Payment"
 	schedule "github.com/sut65/team18/controller/Schedule_System"
+  el "github.com/sut65/team18/controller/EquipmentManagement"
+  eb "github.com/sut65/team18/controller/EquipmentBookingList"
+  new "github.com/sut65/team18/controller/news"
 
 	// . "github.com/sut65/team18/controller/News"
 
@@ -82,20 +85,37 @@ func main() {
 	r.POST("/payment", payment.CreatePayment)
 	r.DELETE("/payment/:id", payment.DeletePayment)
 
+  //Equipment management
+  r.GET("/runNumer", el.ListRunNumber)
+	r.GET("/runNumber/:id", el.GetRunNumber)
+
+	r.GET("/equipmentName", el.ListEquipmentName)
+	r.GET("/equipmentName/:id", el.GetEquipmentName)
+
+  r.GET("/equipmentList", el.ListEquipmentList)
+	r.GET("/equipmentList/:id", el.GetEquipmentList)
+	r.POST("/equipmentList", el.CreateEquipmentList)
+	r.DELETE("/equipmentList/:id", el.DeleteEquipmentList)
+
+  //Equipment booking
+  r.GET("/equipmentBookingList", eb.ListEquipmentBookingList)
+	r.GET("/equipmentBookingList/:id", eb.GetEquipmentBookingList)
+	r.POST("/equipmentBookingList", eb.CreateEquipmentBookingList)
+	r.DELETE("/equipmentBookingList/:id", eb.DeleteEquipmentBookingList)
+
+
 	// News------------------------------
-	// r.GET("/newstype", controller.ListNewsType)
-	// r.GET("/newstype/:id", controller.GetNewsType)
+	r.GET("/newstype", new.ListNewsType)
+	r.GET("/newstype/:id", new.GetNewsType)
 
-	// r.GET("/recipient", controller.ListRecipient)
-	// r.GET("/recipient/:id", controller.GetRecipient)
+	r.GET("/recipient", new.ListRecipient)
+	r.GET("/recipient/:id", new.GetRecipient)
 
-	// r.GET("/news", controller.ListNews)
-	// r.GET("/news/:id", controller.GetNews)
-	// r.POST("/news", controller.CreateNews)
-	// r.DELETE("/news/:id", controller.DeleteNews)
-	// r.PATCH("/news", controller.UpdateNews)
-
-	// Run the server
+	r.GET("/news", new.ListNews)
+	r.GET("/news/:id", new.GetNews)
+	r.POST("/news", new.CreateNews)
+	r.DELETE("/news/:id", new.DeleteNews)
+	r.PATCH("/news", new.UpdateNews)
 
 	r.Run()
 
