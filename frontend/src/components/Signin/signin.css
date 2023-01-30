@@ -1,0 +1,66 @@
+.from-box{
+    left: 0vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.form-page{
+    width: 70vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.from-frame{
+    width: 30rem;
+}
+
+
+.img-box{
+    height: 100vh;
+    width: 30vw;
+    object-fit: cover;
+}
+
+.form-in{
+    display: flex;
+    flex-direction: column;
+    gap:10px
+}
+.logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.submit {
+    margin: 2rem;
+    border-radius: 40px;
+}
+
+
+
+
+@media screen and (max-width: 1200px ) {
+    .form-page{
+        width: 50vw;
+    }
+    
+    .img-box{
+        width: 50vw;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .img-box{
+        display: none;
+    }
+    .form-page{
+        width: 100vw;
+    }
+    .from-frame{
+        width: 20rem;
+    }
+}
