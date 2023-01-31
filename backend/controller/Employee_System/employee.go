@@ -43,15 +43,15 @@ func CreateEmployee(c *gin.Context) { // c รับข้อมูลมาจ�
 
 	// : สร้างตาราง Employee_System
 	ps := entity.Employee{
-		Name:           employee.Name,      // โยงความสัมพันธ์กับ Entity name
-		Tel:        	employee.Tel,  		// โยงความสัมพันธ์กับ Entity email
-		Email: 			employee.Email,    	// โยงความสัมพันธ์กับ Entity tel
-		Password:		string(password),	// ตั้งค่าฟิลด์ password
-		Gender: 		employee.Gender,	// โยงความสัมพันธ์กับ Entity gender
-		Role: 			employee.Role,		// โยงความสัมพันธ์กับ Entity role
-		Education: 		employee.Education,	// โยงความสัมพันธ์กับ Entity education
-		DOB: 			employee.DOB,		// ตั้งค่าฟิลด์ DOB
-	}	
+		Name:      employee.Name,      // โยงความสัมพันธ์กับ Entity name
+		Tel:       employee.Tel,       // โยงความสัมพันธ์กับ Entity email
+		Email:     employee.Email,     // โยงความสัมพันธ์กับ Entity tel
+		Password:  string(password),   // ตั้งค่าฟิลด์ password
+		Gender:    employee.Gender,    // โยงความสัมพันธ์กับ Entity gender
+		Role:      employee.Role,      // โยงความสัมพันธ์กับ Entity role
+		Education: employee.Education, // โยงความสัมพันธ์กับ Entity education
+		DOB:       employee.DOB,       // ตั้งค่าฟิลด์ DOB
+	}
 
 	// : บันทึก
 	if err := entity.DB().Create(&ps).Error; err != nil {
@@ -65,17 +65,17 @@ func CreateEmployee(c *gin.Context) { // c รับข้อมูลมาจ�
 func GetEmployee(c *gin.Context) {
 	var employee entity.Employee
 	id := c.Param("id") //มาจาก api จากใน main.go
-	if tx := entity.DB().Where("id = ?", id).First(&employee); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "employee not found"})
+	if err := entity.DB().Raw("SELECT * FROM employees WHERE id = ?", id).Scan(&employee).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data": employee})
 }
 
-// GET /Employees 
+// GET /Employees
 func ListEmployees(c *gin.Context) {
 	var employees []entity.Employee
-	if err := entity.DB().Preload("Gender").Preload("Role").Preload("Education").Raw("SELECT * FROM employees").Find(&employees).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM employees").Scan(&employees).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -94,7 +94,7 @@ func DeleteEmployee(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": id})
 }
 
-// PATCH /Employees 
+// PATCH /Employees
 func UpdateEmployee(c *gin.Context) {
 	var employee entity.Employee
 	if err := c.ShouldBindJSON(&employee); err != nil {
@@ -106,6 +106,16 @@ func UpdateEmployee(c *gin.Context) {
 		return
 	}
 	if err := entity.DB().Save(&employee).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": employee})
+}
+
+func GetEmployeeByUserID(c *gin.Context) {
+	var employee entity.Employee
+	id := c.Param("id")
+	if err := entity.DB().Raw("SELECT * FROM employees WHERE user_id = ?", id).Scan(&employee).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

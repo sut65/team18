@@ -47,7 +47,7 @@ export default function Navbar({ open, onClick}: any) {
     }
     useEffect(() => {
         const getEmployee = () => {
-            fetch(`${apiUrl}/employee/${localStorage.getItem("uid")}`, reqOptGet)
+            fetch(`${apiUrl}/employee_userID/${localStorage.getItem("uid")}`, reqOptGet)
             .then((res) => res.json())
             .then((res) => {
                 if (res.data){

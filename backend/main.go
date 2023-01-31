@@ -12,6 +12,7 @@ import (
 	notify "github.com/sut65/team18/controller/Notify"
 	payment "github.com/sut65/team18/controller/Payment"
 	schedule "github.com/sut65/team18/controller/Schedule_System"
+	signin "github.com/sut65/team18/controller/Signin"
 	trainerBooking "github.com/sut65/team18/controller/TrainerBooking"
 	new "github.com/sut65/team18/controller/news"
 
@@ -20,6 +21,29 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func CORSMiddleware() gin.HandlerFunc {
+
+	return func(c *gin.Context) {
+
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT")
+
+		if c.Request.Method == "OPTIONS" {
+
+			c.AbortWithStatus(204)
+
+			return
+
+		}
+
+		c.Next()
+
+	}
+
+}
+
 func main() {
 
 	os.Remove("./Team18.db")
@@ -27,6 +51,8 @@ func main() {
 	entity.SetupDatabase()
 
 	r := gin.Default()
+
+	r.Use(CORSMiddleware())
 
 	// Employee Routes
 	r.GET("/employees", employee.ListEmployees)
@@ -175,5 +201,15 @@ func main() {
 	r.DELETE("/exerciseprogram/:id", exerciseProgram.DeleteExPList)
 	r.PATCH("/exerciseprogram", exerciseProgram.UpdateExPList)
 
+	//user
+	r.GET("/user", signin.ListUser)
+	r.GET("/user/:id", signin.GetUser)
+	r.DELETE("/user/:id", signin.DeleteUser)
+	r.PATCH("/user", signin.UpdateUser)
+
+	//signin
+	r.POST("/signin", signin.Signin)
+	r.GET("/valid", signin.Validation)
+	r.GET("/employee_userID/:id", employee.GetEmployeeByUserID)
 	r.Run()
 }

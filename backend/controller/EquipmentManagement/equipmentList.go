@@ -55,7 +55,7 @@ func CreateEquipmentList(c *gin.Context) {
 func GetEquipmentList(c *gin.Context) {
 	var equipmentList entity.EquipmentList
 	id := c.Param("id")
-	if err := entity.DB().Preload("Typem").Preload("Evidence").Preload("Gender").Raw("SELECT * FROM equipmentLists WHERE id = ?", id).Find(&equipmentList).Error; err != nil {
+	if err := entity.DB().Preload("Employee").Preload("RunNumber").Preload("EquipmentName").Raw("SELECT * FROM equipmentLists WHERE id = ?", id).Find(&equipmentList).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -64,7 +64,7 @@ func GetEquipmentList(c *gin.Context) {
 
 func ListEquipmentList(c *gin.Context) {
 	var equipmentList []entity.EquipmentList
-	if err := entity.DB().Preload("Typem").Preload("Evidence").Preload("Gender").Raw("SELECT * FROM equipmentLists").Find(&equipmentList).Error; err != nil {
+	if err := entity.DB().Preload("Employee").Preload("RunNumber").Preload("EquipmentName").Raw("SELECT * FROM equipmentLists").Find(&equipmentList).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

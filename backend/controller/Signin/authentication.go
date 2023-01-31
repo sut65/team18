@@ -18,6 +18,7 @@ type LoginPayload struct {
 type LoginResponse struct {
 	Token    string
 	UserID   uint   `json:"user_id"`
+	EmpID    uint   `json:"emp_id"`
 	RoleName string `json:"role_name"`
 }
 
@@ -73,6 +74,7 @@ func Signin(c *gin.Context) {
 	tokenResponse := LoginResponse{
 		Token:    signedToken,
 		UserID:   user.ID,
+		EmpID:    employee.ID,
 		RoleName: role.Name,
 	}
 	fmt.Print(tokenResponse)

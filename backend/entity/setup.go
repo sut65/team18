@@ -118,6 +118,12 @@ func SetupDatabase() {
 	}
 	db.Model(&User{}).Create(&userAdmin)
 
+	userAdmin1 := User{
+		Name:     "Admin1",
+		Password: string(password),
+	}
+	db.Model(&User{}).Create(&userAdmin1)
+
 	//ระบบพนักงาน
 
 	//--gender--//
@@ -169,7 +175,7 @@ func SetupDatabase() {
 		Role:      staff,
 		Education: hs,
 		DOB:       time.Now(),
-		//User:      userAdmin,
+		User:      userAdmin1,
 	}
 	db.Model(&Employee{}).Create(&em1)
 
