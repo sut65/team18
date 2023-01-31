@@ -26,13 +26,13 @@ type EquipmentList struct {
 	gorm.Model
 
 	EmployeeID *uint
-	Employee   Employee `gorm:"references:ID"`
+	Employee   Employee 
 
 	EquipmentNameID *uint
-	EquipmentName   EquipmentName `gorm:"references:ID"`
+	EquipmentName   EquipmentName 
 
 	RunNumberID *uint
-	RunNumber   RunNumber `gorm:"references:ID"`
+	RunNumber   RunNumber 
 
 	EquipmentBookingList []EquipmentBookingList `gorm:"foreignKey:EquipmentListID"`
 	dateTime             time.Time

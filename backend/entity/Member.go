@@ -37,15 +37,15 @@ type Member struct {
 	Age      int
 	// TypemID ทำหน้าที่เป็น FK
 	TypemID *uint
-	Typem   Typem `gorm:"references:ID"`
+	Typem   Typem 
 
 	// EvidencetID ทำหน้าที่เป็น FK
 	EvidenceID *uint
-	Evidence   Evidence `gorm:"references:ID"`
+	Evidence   Evidence 
 
 	// GenderID ทำหน้าที่เป็น FK
 	GenderID *uint
-	Gender   Gender `gorm:"references:ID"`
+	Gender   Gender 
 
 	RoleID *uint
 	Role   Role

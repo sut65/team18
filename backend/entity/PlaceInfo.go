@@ -30,13 +30,13 @@ type Oct struct {
 type PlaceInfolist struct {
 	gorm.Model
 	ServiceID  *uint
-	Service    Service `gorm:"reference:ID"`
+	Service    Service 
 	OcdID      *uint
-	Ocd        Ocd `gorm:"reference:ID"`
+	Ocd        Ocd 
 	OctID      *uint
-	Oct        Oct `gorm:"reference:ID"`
+	Oct        Oct 
 	EmployeeID *uint
-	Employee   Employee `gorm:"reference:ID"`
+	Employee   Employee 
 	Hours      int
 	Detail     string
 	PDate      time.Time

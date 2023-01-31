@@ -33,10 +33,10 @@ type Employee struct {
 	Gender   Gender
 
 	EducationID *uint
-	Education   Education `gorm:"references:ID"`
+	Education   Education
 
 	RoleID *uint
-	Role   Role `gorm:"references:ID"`
+	Role   Role
 
 	UserID *uint
 	User   User

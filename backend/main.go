@@ -1,14 +1,19 @@
 package main
 
 import (
+	"os"
+
+	bookInfo "github.com/sut65/team18/controller/BookInfo"
 	employee "github.com/sut65/team18/controller/Employee_System"
+	eb "github.com/sut65/team18/controller/EquipmentBookingList"
+	el "github.com/sut65/team18/controller/EquipmentManagement"
+	exerciseProgram "github.com/sut65/team18/controller/ExerciseProgram"
+	member "github.com/sut65/team18/controller/Member"
+	notify "github.com/sut65/team18/controller/Notify"
 	payment "github.com/sut65/team18/controller/Payment"
 	schedule "github.com/sut65/team18/controller/Schedule_System"
-  el "github.com/sut65/team18/controller/EquipmentManagement"
-  eb "github.com/sut65/team18/controller/EquipmentBookingList"
-  new "github.com/sut65/team18/controller/news"
-
-	// . "github.com/sut65/team18/controller/News"
+	trainerBooking "github.com/sut65/team18/controller/TrainerBooking"
+	new "github.com/sut65/team18/controller/news"
 
 	"github.com/sut65/team18/entity"
 
@@ -16,6 +21,8 @@ import (
 )
 
 func main() {
+
+	os.Remove("./Team18.db")
 
 	entity.SetupDatabase()
 
@@ -85,24 +92,23 @@ func main() {
 	r.POST("/payment", payment.CreatePayment)
 	r.DELETE("/payment/:id", payment.DeletePayment)
 
-  //Equipment management
-  r.GET("/runNumer", el.ListRunNumber)
+	//Equipment management
+	r.GET("/runNumer", el.ListRunNumber)
 	r.GET("/runNumber/:id", el.GetRunNumber)
 
 	r.GET("/equipmentName", el.ListEquipmentName)
 	r.GET("/equipmentName/:id", el.GetEquipmentName)
 
-  r.GET("/equipmentList", el.ListEquipmentList)
+	r.GET("/equipmentList", el.ListEquipmentList)
 	r.GET("/equipmentList/:id", el.GetEquipmentList)
 	r.POST("/equipmentList", el.CreateEquipmentList)
 	r.DELETE("/equipmentList/:id", el.DeleteEquipmentList)
 
-  //Equipment booking
-  r.GET("/equipmentBookingList", eb.ListEquipmentBookingList)
+	//Equipment booking
+	r.GET("/equipmentBookingList", eb.ListEquipmentBookingList)
 	r.GET("/equipmentBookingList/:id", eb.GetEquipmentBookingList)
 	r.POST("/equipmentBookingList", eb.CreateEquipmentBookingList)
 	r.DELETE("/equipmentBookingList/:id", eb.DeleteEquipmentBookingList)
-
 
 	// News------------------------------
 	r.GET("/newstype", new.ListNewsType)
@@ -117,6 +123,57 @@ func main() {
 	r.DELETE("/news/:id", new.DeleteNews)
 	r.PATCH("/news", new.UpdateNews)
 
-	r.Run()
+	// BookInfo
+	r.GET("/bookInfo", bookInfo.GetBookInfo)
 
+	//Member
+	r.GET("/gender", member.ListGender)
+	r.GET("/gender/:id", member.GetGender)
+
+	r.GET("/evidence", member.ListEvidence)
+	r.GET("/evidence/:id", member.GetEvidence)
+
+	r.GET("/typem", member.ListTypem)
+	r.GET("/typem/:id", member.GetTypem)
+
+	//notify
+	r.GET("/notify", notify.ListNotify)
+	r.GET("/notify/:id", notify.GetNotify)
+	r.POST("/notify", notify.CreateNotify)
+	r.DELETE("/notify/:id", notify.DeleteNotify)
+	r.PATCH("/notify", notify.UpdateNotify)
+
+	//traniner booking
+	r.GET("/trainerBooking", trainerBooking.ListTrBList)
+	r.GET("/trainerBooking/:id", trainerBooking.GetTrBList)
+	r.POST("/trainerBooking", trainerBooking.CreateTrainerBookingList)
+	r.DELETE("/trainerBooking/:id", trainerBooking.DeleteTrBList)
+	r.PATCH("/trainerBooking", trainerBooking.UpdateTrBList)
+
+	//Execise Program
+	r.GET("/exercise", exerciseProgram.ListExercise)
+	r.GET("/exercise/:id", exerciseProgram.GetExercise)
+	r.POST("/exercise", exerciseProgram.CreateExercise)
+	r.DELETE("/exercise/:id", exerciseProgram.DeleteExercise)
+	r.PATCH("/exercise", exerciseProgram.UpdateExercise)
+
+	r.GET("/strecth", exerciseProgram.ListStretch)
+	r.GET("/strecth/:id", exerciseProgram.GetStretch)
+	r.POST("/strecth", exerciseProgram.CreateStretch)
+	r.DELETE("/strecth/:id", exerciseProgram.DeleteStretch)
+	r.PATCH("/strecth", exerciseProgram.UpdateStretch)
+
+	r.GET("/wormup", exerciseProgram.ListWormUp)
+	r.GET("/wormup/:id", exerciseProgram.GetWormUp)
+	r.POST("/wormup", exerciseProgram.CreateWormUp)
+	r.DELETE("/wormup/:id", exerciseProgram.DeleteWormUp)
+	r.PATCH("/wormup", exerciseProgram.UpdateWormUp)
+
+	r.GET("/exerciseprogram", exerciseProgram.ListExPList)
+	r.GET("/exerciseprogram/:id", exerciseProgram.GetExPList)
+	r.POST("/exerciseprogram", exerciseProgram.CreateExerciseProgramList)
+	r.DELETE("/exerciseprogram/:id", exerciseProgram.DeleteExPList)
+	r.PATCH("/exerciseprogram", exerciseProgram.UpdateExPList)
+
+	r.Run()
 }

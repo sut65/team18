@@ -39,10 +39,10 @@ type Payee struct {
 type Payment struct {
 	gorm.Model
 	BillID          *uint
-	Bill            Bill
+	Bill            Bill 
 	PaymentMethodID *uint
-	PaymentMethod   PaymentMethod
+	PaymentMethod   PaymentMethod 
 	PayeeID         *uint
-	Payee           Payee
+	Payee           Payee 
 	PayDate         time.Time
 }

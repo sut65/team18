@@ -29,15 +29,14 @@ type ExerciseProgramList struct {
 	gorm.Model
 	ProgramName string
 	EmployeeID  *uint
-	Employee    Employee
+	Employee    Employee 
 	WormUpID    *uint
-	WormUp      WormUp
+	WormUp      WormUp 
 	ExerciseID  *uint
-	Exercise    Exercise
+	Exercise    Exercise 
 	StretchID   *uint
-	Stretch     Stretch
+	Stretch     Stretch 
 	Minute      int
 
 	TrainerBookingList []TrainerBookingList `gorm:"foreignKey:ExerciseProgramListID"`
-	
 }

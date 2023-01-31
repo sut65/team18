@@ -21,12 +21,12 @@ type TimePeriod struct {
 type BookInfolist struct {
 	gorm.Model
 	ServiceID  *uint
-	Service    Service `gorm:"references:ID"`
+	Service    Service 
 	PlaceID    *uint
-	Place      Place `gorm:"references:ID"`
+	Place      Place 
 	TimePeriodID     *uint
-	TimePeriod TimePeriod `gorm:"references:ID"`
+	TimePeriod TimePeriod 
 	MemberID   *uint
-	Member     Member `gorm:"references:ID"`
+	Member     Member 
 	BDate      time.Time
 }

@@ -24,7 +24,7 @@ func GetTypem(c *gin.Context) {
 }
 
 // GET /Typem
-func ListTypm(c *gin.Context) {
+func ListTypem(c *gin.Context) {
 	var typem []entity.Typem
 	if err := entity.DB().Raw("SELECT * FROM typems").Scan(&typem).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

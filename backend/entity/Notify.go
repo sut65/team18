@@ -13,13 +13,13 @@ type Notify struct {
 
 	// EquipmentnameID ทำหน้าที่เป็น FK
 	EquipmentNameID *uint
-	EquipmentName   EquipmentName `gorm:"references:ID"`
+	EquipmentName   EquipmentName 
 
 	// RunnumberID ทำหน้าที่เป็น FK
 	RunNumberID *uint
-	RunNumber   RunNumber `gorm:"references:ID"`
+	RunNumber   RunNumber 
 
 	// MemberID ทำหน้าที่เป็น FK
 	MemberID *uint
-	Member   Member `gorm:"references:ID"`
+	Member   Member 
 }

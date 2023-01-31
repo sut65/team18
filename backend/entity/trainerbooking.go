@@ -9,14 +9,13 @@ import (
 type TrainerBookingList struct {
 	gorm.Model
 	EmployeeID *uint
-	Employee Employee
+	Employee   Employee
 
 	MemberID *uint
-	Member Member
+	Member   Member
 
 	ExerciseProgramListID *uint
-	ExerciseProgramList ExerciseProgramList
+	ExerciseProgramList   ExerciseProgramList
 
 	Training_Time time.Time
-
 }

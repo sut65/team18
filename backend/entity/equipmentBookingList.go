@@ -10,13 +10,13 @@ type EquipmentBookingList struct {
 	gorm.Model
 
 	EmployeeID *uint
-	Employee   Employee `gorm:"references:ID"`
+	Employee   Employee 
 
 	EquipmentListID *uint
-	EquipmentList   EquipmentList `gorm:"references:ID"`
+	EquipmentList   EquipmentList 
 
-	MemberID *uint `gorm:"references:ID"`
-	Member   Member
+	MemberID *uint
+	Member   Member 
 
 	DateBooking time.Time
 }

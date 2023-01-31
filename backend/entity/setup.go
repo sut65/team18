@@ -29,18 +29,13 @@ func SetupDatabase() {
 		//employee system
 		&Education{},
 		&Role{},
+		&Gender{},
 		&Employee{},
 
-		//Schedule
-		&Schedule{},
-		&Time{},
-		&Duty{},
-
 		//Member system
-		&Member{},
 		&Typem{},
 		&Evidence{},
-		&Gender{},
+		&Member{},
 
 		//News system
 		&Recipient{},
@@ -58,6 +53,7 @@ func SetupDatabase() {
 		&EquipmentName{},
 		&RunNumber{},
 		&EquipmentList{},
+
 		//Equiment booking list
 		&EquipmentBookingList{},
 
@@ -66,13 +62,24 @@ func SetupDatabase() {
 		&Exercise{},
 		&Stretch{},
 		&ExerciseProgramList{},
+
+		//traniner booking
+		&TrainerBookingList{},
+
 		//Notify system
 		&Notify{},
+
 		//Place system
 		&Service{},
 		&Ocd{},
 		&Oct{},
 		&PlaceInfolist{},
+
+		//Schedule
+		&Time{},
+		&Duty{},
+		&Schedule{},
+
 		//BookInfo sys
 		&Place{},
 		&TimePeriod{},
@@ -84,7 +91,7 @@ func SetupDatabase() {
 	admin := Role{
 		Name: "admin",
 	}
-	db.Model(&Role{}).Create(admin)
+	db.Model(&Role{}).Create(&admin)
 
 	trainer := Role{
 		Name: "trainer",
@@ -353,8 +360,8 @@ func SetupDatabase() {
 	}
 	db.Model(&ExerciseProgramList{}).Create(&exeprogram2)
 	//ระบบเทรนเนอร์
-	//ระบบข้อมูลอุปกรณ์
 
+	//ระบบข้อมูลอุปกรณ์
 	//-------- equipment name --------
 
 	equipmentNameFitness1 := EquipmentName{
@@ -380,104 +387,104 @@ func SetupDatabase() {
 	equipmentNameBasketball1 := EquipmentName{
 		Name: "รองเท้าบาสเกตบอล",
 	}
-	db.Model(&EquipmentName{}).Create(equipmentNameBasketball1)
+	db.Model(&EquipmentName{}).Create(&equipmentNameBasketball1)
 
 	equipmentNameBasketball2 := EquipmentName{
 		Name: "ลูกบาสเกตบอล",
 	}
-	db.Model(&EquipmentName{}).Create(equipmentNameBasketball2)
+	db.Model(&EquipmentName{}).Create(&equipmentNameBasketball2)
 
 	equipmentNameBadminton1 := EquipmentName{
 		Name: "รองเท้าแบดมินตัน",
 	}
-	db.Model(&EquipmentName{}).Create(equipmentNameBadminton1)
+	db.Model(&EquipmentName{}).Create(&equipmentNameBadminton1)
 
 	equipmentNameBadminton2 := EquipmentName{
 		Name: "ไม้แบดมินตัน",
 	}
-	db.Model(&EquipmentName{}).Create(equipmentNameBadminton2)
+	db.Model(&EquipmentName{}).Create(&equipmentNameBadminton2)
 
 	equipmentNameFootball1 := EquipmentName{
 		Name: "รองเท้าฟุตบอล",
 	}
-	db.Model(&EquipmentName{}).Create(equipmentNameFootball1)
+	db.Model(&EquipmentName{}).Create(&equipmentNameFootball1)
 
 	equipmentNameFootball2 := EquipmentName{
 		Name: "ลูกฟุตบอล",
 	}
-	db.Model(&EquipmentName{}).Create(equipmentNameFootball2)
+	db.Model(&EquipmentName{}).Create(&equipmentNameFootball2)
 
 	equipmentNameFutsal1 := EquipmentName{
 		Name: "รองเท้าฟุตซอล",
 	}
-	db.Model(&EquipmentName{}).Create(equipmentNameFutsal1)
+	db.Model(&EquipmentName{}).Create(&equipmentNameFutsal1)
 
 	equipmentNameFutsal2 := EquipmentName{
 		Name: "ลูกฟุตซอล",
 	}
-	db.Model(&EquipmentName{}).Create(equipmentNameFutsal2)
+	db.Model(&EquipmentName{}).Create(&equipmentNameFutsal2)
 
 	equipmentNameVolleyball1 := EquipmentName{
 		Name: "รองเท้าวอลเลย์บอล",
 	}
-	db.Model(&EquipmentName{}).Create(equipmentNameVolleyball1)
+	db.Model(&EquipmentName{}).Create(&equipmentNameVolleyball1)
 
 	equipmentNameVolleyball2 := EquipmentName{
 		Name: "ลูกวอลเลย์บอล",
 	}
-	db.Model(&EquipmentName{}).Create(equipmentNameVolleyball2)
+	db.Model(&EquipmentName{}).Create(&equipmentNameVolleyball2)
 
 	//-------- run number --------
 
 	run1 := RunNumber{
 		Number: "A001",
 	}
-	db.Model(RunNumber{}).Create(run1)
+	db.Model(&RunNumber{}).Create(&run1)
 
 	run2 := RunNumber{
 		Number: "A002",
 	}
-	db.Model(RunNumber{}).Create(run2)
+	db.Model(&RunNumber{}).Create(&run2)
 
 	run3 := RunNumber{
 		Number: "A003",
 	}
-	db.Model(RunNumber{}).Create(run3)
+	db.Model(&RunNumber{}).Create(&run3)
 
 	run4 := RunNumber{
 		Number: "A004",
 	}
-	db.Model(RunNumber{}).Create(run4)
+	db.Model(&RunNumber{}).Create(&run4)
 
 	run5 := RunNumber{
 		Number: "A005",
 	}
-	db.Model(RunNumber{}).Create(run5)
+	db.Model(&RunNumber{}).Create(&run5)
 
 	run6 := RunNumber{
 		Number: "A006",
 	}
-	db.Model(RunNumber{}).Create(run6)
+	db.Model(&RunNumber{}).Create(&run6)
 
 	run7 := RunNumber{
 		Number: "A007",
 	}
-	db.Model(RunNumber{}).Create(run7)
+	db.Model(&RunNumber{}).Create(&run7)
 
 	run8 := RunNumber{
 		Number: "A008",
 	}
-	db.Model(RunNumber{}).Create(run8)
+	db.Model(&RunNumber{}).Create(&run8)
 
 	run9 := RunNumber{
 		Number: "A009",
 	}
-	db.Model(RunNumber{}).Create(run9)
+	db.Model(&RunNumber{}).Create(&run9)
 
 	run10 := RunNumber{
 		Number: "A010",
 	}
-	db.Model(RunNumber{}).Create(run10)
+	db.Model(&RunNumber{}).Create(&run10)
 
 	//-------- equipmet list --------
 
@@ -487,7 +494,7 @@ func SetupDatabase() {
 		RunNumber:     run3,
 		dateTime:      time.Now(),
 	}
-	db.Model(&EquipmentList{}).Create(EquipmentList1)
+	db.Model(&EquipmentList{}).Create(&EquipmentList1)
 
 	EquipmentList2 := EquipmentList{
 		Employee:      admin1em,
@@ -495,7 +502,7 @@ func SetupDatabase() {
 		RunNumber:     run1,
 		dateTime:      time.Now(),
 	}
-	db.Model(&EquipmentList{}).Create(EquipmentList2)
+	db.Model(&EquipmentList{}).Create(&EquipmentList2)
 
 	//ระบบแจ้งชำรุด
 	db.Model(&Notify{}).Create(&Notify{
@@ -669,3 +676,4 @@ func SetupDatabase() {
 	db.Model(&Payment{}).Create(&Payment2)
 
 }
+	

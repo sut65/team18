@@ -20,14 +20,14 @@ type NewsType struct {
 
 type News struct {
 	gorm.Model
-	Headline string
-	Body     string
-	SDate    time.Time
-	DDate    time.Time
+	Headline    string
+	Body        string
+	SDate       time.Time
+	DDate       time.Time
 	RecipientID *uint
-	Recipient   Recipient
+	Recipient   Recipient 
 	NewsTypeID  *uint
-	NewsType    NewsType
-	EmployeeID *uint
-	Employee Employee
+	NewsType    NewsType 
+	EmployeeID  *uint
+	Employee    Employee
 }
