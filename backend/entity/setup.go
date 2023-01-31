@@ -91,15 +91,15 @@ func SetupDatabase() {
 	}
 	db.Model(&Role{}).Create(&trainer) //&trainer อ้างอิงว่าอยู่ในตาราง Role
 
-	mb := Role{
+	member := Role{
 		Name: "member",
 	}
-	db.Model(&Role{}).Create(&mb)
+	db.Model(&Role{}).Create(&member)
 
-	cl := Role{
+	staff := Role{
 		Name: "staff",
 	}
-	db.Model(&Role{}).Create(&cl)
+	db.Model(&Role{}).Create(&staff)
 
 	password, err := bcrypt.GenerateFromPassword([]byte("123456"), bcrypt.DefaultCost)
 	if err != nil {
@@ -126,6 +126,11 @@ func SetupDatabase() {
 
 	//--Education--//
 
+	hs := Education{
+		Level: "มัธยมศึกษา",
+	}
+	db.Model(&Education{}).Create(&hs)
+
 	baDg := Education{
 		Level: "ปริญญาตรี",
 	}
@@ -136,17 +141,31 @@ func SetupDatabase() {
 	}
 	db.Model(&Education{}).Create(&maDg)
 
+	//---------Employees-------
 	admin1em := Employee{
 		Name:      "Amin1em",
 		Tel:       "090000000",
 		Email:     "admin@email.com",
-		DOB:       time.Now(),
 		Gender:    Male,
-		Education: baDg,
 		Role:      admin,
+		Education: baDg,
+		DOB:       time.Now(),
 		User:      userAdmin,
 	}
 	db.Model(&Employee{}).Create(&admin1em)
+
+	em1 := Employee{
+		Name:      "Tanaphat",
+		Tel:       "060000000",
+		Email:     "Em1@email.com",
+		Gender:    Male,
+		Role:      staff,
+		Education: hs,
+		DOB:       time.Now(),
+		//User:      userAdmin,
+	}
+	db.Model(&Employee{}).Create(&em1)
+
 
 	//ระบบตารางงาน
 	// --Time--
@@ -174,22 +193,33 @@ func SetupDatabase() {
 	d_cleaner := Duty{
 		Name: "ทำความสะอาด",
 	}
-	db.Model(&Time{}).Create(&d_cleaner)
+	db.Model(&Duty{}).Create(&d_cleaner)
 
 	d_checker := Duty{
 		Name: "เช็คอุปกรณ์",
 	}
-	db.Model(&Time{}).Create(&d_checker)
+	db.Model(&Duty{}).Create(&d_checker)
 
 	d_fixeder := Duty{
 		Name: "ซ่อมบำรุง",
 	}
-	db.Model(&Time{}).Create(&d_fixeder)
+	db.Model(&Duty{}).Create(&d_fixeder)
 
 	d_trainer := Duty{
 		Name: "เทรนสมาชิก",
 	}
-	db.Model(&Time{}).Create(&d_trainer)
+	db.Model(&Duty{}).Create(&d_trainer)
+
+	//-------Schedule----------
+	schedule_1 := Schedule{
+		Employee: 	em1,
+		Role: 		staff,
+		Duty: 		d_checker,	
+		//Ocd: ,	
+		Time: 		q1,
+		//PlaceInfolist: ,
+	}
+	db.Model(&Schedule{}).Create(&schedule_1)
 
 	//ระบบสมัครสมาชิก
 	//--- ประเภทสมาชิก ---//
