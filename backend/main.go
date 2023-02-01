@@ -153,21 +153,27 @@ func main() {
 	r.GET("/bookInfo", bookInfo.GetBookInfo)
 
 	//Member
-	r.GET("/gender", member.ListGender)
-	r.GET("/gender/:id", member.GetGender)
+	r.GET("/members", member.ListMember)
+	r.GET("/member/:id", member.GetMember)
+	r.POST("/members", member.CreateMember)
+	r.PATCH("/members", member.UpdateMember)
+	r.DELETE("/members/:id", member.DeleteMember)
 
-	r.GET("/evidence", member.ListEvidence)
-	r.GET("/evidence/:id", member.GetEvidence)
+	r.GET("/evidencets", member.ListEvidence)
+	r.GET("/evidencet/:id", member.GetEvidence)
 
-	r.GET("/typem", member.ListTypem)
+	r.GET("/typems", member.ListTypem)
 	r.GET("/typem/:id", member.GetTypem)
 
+	r.GET("/genders", member.ListGender)
+	r.GET("/gender/:id", member.GetGender)
+
 	//notify
-	r.GET("/notify", notify.ListNotify)
+	r.GET("/notifys", notify.ListNotify)
 	r.GET("/notify/:id", notify.GetNotify)
-	r.POST("/notify", notify.CreateNotify)
+	r.POST("/notifys", notify.CreateNotify)
 	r.DELETE("/notify/:id", notify.DeleteNotify)
-	r.PATCH("/notify", notify.UpdateNotify)
+	r.PATCH("/notifys", notify.UpdateNotify)
 
 	//traniner booking
 	r.GET("/trainerBooking", trainerBooking.ListTrBList)

@@ -23,6 +23,12 @@ func CreateMember(c *gin.Context) {
 		return
 	}
 
+	//แทรกvilid
+	if _, err := govalidator.ValidateStruct(member); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
 	// ค้นหา typem ด้วย id
 	if tx := entity.DB().Where("id = ?", member.TypemID).First(&typem); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Type not found"})
@@ -43,14 +49,14 @@ func CreateMember(c *gin.Context) {
 
 	//สร้าง ตารางMember
 	md := entity.Member{
-		Name:      member.Name,
-		Email:     member.Email,
-		Password:  member.Password,
-		Bdate:     member.Bdate,
-		Age:       member.Age,
-		Typem:     typem,
+		Name:     member.Name,
+		Email:    member.Email,
+		Password: member.Password,
+		Bdate:    member.Bdate,
+		Age:      member.Age,
+		Typem:    typem,
 		Evidence: evidence,
-		Gender:    gender,
+		Gender:   gender,
 	}
 
 	// ขั้นตอนการ validate
