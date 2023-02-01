@@ -23,6 +23,12 @@ func CreateNotify(c *gin.Context) {
 		return
 	}
 
+	//แทรกvilid
+	if _, err := govalidator.ValidateStruct(member); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	
 	// ค้นหา member ด้วย id
 	if tx := entity.DB().Where("id = ?", notify.MemberID).First(&member); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Member not found"})
