@@ -541,6 +541,92 @@ func SetupDatabase() {
 	})
 
 	//ระบบข้อมูลสถานที่
+		//----บริการ----
+		service := Service{
+			TypeP: "Fitness Room",
+		}
+		db.Model(&Service{}).Create(&service)
+		service1 := Service{
+			TypeP: "Batminton court",
+		}
+		db.Model(&Service{}).Create(&service1)
+		service2 := Service{
+			TypeP: "Basketball corut",
+		}
+		db.Model(&Service{}).Create(&service2)
+		service3 := Service{
+			TypeP: "Football court",
+		}
+		db.Model(&Service{}).Create(&service3)
+		service4 := Service{
+			TypeP: "Futsal court",
+		}
+		db.Model(&Service{}).Create(&service4)
+		//----วันเวลาเปิดปิด----
+		ocd := Ocd{
+			Days: "Monday",
+		}
+		db.Model(&Ocd{}).Create(&ocd)
+		ocd1 := Ocd{
+			Days: "Tuesday",
+		}
+		db.Model(&Ocd{}).Create(&ocd1)
+		ocd2 := Ocd{
+			Days: "Wednesday",
+		}
+		db.Model(&Ocd{}).Create(&ocd2)
+		ocd3 := Ocd{
+			Days: "Thursday",
+		}
+		db.Model(&Ocd{}).Create(&ocd3)
+		ocd4 := Ocd{
+			Days: "Friday",
+		}
+		db.Model(&Ocd{}).Create(&ocd4)
+		ocd5 := Ocd{
+			Days: "Saturday",
+		}
+		db.Model(&Ocd{}).Create(&ocd5)
+		ocd6 := Ocd{
+			Days: "Sunday",
+		}
+		db.Model(&Ocd{}).Create(&ocd6)
+		//----ช่วงเวลาเปิดปิด----
+		oct := Oct{
+			Times: "08:00 - 17:00",
+		}
+		db.Model(&Oct{}).Create(&oct)
+		oct1 := Oct{
+			Times: "08:00 - 18:00",
+		}
+		db.Model(&Oct{}).Create(&oct1)
+		oct2 := Oct{
+			Times: "08:00 - 19:00",
+		}
+		db.Model(&Oct{}).Create(&oct2)
+		oct3 := Oct{
+			Times: "08:00 - 20:00",
+		}
+		db.Model(&Oct{}).Create(&oct3)
+		//----สร้างตารางให้บริการ----
+		placeinfo := PlaceInfolist{
+			Service: service1,
+			Ocd:     ocd1,
+			Oct:     oct1,
+			Hours:   10,
+			PDate:   time.Date(2022, 12, 10, 0, 0, 0, 0, time.Now().Location()),
+			Detail:  "สนามมี 3 คอร์ท",
+		}
+		db.Model(&PlaceInfolist{}).Create(&placeinfo)
+		placeinfo1 := PlaceInfolist{
+			Service: service,
+			Ocd:     ocd,
+			Oct:     oct,
+			Hours:   9,
+			PDate:   time.Date(2022, 12, 10, 1, 0, 0, 0, time.Now().Location()),
+			Detail:  "อุปกรณ์ชำรุด 4 เครื่อง",
+		}
+		db.Model(&PlaceInfolist{}).Create(&placeinfo1)
 	//ระบบจองสถานที่
 
 	//ระบบประชาสัมพันธ์
