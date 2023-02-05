@@ -8,28 +8,72 @@ import (
 	"net/http"
 )
 
-// GET /TimePeriod/:id
-func GetTimePeriod(c *gin.Context) {
-	var timep entity.TimePeriod
-	id := c.Param("id")
-	if err := entity.DB().Raw("SELECT * FROM TimePeriod WHERE id = ?", id).Scan(&timep).Error; err != nil {
-
+// POST /timeperiod
+func CreateTimeperiod(c *gin.Context) {
+	var timeperiod entity.TimePeriod
+	if err := c.ShouldBindJSON(&timeperiod); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-
 		return
-
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": timep})
+	if err := entity.DB().Create(&timeperiod).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": timeperiod})
 }
 
-// GET /TimePeriod
-func ListTimePeriod(c *gin.Context) {
-	var timep []entity.TimePeriod
-	if err := entity.DB().Raw("SELECT * FROM TimePeriod").Scan(&timep).Error; err != nil {
+// GET /timeperiod/:id
+func GetTimeperiod(c *gin.Context) {
+	var timeperiod entity.TimePeriod
+	id := c.Param("id")
+	if err := entity.DB().Raw("SELECT * FROM timeperiod WHERE id = ?", id).Scan(&timeperiod).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": timep})
+	c.JSON(http.StatusOK, gin.H{"data": timeperiod})
+}
+
+// List /timeperiod
+func ListTimeperiod(c *gin.Context) {
+	var timeperiod []entity.TimePeriod
+	if err := entity.DB().Raw("SELECT * FROM timeperiod").Scan(&timeperiod).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": timeperiod})
+}
+
+// DELETE /timeperiod/:id
+func DeleteTimeperiod(c *gin.Context) {
+	id := c.Param("id")
+	if tx := entity.DB().Exec("DELETE FROM timeperiod WHERE id = ?", id); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "timeperiod not found"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": id})
+}
+
+// PATCH /timeperiod
+func UpdateTimeperiod(c *gin.Context) {
+	var timeperiod entity.TimePeriod
+	if err := c.ShouldBindJSON(&timeperiod); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	if tx := entity.DB().Where("id = ?", timeperiod.ID).First(&timeperiod); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "timeperiod not found"})
+		return
+	}
+
+	if err := entity.DB().Save(&timeperiod).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": timeperiod})
 }
