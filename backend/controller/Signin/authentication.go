@@ -19,6 +19,7 @@ type LoginResponse struct {
 	Token    string
 	UserID   uint   `json:"user_id"`
 	EmpID    uint   `json:"emp_id"`
+	MemID	uint    `json:"member_id"`
 	RoleName string `json:"role_name"`
 }
 
@@ -28,6 +29,7 @@ func Signin(c *gin.Context) {
 	var user entity.User
 	var role entity.Role
 	var employee entity.Employee
+	var member entity.Member
 
 	if err := c.ShouldBindJSON(&payload); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -49,6 +51,12 @@ func Signin(c *gin.Context) {
 
 	//ค้นหา Employee Role ID ด้วย login_id
 	if err := entity.DB().Raw("SELECT * FROM employees WHERE user_id = ?", user.ID).Scan(&employee).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	//ค้นหา Member Role ID ด้วย login_id
+	if err := entity.DB().Raw("SELECT * FROM members WHERE user_id = ?", user.ID).Scan(&member).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -75,6 +83,7 @@ func Signin(c *gin.Context) {
 		Token:    signedToken,
 		UserID:   user.ID,
 		EmpID:    employee.ID,
+		MemID:    member.ID,
 		RoleName: role.Name,
 	}
 	fmt.Print(tokenResponse)

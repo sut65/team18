@@ -1,4 +1,5 @@
-import { Box, Snackbar, Alert, Button, TextField} from "@mui/material";
+import { Box, Snackbar, Alert, Button, TextField, Typography } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 import React from "react";
 import './signin.css';
 import Frame1 from './../../image/Frame1.svg';
@@ -20,7 +21,10 @@ export default function Signin() {
         setError(false);
     };
 
-
+    async function signUp() {
+        localStorage.setItem("token", "ppppppppppp");
+        window.location.reload();
+    }
     //function change state handle when typing 
 
     const handleInputChange = (event: React.ChangeEvent<{ id?: string; value: any }>) => {
@@ -47,6 +51,7 @@ export default function Signin() {
                     localStorage.setItem("token", res.data.Token)
                     localStorage.setItem("lid", res.data.user_id)
                     localStorage.setItem("uid", res.data.emp_id)
+                    localStorage.setItem("mid", res.data.member_id)
                     localStorage.setItem("role", res.data.role_name)
                     window.location.reload()
                 } else {

@@ -8,4 +8,5 @@ type User struct {
 	Password	string
 
 	Employee []Employee `gorm:"foreignKey:UserID"`
+	// Member []Member `gorm:"foreignKey:UserID"`
 }
