@@ -628,7 +628,78 @@ func SetupDatabase() {
 		}
 		db.Model(&PlaceInfolist{}).Create(&placeinfo1)
 	//ระบบจองสถานที่
-
+	//--สถานที่--
+	place := Place{
+		Locate: "Fitness Room",
+	}
+	db.Model(&Place{}).Create(&place)
+	place1 := Place{
+		Locate: "คอร์ท 1",
+	}
+	db.Model(&Place{}).Create(&place1)
+	place2 := Place{
+		Locate: "คอร์ท 2",
+	}
+	db.Model(&Place{}).Create(&place2)
+	place3 := Place{
+		Locate: "สนามล่าง 1",
+	}
+	db.Model(&Place{}).Create(&place3)
+	place4 := Place{
+		Locate: "สนามล่าง 2",
+	}
+	db.Model(&Place{}).Create(&place4)
+	place5 := Place{
+		Locate: "สนามฟุตซอลยิม",
+	}
+	db.Model(&Place{}).Create(&place5)
+	place6 := Place{
+		Locate: "สนามบาส 1",
+	}
+	db.Model(&Place{}).Create(&place6)
+	place7 := Place{
+		Locate: "สนามบาส 2",
+	}
+	db.Model(&Place{}).Create(&place7)
+	//---ช่วงเวลาการจอง---
+	tp := TimePeriod{
+		Period: "08:00 - 10:00",
+	}
+	db.Model(&TimePeriod{}).Create(&tp)
+	tp1 := TimePeriod{
+		Period: "10:00 - 12:00",
+	}
+	db.Model(&TimePeriod{}).Create(&tp1)
+	tp2 := TimePeriod{
+		Period: "12:00 - 14:00",
+	}
+	db.Model(&TimePeriod{}).Create(&tp2)
+	tp3 := TimePeriod{
+		Period: "14:00 - 16:00",
+	}
+	db.Model(&TimePeriod{}).Create(&tp3)
+	tp4 := TimePeriod{
+		Period: "16:00 - 18:00",
+	}
+	db.Model(&TimePeriod{}).Create(&tp4)
+	tp5 := TimePeriod{
+		Period: "18:00 - 20:00",
+	}
+	db.Model(&TimePeriod{}).Create(&tp5)
+	bookinfo := BookInfolist{
+		Service: service1,
+		Place:     place,
+		TimePeriod:     tp,
+		BDate:   time.Date(2022, 12, 10, 0, 0, 0, 0, time.Now().Location()),
+	}
+	db.Model(&BookInfolist{}).Create(&bookinfo)
+	bookinfo1 := BookInfolist{
+		Service: service2,
+		Place:     place1,
+		TimePeriod:     tp1,
+		BDate:   time.Date(2022, 12, 10, 0, 0, 0, 0, time.Now().Location()),
+	}
+	db.Model(&BookInfolist{}).Create(&bookinfo1)
 	//ระบบประชาสัมพันธ์
 	//-------- Recipient------
 	everyone := Recipient{

@@ -9,7 +9,7 @@ import (
 )
 
 // POST /PlaceInfo
-func CreatePlaceInfoList(c *gin.Context) {
+func CreateBookInfoList(c *gin.Context) {
 
 	var member entity.Member
 	var service entity.Service
@@ -74,7 +74,7 @@ func GetBookInfoList(c *gin.Context) {
 }
 
 // LIST /bookinfolist
-func ListPlaceInfoList(c *gin.Context) {
+func ListBookInfoList(c *gin.Context) {
 	var bookinfolist []entity.BookInfolist
 	if err := entity.DB().Preload("Member").Preload("Service").Preload("Place").Preload("Timeperiod").Raw("SELECT * FROM bookinfo_list").Find(&bookinfolist).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
