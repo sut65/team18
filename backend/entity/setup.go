@@ -124,6 +124,19 @@ func SetupDatabase() {
 	}
 	db.Model(&User{}).Create(&userAdmin1)
 
+	// usermember := User{
+	// 	Name:     "Member",
+	// 	Password: string(password),
+	// }
+	// db.Model(&User{}).Create(&usermember)
+
+	// usermember2 := User{
+	// 	Name:     "Member2",
+	// 	Password: string(password),
+	// }
+	// db.Model(&User{}).Create(&usermember2)
+
+
 	//ระบบพนักงาน
 
 	//--gender--//
@@ -279,6 +292,7 @@ func SetupDatabase() {
 		Gender:   Male,
 		Evidence: Student,
 		Typem:    Temporary,
+		Role:      member,
 	})
 	//member data2
 	db.Model(&Member{}).Create(&Member{
@@ -290,12 +304,17 @@ func SetupDatabase() {
 		Gender:   Female,
 		Evidence: Identification,
 		Typem:    Temporary,
+		Role:      member,
+
 	})
 
 	var Somcai Member
 	var Baifern Member
 	db.Raw("SELECT * FROM members WHERE email = ?", "Somcai@gmail.com").Scan(&Somcai)
 	db.Raw("SELECT * FROM members WHERE email = ?", "Baifern@gmail.com").Scan(&Baifern)
+
+
+
 
 	//ระบบโปรแกรมออกกำลังกาย
 	// worm up

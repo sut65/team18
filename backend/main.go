@@ -202,8 +202,8 @@ func main() {
 	r.PATCH("/members", member.UpdateMember)
 	r.DELETE("/members/:id", member.DeleteMember)
 
-	r.GET("/evidencets", member.ListEvidence)
-	r.GET("/evidencet/:id", member.GetEvidence)
+	r.GET("/evidences", member.ListEvidence)
+	r.GET("/evidence/:id", member.GetEvidence)
 
 	r.GET("/typems", member.ListTypem)
 	r.GET("/typem/:id", member.GetTypem)

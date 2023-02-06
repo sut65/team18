@@ -16,6 +16,7 @@ func CreateMember(c *gin.Context) {
 	var typem entity.Typem
 	var evidence entity.Evidence
 	var gender entity.Gender
+	var role entity.Role
 
 	// ผลลัพธ์ที่ได้จากขั้นตอนที่ x จะถูก bind เข้าตัวแปร member
 	if err := c.ShouldBindJSON(&member); err != nil {
@@ -47,6 +48,11 @@ func CreateMember(c *gin.Context) {
 		return
 	}
 
+	// ค้นหา gender ด้วย id
+	if tx := entity.DB().Where("id = 3", member.RoleID).First(&role); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Role not found"})
+		return
+	}
 	//สร้าง ตารางMember
 	md := entity.Member{
 		Name:     member.Name,
@@ -57,6 +63,7 @@ func CreateMember(c *gin.Context) {
 		Typem:    typem,
 		Evidence: evidence,
 		Gender:   gender,
+		Role:   role,
 	}
 
 	// ขั้นตอนการ validate
@@ -77,7 +84,7 @@ func CreateMember(c *gin.Context) {
 func GetMember(c *gin.Context) {
 	var member entity.Member
 	id := c.Param("id")
-	if err := entity.DB().Preload("Typem").Preload("Evidence").Preload("Gender").Raw("SELECT * FROM members WHERE id = ?", id).Find(&member).Error; err != nil {
+	if err := entity.DB().Preload("Typem").Preload("Evidence").Preload("Gender").Preload("Role").Raw("SELECT * FROM members WHERE id = ?", id).Find(&member).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -86,7 +93,7 @@ func GetMember(c *gin.Context) {
 
 func ListMember(c *gin.Context) {
 	var member []entity.Member
-	if err := entity.DB().Preload("Typem").Preload("Evidence").Preload("Gender").Raw("SELECT * FROM members").Find(&member).Error; err != nil {
+	if err := entity.DB().Preload("Typem").Preload("Evidence").Preload("Gender").Preload("Role").Raw("SELECT * FROM members").Find(&member).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

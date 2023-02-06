@@ -8,7 +8,7 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { Link as RouterLink } from "react-router-dom";
 import { IconButton, Toolbar, Typography, Button, Box, Badge } from "@mui/material";
 const drawerWidth= 240;
-export default function Navbar({ open, onClick}: any) {
+export default function Navbarx({ open, onClick}: any) {
     const [employee, setEmployee] = React.useState<Partial<EmployeeInterface>>({})
 
     interface AppBarProps extends MuiAppBarProps {
