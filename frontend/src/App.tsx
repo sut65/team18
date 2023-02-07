@@ -11,6 +11,9 @@ import DrawerBar from './navigations/DrawerBar';
 import Home from './components/Home';
 import MemberShow from './components/Member/MemberShow';
 import MemberCreate from './components/Member/MemberCreate';
+import EmployeeCreate from './components/Employee/EmployeeCreate';
+import ScheduleCreate from './components/Schedule/ScheduleCreate';
+
 import MemberEdit from './components/Member/MemberEdit';
 import NavbarMember from './components/NavbarMember';
 import MenuShow from './components/Menu';
@@ -130,6 +133,9 @@ function App() {
               <Route path="/home" element={<Home role={role} />} />
               <Route path="/Membercreate" element={<MemberCreate />} />
               <Route path="/NavbarMember" element={<NavbarMember />} />
+              <Route path="/Employeecreate" element={<EmployeeCreate />} />
+              <Route path="/Schedulecreate" element={<ScheduleCreate />} />
+
 
               {/*Trainer*/}
               {role === "trainer" && <Route path='/eplist/Home' element={<Home />} />}
