@@ -113,90 +113,92 @@ async function CreateMember(data: MemberInterface) {
 }
 
 //--------Employee_System----------------------------------------------------
-// async function GetEducation() {
-//   const requestOptions = {
-//     method: "GET",
-//     headers: {
-//       // Authorization: `Bearer ${localStorage.getItem("token")}`,
-//       "Content-Type": "application/json",
-//     },
-//   };
+async function GetEducation() {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      // Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
 
-//   let res = await fetch(`${apiUrl}/educations`, requestOptions)
-//     .then((response) => response.json())
-//     .then((res) => {
-//       if (res.data) {
-//         return res.data;
-//       } else {
-//         return false;
-//       }
-//     });
+  let res = await fetch(`${apiUrl}/educations`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
 
-//   return res;
-// }
+  return res;
+}
 
-// async function GetEmployee() {
-//   const requestOptions = {
-//     method: "GET",
-//     headers: {
-//       // Authorization: `Bearer ${localStorage.getItem("token")}`,
-//       "Content-Type": "application/json",
-//     },
-//   };
 
-//   let res = await fetch(`${apiUrl}/employees`, requestOptions)
-//     .then((response) => response.json())
-//     .then((res) => {
-//       if (res.data) {
-//         return res.data;
-//       } else {
-//         return false;
-//       }
-//     });
+async function GetRole() {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      // Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+  
+  let res = await fetch(`${apiUrl}/roles`, requestOptions)
+  .then((response) => response.json())
+  .then((res) => {
+    if (res.data) {
+      return res.data;
+    } else {
+      return false;
+    }
+  });
+  
+  return res;
+}
 
-//   return res;
-// }
+async function GetEmployee() {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      // Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
 
-// async function GetRole() {
-//   const requestOptions = {
-//     method: "GET",
-//     headers: {
-//       // Authorization: `Bearer ${localStorage.getItem("token")}`,
-//       "Content-Type": "application/json",
-//     },
-//   };
+  let res = await fetch(`${apiUrl}/employees`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
 
-//   let res = await fetch(`${apiUrl}/roles`, requestOptions)
-//     .then((response) => response.json())
-//     .then((res) => {
-//       if (res.data) {
-//         return res.data;
-//       } else {
-//         return false;
-//       }
-//     });
+  return res;
+}
 
-//   return res;
-// }
-// async function CreateEmployee(data: EmployeeInterface) {
-//   const requestOptions = {
-//     method: "POST",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify(data),
-//   };
+async function CreateEmployee(data: EmployeeInterface) {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+  
+  let res = await fetch(`${apiUrl}/employees`, requestOptions)
+  .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return { status: true, message: res.data };
+      } else {
+        return { status: false, message: res.error };
+      }
+    });
 
-//   let res = await fetch(`${apiUrl}/employees`, requestOptions)
-//     .then((response) => response.json())
-//     .then((res) => {
-//       if (res.data) {
-//         return { status: true, message: res.data };
-//       } else {
-//         return { status: false, message: res.error };
-//       }
-//     });
-
-//   return res;
-// }
+  return res;
+}
 
 export {
   GetTypem,
@@ -206,9 +208,9 @@ export {
   CreateMember,
 
   //Employees
-  // GetEducation,
-  // GetEmployee,
-  // GetRole,
-  // CreateEmployee,
+  GetEducation,
+  GetEmployee,
+  GetRole,
+  CreateEmployee,
   
 };

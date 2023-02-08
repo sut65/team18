@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import AppBar from "@mui/material/AppBar";
 import Button from "@mui/material/Button";
 import Toolbar from "@mui/material/Toolbar";
 import MenuItem from "@mui/material/MenuItem";
+import Snackbar from "@mui/material/Snackbar";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
@@ -13,6 +14,7 @@ import IconButton from "@mui/material/IconButton";
 import FormControl from "@mui/material/FormControl";
 import { Link as RouterLink } from "react-router-dom";
 import { createTheme, Divider, Grid } from "@mui/material";
+import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { create } from "@mui/material/styles/createTransitions";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
@@ -23,7 +25,12 @@ import { EmployeeInterface } from "../../models/IEmployee";
 import { GenderInterface } from "../../models/IGender";
 import { RoleInterface } from "../../models/IRole";
 import { EducationInterface } from "../../models/Employee/IEducation";
-import { CreateEmployee, GetEducation , GetGender, GetRole} from "../../services/HttpClientService";
+import {
+  CreateEmployee,
+  GetEducation,
+  GetGender,
+  GetRole,
+} from "../../services/HttpClientService";
 //import NavbarEmployee from "./NavbarEmployee";
 
 // import { createStyles, makeStyles, Theme } from '@mui/styles';
@@ -58,7 +65,6 @@ function EmployeeCreate() {
     EducationID: 0,
     RoleID: 0,
     GenderID: 0,
-
   });
 
   //--------- รับค่า --------
@@ -83,6 +89,13 @@ function EmployeeCreate() {
     }
   };
 
+  useEffect(() => {
+    getGender();
+    getEducation();
+    getRole();
+  }, []);
+  console.log(employee);
+
   // TextField
   const handleChangeEmployee = (
     event: React.ChangeEvent<{ id?: string; value: any }>
@@ -92,16 +105,47 @@ function EmployeeCreate() {
     setEmployee({ ...employee, [id]: value });
   };
 
-  // combobox
-  const handleChange = (
-    event: SelectChangeEvent<number>
-  ) => {
+  // Combobox
+  const handleChange = (event: SelectChangeEvent<number>) => {
     const name = event.target.name as keyof typeof employee;
     setEmployee({
       ...employee,
       [name]: event.target.value,
     });
   };
+
+  //เปิดปิดตัว Alert
+  const handleClose = (
+
+    event?: React.SyntheticEvent | Event,
+
+    reason?: string
+
+  ) => {
+
+    if (reason === "clickaway") {
+
+      return;
+
+    }
+
+    setSuccess(false);
+
+    setError(false);
+
+  };
+
+  const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+
+    props,
+  
+    ref
+  
+  ) {
+  
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  
+  });
 
   // Submit
   async function submit() {
@@ -112,11 +156,15 @@ function EmployeeCreate() {
       Password: employee.Password ?? "",
       DOB: new Date(),
       //GenderID: convertType(employee.GenderID),
-      GenderID:typeof employee.GenderID === "string" ? parseInt(employee.GenderID) : 0,
-      EducationID:typeof employee.EducationID === "string" ? parseInt(employee.EducationID) : 0,
-      RoleID:typeof employee.RoleID === "string" ? parseInt(employee.RoleID) : 0,
+      GenderID:
+        typeof employee.GenderID === "string" ? parseInt(employee.GenderID) : 0,
+      EducationID:
+        typeof employee.EducationID === "string"
+          ? parseInt(employee.EducationID)
+          : 0,
+      RoleID:
+        typeof employee.RoleID === "string" ? parseInt(employee.RoleID) : 0,
     };
-    console.log(data);
     let res = await CreateEmployee(data);
     if (res.status) {
       setAlertMessage("บันทึกข้อมูลสำเร็จ");
@@ -130,6 +178,17 @@ function EmployeeCreate() {
   return (
     //ยังไม่ใช้ ถ้าจะใช้ใส่ div ไว้ข้างบน <NavbarEmployee />
     <Container maxWidth="md">
+      <Snackbar id="success" open={success} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success">
+          {message}
+        </Alert>
+      </Snackbar>
+      <Snackbar id="error" open={error} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error">
+          {message}
+        </Alert>
+      </Snackbar>
+
       <Paper elevation={12}>
         {/* ชื่อระบบ */}
         <Box display="flex">
@@ -203,9 +262,9 @@ function EmployeeCreate() {
             <p>รหัสผ่าน</p>
             <FormControl fullWidth variant="outlined">
               <TextField
-                id="Passwords"
+                id="Password"
                 variant="outlined"
-                type="string"
+                type="string" //type="password" จะมองไม่เห็นรหัสที่ตั้ง
                 size="medium"
                 placeholder="กรุณาตั้งรหัสผ่าน"
                 value={employee.Password || ""}
@@ -236,7 +295,7 @@ function EmployeeCreate() {
           <Grid item xs={5} margin={2} container spacing={1}>
             <p>เพศ</p>
             <FormControl fullWidth variant="outlined">
-               <Select
+              <Select
                 native
                 value={employee.GenderID}
                 onChange={handleChange}
@@ -260,7 +319,7 @@ function EmployeeCreate() {
           <Grid item xs={5} margin={2} container spacing={1}>
             <p>ประเภทพนักงาน</p>
             <FormControl fullWidth variant="outlined">
-            <Select
+              <Select
                 native
                 value={employee.RoleID}
                 onChange={handleChange}
@@ -284,7 +343,7 @@ function EmployeeCreate() {
           <Grid item xs={5} margin={2} container spacing={1}>
             <p>ระดับการศึกษา</p>
             <FormControl fullWidth variant="outlined">
-            <Select
+              <Select
                 native
                 value={employee.EducationID}
                 onChange={handleChange}
@@ -307,6 +366,7 @@ function EmployeeCreate() {
           {/* ปุ่ม */}
           <Grid item xs={5} margin={2}>
             <Button
+              component={RouterLink} to="/"
               variant="contained"
               size="large"
               style={{ height: "42px", width: "100px" }}
