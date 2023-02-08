@@ -1,5 +1,5 @@
 import { EmployeeInterface } from "../IEmployee";
-import { RoleInterface } from "../Employee/IRole";
+import { RoleInterface } from "../IRole";
 import { TimeInterface } from "./ITime";
 import { DutyInterface } from "./IDuty";
 

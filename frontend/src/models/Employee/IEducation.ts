@@ -1,4 +1,4 @@
-export interface EducationTnterface{
+export interface EducationInterface{
     ID: number,
-    Level: string,
+    Education: string,
 }

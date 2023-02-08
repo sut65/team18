@@ -153,17 +153,17 @@ func SetupDatabase() {
 	//--Education--//
 
 	hs := Education{
-		Level: "มัธยมศึกษา",
+		Education: "มัธยมศึกษา",
 	}
 	db.Model(&Education{}).Create(&hs)
 
 	baDg := Education{
-		Level: "ปริญญาตรี",
+		Education: "ปริญญาตรี",
 	}
 	db.Model(&Education{}).Create(&baDg)
 
 	maDg := Education{
-		Level: "ปริญญาโท",
+		Education: "ปริญญาโท",
 	}
 	db.Model(&Education{}).Create(&maDg)
 

@@ -4,7 +4,7 @@ import (
 	"os"
 
 	bookInfo "github.com/sut65/team18/controller/BookInfo"
-	placeInfo "github.com/sut65/team18/controller/PlaceInfo"
+	// placeInfo "github.com/sut65/team18/controller/PlaceInfo"
 	employee "github.com/sut65/team18/controller/Employee_System"
 	eb "github.com/sut65/team18/controller/EquipmentBookingList"
 	el "github.com/sut65/team18/controller/EquipmentManagement"
@@ -150,49 +150,49 @@ func main() {
 	r.DELETE("/news/:id", new.DeleteNews)
 	r.PATCH("/news", new.UpdateNews)
 
-	// BookInfo
+	// // BookInfo
 	r.GET("/bookInfo", bookInfo.ListBookInfoList)
-	r.GET("/bookInfo/:id", bookInfo.GetBookInfoList)
-	r.GET("/bookInfo", bookInfo.CreateBookInfoList)
-	r.GET("/bookInfo", bookInfo.UpdateBookInfoList)
-	r.GET("/bookInfo/:id", bookInfo.DeleteBookInfoList)
+	// r.GET("/bookInfo/:id", bookInfo.GetBookInfoList)
+	// r.GET("/bookInfo", bookInfo.CreateBookInfoList)
+	// r.GET("/bookInfo", bookInfo.UpdateBookInfoList)
+	// r.GET("/bookInfo/:id", bookInfo.DeleteBookInfoList)
 
-	r.GET("/place" ,bookInfo.ListPlace)
-	r.GET("/place/:id", bookInfo.GetPlace)
-	r.GET("/place" ,bookInfo.CreatePlace)
-	r.GET("/place", bookInfo.UpdatePlace)
-	r.GET("/place/:id", bookInfo.DeletePlace)
+	// r.GET("/place" ,bookInfo.ListPlace)
+	// r.GET("/place/:id", bookInfo.GetPlace)
+	// r.GET("/place" ,bookInfo.CreatePlace)
+	// r.GET("/place", bookInfo.UpdatePlace)
+	// r.GET("/place/:id", bookInfo.DeletePlace)
 
-	r.GET("timeperiod" ,bookInfo.ListTimeperiod)
-	r.GET("timeperiod/:id", bookInfo.GetTimeperiod)
-	r.GET("timeperiod", bookInfo.CreateTimeperiod)
-	r.GET("timeperiod", bookInfo.UpdateTimeperiod)
-	r.GET("timeperiod/:id" ,bookInfo.DeleteTimeperiod)
+	// r.GET("timeperiod" ,bookInfo.ListTimeperiod)
+	// r.GET("timeperiod/:id", bookInfo.GetTimeperiod)
+	// r.GET("timeperiod", bookInfo.CreateTimeperiod)
+	// r.GET("timeperiod", bookInfo.UpdateTimeperiod)
+	// r.GET("timeperiod/:id" ,bookInfo.DeleteTimeperiod)
 
-	//PlaceInfo
-	r.GET("placeInfo" ,placeInfo.ListPlaceInfoList)
-	r.GET("placeInfo/:id" ,placeInfo.GetPlaceInfoList)
-	r.GET("placeInfo" ,placeInfo.CreatePlaceInfoList)
-	r.GET("placeInfo" ,placeInfo.UpdatePlaceInfoList)
-	r.GET("placeInfo/:id" ,placeInfo.DeletePlaceInfoList)
+	// //PlaceInfo
+	// r.GET("placeInfo" ,placeInfo.ListPlaceInfoList)
+	// r.GET("placeInfo/:id" ,placeInfo.GetPlaceInfoList)
+	// r.GET("placeInfo" ,placeInfo.CreatePlaceInfoList)
+	// r.GET("placeInfo" ,placeInfo.UpdatePlaceInfoList)
+	// r.GET("placeInfo/:id" ,placeInfo.DeletePlaceInfoList)
 
-	r.GET("service" ,placeInfo.ListService)
-	r.GET("service/:id" ,placeInfo.GetSercive)
-	r.GET("service" ,placeInfo.CreateService)
-	r.GET("service" ,placeInfo.UpdateService)
-	r.GET("service/:id" ,placeInfo.DeleteService)
+	// r.GET("service" ,placeInfo.ListService)
+	// r.GET("service/:id" ,placeInfo.GetSercive)
+	// r.GET("service" ,placeInfo.CreateService)
+	// r.GET("service" ,placeInfo.UpdateService)
+	// r.GET("service/:id" ,placeInfo.DeleteService)
 
-	r.GET("openandcolsedays" ,placeInfo.ListOpenandClosedays)
-	r.GET("openandclosedays/:id" ,placeInfo.GetOpenandClosedays)
-	r.GET("openandclosedays" ,placeInfo.CreateOpenandClosedays)
-	r.GET("openandclosedays" ,placeInfo.UpdateOpenandclosedays)
-	r.GET("openandclosedays/:id" ,placeInfo.DeleteOpenandClosedays)
+	// r.GET("openandcolsedays" ,placeInfo.ListOpenandClosedays)
+	// r.GET("openandclosedays/:id" ,placeInfo.GetOpenandClosedays)
+	// r.GET("openandclosedays" ,placeInfo.CreateOpenandClosedays)
+	// r.GET("openandclosedays" ,placeInfo.UpdateOpenandclosedays)
+	// r.GET("openandclosedays/:id" ,placeInfo.DeleteOpenandClosedays)
 
-	r.GET("openandclosetime" ,placeInfo.ListOpenandClosetime)
-	r.GET("openandclosetime/:id" ,placeInfo.GetOpenandClosetime)
-	r.GET("openandclosetime" ,placeInfo.CreateOpenandClosetime)
-	r.GET("openandclosetime" ,placeInfo.UpdateOpenandClosetime)
-	r.GET("openandclosetime/:id" ,placeInfo.DeleteOpenandClosetime)
+	// r.GET("openandclosetime" ,placeInfo.ListOpenandClosetime)
+	// r.GET("openandclosetime/:id" ,placeInfo.GetOpenandClosetime)
+	// r.GET("openandclosetime" ,placeInfo.CreateOpenandClosetime)
+	// r.GET("openandclosetime" ,placeInfo.UpdateOpenandClosetime)
+	// r.GET("openandclosetime/:id" ,placeInfo.DeleteOpenandClosetime)
 	
 
 	//Member
