@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-// POST /PlaceInfo
+// POST /placeinfolist
 func CreatePlaceInfoList(c *gin.Context) {
 
 	var employee entity.Employee
@@ -96,7 +96,7 @@ func DeletePlaceInfoList(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": id})
 }
 
-// PATCH /explist
+// PATCH /placeinfolist
 func UpdatePlaceInfoList(c *gin.Context) {
 	var placeinfolist entity.PlaceInfolist
 	if err := c.ShouldBindJSON(&placeinfolist); err != nil {
