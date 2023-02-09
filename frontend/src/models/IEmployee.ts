@@ -5,7 +5,7 @@ import { EducationInterface } from "./Employee/IEducation";
 export interface EmployeeInterface {
     
     ID?: number;
-    Employee_ID?: string;
+    //Employee_ID?: string;
     Name?: string;
     Tel?: string,
     Email?: string,

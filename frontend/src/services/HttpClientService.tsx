@@ -198,6 +198,93 @@ async function CreateEmployee(data: EmployeeInterface) {
   return res;
 }
 
+//--------------Schedule----------------
+async function GetDuty() {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      // Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  let res = await fetch(`${apiUrl}/duties`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+
+async function GetTime() {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      // Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  let res = await fetch(`${apiUrl}/times`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+
+async function GetSchedule() {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      // Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  let res = await fetch(`${apiUrl}/schedules`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+
+async function CreateSchedule(data: EmployeeInterface) {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/schedule`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return { status: true, message: res.data };
+      } else {
+        return { status: false, message: res.error };
+      }
+    });
+
+  return res;
+}
+
 export {
   GetTypem,
   GetMember,
@@ -210,9 +297,17 @@ export {
   GetEmployee,
   GetRole,
   CreateEmployee,
+
+  //Schedule
+  GetDuty,
+  GetTime,
+  GetSchedule,
+  CreateSchedule,
+
 };
 
 //status 404: เชื่อม url หรือ apiurl ไม่ได้
+//status 401: ไม่ได้ทำ authenticate มาก่อน ทำให้เซิฟเวอร์ไม่สามารถให้ request นี้ทำงานได้
 //status 400: Bad request การร้องขอผิดพลาด เกิดขึ้นได้หลายกรณี
 //status 204: ได้รับการตอบรับแล้วแต่ยังไม่เสร็จ
 //status 200: status ถูกต้อง ได้รับ req และทำเสร็จแล้ว

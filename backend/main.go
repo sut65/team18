@@ -84,7 +84,7 @@ func main() {
 	r.DELETE("/schedule/:id", schedule.DeleteSchedule)
 
 	//Duty Routes
-	r.GET("/dutys", schedule.ListDutys)
+	r.GET("/duties", schedule.ListDuties)
 	r.GET("/duty/:id", schedule.GetDuty)
 	r.POST("/duty", schedule.CreateDuty)
 	r.PATCH("/duty", schedule.UpdateDuty)

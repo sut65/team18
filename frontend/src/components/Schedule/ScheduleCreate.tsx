@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Container from "@mui/material/Container";
@@ -8,27 +8,88 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
-
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { create } from "@mui/material/styles/createTransitions";
+import { Schedule } from "@mui/icons-material";
 
-
+import { Link as RouterLink } from "react-router-dom";
+import { ScheduleInterface } from "../../models/Schedule/ISchedule";
+import { EmployeeInterface } from "../../models/IEmployee";
+import { RoleInterface } from "../../models/IRole";
+import { DutyInterface } from "../../models/Schedule/IDuty";
+import { TimeInterface } from "../../models/Schedule/ITime";
+import {
+  CreateSchedule,
+  GetEmployee,
+  GetDuty,
+  GetTime,
+  GetRole,
+} from "../../services/HttpClientService";
 
 function ScheduleCreate() {
   // const classes = makeStyles();
-  const [name, setName] = useState("");
-  const [date, setDate] = useState<Date | null>(null);
 
-  const handleChangeName = (event: SelectChangeEvent) => {
-    setName(event.target.value as string);
+  const [date, setDate] = useState<Date | null>(null);
+  const [schedule, setSchedule] = useState<Partial<ScheduleInterface>>({});
+  //const [schedule, setSchedule] = useState<ScheduleInterface[]>([]);
+
+  
+  const [role, setRole] = React.useState<RoleInterface[]>([]);
+  const [duty, setDuty] = React.useState<DutyInterface[]>([]);
+  const [time, setTime] = React.useState<TimeInterface[]>([]);
+  const [employee, setEmployee] = useState<EmployeeInterface[]>([]);
+
+  //--------- รับค่า --------
+  const getTime = async () => {
+    let res = await GetTime();
+    if (res) {
+      setTime(res);
+    }
+  };
+
+  const getDuty = async () => {
+    let res = await GetDuty();
+    if (res) {
+      setDuty(res);
+    }
+  };
+
+  const getRole = async () => {
+    let res = await GetRole();
+    if (res) {
+      setRole(res);
+    }
+  };
+
+  const getEmployee = async () => {
+    let res = await GetEmployee();
+    if (res) {
+      setRole(res);
+    }
+  };
+  //ไม่ใส่ useEffect จะไม่ขึ้นให้เลือก combobox
+  useEffect(() => {
+    getDuty();
+    getTime();
+    getRole();
+    getEmployee();
+  }, []);
+  console.log(schedule);
+
+  // Combobox
+  const handleChange = (event: SelectChangeEvent<number>) => {
+    const name = event.target.name as keyof typeof schedule;
+    setSchedule({
+      ...schedule,
+      [name]: event.target.value,
+    });
   };
 
   return (
@@ -57,22 +118,22 @@ function ScheduleCreate() {
           <Grid item xs={5} margin={2} container spacing={1}>
             <p>ชื่อ</p>
             <FormControl fullWidth variant="outlined">
-              {/* <Select native disabled value={foodSickness.NutritionistID}>
-            <option aria-label="None" value="">
-              {nutritionists?.Name}
-            </option>
-          </Select> */}
-              <InputLabel id="Name">กรุณาระบุชื่อ</InputLabel>
               <Select
-                labelId="Name"
-                id="demo-simple-select"
-                value={name}
-                label="Age"
-                onChange={handleChangeName}
+                native
+                value={schedule.EmployeeID}
+                onChange={handleChange}
+                inputProps={{
+                  name: "EmployeeID",
+                }}
               >
-                <MenuItem value={"Tanaphat"}>Tanaphat</MenuItem>
-                <MenuItem value={"Nopakan"}>Nopakan</MenuItem>
-                <MenuItem value={"Kantaya"}>Kantaya</MenuItem>
+                <option aria-label="None" value="">
+                  กรุณาระบุชื่อ
+                </option>
+                {schedule.map((item: ScheduleInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.Name}
+                  </option>
+                ))}
               </Select>
             </FormControl>
           </Grid>
@@ -81,22 +142,22 @@ function ScheduleCreate() {
           <Grid item xs={5} margin={2} container spacing={1}>
             <p>ประเภทพนักงาน</p>
             <FormControl fullWidth variant="outlined">
-              {/* <Select native disabled value={foodSickness.NutritionistID}>
-            <option aria-label="None" value="">
-              {nutritionists?.Name}
-            </option>
-          </Select> */}
-              <InputLabel id="Name">กรุณาระบุชื่อ</InputLabel>
               <Select
-                labelId="Name"
-                id="demo-simple-select"
-                value={name}
-                label="Age"
-                onChange={handleChangeName}
+                native
+                value={schedule.RoleID}
+                onChange={handleChange}
+                inputProps={{
+                  name: "RoleID",
+                }}
               >
-                <MenuItem value={"Tanaphat"}>Tanaphat</MenuItem>
-                <MenuItem value={"Nopakan"}>Nopakan</MenuItem>
-                <MenuItem value={"Kantaya"}>Kantaya</MenuItem>
+                <option aria-label="None" value="">
+                  กรุณาระบุประเภทพนักงาน
+                </option>
+                {role.map((item: RoleInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.Type}
+                  </option>
+                ))}
               </Select>
             </FormControl>
           </Grid>
@@ -105,22 +166,22 @@ function ScheduleCreate() {
           <Grid item xs={5} margin={2} container spacing={1}>
             <p>หน้าที่รับผิดชอบ</p>
             <FormControl fullWidth variant="outlined">
-              {/* <Select native disabled value={foodSickness.NutritionistID}>
-            <option aria-label="None" value="">
-              {nutritionists?.Name}
-            </option>
-          </Select> */}
-              <InputLabel id="Name">กรุณาระบุชื่อ</InputLabel>
               <Select
-                labelId="Name"
-                id="demo-simple-select"
-                value={name}
-                label="Age"
-                onChange={handleChangeName}
+                native
+                value={schedule.DutyID}
+                onChange={handleChange}
+                inputProps={{
+                  name: "DutyID",
+                }}
               >
-                <MenuItem value={"Tanaphat"}>Tanaphat</MenuItem>
-                <MenuItem value={"Nopakan"}>Nopakan</MenuItem>
-                <MenuItem value={"Kantaya"}>Kantaya</MenuItem>
+                <option aria-label="None" value="">
+                  กรุณาเลือกหน้าที่รับผิดชอบ
+                </option>
+                {duty.map((item: DutyInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.Name}
+                  </option>
+                ))}
               </Select>
             </FormControl>
           </Grid>
@@ -129,49 +190,49 @@ function ScheduleCreate() {
           <Grid item xs={5} margin={2} container spacing={1}>
             <p>เวลา</p>
             <FormControl fullWidth variant="outlined">
-              {/* <Select native disabled value={foodSickness.NutritionistID}>
-            <option aria-label="None" value="">
-              {nutritionists?.Name}
-            </option>
-          </Select> */}
-              <InputLabel id="Name">กรุณาระบุชื่อ</InputLabel>
               <Select
-                labelId="Name"
-                id="demo-simple-select"
-                value={name}
-                label="Age"
-                onChange={handleChangeName}
+                native
+                value={schedule.TimeID}
+                onChange={handleChange}
+                inputProps={{
+                  name: "TimeID",
+                }}
               >
-                <MenuItem value={"Tanaphat"}>Tanaphat</MenuItem>
-                <MenuItem value={"Nopakan"}>Nopakan</MenuItem>
-                <MenuItem value={"Kantaya"}>Kantaya</MenuItem>
+                <option aria-label="None" value="">
+                  กรุณาระบุเวลา
+                </option>
+                {time.map((item: TimeInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.Range}
+                  </option>
+                ))}
               </Select>
             </FormControl>
           </Grid>
 
           {/* สถานที่ */}
-          <Grid item xs={5} margin={2} container spacing={1}>
+          {/* <Grid item xs={5} margin={2} container spacing={1}>
             <p>สถานที่</p>
             <FormControl fullWidth variant="outlined">
-              {/* <Select native disabled value={foodSickness.NutritionistID}>
-            <option aria-label="None" value="">
-              {nutritionists?.Name}
-            </option>
-          </Select> */}
-              <InputLabel id="Name">กรุณาระบุชื่อ</InputLabel>
               <Select
-                labelId="Name"
-                id="demo-simple-select"
-                value={name}
-                label="Age"
-                onChange={handleChangeName}
+                native
+                value={employee.GenderID}
+                onChange={handleChange}
+                inputProps={{
+                  name: "GenderID",
+                }}
               >
-                <MenuItem value={"Tanaphat"}>Tanaphat</MenuItem>
-                <MenuItem value={"Nopakan"}>Nopakan</MenuItem>
-                <MenuItem value={"Kantaya"}>Kantaya</MenuItem>
+                <option aria-label="None" value="">
+                  กรุณาระบุเพศ
+                </option>
+                {gender.map((item: GenderInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.Gtype}
+                  </option>
+                ))}
               </Select>
             </FormControl>
-          </Grid>
+          </Grid> */}
 
           {/* วัน */}
           {/* npm install @mui/x-date-pickers */}
@@ -190,9 +251,12 @@ function ScheduleCreate() {
               </FormControl>
             </LocalizationProvider>
           </Grid>
+
           {/* ปุ่ม */}
           <Grid item xs={5} margin={2}>
             <Button
+              component={RouterLink}
+              to="/"
               variant="contained"
               size="large"
               style={{ height: "42px", width: "100px" }}
@@ -205,6 +269,7 @@ function ScheduleCreate() {
               variant="contained"
               color="success"
               size="large"
+              //onClick={submit}
               style={{ float: "right", height: "42px", width: "95px" }}
             >
               Submit

@@ -4,27 +4,27 @@ import { TimeInterface } from "./ITime";
 import { DutyInterface } from "./IDuty";
 
 export interface ScheduleInterface{
-    ID: number,
+    ID?: number,
     
-	EmployeeID: number,
-	Employee:   EmployeeInterface, 
+	EmployeeID?: number,
+	Employee?:   EmployeeInterface, 
 
-	RoleID: number,
-	Role: RoleInterface,
+	RoleID?: number,
+	Role?: RoleInterface,
 
 	
-	DutyID: number,
-	Duty:   DutyInterface,
+	DutyID?: number,
+	Duty?:   DutyInterface,
 
 	// OcdID: number,
 	// Ocd:    OcdInterface,
 
-	TimeID: number,
-	Time:   TimeInterface, 
+	TimeID?: number,
+	Time?:   TimeInterface, 
 
 	
 	// PlaceInfolistID: number,
 	// PlaceInfolist:   PlaceInfolistInterface,
 	
-    Record_Time: Date,
+    Record_Time?: Date,
 }

@@ -196,7 +196,7 @@ func SetupDatabase() {
 	//ระบบตารางงาน
 	// --Time--
 	q1 := Time{
-		Range: "8:00 - 10:00",
+		Range: "08:00 - 10:00",
 	}
 	db.Model(&Time{}).Create(&q1)
 
@@ -211,7 +211,7 @@ func SetupDatabase() {
 	db.Model(&Time{}).Create(&q3)
 
 	q4 := Time{
-		Range: "8:00 - 10:00",
+		Range: "15:00 - 17:00",
 	}
 	db.Model(&Time{}).Create(&q4)
 

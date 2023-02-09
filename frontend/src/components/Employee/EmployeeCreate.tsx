@@ -20,7 +20,6 @@ import { create } from "@mui/material/styles/createTransitions";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-
 import { EmployeeInterface } from "../../models/IEmployee";
 import { GenderInterface } from "../../models/IGender";
 import { RoleInterface } from "../../models/IRole";
@@ -53,11 +52,12 @@ import {
 //--------------ระบบพนักงาน ------------------------------
 function EmployeeCreate() {
   // const classes = makeStyles();
-  const [name, setName] = useState("");
   const [error, setError] = React.useState(false);
   const [date, setDate] = useState<Date | null>(null);
   const [message, setAlertMessage] = React.useState("");
   const [success, setSuccess] = React.useState(false);
+  
+  //const [name, setName] = useState("");
   const [role, setRole] = React.useState<RoleInterface[]>([]);
   const [gender, setGender] = React.useState<GenderInterface[]>([]);
   const [education, setEducation] = React.useState<EducationInterface[]>([]);

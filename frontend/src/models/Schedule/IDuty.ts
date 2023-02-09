@@ -1,4 +1,4 @@
 export interface DutyInterface{
-    ID: number,
-    Name: string,
+    ID?: number,
+    Name?: string,
 }
