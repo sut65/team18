@@ -344,14 +344,6 @@ function MemberCreate() {
 
                 value={member.Email || ""}
                 
-                // InputProps={{
-                //   startAdornment: (
-                //     <InputAdornment position="start">
-                //       <AccountCircle />
-                //     </InputAdornment>
-                //   ),
-                // }}
-
                 onChange={handleInputChange}
 
               />
