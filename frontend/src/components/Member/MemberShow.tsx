@@ -177,7 +177,7 @@ function MemberShow() {
                         <TableCell align="center">{moment(item.Bdate).format("DD/MM/YYYY")}</TableCell>
 						            <TableCell align="center">{item.Age}</TableCell>
 						            <TableCell align="center">{item.Gender?.Gtype}</TableCell>
-                        <TableCell align="center">{item.Typem?.Ttypem}</TableCell>
+                        <TableCell align="center">{item.Typem?.Ttype}</TableCell>
                         <TableCell align="center">{item.Evidence?.Etype}</TableCell>
                       </TableRow>
                     ))}

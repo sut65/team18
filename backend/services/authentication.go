@@ -22,10 +22,9 @@ type JwtClaims struct {
 	jwt.StandardClaims
 }
 
-func (j *JwtWrapper) GenerateToken(userID uint, roleName string) (signedToken string, err error) {
+func (j *JwtWrapper) GenerateToken(userID uint) (signedToken string, err error) {
 
 	claims := &JwtClaims{
-		Role_name:  roleName,
 		User_id:    userID,
 		Authorized: true,
 		StandardClaims: jwt.StandardClaims{
