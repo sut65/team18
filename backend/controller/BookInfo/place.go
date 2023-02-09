@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-// POST /Place
+// POST /place
 func CreatePlace(c *gin.Context) {
 	var place entity.Place
 	if err := c.ShouldBindJSON(&place); err != nil {
@@ -23,7 +23,7 @@ func CreatePlace(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": place})
 }
 
-// GET /Place/:id
+// GET /place/:id
 func GetPlace(c *gin.Context) {
 	var place entity.Place
 	id := c.Param("id")
@@ -35,7 +35,7 @@ func GetPlace(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": place})
 }
 
-// List /Place
+// List /place
 func ListPlace(c *gin.Context) {
 	var place []entity.Place
 	if err := entity.DB().Raw("SELECT * FROM place").Scan(&place).Error; err != nil {

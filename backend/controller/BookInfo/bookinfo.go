@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-// POST /PlaceInfo
+// POST /bookInfolist
 func CreateBookInfoList(c *gin.Context) {
 
 	var member entity.Member
@@ -66,7 +66,7 @@ func CreateBookInfoList(c *gin.Context) {
 func GetBookInfoList(c *gin.Context) {
 	var bookinfolist entity.BookInfolist
 	id := c.Param("id")
-	if err := entity.DB().Preload("Member").Preload("Service").Preload("Place").Preload("Timeperiod").Raw("SELECT * FROM bookinfo_list WHERE id = ?", id).Find(&bookinfolist).Error; err != nil {
+	if err := entity.DB().Preload("Member").Preload("Service").Preload("Place").Preload("Timeperiod").Raw("SELECT * FROM bookinfo_lists WHERE id = ?", id).Find(&bookinfolist).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -76,7 +76,7 @@ func GetBookInfoList(c *gin.Context) {
 // LIST /bookinfolist
 func ListBookInfoList(c *gin.Context) {
 	var bookinfolist []entity.BookInfolist
-	if err := entity.DB().Preload("Member").Preload("Service").Preload("Place").Preload("Timeperiod").Raw("SELECT * FROM bookinfo_list").Find(&bookinfolist).Error; err != nil {
+	if err := entity.DB().Preload("Member").Preload("Service").Preload("Place").Preload("Timeperiod").Raw("SELECT * FROM bookinfo_lists").Find(&bookinfolist).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -87,7 +87,7 @@ func ListBookInfoList(c *gin.Context) {
 // DELETE /bookinfolist/:id
 func DeleteBookInfoList(c *gin.Context) {
 	id := c.Param("id")
-	if tx := entity.DB().Exec("DELETE FROM bookinfo_list WHERE id = ?", id); tx.RowsAffected == 0 {
+	if tx := entity.DB().Exec("DELETE FROM bookinfo_lists WHERE id = ?", id); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "list not found"})
 		return
 	}
@@ -95,7 +95,7 @@ func DeleteBookInfoList(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": id})
 }
 
-// PATCH /explist
+// PATCH /bookinfolist
 func UpdateBookInfoList(c *gin.Context) {
 	var bookinfolist entity.BookInfolist
 	if err := c.ShouldBindJSON(&bookinfolist); err != nil {

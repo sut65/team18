@@ -7,6 +7,7 @@ import logo3 from './../../image/logo3.png';
 import { SigninInterface } from "../../models/ISignin";
 
 export default function Signin() {
+    
     const [success, setSuccess] = React.useState<boolean>(false)
     const [error, setError] = React.useState<boolean>(false)
 
@@ -21,10 +22,10 @@ export default function Signin() {
         setError(false);
     };
 
-    async function signUp() {
-        localStorage.setItem("token", "ppppppppppp");
-        window.location.reload();
-    }
+    // async function signUp() {
+    //     localStorage.setItem("token", "ppppppppppp");
+    //     window.location.reload();
+    // }
     //function change state handle when typing 
 
     const handleInputChange = (event: React.ChangeEvent<{ id?: string; value: any }>) => {
@@ -36,24 +37,24 @@ export default function Signin() {
 
     const login = () => {
         const apiUrl = "http://localhost:8080/signin";
-        const requestOptions: any = {
+        const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(signin)
+            body: JSON.stringify(signin),
         }
 
         fetch(apiUrl, requestOptions)
-            .then((res) => res.json())
-            .then((res) => {
+          .then((response) => response.json()) // => return
+          .then((res) => {
+                console.log(res.data)
                 if (res.data) {
                     setSuccess(true);
-                    // console.log(res.data)
-                    localStorage.setItem("token", res.data.Token)
-                    localStorage.setItem("lid", res.data.user_id)
-                    localStorage.setItem("uid", res.data.emp_id)
-                    localStorage.setItem("mid", res.data.member_id)
-                    localStorage.setItem("role", res.data.role_name)
+                    
+                    localStorage.setItem("token",  res.data.Token);
+                    localStorage.setItem("lid",  res.data.user_id);
+                    localStorage.setItem("role",  res.data.role_name);
                     window.location.reload()
+
                 } else {
                     setError(true)
                 }

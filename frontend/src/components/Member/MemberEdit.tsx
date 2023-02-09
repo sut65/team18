@@ -584,7 +584,7 @@ function MemberCreate() {
                     กรุณาเลือกประเภทของสมาชิก
                   </option>
                 {typem.map((item: TypemInterface) => (
-                  <option value={item.ID}>{item.Ttypem}</option>
+                  <option value={item.ID}>{item.Ttype}</option>
                 ))}
               </Select>
             </FormControl>

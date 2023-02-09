@@ -2,6 +2,6 @@ export interface TypemInterface {
 
     ID?: number;
     
-    Ttypem?: string;
+    Ttype?: string;
     Tpay?: number;
    }
