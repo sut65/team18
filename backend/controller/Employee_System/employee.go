@@ -17,6 +17,7 @@ func CreateEmployee(c *gin.Context) { // c รับข้อมูลมาจ�
 	var employee entity.Employee //การประกาศตัวแปรให้เป็นไทป์ที่เราสร้างขึ้นเอง
 	var education entity.Education
 	var role entity.Role
+	var gender entity.Gender
 
 	// ผลลัพธ์ที่ได้จากขั้นตอนที่ 9 จะถูก bind เข้าตัวแปร foodsickeness
 	// c.ShouldBindJSON  คือการผูกข้อมูลที่ได้จากหน้า frontend ให้เข้ากับ structure(โครงสร้าง) ของ backend
@@ -36,6 +37,12 @@ func CreateEmployee(c *gin.Context) { // c รับข้อมูลมาจ�
 	// : ค้นหา role ด้วย id
 	if tx := entity.DB().Where("id = ?", employee.RoleID).First(&role); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "role not found"})
+		return
+	}
+
+	// : ค้นหา gender ด้วย id
+	if tx := entity.DB().Where("id = ?", employee.GenderID).First(&gender); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Gender not found"})
 		return
 	}
 

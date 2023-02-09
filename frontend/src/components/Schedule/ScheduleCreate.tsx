@@ -20,22 +20,7 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { create } from "@mui/material/styles/createTransitions";
 
-// import { createStyles, makeStyles, Theme } from '@mui/styles';
 
-// const useStyles = makeStyles((theme: Theme) =>
-//   createStyles({
-//     .root: {
-//       flexGrow: 1,
-//     },
-//     container: {
-//       marginTop: theme.spacing(2),
-//     },
-//     paper: {
-//       padding: theme.spacing(2),
-//       color: theme.palette.text.secondary,
-//     },
-//   })
-// );
 
 function ScheduleCreate() {
   // const classes = makeStyles();

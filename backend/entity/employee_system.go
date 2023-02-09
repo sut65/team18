@@ -15,7 +15,7 @@ type Education struct {
 }
 type Role struct {
 	gorm.Model
-	Name string
+	Type string
 
 	Employee []Employee `gorm:"foreignKey:RoleID"`
 	Member   []Member   `gorm:"foreignKey:RoleID"`

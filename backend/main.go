@@ -63,15 +63,15 @@ func main() {
 	r.DELETE("/employee/:id", employee.DeleteEmployee)
 
 	// Education Routes
-	r.GET("/education", employee.ListEducations)
-	r.GET("/educations/:id", employee.GetEducation)
+	r.GET("/educations", employee.ListEducations)
+	r.GET("/education/:id", employee.GetEducation)
 	r.POST("/education", employee.CreateEducation)
 	r.PATCH("/edcation", employee.UpdateEducation)
 	r.DELETE("/education/:id", employee.DeleteEducation)
 
 	// Role Routes
 	r.GET("/roles", employee.ListRoles)
-	r.GET("/roles/:id", employee.GetRole)
+	r.GET("/role/:id", employee.GetRole)
 	r.POST("/role", employee.CreateRole)
 	r.PATCH("/role", employee.UpdateRole)
 	r.DELETE("/role/:id", employee.DeleteRole)

@@ -73,7 +73,7 @@ func Signin(c *gin.Context) {
 		ExpirationHour: 24,
 	}
 
-	signedToken, err := jwtWrapper.GenerateToken(user.ID, role.Name)
+	signedToken, err := jwtWrapper.GenerateToken(user.ID, role.Type)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "error signing token"})
 		return
@@ -84,7 +84,7 @@ func Signin(c *gin.Context) {
 		UserID:   user.ID,
 		EmpID:    employee.ID,
 		MemID:    member.ID,
-		RoleName: role.Name,
+		RoleName: role.Type,
 	}
 	fmt.Print(tokenResponse)
 	c.JSON(http.StatusOK, gin.H{"data": tokenResponse})

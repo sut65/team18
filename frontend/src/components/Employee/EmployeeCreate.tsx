@@ -61,11 +61,7 @@ function EmployeeCreate() {
   const [role, setRole] = React.useState<RoleInterface[]>([]);
   const [gender, setGender] = React.useState<GenderInterface[]>([]);
   const [education, setEducation] = React.useState<EducationInterface[]>([]);
-  const [employee, setEmployee] = useState<Partial<EmployeeInterface>>({
-    EducationID: 0,
-    RoleID: 0,
-    GenderID: 0,
-  });
+  const [employee, setEmployee] = useState<Partial<EmployeeInterface>>({});
 
   //--------- รับค่า --------
   const getGender = async () => {
@@ -147,6 +143,12 @@ function EmployeeCreate() {
   
   });
 
+  // แปลงค่า
+  const convertType = (data: string | number | undefined) => {
+    let val = typeof data === "string" ? parseInt(data) : data;
+    return val;
+  };
+
   // Submit
   async function submit() {
     let data = {
@@ -155,9 +157,9 @@ function EmployeeCreate() {
       Email: employee.Email ?? "",
       Password: employee.Password ?? "",
       DOB: new Date(),
-      //GenderID: convertType(employee.GenderID),
-      GenderID:
-        typeof employee.GenderID === "string" ? parseInt(employee.GenderID) : 0,
+      GenderID: convertType(employee.GenderID),
+      // GenderID:
+      //   typeof employee.GenderID === "string" ? parseInt(employee.GenderID) : 0,
       EducationID:
         typeof employee.EducationID === "string"
           ? parseInt(employee.EducationID)

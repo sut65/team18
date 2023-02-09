@@ -91,7 +91,6 @@ async function GetMember() {
   return res;
 }
 
-
 async function CreateMember(data: MemberInterface) {
   const requestOptions = {
     method: "POST",
@@ -135,7 +134,6 @@ async function GetEducation() {
   return res;
 }
 
-
 async function GetRole() {
   const requestOptions = {
     method: "GET",
@@ -144,17 +142,17 @@ async function GetRole() {
       "Content-Type": "application/json",
     },
   };
-  
+
   let res = await fetch(`${apiUrl}/roles`, requestOptions)
-  .then((response) => response.json())
-  .then((res) => {
-    if (res.data) {
-      return res.data;
-    } else {
-      return false;
-    }
-  });
-  
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+
   return res;
 }
 
@@ -186,9 +184,9 @@ async function CreateEmployee(data: EmployeeInterface) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   };
-  
-  let res = await fetch(`${apiUrl}/employees`, requestOptions)
-  .then((response) => response.json())
+
+  let res = await fetch(`${apiUrl}/employee`, requestOptions)
+    .then((response) => response.json())
     .then((res) => {
       if (res.data) {
         return { status: true, message: res.data };
@@ -212,5 +210,9 @@ export {
   GetEmployee,
   GetRole,
   CreateEmployee,
-  
 };
+
+//status 404: เชื่อม url หรือ apiurl ไม่ได้
+//status 400: Bad request การร้องขอผิดพลาด เกิดขึ้นได้หลายกรณี
+//status 204: ได้รับการตอบรับแล้วแต่ยังไม่เสร็จ
+//status 200: status ถูกต้อง ได้รับ req และทำเสร็จแล้ว
