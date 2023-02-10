@@ -30,6 +30,12 @@ const theme = createTheme({
 
 function MenuShow() {
 
+
+    async function wlogin() {
+        localStorage.setItem("login",  "want login");
+    }
+    
+
     return (
         <ThemeProvider theme={theme}>
             <div>
@@ -61,7 +67,7 @@ function MenuShow() {
                             </div>
 
                             <Stack direction="column" spacing={3}>
-                                <Button component={RouterLink} to="/login" variant="outlined" color="secondary" size="large"
+                                <Button component={RouterLink} to="/login" variant="outlined" color="secondary" size="large" onClick={wlogin}
                                     startIcon={<PersonIcon />}>
                                     Sign In
                                 </Button>

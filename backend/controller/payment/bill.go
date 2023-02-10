@@ -61,9 +61,9 @@ func GetBill(c *gin.Context) {
 
 func ListBill(c *gin.Context) {
 
-	var payment []entity.Payment
+	var bill []entity.Bill
 
-	if err := entity.DB().Preload("Status").Raw("SELECT * FROM bills").Find(&payment).Error; err != nil {
+	if err := entity.DB().Preload("Member").Preload("Status").Raw("SELECT * FROM bills").Find(&bill).Error; err != nil {
 
 		//ดึงตารางย่อยมา .preload
 
@@ -73,14 +73,14 @@ func ListBill(c *gin.Context) {
 
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": payment})
+	c.JSON(http.StatusOK, gin.H{"data": bill})
 }
 
 func ListBillByStatus(c *gin.Context) {
 
-	var payment []entity.Payment
+	var bill []entity.Bill
 
-	if err := entity.DB().Preload("Member").Preload("Status").Raw("SELECT * FROM bills where status_id = 2").Find(&payment).Error; err != nil {
+	if err := entity.DB().Preload("Member").Preload("Status").Raw("SELECT * FROM bills where status_id = 2").Find(&bill).Error; err != nil {
 
 		//ดึงตารางย่อยมา .preload
 
@@ -90,33 +90,43 @@ func ListBillByStatus(c *gin.Context) {
 
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": payment})
+	c.JSON(http.StatusOK, gin.H{"data": bill})
 }
 
 //-------------อัพเดรทค่า------------
 func UpdateBill(c *gin.Context) {
 	var bill entity.Bill
-    id := c.Param("id")
+	var bi entity.Bill
+	var member entity.Member
+	var status entity.Status
+
 	if err := c.ShouldBindJSON(&bill); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	if tx := entity.DB().Where("id = ?", bill.ID).First(&bill); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "bill not found"})
+	if tx := entity.DB().Where("id = ?", bill.ID).First(&bi); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "watchvideo not found"})
 		return
 	}
-    
-	if tx := entity.DB().Exec("UPDATE bills SET status_id = 2 where id = ?", id); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "bill not found"})
-		return
-	}
-	
 
-	if err := entity.DB().Save(&bill).Error; err != nil {
+	if tx := entity.DB().Where("id = ?", bill.MemberID).First(&member); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "bill not found"})
+		return
+	}
+
+	if tx := entity.DB().Where("id = ?", bill.StatusID).First(&status); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "bill not found"})
+		return
+	}
+
+	bi.Member = member
+	bi.Status = status
+
+	if err := entity.DB().Save(&bi).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
-	c.JSON(http.StatusOK, gin.H{"data": bill})
+  
+	c.JSON(http.StatusOK, gin.H{"data": bi})
 }

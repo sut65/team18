@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"github.com/asaskevich/govalidator"
 	"github.com/sut65/team18/entity"
 
 	"github.com/gin-gonic/gin"
@@ -19,6 +20,11 @@ func CreatePayment(c *gin.Context) {
 
 	if err := c.ShouldBindJSON(&payment); err != nil {
 
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	if _, err := govalidator.ValidateStruct(payment); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -42,10 +48,10 @@ func CreatePayment(c *gin.Context) {
 	}
 
 	py := entity.Payment{
-		Bill:       bill,               // โยงความสัมพันธ์
+		Bill:           bill,               // โยงความสัมพันธ์
 		PaymentMethod:  method,          // โยงความสัมพันธ์
-		Payee:     payee,             // โยงความสัมพันธ์
-		PayDate: payment.PayDate, // ตั้งค่าฟิลด์ 
+		Payee:          payee,             // โยงความสัมพันธ์
+		PayDate:        payment.PayDate, // ตั้งค่าฟิลด์ 
 	}
 
 	if err := entity.DB().Create(&py).Error; err != nil {
