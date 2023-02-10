@@ -108,7 +108,7 @@ func main() {
 	r.GET("/status", payment.ListStatus)
 	r.GET("/status/:id", payment.GetStatus)
 
-	r.GET("/bill", payment.ListBill)
+	r.GET("/bills", payment.ListBill)
 	r.GET("/billbys", payment.ListBillByStatus)
 	r.GET("/bill/:id", payment.GetBill)
 	r.POST("/bill", payment.CreateBill)
