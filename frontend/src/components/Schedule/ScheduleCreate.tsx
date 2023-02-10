@@ -1,23 +1,25 @@
 import React, { useState , useEffect} from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import Container from "@mui/material/Container";
-import { createTheme, Divider, Grid } from "@mui/material";
-import Typography from "@mui/material/Typography";
-import FormControl from "@mui/material/FormControl";
-import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
-import InputLabel from "@mui/material/InputLabel";
+import Button from "@mui/material/Button";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import Button from "@mui/material/Button";
+import MenuItem from "@mui/material/MenuItem";
+import { Schedule } from "@mui/icons-material";
+import Container from "@mui/material/Container";
+import TextField from "@mui/material/TextField";
+import Snackbar from "@mui/material/Snackbar";
+import InputLabel from "@mui/material/InputLabel";
+import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import FormControl from "@mui/material/FormControl";
+import { createTheme, Divider, Grid } from "@mui/material";
+import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { create } from "@mui/material/styles/createTransitions";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { create } from "@mui/material/styles/createTransitions";
-import { Schedule } from "@mui/icons-material";
 
 import { Link as RouterLink } from "react-router-dom";
 import { ScheduleInterface } from "../../models/Schedule/ISchedule";
@@ -35,16 +37,21 @@ import {
 
 function ScheduleCreate() {
   // const classes = makeStyles();
-
+  
+  const [error, setError] = React.useState(false);
   const [date, setDate] = useState<Date | null>(null);
-  const [schedule, setSchedule] = useState<Partial<ScheduleInterface>>({});
-  //const [schedule, setSchedule] = useState<ScheduleInterface[]>([]);
-
+  const [success, setSuccess] = React.useState(false);
+  const [message, setAlertMessage] = React.useState("");
+  
   
   const [role, setRole] = React.useState<RoleInterface[]>([]);
   const [duty, setDuty] = React.useState<DutyInterface[]>([]);
   const [time, setTime] = React.useState<TimeInterface[]>([]);
-  const [employee, setEmployee] = useState<EmployeeInterface[]>([]);
+  //const [employee, setEmployee] = useState<EmployeeInterface[]>([]);
+  //const [schedule, setSchedule] = useState<ScheduleInterface[]>([]);
+  const [employee, setEmployee] = useState<Partial<EmployeeInterface>>({});
+  const [schedule, setSchedule] = useState<Partial<ScheduleInterface>>({});
+
 
   //--------- รับค่า --------
   const getTime = async () => {
@@ -92,8 +99,52 @@ function ScheduleCreate() {
     });
   };
 
+  //Alert
+  const handleClose = (
+
+    event?: React.SyntheticEvent | Event,
+
+    reason?: string
+
+  ) => {
+
+    if (reason === "clickaway") {
+
+      return;
+
+    }
+
+    setSuccess(false);
+
+    setError(false);
+
+  };
+
+  const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+
+    props,
+  
+    ref
+  
+  ) {
+  
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  
+  });
+
   return (
     <Container maxWidth="md">
+       <Snackbar id="success" open={success} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
+        <Alert onClose={handleClose} severity="success">
+          {message}
+        </Alert>
+      </Snackbar>
+      <Snackbar id="error" open={error} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
+        <Alert onClose={handleClose} severity="error">
+          {message}
+        </Alert>
+      </Snackbar>
+
       <Paper elevation={12}>
         {/* ชื่อระบบ */}
         <Box display="flex">
@@ -120,6 +171,7 @@ function ScheduleCreate() {
             <FormControl fullWidth variant="outlined">
               <Select
                 native
+                //disabled
                 value={schedule.EmployeeID}
                 onChange={handleChange}
                 inputProps={{
@@ -129,11 +181,9 @@ function ScheduleCreate() {
                 <option aria-label="None" value="">
                   กรุณาระบุชื่อ
                 </option>
-                {schedule.map((item: ScheduleInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Name}
+                <option aria-label="None" value="">
+                    {employee?.Name}
                   </option>
-                ))}
               </Select>
             </FormControl>
           </Grid>
@@ -211,28 +261,28 @@ function ScheduleCreate() {
           </Grid>
 
           {/* สถานที่ */}
-          {/* <Grid item xs={5} margin={2} container spacing={1}>
+          <Grid item xs={5} margin={2} container spacing={1}>
             <p>สถานที่</p>
             <FormControl fullWidth variant="outlined">
               <Select
-                native
-                value={employee.GenderID}
-                onChange={handleChange}
-                inputProps={{
-                  name: "GenderID",
-                }}
+                // native
+                // value={employee.GenderID}
+                // onChange={handleChange}
+                // inputProps={{
+                //   name: "GenderID",
+                // }}
               >
-                <option aria-label="None" value="">
+                {/* <option aria-label="None" value="">
                   กรุณาระบุเพศ
                 </option>
                 {gender.map((item: GenderInterface) => (
                   <option value={item.ID} key={item.ID}>
                     {item.Gtype}
                   </option>
-                ))}
+                ))} */}
               </Select>
             </FormControl>
-          </Grid> */}
+          </Grid>
 
           {/* วัน */}
           {/* npm install @mui/x-date-pickers */}

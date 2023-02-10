@@ -110,7 +110,7 @@ function EmployeeCreate() {
     });
   };
 
-  //เปิดปิดตัว Alert
+  //Alert
   const handleClose = (
 
     event?: React.SyntheticEvent | Event,
@@ -179,13 +179,13 @@ function EmployeeCreate() {
 
   return (
     //ยังไม่ใช้ ถ้าจะใช้ใส่ div ไว้ข้างบน <NavbarEmployee />
-    <Container maxWidth="md">
-      <Snackbar id="success" open={success} autoHideDuration={6000} onClose={handleClose}>
+    <Container maxWidth='md'>
+      <Snackbar id="success" open={success} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
         <Alert onClose={handleClose} severity="success">
           {message}
         </Alert>
       </Snackbar>
-      <Snackbar id="error" open={error} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar id="error" open={error} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
         <Alert onClose={handleClose} severity="error">
           {message}
         </Alert>

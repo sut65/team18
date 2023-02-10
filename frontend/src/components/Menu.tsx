@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Box } from "@mui/system";
 import logo3 from "../image/logo3.png"
 import PersonIcon from '@mui/icons-material/Person';
+import BadgeIcon from '@mui/icons-material/Badge';
+import ScheduleIcon from '@mui/icons-material/Schedule';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import { Button, createTheme, Stack, ThemeProvider } from '@mui/material';
 import { Link as RouterLink } from "react-router-dom";
@@ -68,12 +70,12 @@ function MenuShow() {
                                     Sign Up
                                 </Button>
                                 <Button component={RouterLink} to="/EmployeeCreate" variant="outlined" color="secondary" size="large"
-                                    startIcon={<PersonAddAlt1Icon />}>
-                                    Employee
+                                    startIcon={<BadgeIcon />}>
+                                    Test: Employee
                                 </Button>
                                 <Button component={RouterLink} to="/ScheduleCreate" variant="outlined" color="secondary" size="large"
-                                    startIcon={<PersonAddAlt1Icon />}>
-                                    Schedule
+                                    startIcon={<ScheduleIcon />}>
+                                    Test: Schedule
                                 </Button>
                             </Stack>
                         </div>
