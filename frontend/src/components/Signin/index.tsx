@@ -51,7 +51,7 @@ export default function Signin() {
                     setSuccess(true);
                     
                     localStorage.setItem("token",  res.data.Token);
-                    localStorage.setItem("lid",  res.data.user_id);
+                    localStorage.setItem("lid",  JSON.stringify(res.data.user));
                     localStorage.setItem("role",  res.data.role_name);
                     window.location.reload()
 

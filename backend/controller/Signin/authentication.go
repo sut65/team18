@@ -19,14 +19,14 @@ type LoginPayload struct {
 type EmResponse struct {
 	Token    string  
 	UserID   uint   `json:"user_id"`
-	EmpID    entity.Employee   `json:"emp_id"`
+	EmpID    entity.Employee   `json:"user"`
 	RoleName string `json:"role_name"`
 }
 
 type MemberResponse struct {
 	Token    string        
 	UserID       uint      `json:"user_id"`
-	MemID	entity.Member   `json:"member_id"`
+	MemID	entity.Member   `json:"user"`
 	RoleName string        `json:"role_name"`
 }
 
@@ -90,7 +90,7 @@ func Signin(c *gin.Context) {
 			Token:   signedToken,
 			UserID:   user.ID,         
 			MemID:	   member,          
-			RoleName: MemberRole.Type,        
+			RoleName: MemberRole.Name,        
 		}
 		c.JSON(http.StatusOK, gin.H{"data": tokenResponse})
 
@@ -106,7 +106,7 @@ func Signin(c *gin.Context) {
 			Token:      signedToken,
 			EmpID:      em,
 			UserID:     user.ID,
-			RoleName:   AdminRole.Type,
+			RoleName:   AdminRole.Name,
 		}
 		c.JSON(http.StatusOK, gin.H{"data": tokenResponse})
 
@@ -122,7 +122,7 @@ func Signin(c *gin.Context) {
 			Token:      signedToken,
 			EmpID:      em,
 			UserID:     user.ID,
-			RoleName:   StaffRole.Type,
+			RoleName:   StaffRole.Name,
 		}
 		c.JSON(http.StatusOK, gin.H{"data": tokenResponse})
 
@@ -138,7 +138,7 @@ func Signin(c *gin.Context) {
 			Token:      signedToken,
 			EmpID:      em,
 			UserID:     user.ID,
-			RoleName:   TrainerRole.Type,
+			RoleName:   TrainerRole.Name,
 		}
 		c.JSON(http.StatusOK, gin.H{"data": tokenResponse})
 

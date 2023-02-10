@@ -89,22 +89,22 @@ func SetupDatabase() {
 
 	//--Roles--
 	admin := Role{
-		Type: "Admin",
+		Name: "admin",
 	}
 	db.Model(&Role{}).Create(&admin)
 
 	trainer := Role{
-		Type: "Trainer",
+		Name: "trainer",
 	}
 	db.Model(&Role{}).Create(&trainer) //&trainer อ้างอิงว่าอยู่ในตาราง Role
 
 	member := Role{
-		Type: "Member",
+		Name: "member",
 	}
 	db.Model(&Role{}).Create(&member)
 
 	staff := Role{
-		Type: "Staff",
+		Name: "staff",
 	}
 	db.Model(&Role{}).Create(&staff)
 
