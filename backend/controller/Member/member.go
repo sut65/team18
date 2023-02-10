@@ -7,8 +7,12 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/sut65/team18/entity"
+	"golang.org/x/crypto/bcrypt"
 )
-
+func SetupPasswordHash(pwd string) string {
+	var password, _ = bcrypt.GenerateFromPassword([]byte(pwd), 14)
+	return string(password)
+}
 // POST /member
 func CreateMember(c *gin.Context) {
 
@@ -53,6 +57,13 @@ func CreateMember(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Role not found"})
 		return
 	}
+
+
+	createuserlogin := entity.User{
+		Name: member.Email,
+		Password:   SetupPasswordHash(member.Password),
+		Role: role,
+	}
 	//สร้าง ตารางMember
 	md := entity.Member{
 		Name:     member.Name,
@@ -64,6 +75,7 @@ func CreateMember(c *gin.Context) {
 		Evidence: evidence,
 		Gender:   gender,
 		Role:   role,
+		User:   createuserlogin,
 	}
 
 	// ขั้นตอนการ validate

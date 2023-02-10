@@ -115,26 +115,30 @@ func SetupDatabase() {
 	userAdmin := User{
 		Name:     "Admin",
 		Password: string(password),
+		Role: admin,
 	}
 	db.Model(&User{}).Create(&userAdmin)
 
 	userAdmin1 := User{
 		Name:     "Admin1",
 		Password: string(password),
+		Role: admin,
 	}
 	db.Model(&User{}).Create(&userAdmin1)
 
-	// usermember := User{
-	// 	Name:     "Member",
-	// 	Password: string(password),
-	// }
-	// db.Model(&User{}).Create(&usermember)
+	usermember := User{
+		Name:     "Member",
+		Password: string(password),
+		Role: member,
+	}
+	db.Model(&User{}).Create(&usermember)
 
-	// usermember2 := User{
-	// 	Name:     "Member2",
-	// 	Password: string(password),
-	// }
-	// db.Model(&User{}).Create(&usermember2)
+	usermember2 := User{
+		Name:     "Member2",
+		Password: string(password),
+		Role: member,
+	}
+	db.Model(&User{}).Create(&usermember2)
 
 
 	//ระบบพนักงาน
@@ -293,6 +297,7 @@ func SetupDatabase() {
 		Evidence: Student,
 		Typem:    Temporary,
 		Role:      member,
+		User: usermember,
 	})
 	//member data2
 	db.Model(&Member{}).Create(&Member{
@@ -305,6 +310,7 @@ func SetupDatabase() {
 		Evidence: Identification,
 		Typem:    Temporary,
 		Role:      member,
+		User: usermember2,
 
 	})
 

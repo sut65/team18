@@ -197,12 +197,13 @@ function MemberCreate() {
 
       TypemID:typeof member.TypemID === "string" ? parseInt(member.TypemID) : 0,
 
-      EvidencetID:typeof member.EvidenceID === "string" ? parseInt(member.EvidenceID) : 0,
+      EvidenceID:typeof member.EvidenceID === "string" ? parseInt(member.EvidenceID) : 0,
 
       Bdate: Bdate,
-
-   
-
+      User: {
+       Name: member.Email ?? "",
+        Password: member.Password ?? "",
+      }
     };
     let res = await CreateMember(data);
     if (res.status) {
@@ -343,14 +344,6 @@ function MemberCreate() {
 
                 value={member.Email || ""}
                 
-                // InputProps={{
-                //   startAdornment: (
-                //     <InputAdornment position="start">
-                //       <AccountCircle />
-                //     </InputAdornment>
-                //   ),
-                // }}
-
                 onChange={handleInputChange}
 
               />
@@ -496,7 +489,7 @@ function MemberCreate() {
                     กรุณาเลือกประเภทของสมาชิก
                   </option>
                 {typem.map((item: TypemInterface) => (
-                  <option value={item.ID}>{item.Ttypem}</option>
+                  <option value={item.ID}>{item.Ttype}</option>
                 ))}
               </Select>
             </FormControl>
@@ -514,7 +507,7 @@ function MemberCreate() {
                 value={member.EvidenceID}
                 onChange={handleChange}
                 inputProps={{
-                  name: "EvidencetID",
+                  name: "EvidenceID",
                 }}
 
               >

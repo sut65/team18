@@ -34,7 +34,7 @@ async function GetEvidencet() {
     },
   };
 
-  let res = await fetch(`${apiUrl}/evidencets`, requestOptions)
+  let res = await fetch(`${apiUrl}/evidences`, requestOptions)
     .then((response) => response.json())
     .then((res) => {
       if (res.data) {
