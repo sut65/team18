@@ -92,13 +92,14 @@ function PaymentCreate() {
   };
 
   useEffect(() => {
-    const getToken = localStorage.getItem("bills");
+    const getToken = localStorage.getItem("token");
     if (getToken) {
       setBills(JSON.parse(localStorage.getItem("bills") || ""));
     }
     getPayee();
     getMethod();
   }, []);
+  
   console.log(payment)
 
   //-----------------------------------------handle------------------------------
