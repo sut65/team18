@@ -89,22 +89,22 @@ func SetupDatabase() {
 
 	//--Roles--
 	admin := Role{
-		Name: "admin",
+		Type: "Admin",
 	}
 	db.Model(&Role{}).Create(&admin)
 
 	trainer := Role{
-		Name: "trainer",
+		Type: "Trainer",
 	}
 	db.Model(&Role{}).Create(&trainer) //&trainer อ้างอิงว่าอยู่ในตาราง Role
 
 	member := Role{
-		Name: "member",
+		Type: "Member",
 	}
 	db.Model(&Role{}).Create(&member)
 
 	staff := Role{
-		Name: "staff",
+		Type: "Staff",
 	}
 	db.Model(&Role{}).Create(&staff)
 
@@ -157,17 +157,17 @@ func SetupDatabase() {
 	//--Education--//
 
 	hs := Education{
-		Level: "มัธยมศึกษา",
+		Education: "มัธยมศึกษา",
 	}
 	db.Model(&Education{}).Create(&hs)
 
 	baDg := Education{
-		Level: "ปริญญาตรี",
+		Education: "ปริญญาตรี",
 	}
 	db.Model(&Education{}).Create(&baDg)
 
 	maDg := Education{
-		Level: "ปริญญาโท",
+		Education: "ปริญญาโท",
 	}
 	db.Model(&Education{}).Create(&maDg)
 
@@ -200,7 +200,7 @@ func SetupDatabase() {
 	//ระบบตารางงาน
 	// --Time--
 	q1 := Time{
-		Range: "8:00 - 10:00",
+		Range: "08:00 - 10:00",
 	}
 	db.Model(&Time{}).Create(&q1)
 
@@ -215,7 +215,7 @@ func SetupDatabase() {
 	db.Model(&Time{}).Create(&q3)
 
 	q4 := Time{
-		Range: "8:00 - 10:00",
+		Range: "15:00 - 17:00",
 	}
 	db.Model(&Time{}).Create(&q4)
 

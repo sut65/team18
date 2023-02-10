@@ -86,7 +86,7 @@ export default function Navbarx({ open, onClick}: any) {
                     <Button size="large" color="inherit" onClick={handleSignOutClick} variant='outlined'>
                         <Badge color="error">
                             <Typography>
-                                {employee.Name +" "+ employee.Surname}
+                                {employee.Name}
                             </Typography>
                             <ExitToAppIcon />
                         </Badge>

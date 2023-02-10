@@ -63,15 +63,15 @@ func main() {
 	r.DELETE("/employee/:id", employee.DeleteEmployee)
 
 	// Education Routes
-	r.GET("/education", employee.ListEducations)
-	r.GET("/educations/:id", employee.GetEducation)
+	r.GET("/educations", employee.ListEducations)
+	r.GET("/education/:id", employee.GetEducation)
 	r.POST("/education", employee.CreateEducation)
 	r.PATCH("/edcation", employee.UpdateEducation)
 	r.DELETE("/education/:id", employee.DeleteEducation)
 
 	// Role Routes
 	r.GET("/roles", employee.ListRoles)
-	r.GET("/roles/:id", employee.GetRole)
+	r.GET("/role/:id", employee.GetRole)
 	r.POST("/role", employee.CreateRole)
 	r.PATCH("/role", employee.UpdateRole)
 	r.DELETE("/role/:id", employee.DeleteRole)
@@ -84,7 +84,7 @@ func main() {
 	r.DELETE("/schedule/:id", schedule.DeleteSchedule)
 
 	//Duty Routes
-	r.GET("/dutys", schedule.ListDutys)
+	r.GET("/duties", schedule.ListDuties)
 	r.GET("/duty/:id", schedule.GetDuty)
 	r.POST("/duty", schedule.CreateDuty)
 	r.PATCH("/duty", schedule.UpdateDuty)
@@ -150,7 +150,7 @@ func main() {
 	r.DELETE("/news/:id", new.DeleteNews)
 	r.PATCH("/news", new.UpdateNews)
 
-	// BookInfo
+	// // BookInfo
 	r.GET("/bookInfo", bookInfo.ListBookInfoList)
 	r.GET("/bookInfo/:id", bookInfo.GetBookInfoList)
 	r.POST("/bookInfo", bookInfo.CreateBookInfoList)

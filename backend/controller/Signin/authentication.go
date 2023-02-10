@@ -90,7 +90,7 @@ func Signin(c *gin.Context) {
 			Token:   signedToken,
 			UserID:   user.ID,         
 			MemID:	   member,          
-			RoleName: MemberRole.Name,        
+			RoleName: MemberRole.Type,        
 		}
 		c.JSON(http.StatusOK, gin.H{"data": tokenResponse})
 
@@ -106,7 +106,7 @@ func Signin(c *gin.Context) {
 			Token:      signedToken,
 			EmpID:      em,
 			UserID:     user.ID,
-			RoleName:   AdminRole.Name,
+			RoleName:   AdminRole.Type,
 		}
 		c.JSON(http.StatusOK, gin.H{"data": tokenResponse})
 
@@ -122,7 +122,7 @@ func Signin(c *gin.Context) {
 			Token:      signedToken,
 			EmpID:      em,
 			UserID:     user.ID,
-			RoleName:   StaffRole.Name,
+			RoleName:   StaffRole.Type,
 		}
 		c.JSON(http.StatusOK, gin.H{"data": tokenResponse})
 
@@ -138,7 +138,7 @@ func Signin(c *gin.Context) {
 			Token:      signedToken,
 			EmpID:      em,
 			UserID:     user.ID,
-			RoleName:   TrainerRole.Name,
+			RoleName:   TrainerRole.Type,
 		}
 		c.JSON(http.StatusOK, gin.H{"data": tokenResponse})
 

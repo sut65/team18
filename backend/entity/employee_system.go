@@ -9,13 +9,13 @@ import (
 
 type Education struct {
 	gorm.Model
-	Level string
+	Education string
 
 	Employee []Employee `gorm:"foreignKey:EducationID"`
 }
 type Role struct {
 	gorm.Model
-	Name string
+	Type string
 
 	Employee []Employee `gorm:"foreignKey:RoleID"`
 	Member   []Member   `gorm:"foreignKey:RoleID"`
