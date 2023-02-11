@@ -25,7 +25,7 @@ func CreateStretch(c *gin.Context) {
 func GetStretch(c *gin.Context) {
 	var Stretch entity.Stretch
 	id := c.Param("id")
-	if err := entity.DB().Raw("SELECT * FROM stretch WHERE id = ?", id).Scan(&Stretch).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM stretchs WHERE id = ?", id).Scan(&Stretch).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -35,19 +35,19 @@ func GetStretch(c *gin.Context) {
 
 // List /stretch
 func ListStretch(c *gin.Context) {
-	var Stretch []entity.Stretch
-	if err := entity.DB().Raw("SELECT * FROM stretch").Scan(&Stretch).Error; err != nil {
+	var stretchs []entity.Stretch
+	if err := entity.DB().Raw("SELECT * FROM stretches").Scan(&stretchs).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": Stretch})
+	c.JSON(http.StatusOK, gin.H{"data": stretchs})
 }
 
 // DELETE /stretch/:id
 func DeleteStretch(c *gin.Context) {
 	id := c.Param("id")
-	if tx := entity.DB().Exec("DELETE FROM stretch WHERE id = ?", id); tx.RowsAffected == 0 {
+	if tx := entity.DB().Exec("DELETE FROM stretches WHERE id = ?", id); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Stretch not found"})
 		return
 	}

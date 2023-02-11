@@ -25,7 +25,7 @@ func CreateWormUp(c *gin.Context) {
 func GetWormUp(c *gin.Context) {
 	var WormUp entity.WormUp
 	id := c.Param("id")
-	if err := entity.DB().Raw("SELECT * FROM worm_up WHERE id = ?", id).Scan(&WormUp).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM worm_ups WHERE id = ?", id).Scan(&WormUp).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -35,19 +35,19 @@ func GetWormUp(c *gin.Context) {
 
 // List /wormup
 func ListWormUp(c *gin.Context) {
-	var WormUp []entity.WormUp
-	if err := entity.DB().Raw("SELECT * FROM worm_up").Scan(&WormUp).Error; err != nil {
+	var wormups []entity.WormUp
+	if err := entity.DB().Raw("SELECT * FROM worm_ups").Scan(&wormups).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": WormUp})
+	c.JSON(http.StatusOK, gin.H{"data": wormups})
 }
 
 // DELETE /wormup/:id
 func DeleteWormUp(c *gin.Context) {
 	id := c.Param("id")
-	if tx := entity.DB().Exec("DELETE FROM worm_up WHERE id = ?", id); tx.RowsAffected == 0 {
+	if tx := entity.DB().Exec("DELETE FROM wormups WHERE id = ?", id); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "WormUp not found"})
 		return
 	}

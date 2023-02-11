@@ -39,8 +39,13 @@ import { GenderInterface } from "../../models/IGender";
 import { MemberInterface } from "../../models/IMember";
 import { TypemInterface } from "../../models/ITypem";
 import { EvidenceInterface } from "../../models/IEvidencet";
-import { GetGender, GetTypem, GetEvidencet, CreateMember } from "../../services/HttpClientService";
+import { GetGender, GetTypem, GetEvidencet, CreateMember, GetWormUp, GetExercise, GetStretch, CreateExerciseProgram, GetEmployee } from "../../services/HttpClientService";
 import NavbarMember from "../NavbarMember";
+import { WormUpInterface } from "../../models/ExerciseProgram/IWormup";
+import { ExerciseInterface } from "../../models/ExerciseProgram/IExercise";
+import { StretchInterface } from "../../models/ExerciseProgram/IStretch";
+import { ExerciseProgramInterface } from "../../models/ExerciseProgram/IExerciseProgram";
+import { EmployeeInterface } from "../../models/IEmployee";
 
 
 
@@ -78,20 +83,17 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 function ProgramCreate() {
     //Partial คือเลือกค่า แล้ว set ค่าได้เฉพาะตัวได้
 
-    const [member, setMember] = React.useState<Partial<MemberInterface>>({
-      Age:1 ,
-      GenderID:0,
-      TypemID:0,
-      EvidenceID:0,
+    const [program, setProgram] = React.useState<Partial<ExerciseProgramInterface>>({
+      WormUpID:0,
+      EmployeeID:0,
+      StretchID:0,
+      Minute:1,
   
     });
-  const [Bdate, setBdate] = React.useState<Date | null>(null);
-
-  const [gender, setGender] = React.useState<GenderInterface[]>([]);
-
-  const [typem, setTypem] = React.useState<TypemInterface[]>([]);
-
-  const [evidencet, setEvidencet] = React.useState<EvidenceInterface[]>([]);
+  const [wormup, setWormup] = React.useState<WormUpInterface[]>([]);
+  const [exercise, setExercise] = React.useState<ExerciseInterface[]>([]);
+  const [stretch, setStretch] = React.useState<StretchInterface[]>([]);
+  const [employee, setEmployee] = React.useState<EmployeeInterface[]>([]);
 
   const [success, setSuccess] = React.useState(false);
 
@@ -99,42 +101,49 @@ function ProgramCreate() {
 
   const [message, setAlertMessage] = React.useState("");
 
-  const getGender = async () => {
-    let res = await GetGender();
+  const getWormUp = async () => {
+    let res = await GetWormUp();
     if (res) {
-      setGender(res);
+      setWormup(res);
     }
   };
 
-  const getTypem = async () => {
-    let res = await GetTypem();
+  const getExercise = async () => {
+    let res = await GetExercise();
     if (res) {
-      setTypem(res);
+      setExercise(res);
     }
   };
 
-  const getEvidencet = async () => {
-    let res = await GetEvidencet();
+  const getStretch = async () => {
+    let res = await GetStretch();
     if (res) {
-      setEvidencet(res);
+      setStretch(res);
+    }
+  };
+  const getEmployee = async () => {
+    let res = await GetEmployee();
+    if (res) {
+      setEmployee(res);
     }
   };
 
   useEffect(() => {
-    getGender();
-    getTypem();
-    getEvidencet();
+    getWormUp();
+    getExercise();
+    getStretch();
+    getEmployee();
   }, []);
 
-  console.log(member);
+  console.log(program);
 
 
   const handleInputChangenumber = (
     event: React.ChangeEvent<{ id?: string; value: any }>
   ) => {
-    const id = event.target.id as keyof typeof member;
+    const id = event.target.id as keyof typeof program;
     const { value } = event.target;
-    setMember({ ...member, [id]: value  === "" ? "" : Number(value)  });
+    setProgram({ ...program, [id]: value  === "" ? "" : Number(value)  });
   };
 
   
@@ -142,9 +151,9 @@ function ProgramCreate() {
   const handleChange = (
     event: SelectChangeEvent<number>
   ) => {
-    const name = event.target.name as keyof typeof member;
-    setMember({
-      ...member,
+    const name = event.target.name as keyof typeof program;
+    setProgram({
+      ...program,
       [name]: event.target.value,
     });
   };
@@ -181,31 +190,20 @@ function ProgramCreate() {
 
     const { value } = event.target;
 
-    setMember({ ...member, [id]: value });
+    setProgram({ ...program, [id]: value });
 
   };
 
   async function submit() {
       let data = {
-
-      Name: member.Name ?? "",
-      Email: member.Email ?? "",
-      Password: member.Password ?? "",
-      Age: member.Age ?? 0,
-
-      GenderID:typeof member.GenderID === "string" ? parseInt(member.GenderID) : 0,
-
-      TypemID:typeof member.TypemID === "string" ? parseInt(member.TypemID) : 0,
-
-      EvidenceID:typeof member.EvidenceID === "string" ? parseInt(member.EvidenceID) : 0,
-
-      Bdate: Bdate,
-      User: {
-       Name: member.Email ?? "",
-        Password: member.Password ?? "",
-      }
+        ProgramName:  program.ProgramName ?? "",
+        EmployeeID:typeof program.EmployeeID === "string" ? parseInt(program.EmployeeID) : 0,
+        WormUpID:typeof program.WormUpID === "string" ? parseInt(program.WormUpID) : 0,
+        ExerciseID:typeof program.ExerciseID === "string" ? parseInt(program.ExerciseID) : 0,
+        StretchID:typeof program.StretchID === "string" ? parseInt(program.StretchID) : 0,
+        Minute: program.Minute ?? 0
     };
-    let res = await CreateMember(data);
+    let res = await CreateExerciseProgram(data);
     if (res.status) {
       setAlertMessage("บันทึกข้อมูลสำเร็จ");
       setSuccess(true);
@@ -261,11 +259,11 @@ function ProgramCreate() {
           <p>ชื่อโปรแกรม</p>
           <FormControl fullWidth variant="outlined">
             <TextField
-              id="Name"
+              id="ProgramName"
               variant="outlined"
               type="string"
               size="medium"
-              value={member.Name || ""}
+              value={program.ProgramName || ""}
               onChange={handleInputChange}
             />
           </FormControl>
@@ -275,17 +273,17 @@ function ProgramCreate() {
           <FormControl fullWidth variant="outlined">
             <Select
               native
-              value={member.GenderID}
+              value={program.WormUpID}
               onChange={handleChange}
               inputProps={{
-              name: "GenderID",
+              name: "WormUpID",
               }}
             >
               <option aria-label="None" value="">
                 ระบุเซ็ต
               </option>
-                {gender.map((item: GenderInterface) => (
-                  <option value={item.ID}>{item.Gtype}</option>
+                {wormup.map((item: WormUpInterface) => (
+                  <option value={item.ID}>{item.SetName}</option>
                 ))}
               </Select>
             </FormControl>
@@ -295,17 +293,17 @@ function ProgramCreate() {
           <FormControl fullWidth variant="outlined">
             <Select
               native
-              value={member.GenderID}
+              value={program.ExerciseID}
               onChange={handleChange}
               inputProps={{
-              name: "GenderID",
+              name: "ExerciseID",
               }}
             >
               <option aria-label="None" value="">
                 ระบุเซ็ต
               </option>
-                {gender.map((item: GenderInterface) => (
-                  <option value={item.ID}>{item.Gtype}</option>
+                {exercise.map((item: ExerciseInterface) => (
+                  <option value={item.ID}>{item.SetName}</option>
                 ))}
               </Select>
             </FormControl>
@@ -315,17 +313,17 @@ function ProgramCreate() {
           <FormControl fullWidth variant="outlined">
             <Select
               native
-              value={member.GenderID}
+              value={program.StretchID}
               onChange={handleChange}
               inputProps={{
-              name: "GenderID",
+              name: "StretchID",
               }}
             >
               <option aria-label="None" value="">
                 ระบุเซ็ต
               </option>
-                {gender.map((item: GenderInterface) => (
-                  <option value={item.ID}>{item.Gtype}</option>
+                {stretch.map((item: StretchInterface) => (
+                  <option value={item.ID}>{item.SetName}</option>
                 ))}
               </Select>
             </FormControl>
@@ -334,7 +332,7 @@ function ProgramCreate() {
                 <FormControl fullWidth variant="outlined">
                   <p>กำหนดเวลา</p>
                   <TextField
-                    id="Age"
+                    id="Minute"
                     variant="outlined"
                     type="number"
                     size="medium"
@@ -342,7 +340,7 @@ function ProgramCreate() {
                     InputLabelProps={{
                       shrink: true,
                     }}
-                    value={member?.Age}
+                    value={program?.Minute}
                     onChange={handleInputChangenumber}
                   />
                 </FormControl>
@@ -352,17 +350,17 @@ function ProgramCreate() {
           <FormControl fullWidth variant="outlined">
             <Select
               native
-              value={member.GenderID}
+              value={program.EmployeeID}
               onChange={handleChange}
               inputProps={{
-              name: "GenderID",
+              name: "EmployeeID",
               }}
             >
               <option aria-label="None" value="">
                 ระบุเทรนเนอร์
               </option>
-                {gender.map((item: GenderInterface) => (
-                  <option value={item.ID}>{item.Gtype}</option>
+                {employee.map((item: EmployeeInterface) => (
+                  <option value={item.ID}>{item.Name}</option>
                 ))}
               </Select>
             </FormControl>
