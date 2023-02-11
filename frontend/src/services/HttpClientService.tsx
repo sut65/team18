@@ -1,5 +1,6 @@
 import { MemberInterface } from "../models/IMember";
 import { EmployeeInterface } from "../models/IEmployee";
+import { ExerciseProgramInterface } from "../models/ExerciseProgram/IExerciseProgram";
 
 const apiUrl = "http://localhost:8080";
 
@@ -285,6 +286,92 @@ async function CreateSchedule(data: EmployeeInterface) {
   return res;
 }
 
+//////////////// Exercise Program System ////////////////
+async function GetWormUp() {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      // Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  let res = await fetch(`${apiUrl}/wormups`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+
+async function GetExercise() {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      // Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  let res = await fetch(`${apiUrl}/exercises`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+
+async function GetStretch() {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      // Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  let res = await fetch(`${apiUrl}/stretchs`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+
+async function CreateExerciseProgram(data: ExerciseProgramInterface) {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/exerciseprogram`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return { status: true, message: res.data };
+      } else {
+        return { status: false, message: res.error };
+      }
+    });
+
+  return res;
+}
 export {
   GetTypem,
   GetMember,
@@ -303,6 +390,12 @@ export {
   GetTime,
   GetSchedule,
   CreateSchedule,
+
+  //ExerciseProgram
+  GetWormUp,
+  GetExercise,
+  GetStretch,
+  CreateExerciseProgram
 
 };
 

@@ -25,7 +25,7 @@ func CreateExercise(c *gin.Context) {
 func GetExercise(c *gin.Context) {
 	var Exercise entity.Exercise
 	id := c.Param("id")
-	if err := entity.DB().Raw("SELECT * FROM exercise WHERE id = ?", id).Scan(&Exercise).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM exercises WHERE id = ?", id).Scan(&Exercise).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -35,19 +35,19 @@ func GetExercise(c *gin.Context) {
 
 // List /exercise
 func ListExercise(c *gin.Context) {
-	var Exercise []entity.Exercise
-	if err := entity.DB().Raw("SELECT * FROM exercise").Scan(&Exercise).Error; err != nil {
+	var exercises []entity.Exercise
+	if err := entity.DB().Raw("SELECT * FROM exercises").Scan(&exercises).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": Exercise})
+	c.JSON(http.StatusOK, gin.H{"data": exercises})
 }
 
 // DELETE /exercise/:id
 func DeleteExercise(c *gin.Context) {
 	id := c.Param("id")
-	if tx := entity.DB().Exec("DELETE FROM exercise WHERE id = ?", id); tx.RowsAffected == 0 {
+	if tx := entity.DB().Exec("DELETE FROM exercises WHERE id = ?", id); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Exercise not found"})
 		return
 	}
