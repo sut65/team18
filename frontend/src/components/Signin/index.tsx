@@ -53,6 +53,7 @@ export default function Signin() {
                     localStorage.setItem("token",  res.data.Token);
                     localStorage.setItem("lid",  JSON.stringify(res.data.user));
                     localStorage.setItem("role",  res.data.role_name);
+                    localStorage.setItem("uid",  res.data.user_id); //เก็บเพื่อดึงuser id 
                     window.location.reload()
 
                 } else {
@@ -63,6 +64,8 @@ export default function Signin() {
     async function wlogin() {
         localStorage.setItem("login",  "want login");
     }
+
+    
 
     return (
         <Box sx={{ display: "flex" }}>

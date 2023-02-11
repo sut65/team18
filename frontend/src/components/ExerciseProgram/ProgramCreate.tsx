@@ -39,7 +39,7 @@ import { GenderInterface } from "../../models/IGender";
 import { MemberInterface } from "../../models/IMember";
 import { TypemInterface } from "../../models/ITypem";
 import { EvidenceInterface } from "../../models/IEvidencet";
-import { GetGender, GetTypem, GetEvidencet, CreateMember, GetWormUp, GetExercise, GetStretch, CreateExerciseProgram, GetEmployee } from "../../services/HttpClientService";
+import { GetGender, GetTypem, GetEvidence, CreateMember, GetWormUp, GetExercise, GetStretch, CreateExerciseProgram, GetEmployee } from "../../services/HttpClientService";
 import NavbarMember from "../NavbarMember";
 import { WormUpInterface } from "../../models/ExerciseProgram/IWormup";
 import { ExerciseInterface } from "../../models/ExerciseProgram/IExercise";

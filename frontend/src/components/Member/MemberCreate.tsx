@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import {Link as RouterLink} from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 
 import TextField from "@mui/material/TextField";
 
@@ -32,34 +32,35 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
-import { InputAdornment, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import { InputAdornment, MenuItem, Select, SelectChangeEvent, Stack } from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
 
 import { GenderInterface } from "../../models/IGender";
 import { MemberInterface } from "../../models/IMember";
 import { TypemInterface } from "../../models/ITypem";
 import { EvidenceInterface } from "../../models/IEvidencet";
-import { GetGender, GetTypem, GetEvidencet, CreateMember } from "../../services/HttpClientService";
-import NavbarMember from "../NavbarMember";
+import { GetGender, GetTypem, CreateMember, GetEvidence } from "../../services/HttpClientService";
+import LoginIcon from '@mui/icons-material/Login';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 
 
 
 const theme = createTheme({
-	palette: {
-	  primary: {
-		main: "#FEAC3F",
-	  },
-	  secondary: {
-		main: "#ffebee"
-	  },
-	  text: {
-		primary: "#1B2420",
-		secondary: "#1B2420"
-	  }
-	},
-	
-  })
+  palette: {
+    primary: {
+      main: "#FEAC3F",
+    },
+    secondary: {
+      main: "#ffebee"
+    },
+    text: {
+      primary: "#1B2420",
+      secondary: "#1B2420"
+    }
+  },
+
+})
 
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
@@ -76,22 +77,22 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 
 function MemberCreate() {
-    //Partial คือเลือกค่า แล้ว set ค่าได้เฉพาะตัวได้
+  //Partial คือเลือกค่า แล้ว set ค่าได้เฉพาะตัวได้
 
-    const [member, setMember] = React.useState<Partial<MemberInterface>>({
-      Age:1 ,
-      GenderID:0,
-      TypemID:0,
-      EvidenceID:0,
-  
-    });
+  const [member, setMember] = React.useState<Partial<MemberInterface>>({
+    Age: 1,
+    GenderID: 0,
+    TypemID: 0,
+    EvidenceID: 0,
+
+  });
   const [Bdate, setBdate] = React.useState<Date | null>(null);
 
   const [gender, setGender] = React.useState<GenderInterface[]>([]);
 
   const [typem, setTypem] = React.useState<TypemInterface[]>([]);
 
-  const [evidencet, setEvidencet] = React.useState<EvidenceInterface[]>([]);
+  const [evidence, setEvidence] = React.useState<EvidenceInterface[]>([]);
 
   const [success, setSuccess] = React.useState(false);
 
@@ -113,17 +114,17 @@ function MemberCreate() {
     }
   };
 
-  const getEvidencet = async () => {
-    let res = await GetEvidencet();
+  const getEvidence = async () => {
+    let res = await GetEvidence();
     if (res) {
-      setEvidencet(res);
+      setEvidence(res);
     }
   };
 
   useEffect(() => {
     getGender();
     getTypem();
-    getEvidencet();
+    getEvidence();
   }, []);
 
   console.log(member);
@@ -134,10 +135,10 @@ function MemberCreate() {
   ) => {
     const id = event.target.id as keyof typeof member;
     const { value } = event.target;
-    setMember({ ...member, [id]: value  === "" ? "" : Number(value)  });
+    setMember({ ...member, [id]: value === "" ? "" : Number(value) });
   };
 
-  
+
   // combobox
   const handleChange = (
     event: SelectChangeEvent<number>
@@ -174,7 +175,7 @@ function MemberCreate() {
   const handleInputChange = (
 
     event: React.ChangeEvent<{ id?: string; value: any }>
- 
+
   ) => {
 
     const id = event.target.id as keyof typeof MemberCreate;
@@ -186,22 +187,22 @@ function MemberCreate() {
   };
 
   async function submit() {
-      let data = {
+    let data = {
 
       Name: member.Name ?? "",
       Email: member.Email ?? "",
       Password: member.Password ?? "",
       Age: member.Age ?? 0,
 
-      GenderID:typeof member.GenderID === "string" ? parseInt(member.GenderID) : 0,
+      GenderID: typeof member.GenderID === "string" ? parseInt(member.GenderID) : 0,
 
-      TypemID:typeof member.TypemID === "string" ? parseInt(member.TypemID) : 0,
+      TypemID: typeof member.TypemID === "string" ? parseInt(member.TypemID) : 0,
 
-      EvidenceID:typeof member.EvidenceID === "string" ? parseInt(member.EvidenceID) : 0,
+      EvidenceID: typeof member.EvidenceID === "string" ? parseInt(member.EvidenceID) : 0,
 
       Bdate: Bdate,
       User: {
-       Name: member.Email ?? "",
+        Name: member.Email ?? "",
         Password: member.Password ?? "",
       }
     };
@@ -214,98 +215,92 @@ function MemberCreate() {
       setError(true);
     }
   }
-  
+
 
   return (
 
     <div>
-      
-    {/* <NavbarMember /> */}
 
-    <Container maxWidth="md">
+      <Container maxWidth="md">
 
-      <Snackbar
-        id="success"
+        <Snackbar id="success" open={success} autoHideDuration={6000} onClose={handleClose}
 
-        open={success}
-
-        autoHideDuration={6000}
-
-        onClose={handleClose}
-
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-
-      >
-
-        <Alert onClose={handleClose} severity="success">
-
-        {message}
-
-        </Alert>
-
-      </Snackbar>
-
-      <Snackbar  id="error" open={error} autoHideDuration={6000} onClose={handleClose}>
-
-        <Alert onClose={handleClose} severity="error">
-
-          {message}
-
-        </Alert>
-
-      </Snackbar>
-
-      <Paper>
-
-        <Box
-
-          display="flex"
-
-          sx={{
-
-            marginTop: 2,
-
-          }}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
 
         >
 
-          <Box sx={{ paddingX: 35, paddingY: 1 }}>
+          <Alert onClose={handleClose} severity="success">
+            {message}
+            <Stack direction="column" spacing={2}>
+              กรุณาloginเข้าสู่ระบบ
+            </Stack>
+            <Stack direction="column" spacing={2}>
+              <Button component={RouterLink} to="/login" variant="outlined" color="inherit" >
+                <LoginIcon color="inherit" />
+              </Button>
+            </Stack>
+          </Alert>
+
+        </Snackbar>
+
+        <Snackbar id="error" open={error} autoHideDuration={6000} onClose={handleClose}>
+
+          <Alert onClose={handleClose} severity="error">
+
+            {message}
+
+          </Alert>
+
+        </Snackbar>
+
+        <Paper>
+
+          <Box
+
+            display="flex"
+
+            sx={{
+
+              marginTop: -10,
+
+            }}
+
+          >
             <ThemeProvider theme={theme}>
-              <Typography
+              <Box sx={{ backgroundColor: "#FEAC3F", paddingX: 41.4, paddingY: 2 }} >
+                <Typography
 
-                component="h2"
+                  component="h2"
 
-                variant="h6"
+                  variant="h6"
 
-                color="primary"
+                  color="secondary"
 
-                gutterBottom
+                  gutterBottom
 
-              >
+                >
 
-                แบบฟอร์มสมัครสมาชิก
+                  แบบฟอร์มสมัครสมาชิก
 
-              </Typography>
+                </Typography>
+              </Box>
             </ThemeProvider>
+
           </Box>
 
-        </Box>
-
-        <Divider />
-
+          <Divider />
 
           {/* ชื่อ */}
-          <Grid item xs={6} sx={{ padding: 2 }}>
-
+          <Grid item xs={6} sx={{ padding: 2, marginTop: 0, }} >
             <p>ชื่อ-นามสกุล</p>
 
-            <FormControl fullWidth variant="outlined">
+            <FormControl fullWidth variant="outlined" >
 
               <TextField
 
-                id="Name"
+                id="Name" label="ชื่อ-นามสกุล"
 
-                variant="outlined"
+                color="secondary" variant="outlined"
 
                 type="string"
 
@@ -316,17 +311,11 @@ function MemberCreate() {
                 onChange={handleInputChange}
 
               />
-
             </FormControl>
-
           </Grid>
 
-          {/* <Grid item xs={6}></Grid> */}
-
-
-
           {/* อีเมล */}
-          <Grid item xs={6} sx={{ padding: 2 }}>
+          <Grid item xs={6} sx={{ padding: 2, marginTop: -3, }} >
 
             <p>Email</p>
 
@@ -334,7 +323,7 @@ function MemberCreate() {
 
               <TextField
 
-                id="Email"
+                id="Email" label="Email"
 
                 variant="outlined"
 
@@ -343,7 +332,15 @@ function MemberCreate() {
                 size="medium"
 
                 value={member.Email || ""}
-                
+
+                // InputProps={{
+                //   startAdornment: (
+                //     <InputAdornment position="start">
+                //       <AccountCircle />
+                //     </InputAdornment>
+                //   ),
+                // }}
+
                 onChange={handleInputChange}
 
               />
@@ -352,16 +349,9 @@ function MemberCreate() {
 
           </Grid>
 
-          {/* <Grid item xs={6}></Grid> */}
-
-
-
-
-
-
 
           {/* password */}
-          <Grid item xs={6} sx={{ padding: 2 }}>
+          <Grid item xs={6} sx={{ padding: 2, marginTop: -3, }}>
 
             <p>Password</p>
 
@@ -369,7 +359,7 @@ function MemberCreate() {
 
               <TextField
 
-                id="Password"
+                id="Password" label="Password"
 
                 variant="outlined"
 
@@ -387,184 +377,182 @@ function MemberCreate() {
 
           </Grid>
 
+          <Grid container spacing={3} sx={{ padding: 2, marginTop: -7, }}>
+            {/* birth */}
+            <Grid item xs={6} >
 
+              <FormControl fullWidth variant="outlined">
 
-          <Grid container spacing={3} sx={{ padding: 2 }}>
-          {/* birth */}
-          <Grid item xs={6} >
+                <p>วันเกิด</p>
 
-            <FormControl fullWidth variant="outlined">
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
 
-              <p>วันเกิด</p>
+                  <DatePicker
 
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    value={Bdate}
 
-                <DatePicker
+                    onChange={(newValue) => {
 
-                  value={Bdate}
+                      setBdate(newValue);
 
-                  onChange={(newValue) => {
+                    }}
 
-                    setBdate(newValue);
+                    renderInput={(params) => <TextField {...params} />}
 
-                  }}
+                  />
 
-                  renderInput={(params) => <TextField {...params} />}
+                </LocalizationProvider>
 
-                />
+              </FormControl>
 
-              </LocalizationProvider>
-
-            </FormControl>
-
+            </Grid>
           </Grid>
-        </Grid>
 
 
-        <Grid container spacing={3} sx={{ padding: 2 }} >
+          <Grid container spacing={3} sx={{ padding: 2, marginTop: -7, }} >
             {/* เพศ */}
             <Grid item xs={6}>
-            <p>เพศ</p>
+              <p>เพศ</p>
 
-            <FormControl fullWidth variant="outlined">
-              <Select
-              native
-                value={member.GenderID}
-                onChange={handleChange}
-                inputProps={{
-                name: "GenderID",
-                }}
+              <FormControl fullWidth variant="outlined">
+                <Select
+                  native
+                  value={member.GenderID}
+                  onChange={handleChange}
+                  inputProps={{
+                    name: "GenderID",
+                  }}
 
-              >
+                >
                   <option aria-label="None" value="">
                     ระบุเพศ
                   </option>
-                {gender.map((item: GenderInterface) => (
-                  <option value={item.ID}>{item.Gtype}</option>
-                ))}
-              </Select>
-            </FormControl>
+                  {gender.map((item: GenderInterface) => (
+                    <option value={item.ID}>{item.Gtype}</option>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={6} >
+              <FormControl fullWidth variant="outlined">
+                <p>อายุ</p>
+                <TextField
+                  id="Age"
+                  variant="outlined"
+                  type="number"
+                  size="medium"
+                  InputProps={{ name: "MinPrice" }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  value={member?.Age}
+                  onChange={handleInputChangenumber}
+                />
+              </FormControl>
+            </Grid>
           </Grid>
 
-          <Grid item xs={6} >
-                <FormControl fullWidth variant="outlined">
-                  <p>อายุ</p>
-                  <TextField
-                    id="Age"
-                    variant="outlined"
-                    type="number"
-                    size="medium"
-                    InputProps={{ name: "MinPrice"}}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    value={member?.Age}
-                    onChange={handleInputChangenumber}
-                  />
-                </FormControl>
-              </Grid>
-        </Grid>
 
 
 
 
-        
 
-          <Grid container spacing={3} sx={{ padding: 2 }}>
-          {/* ประเภทสมาชิก */}
-          <Grid item xs={6}>
-            <p>ประเภทสมาชิก</p>
+          <Grid container spacing={3} sx={{ padding: 2, marginTop: -7, }}>
+            {/* ประเภทสมาชิก */}
+            <Grid item xs={6}>
+              <p>ประเภทสมาชิก</p>
 
-            <FormControl fullWidth variant="outlined">
-              <Select
-              native
-                value={member.TypemID}
-                onChange={handleChange}
-                inputProps={{
-                  name: "TypemID",
-                }}
+              <FormControl fullWidth variant="outlined">
+                <Select
+                  native
+                  value={member.TypemID}
+                  onChange={handleChange}
+                  inputProps={{
+                    name: "TypemID",
+                  }}
 
-              >
+                >
                   <option aria-label="None" value="">
                     กรุณาเลือกประเภทของสมาชิก
                   </option>
-                {typem.map((item: TypemInterface) => (
-                  <option value={item.ID}>{item.Ttype}</option>
-                ))}
-              </Select>
-            </FormControl>
+                  {typem.map((item: TypemInterface) => (
+                    <option value={item.ID}>{item.Ttype}</option>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+
+
+
+
+            <Grid item xs={6}>
+              <p>หลักฐานที่ยืนตัวตน</p>
+
+              <FormControl fullWidth variant="outlined">
+                <Select
+                  native
+                  value={member.EvidenceID}
+                  onChange={handleChange}
+                  inputProps={{
+                    name: "EvidenceID",
+                  }}
+
+                >
+                  <option aria-label="None" value="">
+                    กรุณาเลือกประเภทหลักฐานที่ยื่น
+                  </option>
+                  {evidence.map((item: EvidenceInterface) => (
+                    <option value={item.ID}>{item.Etype}</option>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+
+
+            <Grid item xs={12}>
+              <ThemeProvider theme={theme}>
+                <Button component={RouterLink} to="/" variant="contained" color="primary">
+                  <Typography color="secondary">
+
+                    Back
+
+                  </Typography>
+                </Button>
+              </ThemeProvider>
+
+              <ThemeProvider theme={theme}>
+                <Button
+
+                  style={{ float: "right" }}
+
+                  onClick={submit}
+
+                  variant="contained"
+
+                  color="primary"
+
+                >
+                  <Typography color="secondary">
+
+                    Submit
+
+                  </Typography>
+                </Button>
+              </ThemeProvider>
+
+            </Grid>
+
           </Grid>
 
+        </Paper>
 
+      </Container >
+      </ div>
 
-
-          <Grid item xs={6}>
-            <p>หลักฐานที่ยืนตัวตน</p>
-
-            <FormControl fullWidth variant="outlined">
-              <Select
-              native
-                value={member.EvidenceID}
-                onChange={handleChange}
-                inputProps={{
-                  name: "EvidenceID",
-                }}
-
-              >
-                <option aria-label="None" value="">
-                  กรุณาเลือกประเภทหลักฐานที่ยื่น
-                </option>
-                {evidencet.map((item: EvidenceInterface) => (
-                  <option value={item.ID}>{item.Etype}</option>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-
-
-          <Grid item xs={12}>
-            <ThemeProvider theme={theme}>
-              <Button component={RouterLink} to="/" variant="contained" color="primary">
-                <Typography color="secondary">
-
-                  Back
-
-                </Typography>
-              </Button>
-            </ThemeProvider>
-
-            <ThemeProvider theme={theme}>
-              <Button
-
-                style={{ float: "right" }}
-
-                onClick={submit}
-
-                variant="contained"
-
-                color="primary"
-
-              >
-                <Typography color="secondary">
-
-                  Submit
-
-                </Typography>
-              </Button>
-            </ThemeProvider>
-
-          </Grid>
-
-        </Grid>
-
-      </Paper>
-
-    </Container>
-    </div>
-
-  );
+      );
 
 }
 
 
-export default MemberCreate;
+      export default MemberCreate;
