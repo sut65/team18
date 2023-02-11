@@ -8,7 +8,7 @@ import (
 
 type Typem struct {
 	gorm.Model
-	Ttype string
+	Ttype string `gorm:"uniqueIndex"`
 	Tpay  int
 	// 1  Ttype เป็น Member ได้หลายครั้ง
 	Member []Member `gorm:"foreignKey:TypemID"`
@@ -16,14 +16,14 @@ type Typem struct {
 
 type Evidence struct {
 	gorm.Model
-	Etype string
+	Etype string `gorm:"uniqueIndex"`
 	// 1 evidence เป็น Member ได้หลายครั้ง
 	Member []Member `gorm:"foreignKey:EvidenceID"`
 }
 
 type Gender struct {
 	gorm.Model
-	Gtype string
+	Gtype string `gorm:"uniqueIndex"`
 	// 1 gender เป็น Member ได้หลายครั้ง
 	Member   []Member   `gorm:"foreignKey:GenderID"`
 	Employee []Employee `gorm:"foreignKey:GenderID"`
@@ -31,7 +31,7 @@ type Gender struct {
 type Member struct {
 	gorm.Model
 	Name     string
-	Email    string
+	Email    string `gorm:"uniqueIndex"`
 	Password string
 	Bdate    time.Time
 	Age      int

@@ -1,14 +1,12 @@
 package controller
 
 import (
-
 	"net/http"
 	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/sut65/team18/entity"
 	"github.com/sut65/team18/services"
-	
 )
 
 type LoginPayload struct {
@@ -17,25 +15,23 @@ type LoginPayload struct {
 }
 
 type EmployeeResponse struct {
-	Token    string  
-	UserID   uint   `json:"user_id"`
-	EmpID    entity.Employee   `json:"user"`
-	RoleName string `json:"role_name"`
+	Token    string
+	UserID   uint            `json:"user_id"`
+	EmpID    entity.Employee `json:"user"`
+	RoleName string          `json:"role_name"`
 }
 
 type MemberResponse struct {
-	Token    string        
-	UserID       uint      `json:"user_id"`
-	MemID	entity.Member   `json:"user"`
+	Token    string
+	UserID   uint          `json:"user_id"`
+	MemID    entity.Member `json:"user"`
 	RoleName string        `json:"role_name"`
 }
-
 
 // POST /signin
 func Signin(c *gin.Context) {
 	var payload LoginPayload
 	var user entity.User
-	
 
 	if err := c.ShouldBindJSON(&payload); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -43,7 +39,7 @@ func Signin(c *gin.Context) {
 	}
 
 	//ค้นหา login ด้วย Username ที่ผู้ใช้กรอกมา
-	if err := entity.DB().Preload("Role").Raw("SELECT * FROM users WHERE name = ?", payload.User).Find(&user).Error; err != nil {
+	if err := entity.DB().Preload("Role").Raw("SELECT * FROM users WHERE name = ? and deleted_at is null", payload.User).Find(&user).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -61,7 +57,6 @@ func Signin(c *gin.Context) {
 		ExpirationHour: 24,
 	}
 
-	
 	var AdminRole entity.Role
 	var MemberRole entity.Role
 	var StaffRole entity.Role
@@ -77,8 +72,7 @@ func Signin(c *gin.Context) {
 		return
 	}
 
-
-	if  user.Role.ID == MemberRole.ID{
+	if user.Role.ID == MemberRole.ID {
 		var member entity.Member
 		if tx := entity.DB().
 			Raw("SELECT * FROM members WHERE user_id = ?", user.ID).Find(&member); tx.RowsAffected == 0 {
@@ -86,64 +80,63 @@ func Signin(c *gin.Context) {
 			return
 		}
 
-		tokenResponse := MemberResponse {
-			Token:   signedToken,
-			UserID:   user.ID,         
-			MemID:	   member,          
-			RoleName: MemberRole.Name,        
+		tokenResponse := MemberResponse{
+			Token:    signedToken,
+			UserID:   user.ID,
+			MemID:    member,
+			RoleName: MemberRole.Name,
 		}
 		c.JSON(http.StatusOK, gin.H{"data": tokenResponse})
 
-	} else if user.Role.ID  ==  AdminRole.ID {
-		
-        var em entity.Employee
+	} else if user.Role.ID == AdminRole.ID {
+
+		var em entity.Employee
 		if tx := entity.DB().
 			Raw("SELECT * FROM employees WHERE user_id = ?", user.ID).Find(&em); tx.RowsAffected == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "admins not found"})
 			return
 		}
 		tokenResponse := EmployeeResponse{
-			Token:      signedToken,
-			EmpID:      em,
-			UserID:     user.ID,
-			RoleName:   AdminRole.Name,
+			Token:    signedToken,
+			EmpID:    em,
+			UserID:   user.ID,
+			RoleName: AdminRole.Name,
 		}
 		c.JSON(http.StatusOK, gin.H{"data": tokenResponse})
 
-	} else if user.Role.ID  ==  StaffRole.ID {
-		
-        var em entity.Employee
+	} else if user.Role.ID == StaffRole.ID {
+
+		var em entity.Employee
 		if tx := entity.DB().
 			Raw("SELECT * FROM employees WHERE user_id = ?", user.ID).Find(&em); tx.RowsAffected == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "admins not found"})
 			return
 		}
 		tokenResponse := EmployeeResponse{
-			Token:      signedToken,
-			EmpID:      em,
-			UserID:     user.ID,
-			RoleName:   StaffRole.Name,
+			Token:    signedToken,
+			EmpID:    em,
+			UserID:   user.ID,
+			RoleName: StaffRole.Name,
 		}
 		c.JSON(http.StatusOK, gin.H{"data": tokenResponse})
 
-	} else if user.Role.ID  ==  TrainerRole.ID {
-		
-        var em entity.Employee
+	} else if user.Role.ID == TrainerRole.ID {
+
+		var em entity.Employee
 		if tx := entity.DB().
 			Raw("SELECT * FROM employees WHERE user_id = ?", user.ID).Find(&em); tx.RowsAffected == 0 {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "admins not found"})
 			return
 		}
 		tokenResponse := EmployeeResponse{
-			Token:      signedToken,
-			EmpID:      em,
-			UserID:     user.ID,
-			RoleName:   TrainerRole.Name,
+			Token:    signedToken,
+			EmpID:    em,
+			UserID:   user.ID,
+			RoleName: TrainerRole.Name,
 		}
 		c.JSON(http.StatusOK, gin.H{"data": tokenResponse})
 
 	}
-	
 
 }
 

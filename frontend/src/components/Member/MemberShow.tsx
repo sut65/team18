@@ -44,9 +44,9 @@ function MemberShow() {
 
       method: "GET",
 
-      headers: { "Content-Type": "application/json" },
+      // headers: { "Content-Type": "application/json" },
 
-      //  headers: { Authorization: `Bearer ${localStorage.getItem("token")}`, "Content-Type": "application/json" },
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}`, "Content-Type": "application/json" },
 
     };
 
@@ -121,7 +121,7 @@ function MemberShow() {
 
                 size="large"
 
-                to="/member_edit"
+                to="/membershows"
 
                 variant="contained"
 

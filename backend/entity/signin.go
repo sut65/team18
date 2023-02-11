@@ -1,13 +1,15 @@
 package entity
+
 import (
 	"gorm.io/gorm"
 )
+
 type User struct {
 	gorm.Model
-	Name		string
-	Password	string
-	RoleID *uint
-	Role   Role 
+	Name     string `gorm:"uniqueIndex"`
+	Password string
+	RoleID   *uint
+	Role     Role
 	Employee []Employee `gorm:"foreignKey:UserID"`
-	Member []Member `gorm:"foreignKey:UserID"`
+	Member   []Member   `gorm:"foreignKey:UserID"`
 }

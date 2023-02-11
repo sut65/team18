@@ -7,7 +7,7 @@ import { Box } from '@mui/system';
 import CssBaseline from '@mui/material/CssBaseline';
 import Signin from './components/Signin';
 import Home from './components/Home';
-import MemberShow from './components/Member/MemberShow';
+
 import MemberCreate from './components/Member/MemberCreate';
 import MemberEdit from './components/Member/MemberEdit';
 import Navbar from './components/Navbar';
@@ -21,6 +21,8 @@ import BillCreate from './components/Payment/billsCreate';
 import PaymentShow from './components/Payment/PaymentShow';
 import ProgramShow from './components/ExerciseProgram/ProgramShow';
 import EquipmentListCreate from './components/EquipmentMenagement/EquipmentCreate';
+import MemberS from './components/Member/MemberS';
+import MemberShow from './components/Member/MemberShow';
 
 
 const drawerWidth = 240;
@@ -55,6 +57,7 @@ export default function App() {
   }, []);
 
    if ((!token) && login) {
+    localStorage.clear();
      return <Signin />
     }
 
@@ -101,6 +104,8 @@ export default function App() {
                 }{role === "member" && (
                   <>
                   <Route path="/login" element={<Home role={role}/>} />
+                  <Route path='/member_show' element={<MemberS/>} />
+                  <Route path='/member_shows' element={<MemberShow/>} />
                   <Route path='/member_edit' element={<MemberEdit/>} />
                   <Route path='/program_booking' element={<ProgramHome/>} />
                   <Route path='/payment_create' element={<PaymentCreate />} />
@@ -111,7 +116,7 @@ export default function App() {
                 }{role === "employee" && (
                   <>
                   <Route path="/login" element={<Home role={role}/>} />
-                  <Route path='/member_show' element={<MemberShow />} />
+                  <Route path='/member_shows' element={<MemberS />} />
                   <Route path='/member_create' element={<MemberCreate/>} />
                   <Route path='/member_edit' element={<MemberEdit/>} />
                   <Route path='/equipment_create' element={<EquipmentListCreate/>} />

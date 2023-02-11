@@ -87,7 +87,6 @@ func SetupDatabase() {
 	)
 	db = database
 
-
 	//------------------------------- Roles -----------------------
 	admin := Role{
 		Name: "admin",
@@ -103,33 +102,31 @@ func SetupDatabase() {
 		Name: "employee",
 	}
 	db.Model(&Role{}).Create(&employee)
-	
+
 	member := Role{
 		Name: "member",
 	}
 	db.Model(&Role{}).Create(&member)
 
-	
 	//--------Password ----------//
 	password, err := bcrypt.GenerateFromPassword([]byte("123456"), bcrypt.DefaultCost)
 	if err != nil {
 		return
 	}
 
-
 	//--------- User for Signin --------//
 	//--Admin--//
 	uAdmin := User{
 		Name:     "Admin",
 		Password: string(password),
-		Role: admin,
+		Role:     admin,
 	}
 	db.Model(&User{}).Create(&uAdmin)
 
 	userAdmin := User{
 		Name:     "Tanphat@email.com",
 		Password: string(password),
-		Role: admin,
+		Role:     admin,
 	}
 	db.Model(&User{}).Create(&userAdmin)
 
@@ -137,13 +134,13 @@ func SetupDatabase() {
 	uTrainer := User{
 		Name:     "Trainer",
 		Password: string(password),
-		Role: trainer,
+		Role:     trainer,
 	}
 	db.Model(&User{}).Create(&uTrainer)
 	userTrainer := User{
 		Name:     "Napakan@email.com",
 		Password: string(password),
-		Role: trainer,
+		Role:     trainer,
 	}
 	db.Model(&User{}).Create(&userTrainer)
 
@@ -151,32 +148,29 @@ func SetupDatabase() {
 	uEmployee := User{
 		Name:     "Employee",
 		Password: string(password),
-		Role: employee,
+		Role:     employee,
 	}
 	db.Model(&User{}).Create(&uEmployee)
 	userEmployee := User{
 		Name:     "Employee@email.com",
 		Password: string(password),
-		Role: employee,
+		Role:     employee,
 	}
 	db.Model(&User{}).Create(&userEmployee)
 
 	//--Member--//
 	uMember := User{
-		Name:     "Member",
+		Name:     "Somchai@email.com",
 		Password: string(password),
-		Role: member,
+		Role:     member,
 	}
 	db.Model(&User{}).Create(&uMember)
 	userMember := User{
-		Name:     "Kantaya@email.com",
+		Name:     "Baifern@email.com",
 		Password: string(password),
-		Role: member,
+		Role:     member,
 	}
 	db.Model(&User{}).Create(&userMember)
-
-	
-
 
 	///////////////// ระบบพนักงาน ////////////////
 
@@ -220,7 +214,7 @@ func SetupDatabase() {
 		User:      uAdmin,
 	}
 	db.Model(&Employee{}).Create(&admin1)
-	
+
 	admin2 := Employee{
 		Name:      "Tanaphat",
 		Tel:       "090000000",
@@ -372,26 +366,25 @@ func SetupDatabase() {
 	db.Model(&Oct{}).Create(&oct3)
 	//----สร้างตารางให้บริการ----
 	placeinfo := PlaceInfolist{
-		Service: service1,
-		Ocd:     ocd1,
-		Oct:     oct1,
+		Service:  service1,
+		Ocd:      ocd1,
+		Oct:      oct1,
 		Employee: em3,
-		Hours:   10,
-		PDate:   time.Date(2022, 12, 10, 0, 0, 0, 0, time.Now().Location()),
-		Detail:  "สนามมี 3 คอร์ท",
+		Hours:    10,
+		PDate:    time.Date(2022, 12, 10, 0, 0, 0, 0, time.Now().Location()),
+		Detail:   "สนามมี 3 คอร์ท",
 	}
 	db.Model(&PlaceInfolist{}).Create(&placeinfo)
 	placeinfo1 := PlaceInfolist{
-		Service: service,
-		Ocd:     ocd,
-		Oct:     oct,
+		Service:  service,
+		Ocd:      ocd,
+		Oct:      oct,
 		Employee: em3,
-		Hours:   9,
-		PDate:   time.Date(2022, 12, 10, 1, 0, 0, 0, time.Now().Location()),
-		Detail:  "อุปกรณ์ชำรุด 4 เครื่อง",
+		Hours:    9,
+		PDate:    time.Date(2022, 12, 10, 1, 0, 0, 0, time.Now().Location()),
+		Detail:   "อุปกรณ์ชำรุด 4 เครื่อง",
 	}
 	db.Model(&PlaceInfolist{}).Create(&placeinfo1)
-	
 
 	//////////////// ระบบตารางงาน /////////////////
 	//--Time--//
@@ -438,15 +431,14 @@ func SetupDatabase() {
 
 	//-------Schedule---------//
 	schedule_1 := Schedule{
-		Employee: 	admin2,
-		Role: 		employee,
-		Duty: 		d_checker,	
-		Ocd: ocd3,	
-		Time: 		q1,
+		Employee:      admin2,
+		Role:          employee,
+		Duty:          d_checker,
+		Ocd:           ocd3,
+		Time:          q1,
 		PlaceInfolist: placeinfo,
 	}
 	db.Model(&Schedule{}).Create(&schedule_1)
-
 
 	///////////////// ระบบสมัครสมาชิก //////////////////
 	//--- ประเภทสมาชิก ---//
@@ -493,8 +485,8 @@ func SetupDatabase() {
 		Gender:   Male,
 		Evidence: Student,
 		Typem:    Temporary,
-		Role: member,
-		User: uMember,
+		Role:     member,
+		User:     uMember,
 	})
 	//member data2
 	db.Model(&Member{}).Create(&Member{
@@ -506,16 +498,14 @@ func SetupDatabase() {
 		Gender:   Female,
 		Evidence: Identification,
 		Typem:    Temporary,
-		Role: member,
-		User: userMember,
-
+		Role:     member,
+		User:     userMember,
 	})
 
 	var Somchai Member
 	var Baifern Member
 	db.Raw("SELECT * FROM members WHERE email = ?", "Somchai@email.com").Scan(&Somchai)
 	db.Raw("SELECT * FROM members WHERE email = ?", "Baifern@email.com").Scan(&Baifern)
-
 
 	///////////// ระบบโปรแกรมออกกำลังกาย ////////////////
 	//-- worm up --//
@@ -586,23 +576,21 @@ func SetupDatabase() {
 	}
 	db.Model(&ExerciseProgramList{}).Create(&exeprogram2)
 
-
 	////////////// ระบบจองเทรนเนอร์ //////////////
 	trbk1 := TrainerBookingList{
-		Employee: tr1,
-		Member: Somchai,
+		Employee:            tr1,
+		Member:              Somchai,
 		ExerciseProgramList: exeprogram1,
-		Training_Time: time.Date(2001, 9, 24, 0, 0, 0, 0, time.Now().Location()),
+		Training_Time:       time.Date(2001, 9, 24, 0, 0, 0, 0, time.Now().Location()),
 	}
 	db.Model(&TrainerBookingList{}).Create(&trbk1)
 	trbk2 := TrainerBookingList{
-		Employee: tr2,
-		Member: Baifern,
+		Employee:            tr2,
+		Member:              Baifern,
 		ExerciseProgramList: exeprogram2,
-		Training_Time: time.Date(2001, 9, 24, 0, 0, 0, 0, time.Now().Location()),
+		Training_Time:       time.Date(2001, 9, 24, 0, 0, 0, 0, time.Now().Location()),
 	}
 	db.Model(&TrainerBookingList{}).Create(&trbk2)
-
 
 	///////////// ระบบข้อมูลอุปกรณ์ //////////////////
 	//-- equipment name --//
@@ -748,7 +736,6 @@ func SetupDatabase() {
 	}
 	db.Model(&EquipmentList{}).Create(&EquipmentList2)
 
-
 	////////////////// ระบบแจ้งชำรุด ///////////////////
 	db.Model(&Notify{}).Create(&Notify{
 		Problem:       "เครื่องเปิดไม่ติด",
@@ -778,8 +765,7 @@ func SetupDatabase() {
 		EquipmentList: EquipmentList2,
 		Employee:      em1,
 	})
-	
-	
+
 	///////////// ระบบจองสถานที่ ///////////////
 	//--สถานที่--
 	place := Place{
@@ -840,22 +826,21 @@ func SetupDatabase() {
 	}
 	db.Model(&TimePeriod{}).Create(&tp5)
 	bookinfo := BookInfolist{
-		Service: service1,
-		Place:     place,
-		TimePeriod:     tp,
-		Member: Somchai,
-		BDate:   time.Date(2022, 12, 10, 0, 0, 0, 0, time.Now().Location()),
+		Service:    service1,
+		Place:      place,
+		TimePeriod: tp,
+		Member:     Somchai,
+		BDate:      time.Date(2022, 12, 10, 0, 0, 0, 0, time.Now().Location()),
 	}
 	db.Model(&BookInfolist{}).Create(&bookinfo)
 	bookinfo1 := BookInfolist{
-		Service: service2,
-		Place:     place1,
-		TimePeriod:     tp1,
-		Member: Baifern,
-		BDate:   time.Date(2022, 12, 10, 0, 0, 0, 0, time.Now().Location()),
+		Service:    service2,
+		Place:      place1,
+		TimePeriod: tp1,
+		Member:     Baifern,
+		BDate:      time.Date(2022, 12, 10, 0, 0, 0, 0, time.Now().Location()),
 	}
 	db.Model(&BookInfolist{}).Create(&bookinfo1)
-
 
 	////////////// ระบบประชาสัมพันธ์ ////////////////
 	//-------- Recipient------
@@ -915,7 +900,6 @@ func SetupDatabase() {
 		Employee:  em2,
 	}
 	db.Model(&News{}).Create(&news3)
-
 
 	////////////// ระบบชำระเงิน /////////////////
 	//----Status-----
@@ -997,4 +981,3 @@ func SetupDatabase() {
 	db.Model(&Payment{}).Create(&Payment2)
 
 }
-	

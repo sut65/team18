@@ -199,7 +199,7 @@ func main() {
 	r.GET("/members", member.ListMember)
 	r.GET("/member/:id", member.GetMember)
 	r.POST("/members", member.CreateMember)
-	r.PATCH("/members", member.UpdateMember)
+	r.PUT("/members", member.UpdateMember)
 	r.DELETE("/members/:id", member.DeleteMember)
 
 	r.GET("/evidences", member.ListEvidence)

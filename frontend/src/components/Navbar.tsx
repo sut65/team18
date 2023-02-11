@@ -126,7 +126,7 @@ function Navbar() {
 
   const menumember = [
     { name: "หน้าแรก", icon: <HomeIcon />, path: "/login" },
-    { name: "ข้อมูลสมาชิก", icon: <PersonIcon />, path: "/member_edit",},
+    { name: "ข้อมูลสมาชิก", icon: <PersonIcon />, path: "/member_show",},
     { name: "จองเทรนเนอร์", icon: <FitnessCenterIcon />, path: "/trainer_booking",},
     { name: "จองสถานกีฬา", icon: <BookIcon />, path: "/place_booking",},
     { name: "จองอุปกรณ์กีฬา", icon: <BookIcon/>, path: "/equipment_booking"},

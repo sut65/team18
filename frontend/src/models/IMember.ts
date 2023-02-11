@@ -23,4 +23,7 @@ export interface MemberInterface {
 
     RoleID? :number;
 	Role?:   RoleInterface;
+
+    UserID? :number;
+	//User?:   SigninInterface;
    }
