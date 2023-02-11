@@ -71,17 +71,9 @@ function MenuShow() {
                                     startIcon={<PersonIcon />}>
                                     Sign In
                                 </Button>
-                                <Button component={RouterLink} to="/MemberCreate" variant="outlined" color="secondary" size="large"
+                                <Button component={RouterLink} to="/member_create" variant="outlined" color="secondary" size="large"
                                     startIcon={<PersonAddAlt1Icon />}>
                                     Sign Up
-                                </Button>
-                                <Button component={RouterLink} to="/EmployeeCreate" variant="outlined" color="secondary" size="large"
-                                    startIcon={<BadgeIcon />}>
-                                    Test: Employee
-                                </Button>
-                                <Button component={RouterLink} to="/ScheduleCreate" variant="outlined" color="secondary" size="large"
-                                    startIcon={<ScheduleIcon />}>
-                                    Test: Schedule
                                 </Button>
                             </Stack>
                         </div>

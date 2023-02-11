@@ -619,7 +619,7 @@ function MemberCreate() {
 
           <Grid item xs={12}>
             <ThemeProvider theme={theme}>
-              <Button component={RouterLink} to="/" variant="contained" color="primary">
+              <Button component={RouterLink} to="/member_show" variant="contained" color="primary">
                 <Typography color="secondary">
 
                   Back

@@ -87,7 +87,8 @@ func SetupDatabase() {
 	)
 	db = database
 
-	//--Roles--
+
+	//------------------------------- Roles -----------------------
 	admin := Role{
 		Name: "admin",
 	}
@@ -96,52 +97,88 @@ func SetupDatabase() {
 	trainer := Role{
 		Name: "trainer",
 	}
-	db.Model(&Role{}).Create(&trainer) //&trainer อ้างอิงว่าอยู่ในตาราง Role
+	db.Model(&Role{}).Create(&trainer)
 
+	employee := Role{
+		Name: "employee",
+	}
+	db.Model(&Role{}).Create(&employee)
+	
 	member := Role{
 		Name: "member",
 	}
 	db.Model(&Role{}).Create(&member)
 
-	staff := Role{
-		Name: "staff",
-	}
-	db.Model(&Role{}).Create(&staff)
-
+	
+	//--------Password ----------//
 	password, err := bcrypt.GenerateFromPassword([]byte("123456"), bcrypt.DefaultCost)
 	if err != nil {
 		return
 	}
-	userAdmin := User{
+
+
+	//--------- User for Signin --------//
+	//--Admin--//
+	uAdmin := User{
 		Name:     "Admin",
+		Password: string(password),
+		Role: admin,
+	}
+	db.Model(&User{}).Create(&uAdmin)
+
+	userAdmin := User{
+		Name:     "Tanphat@email.com",
 		Password: string(password),
 		Role: admin,
 	}
 	db.Model(&User{}).Create(&userAdmin)
 
-	userAdmin1 := User{
-		Name:     "Admin1",
+	//--Trainer--//
+	uTrainer := User{
+		Name:     "Trainer",
 		Password: string(password),
-		Role: admin,
+		Role: trainer,
 	}
-	db.Model(&User{}).Create(&userAdmin1)
+	db.Model(&User{}).Create(&uTrainer)
+	userTrainer := User{
+		Name:     "Napakan@email.com",
+		Password: string(password),
+		Role: trainer,
+	}
+	db.Model(&User{}).Create(&userTrainer)
 
-	usermember := User{
+	//--Employee--//
+	uEmployee := User{
+		Name:     "Employee",
+		Password: string(password),
+		Role: employee,
+	}
+	db.Model(&User{}).Create(&uEmployee)
+	userEmployee := User{
+		Name:     "Employee@email.com",
+		Password: string(password),
+		Role: employee,
+	}
+	db.Model(&User{}).Create(&userEmployee)
+
+	//--Member--//
+	uMember := User{
 		Name:     "Member",
 		Password: string(password),
 		Role: member,
 	}
-	db.Model(&User{}).Create(&usermember)
-
-	usermember2 := User{
-		Name:     "Member2",
+	db.Model(&User{}).Create(&uMember)
+	userMember := User{
+		Name:     "Kantaya@email.com",
 		Password: string(password),
 		Role: member,
 	}
-	db.Model(&User{}).Create(&usermember2)
+	db.Model(&User{}).Create(&userMember)
+
+	
 
 
-	//ระบบพนักงาน
+	///////////////// ระบบพนักงาน ////////////////
 
 	//--gender--//
 	Female := Gender{
@@ -171,34 +208,193 @@ func SetupDatabase() {
 	}
 	db.Model(&Education{}).Create(&maDg)
 
-	//---------Employees-------
-	admin1em := Employee{
-		Name:      "Amin1em",
+	//--------- Employees -------//
+	admin1 := Employee{
+		Name:      "Max",
+		Tel:       "060000000",
+		Email:     "Max@email.com",
+		Gender:    Male,
+		Role:      admin,
+		Education: hs,
+		DOB:       time.Now(),
+		User:      uAdmin,
+	}
+	db.Model(&Employee{}).Create(&admin1)
+	
+	admin2 := Employee{
+		Name:      "Tanaphat",
 		Tel:       "090000000",
-		Email:     "admin@email.com",
+		Email:     "Tanaphat@email.com",
 		Gender:    Male,
 		Role:      admin,
 		Education: baDg,
 		DOB:       time.Now(),
 		User:      userAdmin,
 	}
-	db.Model(&Employee{}).Create(&admin1em)
+	db.Model(&Employee{}).Create(&admin2)
 
-	em1 := Employee{
-		Name:      "Tanaphat",
+	tr1 := Employee{
+		Name:      "BoonChoo",
 		Tel:       "060000000",
-		Email:     "Em1@email.com",
+		Email:     "BoonChoo@email.com",
 		Gender:    Male,
-		Role:      staff,
+		Role:      trainer,
 		Education: hs,
 		DOB:       time.Now(),
-		User:      userAdmin1,
+		User:      uTrainer,
+	}
+	db.Model(&Employee{}).Create(&tr1)
+
+	tr2 := Employee{
+		Name:      "Napakan",
+		Tel:       "060000000",
+		Email:     "Napakan@email.com",
+		Gender:    Male,
+		Role:      trainer,
+		Education: hs,
+		DOB:       time.Now(),
+		User:      userTrainer,
+	}
+	db.Model(&Employee{}).Create(&tr2)
+
+	em1 := Employee{
+		Name:      "Tanapon",
+		Tel:       "060000000",
+		Email:     "Tanapon@email.com",
+		Gender:    Male,
+		Role:      employee,
+		Education: hs,
+		DOB:       time.Now(),
+		User:      uEmployee,
 	}
 	db.Model(&Employee{}).Create(&em1)
+	em2 := Employee{
+		Name:      "Siriprapa",
+		Tel:       "060000000",
+		Email:     "Siriprapa@email.com",
+		Gender:    Female,
+		Role:      employee,
+		Education: hs,
+		DOB:       time.Now(),
+		User:      userEmployee,
+	}
+	db.Model(&Employee{}).Create(&em2)
+	em3 := Employee{
+		Name:      "Manatpong",
+		Tel:       "060000000",
+		Email:     "Manatpong@email.com",
+		Gender:    Male,
+		Role:      employee,
+		Education: hs,
+		DOB:       time.Now(),
+		User:      userEmployee,
+	}
+	db.Model(&Employee{}).Create(&em3)
+	em4 := Employee{
+		Name:      "Kantaya",
+		Tel:       "060000000",
+		Email:     "Kantaya@email.com",
+		Gender:    Female,
+		Role:      employee,
+		Education: hs,
+		DOB:       time.Now(),
+		User:      userEmployee,
+	}
+	db.Model(&Employee{}).Create(&em4)
 
+	///////////////// ระบบข้อมูลสถานที่ ///////////////
+	//----บริการ----
+	service := Service{
+		TypeP: "Fitness Room",
+	}
+	db.Model(&Service{}).Create(&service)
+	service1 := Service{
+		TypeP: "Batminton court",
+	}
+	db.Model(&Service{}).Create(&service1)
+	service2 := Service{
+		TypeP: "Basketball corut",
+	}
+	db.Model(&Service{}).Create(&service2)
+	service3 := Service{
+		TypeP: "Football court",
+	}
+	db.Model(&Service{}).Create(&service3)
+	service4 := Service{
+		TypeP: "Futsal court",
+	}
+	db.Model(&Service{}).Create(&service4)
+	//----วันเวลาเปิดปิด----
+	ocd := Ocd{
+		Days: "Monday",
+	}
+	db.Model(&Ocd{}).Create(&ocd)
+	ocd1 := Ocd{
+		Days: "Tuesday",
+	}
+	db.Model(&Ocd{}).Create(&ocd1)
+	ocd2 := Ocd{
+		Days: "Wednesday",
+	}
+	db.Model(&Ocd{}).Create(&ocd2)
+	ocd3 := Ocd{
+		Days: "Thursday",
+	}
+	db.Model(&Ocd{}).Create(&ocd3)
+	ocd4 := Ocd{
+		Days: "Friday",
+	}
+	db.Model(&Ocd{}).Create(&ocd4)
+	ocd5 := Ocd{
+		Days: "Saturday",
+	}
+	db.Model(&Ocd{}).Create(&ocd5)
+	ocd6 := Ocd{
+		Days: "Sunday",
+	}
+	db.Model(&Ocd{}).Create(&ocd6)
+	//----ช่วงเวลาเปิดปิด----
+	oct := Oct{
+		Times: "08:00 - 17:00",
+	}
+	db.Model(&Oct{}).Create(&oct)
+	oct1 := Oct{
+		Times: "08:00 - 18:00",
+	}
+	db.Model(&Oct{}).Create(&oct1)
+	oct2 := Oct{
+		Times: "08:00 - 19:00",
+	}
+	db.Model(&Oct{}).Create(&oct2)
+	oct3 := Oct{
+		Times: "08:00 - 20:00",
+	}
+	db.Model(&Oct{}).Create(&oct3)
+	//----สร้างตารางให้บริการ----
+	placeinfo := PlaceInfolist{
+		Service: service1,
+		Ocd:     ocd1,
+		Oct:     oct1,
+		Employee: em3,
+		Hours:   10,
+		PDate:   time.Date(2022, 12, 10, 0, 0, 0, 0, time.Now().Location()),
+		Detail:  "สนามมี 3 คอร์ท",
+	}
+	db.Model(&PlaceInfolist{}).Create(&placeinfo)
+	placeinfo1 := PlaceInfolist{
+		Service: service,
+		Ocd:     ocd,
+		Oct:     oct,
+		Employee: em3,
+		Hours:   9,
+		PDate:   time.Date(2022, 12, 10, 1, 0, 0, 0, time.Now().Location()),
+		Detail:  "อุปกรณ์ชำรุด 4 เครื่อง",
+	}
+	db.Model(&PlaceInfolist{}).Create(&placeinfo1)
+	
 
-	//ระบบตารางงาน
-	// --Time--
+	//////////////// ระบบตารางงาน /////////////////
+	//--Time--//
 	q1 := Time{
 		Range: "08:00 - 10:00",
 	}
@@ -219,7 +415,7 @@ func SetupDatabase() {
 	}
 	db.Model(&Time{}).Create(&q4)
 
-	// --Duty--
+	//--Duty--//
 	d_cleaner := Duty{
 		Name: "ทำความสะอาด",
 	}
@@ -240,18 +436,19 @@ func SetupDatabase() {
 	}
 	db.Model(&Duty{}).Create(&d_trainer)
 
-	//-------Schedule----------
+	//-------Schedule---------//
 	schedule_1 := Schedule{
-		Employee: 	em1,
-		Role: 		staff,
+		Employee: 	admin2,
+		Role: 		employee,
 		Duty: 		d_checker,	
-		//Ocd: ,	
+		Ocd: ocd3,	
 		Time: 		q1,
-		//PlaceInfolist: ,
+		PlaceInfolist: placeinfo,
 	}
 	db.Model(&Schedule{}).Create(&schedule_1)
 
-	//ระบบสมัครสมาชิก
+
+	///////////////// ระบบสมัครสมาชิก //////////////////
 	//--- ประเภทสมาชิก ---//
 	Temporary := Typem{
 		Ttype: "ชั่วคราว",
@@ -286,44 +483,42 @@ func SetupDatabase() {
 	}
 	db.Model(&Evidence{}).Create(&Document)
 
-	//member data1
+	//---------------- member data1 -------------//
 	db.Model(&Member{}).Create(&Member{
-		Name:     "Somcai Jaidi",
-		Email:    "Somcai@gmail.com",
+		Name:     "Somchai Jaidi",
+		Email:    "Somchai@email.com",
 		Password: "123456",
 		Bdate:    time.Date(2001, 7, 11, 0, 0, 0, 0, time.Now().Location()),
 		Age:      21,
 		Gender:   Male,
 		Evidence: Student,
 		Typem:    Temporary,
-		Role:      member,
-		User: usermember,
+		Role: member,
+		User: uMember,
 	})
 	//member data2
 	db.Model(&Member{}).Create(&Member{
 		Name:     "Baifern Pimdao",
-		Email:    "Baifern@gmail.com",
+		Email:    "Baifern@email.com",
 		Password: "456789",
 		Bdate:    time.Date(2001, 9, 24, 0, 0, 0, 0, time.Now().Location()),
 		Age:      21,
 		Gender:   Female,
 		Evidence: Identification,
 		Typem:    Temporary,
-		Role:      member,
-		User: usermember2,
+		Role: member,
+		User: userMember,
 
 	})
 
-	var Somcai Member
+	var Somchai Member
 	var Baifern Member
-	db.Raw("SELECT * FROM members WHERE email = ?", "Somcai@gmail.com").Scan(&Somcai)
-	db.Raw("SELECT * FROM members WHERE email = ?", "Baifern@gmail.com").Scan(&Baifern)
+	db.Raw("SELECT * FROM members WHERE email = ?", "Somchai@email.com").Scan(&Somchai)
+	db.Raw("SELECT * FROM members WHERE email = ?", "Baifern@email.com").Scan(&Baifern)
 
 
-
-
-	//ระบบโปรแกรมออกกำลังกาย
-	// worm up
+	///////////// ระบบโปรแกรมออกกำลังกาย ////////////////
+	//-- worm up --//
 	worm1 := WormUp{
 		SetName:          "Set_AA",
 		ExercisePoseture: "Scapula Retraction, Chin in",
@@ -339,7 +534,7 @@ func SetupDatabase() {
 		ExercisePoseture: "Chin In, Wall Slide",
 	}
 	db.Model(&WormUp{}).Create(&worm3)
-	// exercise
+	//-- exercise --//
 	exer1 := Exercise{
 		SetName:          "Set_BA",
 		ExercisePoseture: "Cable Row, Dumpbell Press, Lat Pulldown",
@@ -355,7 +550,7 @@ func SetupDatabase() {
 		ExercisePoseture: "Cable Row, DB Reverse Fly, Plank",
 	}
 	db.Model(&Exercise{}).Create(&exer3)
-	// stratch
+	//-- stratch --//
 	stre1 := Stretch{
 		SetName:          "Set_CA",
 		ExercisePoseture: "Seated Erector Stretch, Neck Stretch",
@@ -371,10 +566,10 @@ func SetupDatabase() {
 		ExercisePoseture: "Levetor Stretch, Chest Wall Stretch",
 	}
 	db.Model(&Stretch{}).Create(&stre3)
-	// Order
+	//------------ Exercise Progam -------------//
 	exeprogram1 := ExerciseProgramList{
 		ProgramName: "Program_A",
-		Employee:    admin1em,
+		Employee:    tr1,
 		WormUp:      worm1,
 		Exercise:    exer1,
 		Stretch:     stre1,
@@ -383,18 +578,34 @@ func SetupDatabase() {
 	db.Model(&ExerciseProgramList{}).Create(&exeprogram1)
 	exeprogram2 := ExerciseProgramList{
 		ProgramName: "Program_B",
-		Employee:    admin1em,
+		Employee:    tr2,
 		WormUp:      worm2,
 		Exercise:    exer1,
 		Stretch:     stre3,
 		Minute:      90,
 	}
 	db.Model(&ExerciseProgramList{}).Create(&exeprogram2)
-	//ระบบเทรนเนอร์
 
-	//ระบบข้อมูลอุปกรณ์
-	//-------- equipment name --------
 
+	////////////// ระบบจองเทรนเนอร์ //////////////
+	trbk1 := TrainerBookingList{
+		Employee: tr1,
+		Member: Somchai,
+		ExerciseProgramList: exeprogram1,
+		Training_Time: time.Date(2001, 9, 24, 0, 0, 0, 0, time.Now().Location()),
+	}
+	db.Model(&TrainerBookingList{}).Create(&trbk1)
+	trbk2 := TrainerBookingList{
+		Employee: tr2,
+		Member: Baifern,
+		ExerciseProgramList: exeprogram2,
+		Training_Time: time.Date(2001, 9, 24, 0, 0, 0, 0, time.Now().Location()),
+	}
+	db.Model(&TrainerBookingList{}).Create(&trbk2)
+
+
+	///////////// ระบบข้อมูลอุปกรณ์ //////////////////
+	//-- equipment name --//
 	equipmentNameFitness1 := EquipmentName{
 		Name: "ลู่วิ่ง",
 	}
@@ -520,26 +731,27 @@ func SetupDatabase() {
 	//-------- equipmet list --------
 
 	EquipmentList1 := EquipmentList{
-		Employee:      admin1em,
+		Employee:      em1,
 		EquipmentName: equipmentNameFitness3,
 		RunNumber:     run3,
-		dateTime:      time.Now(),
+		DateTime:      time.Now(),
 	}
 	db.Model(&EquipmentList{}).Create(&EquipmentList1)
 
 	EquipmentList2 := EquipmentList{
-		Employee:      admin1em,
+		Employee:      em1,
 		EquipmentName: equipmentNameBasketball1,
 		RunNumber:     run1,
-		dateTime:      time.Now(),
+		DateTime:      time.Now(),
 	}
 	db.Model(&EquipmentList{}).Create(&EquipmentList2)
 
-	//ระบบแจ้งชำรุด
+
+	////////////////// ระบบแจ้งชำรุด ///////////////////
 	db.Model(&Notify{}).Create(&Notify{
 		Problem:       "เครื่องเปิดไม่ติด",
 		Date:          time.Date(2022, 12, 10, 0, 0, 0, 0, time.Now().Location()),
-		Member:        Somcai,
+		Member:        Somchai,
 		EquipmentName: equipmentNameFitness1,
 		RunNumber:     run1,
 	})
@@ -551,108 +763,22 @@ func SetupDatabase() {
 		RunNumber:     run2,
 	})
 
-	//ระบบจองอุปกรณ์
+	///////////////// ระบบจองอุปกรณ์ ///////////////////
 
 	db.Model(&EquipmentBookingList{}).Create(&EquipmentBookingList{
-		Member:        Somcai,
+		Member:        Somchai,
 		EquipmentList: EquipmentList1,
-		Employee:      admin1em,
+		Employee:      em1,
 	})
 
 	db.Model(&EquipmentBookingList{}).Create(&EquipmentBookingList{
-		Member:        Somcai,
+		Member:        Baifern,
 		EquipmentList: EquipmentList2,
-		Employee:      admin1em,
+		Employee:      em1,
 	})
-
-	//ระบบข้อมูลสถานที่
-		//----บริการ----
-		service := Service{
-			TypeP: "Fitness Room",
-		}
-		db.Model(&Service{}).Create(&service)
-		service1 := Service{
-			TypeP: "Batminton court",
-		}
-		db.Model(&Service{}).Create(&service1)
-		service2 := Service{
-			TypeP: "Basketball corut",
-		}
-		db.Model(&Service{}).Create(&service2)
-		service3 := Service{
-			TypeP: "Football court",
-		}
-		db.Model(&Service{}).Create(&service3)
-		service4 := Service{
-			TypeP: "Futsal court",
-		}
-		db.Model(&Service{}).Create(&service4)
-		//----วันเวลาเปิดปิด----
-		ocd := Ocd{
-			Days: "Monday",
-		}
-		db.Model(&Ocd{}).Create(&ocd)
-		ocd1 := Ocd{
-			Days: "Tuesday",
-		}
-		db.Model(&Ocd{}).Create(&ocd1)
-		ocd2 := Ocd{
-			Days: "Wednesday",
-		}
-		db.Model(&Ocd{}).Create(&ocd2)
-		ocd3 := Ocd{
-			Days: "Thursday",
-		}
-		db.Model(&Ocd{}).Create(&ocd3)
-		ocd4 := Ocd{
-			Days: "Friday",
-		}
-		db.Model(&Ocd{}).Create(&ocd4)
-		ocd5 := Ocd{
-			Days: "Saturday",
-		}
-		db.Model(&Ocd{}).Create(&ocd5)
-		ocd6 := Ocd{
-			Days: "Sunday",
-		}
-		db.Model(&Ocd{}).Create(&ocd6)
-		//----ช่วงเวลาเปิดปิด----
-		oct := Oct{
-			Times: "08:00 - 17:00",
-		}
-		db.Model(&Oct{}).Create(&oct)
-		oct1 := Oct{
-			Times: "08:00 - 18:00",
-		}
-		db.Model(&Oct{}).Create(&oct1)
-		oct2 := Oct{
-			Times: "08:00 - 19:00",
-		}
-		db.Model(&Oct{}).Create(&oct2)
-		oct3 := Oct{
-			Times: "08:00 - 20:00",
-		}
-		db.Model(&Oct{}).Create(&oct3)
-		//----สร้างตารางให้บริการ----
-		placeinfo := PlaceInfolist{
-			Service: service1,
-			Ocd:     ocd1,
-			Oct:     oct1,
-			Hours:   10,
-			PDate:   time.Date(2022, 12, 10, 0, 0, 0, 0, time.Now().Location()),
-			Detail:  "สนามมี 3 คอร์ท",
-		}
-		db.Model(&PlaceInfolist{}).Create(&placeinfo)
-		placeinfo1 := PlaceInfolist{
-			Service: service,
-			Ocd:     ocd,
-			Oct:     oct,
-			Hours:   9,
-			PDate:   time.Date(2022, 12, 10, 1, 0, 0, 0, time.Now().Location()),
-			Detail:  "อุปกรณ์ชำรุด 4 เครื่อง",
-		}
-		db.Model(&PlaceInfolist{}).Create(&placeinfo1)
-	//ระบบจองสถานที่
+	
+	
+	///////////// ระบบจองสถานที่ ///////////////
 	//--สถานที่--
 	place := Place{
 		Locate: "Fitness Room",
@@ -715,6 +841,7 @@ func SetupDatabase() {
 		Service: service1,
 		Place:     place,
 		TimePeriod:     tp,
+		Member: Somchai,
 		BDate:   time.Date(2022, 12, 10, 0, 0, 0, 0, time.Now().Location()),
 	}
 	db.Model(&BookInfolist{}).Create(&bookinfo)
@@ -722,10 +849,13 @@ func SetupDatabase() {
 		Service: service2,
 		Place:     place1,
 		TimePeriod:     tp1,
+		Member: Baifern,
 		BDate:   time.Date(2022, 12, 10, 0, 0, 0, 0, time.Now().Location()),
 	}
 	db.Model(&BookInfolist{}).Create(&bookinfo1)
-	//ระบบประชาสัมพันธ์
+
+
+	////////////// ระบบประชาสัมพันธ์ ////////////////
 	//-------- Recipient------
 	everyone := Recipient{
 		Recipient: "Everyone",
@@ -760,7 +890,7 @@ func SetupDatabase() {
 		DDate:     time.Date(2023, 1, 6, 10, 0, 0, 0, time.Now().Location()),
 		Recipient: employ,
 		NewsType:  typeI,
-		Employee:  admin1em,
+		Employee:  em2,
 	}
 	db.Model(&News{}).Create(&news1)
 	news2 := News{
@@ -770,7 +900,7 @@ func SetupDatabase() {
 		DDate:     time.Date(2023, 5, 2, 10, 0, 0, 0, time.Now().Location()),
 		Recipient: members,
 		NewsType:  typeI,
-		Employee:  admin1em,
+		Employee:  em2,
 	}
 	db.Model(&News{}).Create(&news2)
 	news3 := News{
@@ -780,11 +910,12 @@ func SetupDatabase() {
 		DDate:     time.Date(2023, 2, 10, 10, 0, 0, 0, time.Now().Location()),
 		Recipient: everyone,
 		NewsType:  typeI,
-		Employee:  admin1em,
+		Employee:  em2,
 	}
 	db.Model(&News{}).Create(&news3)
 
-	//ระบบชำระเงิน
+
+	////////////// ระบบชำระเงิน /////////////////
 	//----Status-----
 	Status1 := Status{
 		Type: "ชำระเรียบร้อย",
@@ -798,7 +929,7 @@ func SetupDatabase() {
 	//----Bill-----
 	Bill1 := Bill{
 		Status:    Status1,
-		Member:    Somcai,
+		Member:    Somchai,
 		PayableAM: 500,
 	}
 	db.Model(&Bill{}).Create(&Bill1)
@@ -810,7 +941,7 @@ func SetupDatabase() {
 	db.Model(&Bill{}).Create(&Bill2)
 	Bill3 := Bill{
 		Status:    Status2,
-		Member:    Somcai,
+		Member:    Somchai,
 		PayableAM: 500,
 	}
 	db.Model(&Bill{}).Create(&Bill3)

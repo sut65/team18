@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { createTheme, styled, ThemeProvider } from '@mui/material/styles';
@@ -6,26 +6,25 @@ import { BrowserRouter as Router, NavLink, Route, Routes } from 'react-router-do
 import { Box } from '@mui/system';
 import CssBaseline from '@mui/material/CssBaseline';
 import Signin from './components/Signin';
-import Navbar from './navigations/NavBar';
-import DrawerBar from './navigations/DrawerBar';
 import Home from './components/Home';
 import MemberShow from './components/Member/MemberShow';
 import MemberCreate from './components/Member/MemberCreate';
+import MemberEdit from './components/Member/MemberEdit';
+import Navbar from './components/Navbar';
+import ProgramHome from './components/ExerciseProgram/ProgramShow';
+import ProgramCreate from './components/ExerciseProgram/ProgramCreate';
+import MenuShow from './components/Menu';
 import EmployeeCreate from './components/Employee/EmployeeCreate';
 import ScheduleCreate from './components/Schedule/ScheduleCreate';
-
-import MemberEdit from './components/Member/MemberEdit';
-import NavbarMember from './components/NavbarMember';
-import MenuShow from './components/Menu';
-import Navbarx from './navigations/NavBar';
 import PaymentCreate from './components/Payment/PaymentCreate';
 import BillCreate from './components/Payment/billsCreate';
 import PaymentShow from './components/Payment/PaymentShow';
+import ProgramShow from './components/ExerciseProgram/ProgramShow';
 
 
 const drawerWidth = 240;
 
-function App() {
+export default function App() {
   const theme = createTheme({
     palette: {
       primary: {
@@ -41,60 +40,22 @@ function App() {
     },
 
   })
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
-  const [token, setToken] = React.useState<String>("");
-  const [statustoken, setStatustoken] = React.useState<boolean>(false);
+  const [token, setToken] = useState<String>("");
   const [login, setLogin] = React.useState<String>("");
-
-  const [role, setRole] = React.useState<String>("")
-  const [open, setOpen] = React.useState<boolean>(false)
+  const [role, setRole] = useState<string>("");
 
   useEffect(() => {
     setLogin(localStorage.getItem("login") || "");
-    const validToken = () => {
-      fetch("http://localhost:8080/valid", {
-        method: "GET",
-        headers: {
-          'Content-Type': 'application/json',
-          "Authorization": `Bearer ${token}`
-        }
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data)
-          if (!data.error) {
-            setStatustoken(true)
-          } else {
-            setStatustoken(false)
-            localStorage.clear();
-          }
-        })
-        .catch((err) => {
-          console.log(err)
-          setStatustoken(false)
-        })
-    }
-
-    const token: any = localStorage.getItem("token")
-    const role: any = localStorage.getItem("role")
+    const token = localStorage.getItem("token");
     if (token) {
-      setToken(token)
-      setRole(role)
-      validToken()
+      setToken(token);
+      setRole(localStorage.getItem("role") || "");
     }
+  }, []);
 
-  }, [])
-
-  if ((!token || !statustoken) && login) {
-    return <Signin />
-  }
-
+   if ((!token) && login) {
+     return <Signin />
+    }
 
   const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{ open?: Boolean; }>(({ theme, open }) => ({
     flexGrow: 1,
@@ -122,121 +83,68 @@ function App() {
   }));
 
   return (
-
-    // <Router>
-    //   <div>
-    //     <Box sx={{ display: 'flex' }}>
-    //       <CssBaseline />
-    //       {/* <Navbarx open={open} onClick={handleDrawerOpen} /> */}
-    //       <DrawerBar open={open} drawerWidth={drawerWidth} handleDrawerClose={handleDrawerClose} role={role} theme={theme} />
-
-    //       <Main open={open}>
-    //         <DrawerHeader />
-    //         <Routes>
-    //           <Route path="/" element={<MenuShow />} />
-    //           <Route path="/login" element={<Signin />} />
-    //           <Route path="/home" element={<Home role={role} />} />
-    //           <Route path="/Membercreate" element={<MemberCreate />} />
-    //           <Route path="/NavbarMember" element={<NavbarMember />} />
-    //           <Route path="/Employeecreate" element={<EmployeeCreate />} />
-    //           <Route path="/Schedulecreate" element={<ScheduleCreate />} />
-
-
-    //           {/*Trainer*/}
-    //           {role === "trainer" && <Route path='/eplist/Home' element={<Home />} />}
-
-    //           {
-    //             role === "member" && (
-    //               <>
-    //                 <Route path="/Memberedit" element={<MemberEdit />} />
-    //                 <Route path="/Membershow" element={<MemberShow />} />
-    //               </>
-    //             )
-    //           }
-
-    //         </Routes>
-    //       </Main>
-
-    //     </Box>
-    //   </div>
-
-    // </Router>
-    <Router>
-      {/* <Route path="/" element={<Home/>} /> */}
-      {
-        token && (
-          <Fragment>
-            <Routes>
-              {/* <Route path="/" element={<MenuShow />} />
-            <Route path="/login" element={<Signin />} />
-            <Route path="/home" element={<Home role={role} />} />
-            <Route path="/Membercreate" element={<MemberCreate />} />
-            <Route path="/NavbarMember" element={<NavbarMember />} /> */}
-
-
-
-              {/*Trainer*/}
-              {role === "trainer" && <Route path='/eplist/Home' element={<Home />} />}
-
-              {
-                role === "member" && (
+    <div>
+      <Router>
+        <ThemeProvider theme={theme}>
+          {token && (
+            <>
+              <Navbar/>
+              <div className='container-router'>
+                <Routes>{role === "admin" && (
                   <>
-                    <Route path="/login" element={<Home role={role} />} />
-                    <Route path="/MemberEdit" element={<MemberEdit />} />
-                    <Route path="/PaymentCreate" element={<PaymentCreate />} />
-                    <Route path="/billsCreate" element={<BillCreate />} />
-                    <Route path="/PaymentShow" element={<PaymentShow />} />
-
+                  <Route path="/login" element={<Home role={role}/>} />
+                  <Route path='/employee_create' element={<EmployeeCreate />} />
+                  <Route path='/schedule_create' element={<ScheduleCreate/>} />
                   </>
-                )
-              }
-              {
-                role === "Admin" && (
+                  )
+                }{role === "member" && (
                   <>
-                    <Route path="/login" element={<Home role={role} />} />
-                    <Route path="/Employeecreate" element={<EmployeeCreate />} />
-                    <Route path="/Schedulecreate" element={<ScheduleCreate />} />
-
-
+                  <Route path="/login" element={<Home role={role}/>} />
+                  <Route path='/member_edit' element={<MemberEdit/>} />
+                  <Route path='/program_booking' element={<ProgramHome/>} />
+                  <Route path='/payment_create' element={<PaymentCreate />} />
+                  <Route path='/bill_create' element={<BillCreate/>} />
+                  <Route path='/payment_show' element={<PaymentShow/>} />
                   </>
-                )
-              }
-              {
-                role === "staff" && (
+                  )
+                }{role === "employee" && (
                   <>
-                    <Route path="/login" element={<Home role={role} />} />
-
-
+                  <Route path="/login" element={<Home role={role}/>} />
+                  <Route path='/member_show' element={<MemberShow />} />
+                  <Route path='/member_create' element={<MemberCreate/>} />
+                  <Route path='/member_edit' element={<MemberEdit/>} />
                   </>
-                )
-              }
-              {
-                role === "trainer" && (
+                  )
+                }{role === "trainer" && (
                   <>
-                    <Route path="/login" element={<Home role={role} />} />
+                  <Route path="/login" element={<Home role={role}/>} />
+                  <Route path='/program_create' element={<ProgramCreate />} />
+                  <Route path='/program_show' element={<ProgramShow />} />
 
-
+                  
                   </>
-                )
-              }
-            </Routes>
-          </Fragment>)
-      }
-      {
-        !token && (
+                  )
+                }
+
+
+                </Routes>
+                
+              </div>
+            </>
+          )}
+          {!token && (
           <Fragment>
             <Routes>
               <Route path="/" element={<MenuShow />} />
               <Route path="/login" element={<Signin />} />
-              <Route path="/Membercreate" element={<MemberCreate />} />
+              <Route path="/member_create" element={<MemberCreate />} />
 
             </Routes>
           </Fragment>)
       }
-    </Router>
-
+        </ThemeProvider>
+      </Router>
+    </div>
   );
 }
-
-export default App;
 

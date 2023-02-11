@@ -60,6 +60,9 @@ export default function Signin() {
                 }
             })
     }
+    async function wlogin() {
+        localStorage.setItem("login",  "want login");
+    }
 
     return (
         <Box sx={{ display: "flex" }}>
