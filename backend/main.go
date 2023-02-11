@@ -120,7 +120,7 @@ func main() {
 	r.DELETE("/payment/:id", payment.DeletePayment)
 
 	//Equipment management
-	r.GET("/runNumer", el.ListRunNumber)
+	r.GET("/runNumber", el.ListRunNumber)
 	r.GET("/runNumber/:id", el.GetRunNumber)
 
 	r.GET("/equipmentName", el.ListEquipmentName)

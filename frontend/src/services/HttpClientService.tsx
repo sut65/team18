@@ -1,5 +1,7 @@
 import { MemberInterface } from "../models/IMember";
 import { EmployeeInterface } from "../models/IEmployee";
+import { EquipmentBookingListInterface } from "../models/IEquipmentBookingList";
+import { EquipmentListInterface } from "../models/IEquipmentList";
 
 const apiUrl = "http://localhost:8080";
 
@@ -285,6 +287,113 @@ async function CreateSchedule(data: EmployeeInterface) {
   return res;
 }
 
+//------- Equipment List -------
+async function GetRunNumber() {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  let res = await fetch(`${apiUrl}/runNumber`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+
+async function GetEquipmentName() {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  let res = await fetch(`${apiUrl}/equipmentName`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+
+async function GetEquipmentList() {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  let res = await fetch(`${apiUrl}/equipmentList`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+
+async function CreateEquipmentList(data: EquipmentListInterface) {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/equipmentList`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return { status: true, message: res.data };
+      } else {
+        return { status: false, message: res.error };
+      }
+    });
+
+  return res;
+}
+
+async function CreateEquipmentBookingList(data: EquipmentBookingListInterface) {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/equipmentBookingList`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return { status: true, message: res.data };
+      } else {
+        return { status: false, message: res.error };
+      }
+    });
+
+  return res;
+}
+
 export {
   GetTypem,
   GetMember,
@@ -303,6 +412,13 @@ export {
   GetTime,
   GetSchedule,
   CreateSchedule,
+
+  //equipmentList
+  GetRunNumber,
+  GetEquipmentName,
+  GetEquipmentList,
+  CreateEquipmentList,
+  CreateEquipmentBookingList,
 
 };
 

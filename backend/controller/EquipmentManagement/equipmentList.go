@@ -35,6 +35,7 @@ func CreateEquipmentList(c *gin.Context) {
 
 	//สร้าง ตารางequipmentList
 	el := entity.EquipmentList{
+		Detail: 		equipmentList.Detail,
 		Employee:      employee,
 		EquipmentName: equipmentName,
 		RunNumber:     runNumber,
@@ -55,7 +56,7 @@ func CreateEquipmentList(c *gin.Context) {
 func GetEquipmentList(c *gin.Context) {
 	var equipmentList entity.EquipmentList
 	id := c.Param("id")
-	if err := entity.DB().Preload("Employee").Preload("RunNumber").Preload("EquipmentName").Raw("SELECT * FROM equipmentLists WHERE id = ?", id).Find(&equipmentList).Error; err != nil {
+	if err := entity.DB().Preload("Employee").Preload("RunNumber").Preload("EquipmentName").Raw("SELECT * FROM equipment_lists WHERE id = ?", id).Find(&equipmentList).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -64,7 +65,7 @@ func GetEquipmentList(c *gin.Context) {
 
 func ListEquipmentList(c *gin.Context) {
 	var equipmentList []entity.EquipmentList
-	if err := entity.DB().Preload("Employee").Preload("RunNumber").Preload("EquipmentName").Raw("SELECT * FROM equipmentLists").Find(&equipmentList).Error; err != nil {
+	if err := entity.DB().Preload("Employee").Preload("RunNumber").Preload("EquipmentName").Raw("SELECT * FROM equipment_lists").Find(&equipmentList).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -75,8 +76,8 @@ func ListEquipmentList(c *gin.Context) {
 // DELETE /equipmentList/:id
 func DeleteEquipmentList(c *gin.Context) {
 	id := c.Param("id")
-	if tx := entity.DB().Exec("DELETE FROM equipmentLists WHERE id = ?", id); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "equipmentList not found"})
+	if tx := entity.DB().Exec("DELETE FROM equipment_lists WHERE id = ?", id); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "equipment_lists not found"})
 		return
 	}
 
@@ -92,7 +93,7 @@ func UpdateEquipmentList(c *gin.Context) {
 	}
 
 	if tx := entity.DB().Where("id = ?", equipmentList.ID).First(&equipmentList); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "equipmentList not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "equipment_lists not found"})
 		return
 	}
 

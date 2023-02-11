@@ -43,7 +43,7 @@ func CreateEquipmentBookingList(c *gin.Context) {
 func GetEquipmentBookingList(c *gin.Context) {
 	var equipmentBookingList entity.EquipmentBookingList
 	id := c.Param("id")
-	if err := entity.DB().Preload("Typem").Preload("Evidence").Preload("Gender").Raw("SELECT * FROM equipmentBookingLists WHERE id = ?", id).Find(&equipmentBookingList).Error; err != nil {
+	if err := entity.DB().Preload("Member").Preload("Employee").Preload("EquipmentList").Raw("SELECT * FROM equipment_booking_lists WHERE id = ?", id).Find(&equipmentBookingList).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -52,7 +52,7 @@ func GetEquipmentBookingList(c *gin.Context) {
 
 func ListEquipmentBookingList(c *gin.Context) {
 	var equipmentBookingList []entity.EquipmentBookingList
-	if err := entity.DB().Preload("Typem").Preload("Evidence").Preload("Gender").Raw("SELECT * FROM equipmentBookingLists").Find(&equipmentBookingList).Error; err != nil {
+	if err := entity.DB().Preload("Member").Preload("Employee").Preload("EquipmentList").Raw("SELECT * FROM equipment_booking_lists").Find(&equipmentBookingList).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -63,8 +63,8 @@ func ListEquipmentBookingList(c *gin.Context) {
 // DELETE /equipmentBookingList/:id
 func DeleteEquipmentBookingList(c *gin.Context) {
 	id := c.Param("id")
-	if tx := entity.DB().Exec("DELETE FROM equipmentBookingLists WHERE id = ?", id); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "equipmentBookingList not found"})
+	if tx := entity.DB().Exec("DELETE FROM equipment_booking_lists WHERE id = ?", id); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "equipment_booking_lists not found"})
 		return
 	}
 
@@ -80,7 +80,7 @@ func UpdateEquipmentBookingList(c *gin.Context) {
 	}
 
 	if tx := entity.DB().Where("id = ?", equipmentBookingList.ID).First(&equipmentBookingList); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "equipmentBookingList not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "equipment_booking_lists not found"})
 		return
 	}
 
