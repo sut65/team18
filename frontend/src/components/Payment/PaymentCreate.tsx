@@ -53,18 +53,15 @@ function PaymentCreate() {
   const [payee, setPayee] = React.useState<PayeeInterface[]>([]);
   const [method, setMethod] = React.useState<PaymentMethodInterface[]>([]);
   const [bills, setBills] = React.useState<Partial<BillInterface>>({});
-  //  const [bill, setBill] = React.useState<Partial<BillInterface>>({
-  //   ID: 0,
-  //  });
+
+
   const [payment, setPayment] = React.useState<Partial<PaymentInterface>>({
     BillID: 0,
     PaymentMethodID: 0,
     PayeeID: 0,
-    PayDate: new Date()
+    PayDate: new Date(),
   });
-  const [time, setTime] = React.useState<Date | null>(
-    new Date()
-  );
+  const [time, setTime] = React.useState<Date | null>();
   const [error, setError] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
   const [message, setAlertMessage] = React.useState("");
@@ -99,10 +96,25 @@ function PaymentCreate() {
     getPayee();
     getMethod();
   }, []);
-  
+
   console.log(payment)
 
   //-----------------------------------------handle------------------------------
+
+  const handleInputChange = (
+
+    event: React.ChangeEvent<{ id?: string; value: any }>
+
+  ) => {
+
+    const id = event.target.id as keyof typeof PaymentCreate;
+
+    const { value } = event.target;
+
+    setPayment({ ...payment, [id]: value });
+
+  };
+
   const handleClose = (
     event?: React.SyntheticEvent | Event,
     reason?: string
@@ -132,11 +144,12 @@ function PaymentCreate() {
       // PayeeID: typeof payment?.PayeeID === "string" ? parseInt(payment.PayeeID) : 0,
       PaymentMethodID: payment.PaymentMethodID,
       // PaymentMethodID: typeof payment.PaymentMethodID === "string" ? parseInt(payment.PaymentMethodID) : 0,
-      BillID: bills?.ID,
+      BillID: bills.ID,
       // BillID: typeof payment.BillID === "string" ? parseInt(payment.BillID) : 0,
       PayDate: payment.PayDate,
+      Note: payment.Note,
     };
-
+    console.log(data)
     let res = await CreatePayment(data);
     if (res.status) {
       setAlertMessage("บันทึกข้อมูลสำเร็จ");
@@ -150,11 +163,11 @@ function PaymentCreate() {
 
   function BillUpdate() {
     let data = {
-          ID: bills?.ID,
-          MemberID: bills?.MemberID,
-          StatusID: 1,
+      ID: bills?.ID,
+      MemberID: bills?.MemberID,
+      StatusID: 1,
     };
-    
+
     const apiUrl = "http://localhost:8080";
     const requestOptions = {
       method: "PATCH",
@@ -164,7 +177,7 @@ function PaymentCreate() {
       },
       body: JSON.stringify(data),
     };
-    fetch(`${apiUrl}/bill`,requestOptions)
+    fetch(`${apiUrl}/bill`, requestOptions)
       .then((response) => response.json())
       .then((res) => {
         if (res.data) {
@@ -173,7 +186,7 @@ function PaymentCreate() {
           setError(true);
         }
       });
-    }
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -314,6 +327,62 @@ function PaymentCreate() {
                 </Select>
               </FormControl>
             </Grid>
+            <Grid container spacing={10} sx={{ padding: 3 }}>
+              <Grid item xs={1}>
+                หมายเหตุ:
+              </Grid>
+              <Grid item xs={10}>
+                <FormControl fullWidth variant="outlined">
+                  <TextField
+
+                    id="Note"
+
+                    variant="outlined"
+
+                    type="string"
+
+                    size="medium"
+
+                    value={payment?.Note || ""}
+
+                    onChange={handleInputChange}
+
+                  />
+
+                </FormControl>
+              </Grid>
+            </Grid>
+            <Grid container spacing={1} sx={{ padding: 4 }}>
+              <Grid item xs={3}>
+              <p>วันที่ทำการชำระเงิน:</p>
+              </Grid>
+              <Grid item xs={5}>
+                <FormControl fullWidth variant="outlined">
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+
+                    <DateTimePicker
+
+                      renderInput={(params) => <TextField {...params} />}
+
+                      label="Time"
+
+                      value={payment.PayDate}
+
+                      onChange={(newValue) => {
+                        setPayment({
+                            ...payment,
+                            PayDate: newValue,
+                          });
+                    }}
+                    />
+
+                  </LocalizationProvider>
+
+                </FormControl>
+              </Grid>
+            </Grid>
+
+
             <Grid item xs={6} >
               <Button
                 style={{ marginLeft: 0, marginTop: 10, width: 170, }}

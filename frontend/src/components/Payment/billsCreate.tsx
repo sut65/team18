@@ -183,7 +183,7 @@ function BillCreate() {
                 variant="contained"
                 color="primary"
                 component={RouterLink}
-                to="/PaymentCreate"
+                to="/payment_create"
               >
                 <Typography
                   color="secondary"

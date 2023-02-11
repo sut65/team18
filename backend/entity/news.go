@@ -24,10 +24,10 @@ type News struct {
 	Body        string
 	SDate       time.Time
 	DDate       time.Time
-	RecipientID *uint
+	RecipientID *uint      `valid:"-"`
 	Recipient   Recipient 
-	NewsTypeID  *uint
+	NewsTypeID  *uint      `valid:"-"`
 	NewsType    NewsType 
-	EmployeeID  *uint
+	EmployeeID  *uint      `valid:"-"`
 	Employee    Employee
 }

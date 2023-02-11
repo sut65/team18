@@ -52,6 +52,7 @@ func CreatePayment(c *gin.Context) {
 		PaymentMethod:  method,          // โยงความสัมพันธ์
 		Payee:          payee,             // โยงความสัมพันธ์
 		PayDate:        payment.PayDate, // ตั้งค่าฟิลด์ 
+		Note:           payment.Note,
 	}
 
 	if err := entity.DB().Create(&py).Error; err != nil {

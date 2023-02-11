@@ -14,5 +14,6 @@ export interface PaymentInterface{
     PayeeID?: number;
 	Payee?: PayeeInterface;
 
-	PayDate?: Date;
+	PayDate?: Date | null ;
+	Note?:  string;
 }

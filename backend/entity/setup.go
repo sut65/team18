@@ -970,6 +970,7 @@ func SetupDatabase() {
 		PaymentMethod: Transfer,
 		Payee:         Payee2,
 		PayDate:       time.Date(2022, 1, 2, 10, 0, 0, 0, time.Now().Location()),
+		Note:          "",
 	}
 	db.Model(&Payment{}).Create(&Payment1)
 	Payment2 := Payment{
@@ -977,6 +978,7 @@ func SetupDatabase() {
 		PaymentMethod: Credit,
 		Payee:         Payee2,
 		PayDate:       time.Date(2022, 3, 2, 10, 0, 0, 0, time.Now().Location()),
+		Note:          "",
 	}
 	db.Model(&Payment{}).Create(&Payment2)
 

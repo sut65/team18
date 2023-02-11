@@ -21,8 +21,13 @@ import BillCreate from './components/Payment/billsCreate';
 import PaymentShow from './components/Payment/PaymentShow';
 import ProgramShow from './components/ExerciseProgram/ProgramShow';
 import EquipmentListCreate from './components/EquipmentMenagement/EquipmentCreate';
+<<<<<<< HEAD
 import MemberS from './components/Member/MemberS';
 import MemberShow from './components/Member/MemberShow';
+=======
+import NewsCreate from './components/News/NewsCreate';
+import NewsUpdate from './components/News/NewsUpdate';
+>>>>>>> issue-21
 
 
 const drawerWidth = 240;
@@ -99,6 +104,7 @@ export default function App() {
                   <Route path="/login" element={<Home role={role}/>} />
                   <Route path='/employee_create' element={<EmployeeCreate />} />
                   <Route path='/schedule_create' element={<ScheduleCreate/>} />
+                  <Route path='/news_create' element={<NewsUpdate />} />
                   </>
                   )
                 }{role === "member" && (

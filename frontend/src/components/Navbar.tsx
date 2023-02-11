@@ -130,7 +130,7 @@ function Navbar() {
     { name: "จองเทรนเนอร์", icon: <FitnessCenterIcon />, path: "/trainer_booking",},
     { name: "จองสถานกีฬา", icon: <BookIcon />, path: "/place_booking",},
     { name: "จองอุปกรณ์กีฬา", icon: <BookIcon/>, path: "/equipment_booking"},
-    { name: "ชำระเงิน",icon: <PaymentTwoToneIcon />,path: "/payment_show",},
+    { name: "ชำระเงิน",icon: <PaymentTwoToneIcon />,path: "/bill_create",},
   ]
   const menuemployee = [
     { name: "หน้าแรก", icon: <HomeIcon />, path: "/login" },
@@ -143,6 +143,7 @@ function Navbar() {
     { name: "หน้าแรก", icon: <HomeIcon />, path: "/login" },
     { name: "ข้อมูลพนักงาน", icon: <BadgeIcon />, path: "/employee_create",},
     { name: "ตารางงานพนักงาน", icon: <EventNoteIcon />, path: "/schedule_create",},
+    { name: "ข่าว", icon: <EventNoteIcon />, path: "/news_create",},
   ]
   const menutrainer = [
     { name: "หน้าแรก", icon: <HomeIcon />, path: "/login" },
