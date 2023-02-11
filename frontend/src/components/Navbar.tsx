@@ -135,7 +135,7 @@ function Navbar() {
   const menuemployee = [
     { name: "หน้าแรก", icon: <HomeIcon />, path: "/login" },
     { name: "ข้อมูลสถานกีฬา", icon: <SportsBasketballIcon/>, path: "/place"},
-    { name: "ข้อมูลอุปกรณ์กีฬา", icon: <SportsCricketTwoToneIcon />, path: "/equipment",},
+    { name: "ข้อมูลอุปกรณ์กีฬา", icon: <SportsCricketTwoToneIcon />, path: "/equipment_create",},
     { name: "แจ้งซ่อมอุปกรณ์ชำรุด",icon: <BuildTwoToneIcon />,path: "/notice",},
     { name: "ข่าวประชาสัมพันธ์",icon: <NewspaperTwoToneIcon />,path: "/news",},
   ]

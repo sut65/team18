@@ -25,6 +25,8 @@ type RunNumber struct {
 type EquipmentList struct {
 	gorm.Model
 
+	Detail 	string
+	
 	EmployeeID *uint
 	Employee   Employee 
 

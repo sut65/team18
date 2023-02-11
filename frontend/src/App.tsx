@@ -20,6 +20,7 @@ import PaymentCreate from './components/Payment/PaymentCreate';
 import BillCreate from './components/Payment/billsCreate';
 import PaymentShow from './components/Payment/PaymentShow';
 import ProgramShow from './components/ExerciseProgram/ProgramShow';
+import EquipmentListCreate from './components/EquipmentMenagement/EquipmentCreate';
 
 
 const drawerWidth = 240;
@@ -113,6 +114,7 @@ export default function App() {
                   <Route path='/member_show' element={<MemberShow />} />
                   <Route path='/member_create' element={<MemberCreate/>} />
                   <Route path='/member_edit' element={<MemberEdit/>} />
+                  <Route path='/equipment_create' element={<EquipmentListCreate/>} />
                   </>
                   )
                 }{role === "trainer" && (

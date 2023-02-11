@@ -731,6 +731,7 @@ func SetupDatabase() {
 	//-------- equipmet list --------
 
 	EquipmentList1 := EquipmentList{
+		Detail:        "ม้านั่งออกกำลังกาย xiaomi",
 		Employee:      em1,
 		EquipmentName: equipmentNameFitness3,
 		RunNumber:     run3,
@@ -739,6 +740,7 @@ func SetupDatabase() {
 	db.Model(&EquipmentList{}).Create(&EquipmentList1)
 
 	EquipmentList2 := EquipmentList{
+		Detail:        "รองเท้าบาสเกตบอล size 10 us",
 		Employee:      em1,
 		EquipmentName: equipmentNameBasketball1,
 		RunNumber:     run1,
