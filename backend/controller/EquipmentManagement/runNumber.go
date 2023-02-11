@@ -12,7 +12,7 @@ import (
 func GetRunNumber(c *gin.Context) {
 	var runNumber entity.RunNumber
 	id := c.Param("id")
-	if err := entity.DB().Raw("SELECT * FROM runNumbers WHERE id = ?", id).Scan(&runNumber).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM run_numbers WHERE id = ?", id).Scan(&runNumber).Error; err != nil {
 
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 
@@ -26,7 +26,7 @@ func GetRunNumber(c *gin.Context) {
 // GET /runNumber
 func ListRunNumber(c *gin.Context) {
 	var runNumber []entity.RunNumber
-	if err := entity.DB().Raw("SELECT * FROM runNumbers").Scan(&runNumber).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM run_numbers").Scan(&runNumber).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

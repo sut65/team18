@@ -12,7 +12,7 @@ import (
 func GetEquipmentName(c *gin.Context) {
 	var equipmentName entity.EquipmentName
 	id := c.Param("id")
-	if err := entity.DB().Raw("SELECT * FROM equipmentNames WHERE id = ?", id).Scan(&equipmentName).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM equipment_names WHERE id = ?", id).Scan(&equipmentName).Error; err != nil {
 
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 
@@ -26,7 +26,7 @@ func GetEquipmentName(c *gin.Context) {
 // GET /EquipmentName
 func ListEquipmentName(c *gin.Context) {
 	var equipmentName []entity.EquipmentName
-	if err := entity.DB().Raw("SELECT * FROM equipmentNames").Scan(&equipmentName).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM equipment_names").Scan(&equipmentName).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
