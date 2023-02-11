@@ -6,8 +6,8 @@ export interface NewsInterface {
     ID?:               number;
     Headline?:       string;
     Body?:       string;
-    SDate?:      Date;
-    DDate?:      Date;
+    SDate?:      Date | null;
+    DDate?:      Date | null;
     
     RecipientID?: number ;
 	Recipient?:   RecipientInterface;
