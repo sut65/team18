@@ -16,7 +16,7 @@ type LoginPayload struct {
 	Password string `json:"password"`
 }
 
-type EmResponse struct {
+type EmployeeResponse struct {
 	Token    string  
 	UserID   uint   `json:"user_id"`
 	EmpID    entity.Employee   `json:"user"`
@@ -68,7 +68,7 @@ func Signin(c *gin.Context) {
 	var TrainerRole entity.Role
 	entity.DB().Raw("SELECT * FROM roles WHERE name = ?", "admin").First(&AdminRole)
 	entity.DB().Raw("SELECT * FROM roles WHERE name = ?", "member").First(&MemberRole)
-	entity.DB().Raw("SELECT * FROM roles WHERE name = ?", "staff").First(&StaffRole)
+	entity.DB().Raw("SELECT * FROM roles WHERE name = ?", "employee").First(&StaffRole)
 	entity.DB().Raw("SELECT * FROM roles WHERE name = ?", "trainer").First(&TrainerRole)
 
 	signedToken, err := jwtWrapper.GenerateToken(user.ID)
@@ -102,7 +102,7 @@ func Signin(c *gin.Context) {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "admins not found"})
 			return
 		}
-		tokenResponse := EmResponse{
+		tokenResponse := EmployeeResponse{
 			Token:      signedToken,
 			EmpID:      em,
 			UserID:     user.ID,
@@ -118,7 +118,7 @@ func Signin(c *gin.Context) {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "admins not found"})
 			return
 		}
-		tokenResponse := EmResponse{
+		tokenResponse := EmployeeResponse{
 			Token:      signedToken,
 			EmpID:      em,
 			UserID:     user.ID,
@@ -134,7 +134,7 @@ func Signin(c *gin.Context) {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "admins not found"})
 			return
 		}
-		tokenResponse := EmResponse{
+		tokenResponse := EmployeeResponse{
 			Token:      signedToken,
 			EmpID:      em,
 			UserID:     user.ID,

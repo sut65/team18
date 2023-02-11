@@ -33,7 +33,8 @@ type EquipmentList struct {
 
 	RunNumberID *uint
 	RunNumber   RunNumber 
+	DateTime	time.Time
 
 	EquipmentBookingList []EquipmentBookingList `gorm:"foreignKey:EquipmentListID"`
-	dateTime             time.Time
+	
 }

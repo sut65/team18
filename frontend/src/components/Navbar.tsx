@@ -1,81 +1,59 @@
-
-// const theme = createTheme({
-// 	palette: {
-// 	  primary: {
-// 		main: "#FEAC3F",
-// 	  },
-// 	  secondary: {
-// 		main: "#ffebee"
-// 	  },
-// 	  text: {
-// 		primary: "#1B2420",
-// 		secondary: "#1B2420"
-// 	  }
-// 	},
-	
-//   })
-
-import * as React from 'react';
-
-import Box from "@mui/material/Box";
-
-import Toolbar from "@mui/material/Toolbar";
-
-import Typography from "@mui/material/Typography";
-
-import IconButton from "@mui/material/IconButton";
-
-import { Link as RouterLink } from "react-router-dom";
-
-import MenuIcon from "@mui/icons-material/Menu";
-//icons
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-//สี
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { green } from '@mui/material/colors';
-//เมนูแถบ
-import { styled, useTheme } from '@mui/material/styles';
-import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
+import * as React from "react";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox'; //ไม่ได้ใช้
-import MailIcon from '@mui/icons-material/Mail';
-//ไอคอน 
-import HomeRepairServiceIcon from '@mui/icons-material/HomeRepairService';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import PendingActionsIcon from '@mui/icons-material/PendingActions';
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import Avatar from "@mui/material/Avatar";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
+import Grow from "@mui/material/Grow";
+import Paper from "@mui/material/Paper";
+import Popper from "@mui/material/Popper";
+import MenuList from "@mui/material/MenuList";
+//icon
+import HomeIcon from "@mui/icons-material/Home";
+import LogoutIcon from "@mui/icons-material/Logout";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import PersonIcon from '@mui/icons-material/Person';
+import BadgeIcon from '@mui/icons-material/Badge';
 import EventNoteIcon from '@mui/icons-material/EventNote';
-import HealingIcon from '@mui/icons-material/Healing';
-import { MenuItem } from '@mui/material';
-import LogoutIcon from '@mui/icons-material/Logout';
-import { useEffect, useState } from 'react';
+import FitbitIcon from '@mui/icons-material/Fitbit';
+import SportsKabaddiIcon from '@mui/icons-material/SportsKabaddi';
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import SportsBasketballIcon from '@mui/icons-material/SportsBasketball';
+import BookIcon from '@mui/icons-material/Book';
+import SportsCricketTwoToneIcon from '@mui/icons-material/SportsCricketTwoTone';
+import BuildTwoToneIcon from '@mui/icons-material/BuildTwoTone';
+import NewspaperTwoToneIcon from '@mui/icons-material/NewspaperTwoTone';
+import PaymentTwoToneIcon from '@mui/icons-material/PaymentTwoTone';
+import PersonOutlineTwoToneIcon from "@mui/icons-material/PersonOutlineTwoTone";
+import LogoutTwoToneIcon from "@mui/icons-material/LogoutTwoTone";
 
-//สี
-
+import { Link as RouterLink} from "react-router-dom";
+import { createTheme, styled, ThemeProvider, useTheme } from "@mui/material/styles";
+import { green, orange } from "@mui/material/colors";
+import { useEffect } from "react";
+import { CssBaseline, Divider, Drawer, MenuItem } from "@mui/material";
 const theme = createTheme({
-	palette: {
-	  primary: {
-		main: "#FEAC3F",
-	  },
-	  secondary: {
-		main: "#ffebee"
-	  },
-	  text: {
-		primary: "#1B2420",
-		secondary: "#1B2420"
-	  }
-	},
-	
-  })
+  palette: {
+    primary: {
+      // Purple and green play nicely together.
+      main: orange[400],
+    },
+    secondary: {
+      // This is green.A700 as hex.
+      main: '#F4F6F6',
+    },
+  },
+});
 
 const drawerWidth = 320; //ความยาวของ แถบเมนู
 
@@ -128,17 +106,10 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-
-
-
-
-
-
 function Navbar() {
-
   const themep = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [role, setRole] = useState("");
+  const [role, setRole] = React.useState("");
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -154,23 +125,43 @@ function Navbar() {
   }
 
   const menumember = [
-    { name: "หน้าหลัก", icon: <AccountCircleIcon  />, path: "/" },
-    { name: "ระบบข้อมูลสมาชิก", icon: <HomeRepairServiceIcon  />, path: "/MemberShow" },
-    { name: "ระบบแจ้งชำรุดอุปกรณ์", icon: <PendingActionsIcon   />, path: "/Notify" },
-
+    { name: "หน้าแรก", icon: <HomeIcon />, path: "/login" },
+    { name: "ข้อมูลสมาชิก", icon: <PersonIcon />, path: "/member_edit",},
+    { name: "จองเทรนเนอร์", icon: <FitnessCenterIcon />, path: "/trainer_booking",},
+    { name: "จองสถานกีฬา", icon: <BookIcon />, path: "/place_booking",},
+    { name: "จองอุปกรณ์กีฬา", icon: <BookIcon/>, path: "/equipment_booking"},
+    { name: "ชำระเงิน",icon: <PaymentTwoToneIcon />,path: "/payment_show",},
   ]
-  const admin = [
-    { name: "หน้าหลัก", icon: <AccountCircleIcon  />, path: "/" },
-    // { name: "ระบบ....", icon: <ManageAccountsIcon  />, path: "/NotifyShow" },
+  const menuemployee = [
+    { name: "หน้าแรก", icon: <HomeIcon />, path: "/login" },
+    { name: "ข้อมูลสถานกีฬา", icon: <SportsBasketballIcon/>, path: "/place"},
+    { name: "ข้อมูลอุปกรณ์กีฬา", icon: <SportsCricketTwoToneIcon />, path: "/equipment",},
+    { name: "แจ้งซ่อมอุปกรณ์ชำรุด",icon: <BuildTwoToneIcon />,path: "/notice",},
+    { name: "ข่าวประชาสัมพันธ์",icon: <NewspaperTwoToneIcon />,path: "/news",},
+  ]
+  const menuadmin = [
+    { name: "หน้าแรก", icon: <HomeIcon />, path: "/login" },
+    { name: "ข้อมูลพนักงาน", icon: <BadgeIcon />, path: "/employee_create",},
+    { name: "ตารางงานพนักงาน", icon: <EventNoteIcon />, path: "/schedule_create",},
+  ]
+  const menutrainer = [
+    { name: "หน้าแรก", icon: <HomeIcon />, path: "/login" },
+    { name: "โปรแกรมออกกำลังกาย", icon: <FitbitIcon />, path: "/program_show",},
   ]
 
   var menu: any[];
   switch(role){
-    case "Member":
+    case "member":
       menu = menumember;
       break;
-    case "Admin":
-      menu = admin;
+    case "admin":
+      menu = menuadmin;
+      break;
+    case "trainer":
+      menu = menutrainer;
+      break;
+    case "employee":
+      menu = menuemployee;
       break;
     default:
       menu = [];
@@ -200,7 +191,7 @@ function Navbar() {
           </IconButton>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
             <Typography variant="h6" color="secondary" noWrap component="div">
-              ระบบสถานกีฬา
+              Sports Center
             </Typography>
             <MenuItem onClick={SignOut}><LogoutIcon style={{ marginRight: ".5rem" }}/>Log out</MenuItem>
           </Box>
@@ -251,4 +242,5 @@ function Navbar() {
   </ThemeProvider>
   );
 }
+
 export default Navbar;
