@@ -226,25 +226,25 @@ func main() {
 	r.PATCH("/trainerBooking", trainerBooking.UpdateTrBList)
 
 	//Execise Program
-	r.GET("/exercises", exerciseProgram.ListExercise)
+	r.GET("/exercise", exerciseProgram.ListExercise)
 	r.GET("/exercise/:id", exerciseProgram.GetExercise)
 	r.POST("/exercise", exerciseProgram.CreateExercise)
 	r.DELETE("/exercise/:id", exerciseProgram.DeleteExercise)
 	r.PATCH("/exercise", exerciseProgram.UpdateExercise)
 
-	r.GET("/stretchs", exerciseProgram.ListStretch)
-	r.GET("/stretch/:id", exerciseProgram.GetStretch)
-	r.POST("/stretch", exerciseProgram.CreateStretch)
-	r.DELETE("/stretch/:id", exerciseProgram.DeleteStretch)
-	r.PATCH("/stretch", exerciseProgram.UpdateStretch)
+	r.GET("/strecth", exerciseProgram.ListStretch)
+	r.GET("/strecth/:id", exerciseProgram.GetStretch)
+	r.POST("/strecth", exerciseProgram.CreateStretch)
+	r.DELETE("/strecth/:id", exerciseProgram.DeleteStretch)
+	r.PATCH("/strecth", exerciseProgram.UpdateStretch)
 
-	r.GET("/wormups", exerciseProgram.ListWormUp)
+	r.GET("/wormup", exerciseProgram.ListWormUp)
 	r.GET("/wormup/:id", exerciseProgram.GetWormUp)
 	r.POST("/wormup", exerciseProgram.CreateWormUp)
 	r.DELETE("/wormup/:id", exerciseProgram.DeleteWormUp)
 	r.PATCH("/wormup", exerciseProgram.UpdateWormUp)
 
-	r.GET("/exerciseprograms", exerciseProgram.ListExPList)
+	r.GET("/exerciseprogram", exerciseProgram.ListExPList)
 	r.GET("/exerciseprogram/:id", exerciseProgram.GetExPList)
 	r.POST("/exerciseprogram", exerciseProgram.CreateExerciseProgramList)
 	r.DELETE("/exerciseprogram/:id", exerciseProgram.DeleteExPList)

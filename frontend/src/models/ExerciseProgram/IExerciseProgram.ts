@@ -19,7 +19,7 @@ export interface ExerciseProgramInterface {
 
 	StretchID?:   number
 	Stretch?:     StretchInterface 
-    
+
 	Minute?:      number
     }
 
