@@ -1,5 +1,6 @@
 import { MemberInterface } from "../models/IMember";
 import { EmployeeInterface } from "../models/IEmployee";
+import { ScheduleInterface } from "../models/Schedule/ISchedule";
 import { ExerciseProgramInterface } from "../models/ExerciseProgram/IExerciseProgram";
 import { EquipmentBookingListInterface } from "../models/IEquipmentBookingList";
 import { EquipmentListInterface } from "../models/IEquipmentList";
@@ -76,7 +77,7 @@ async function GetMember() {
   const requestOptions = {
     method: "GET",
     headers: {
-      // Authorization: `Bearer ${localStorage.getItem("token")}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
       "Content-Type": "application/json",
     },
   };
@@ -212,7 +213,8 @@ async function GetEmployee() {
     },
   };
 
-  let res = await fetch(`${apiUrl}/employees`, requestOptions)
+  const uid = Number(localStorage.getItem("employeeId"));
+  let res = await fetch(`${apiUrl}/employee`, requestOptions)
     .then((response) => response.json())
     .then((res) => {
       if (res.data) {
@@ -228,11 +230,11 @@ async function GetEmployee() {
 async function CreateEmployee(data: EmployeeInterface) {
   const requestOptions = {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {  Authorization: `Bearer ${localStorage.getItem("token")}`,"Content-Type": "application/json" },
     body: JSON.stringify(data),
   };
-
-  let res = await fetch(`${apiUrl}/employee`, requestOptions)
+  console.log(data)
+  let res = await fetch(`${apiUrl}/employees`, requestOptions)
     .then((response) => response.json())
     .then((res) => {
       if (res.data) {
@@ -312,7 +314,7 @@ async function GetSchedule() {
   return res;
 }
 
-async function CreateSchedule(data: EmployeeInterface) {
+async function CreateSchedule(data: ScheduleInterface) {
   const requestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json" },

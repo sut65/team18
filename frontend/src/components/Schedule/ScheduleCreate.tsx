@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
@@ -37,21 +37,19 @@ import {
 
 function ScheduleCreate() {
   // const classes = makeStyles();
-  
+
   const [error, setError] = React.useState(false);
   const [date, setDate] = useState<Date | null>(null);
   const [success, setSuccess] = React.useState(false);
   const [message, setAlertMessage] = React.useState("");
-  
-  
+
   const [role, setRole] = React.useState<RoleInterface[]>([]);
   const [duty, setDuty] = React.useState<DutyInterface[]>([]);
   const [time, setTime] = React.useState<TimeInterface[]>([]);
-  //const [employee, setEmployee] = useState<EmployeeInterface[]>([]);
+  const [employee, setEmployee] = React.useState<EmployeeInterface[]>([]);
   //const [schedule, setSchedule] = useState<ScheduleInterface[]>([]);
-  const [employee, setEmployee] = useState<Partial<EmployeeInterface>>({});
+  //const [employee, setEmployee] = useState<Partial<EmployeeInterface>>({});
   const [schedule, setSchedule] = useState<Partial<ScheduleInterface>>({});
-
 
   //--------- รับค่า --------
   const getTime = async () => {
@@ -101,45 +99,68 @@ function ScheduleCreate() {
 
   //Alert
   const handleClose = (
-
     event?: React.SyntheticEvent | Event,
 
     reason?: string
-
   ) => {
-
     if (reason === "clickaway") {
-
       return;
-
     }
 
     setSuccess(false);
 
     setError(false);
-
   };
 
   const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
-
     props,
-  
+
     ref
-  
   ) {
-  
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  
   });
+
+  //Submit
+  async function submit() {
+    let data = {
+      EmployeeID: Number(localStorage.getItem("employeeId")),
+      RoleID:typeof schedule.RoleID === "string" ? parseInt(schedule.RoleID) : 0,
+      DutyID:typeof schedule.DutyID === "string" ? parseInt(schedule.DutyID) : 0,
+      TimeID:typeof schedule.TimeID === "string" ? parseInt(schedule.TimeID) : 0,
+      //EmployeeID:typeof schedule.EmployeeID === "string" ? parseInt(schedule.EmployeeID) : 0,
+      Recoed_Time: new Date,
+    };
+    let res = await CreateSchedule(data);
+    if (res.status) {
+      setAlertMessage("บันทึกข้อมูลสำเร็จ");
+      setSuccess(true);
+    } else {
+      setAlertMessage(res.message);
+      setError(true);
+    }
+  }
+ 
 
   return (
     <Container maxWidth="md">
-       <Snackbar id="success" open={success} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
+      <Snackbar
+        id="success"
+        open={success}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
         <Alert onClose={handleClose} severity="success">
           {message}
         </Alert>
       </Snackbar>
-      <Snackbar id="error" open={error} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
+      <Snackbar
+        id="error"
+        open={error}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
         <Alert onClose={handleClose} severity="error">
           {message}
         </Alert>
@@ -170,20 +191,29 @@ function ScheduleCreate() {
             <p>ชื่อ</p>
             <FormControl fullWidth variant="outlined">
               <Select
-                native
-                //disabled
-                value={schedule.EmployeeID}
-                onChange={handleChange}
-                inputProps={{
-                  name: "EmployeeID",
-                }}
+                //native
+                disabled
+                value={localStorage.getItem("employeeId")}
+                // onChange={handleChange}
+                // inputProps={{
+                //   name: "EmployeeID",
+                // }}
               >
-                <option aria-label="None" value="">
+                {/* <option aria-label="None" value="">
                   กรุณาระบุชื่อ
-                </option>
-                <option aria-label="None" value="">
+                </option> */}
+                {/* <option aria-label="None" value="">
                     {employee?.Name}
-                  </option>
+                  </option> */}
+                {employee.map(
+                  (
+                    item: EmployeeInterface //map
+                  ) => (
+                    <MenuItem value={item.ID} key={item.ID}>
+                      {item.Name}
+                    </MenuItem> //key ไว้อ้างอิงว่าที่1ชื่อนี้ๆๆ value: เก็บค่า
+                  )
+                )}
               </Select>
             </FormControl>
           </Grid>
@@ -205,7 +235,7 @@ function ScheduleCreate() {
                 </option>
                 {role.map((item: RoleInterface) => (
                   <option value={item.ID} key={item.ID}>
-                    {item.Type}
+                    {item.Name}
                   </option>
                 ))}
               </Select>
@@ -265,12 +295,12 @@ function ScheduleCreate() {
             <p>สถานที่</p>
             <FormControl fullWidth variant="outlined">
               <Select
-                // native
-                // value={employee.GenderID}
-                // onChange={handleChange}
-                // inputProps={{
-                //   name: "GenderID",
-                // }}
+              // native
+              // value={employee.GenderID}
+              // onChange={handleChange}
+              // inputProps={{
+              //   name: "GenderID",
+              // }}
               >
                 {/* <option aria-label="None" value="">
                   กรุณาระบุเพศ
@@ -306,7 +336,7 @@ function ScheduleCreate() {
           <Grid item xs={5} margin={2}>
             <Button
               component={RouterLink}
-              to="/"
+              to="/login"
               variant="contained"
               size="large"
               style={{ height: "42px", width: "100px" }}
@@ -319,7 +349,7 @@ function ScheduleCreate() {
               variant="contained"
               color="success"
               size="large"
-              //onClick={submit}
+              onClick={submit}
               style={{ float: "right", height: "42px", width: "95px" }}
             >
               Submit

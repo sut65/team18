@@ -18,7 +18,7 @@ import { RunNumberInterface } from "../../models/IRunNumber";
 
 import {
     CreateEquipmentList,
-    GetEquipmentName,
+   GetEquipmentName,
     GetRunNumber,
 }from "../../services/HttpClientService";
 import { TextField } from "@mui/material";

@@ -58,7 +58,7 @@ func main() {
 	// Employee Routes
 	r.GET("/employees", employee.ListEmployees)
 	r.GET("/employee/:id", employee.GetEmployee)
-	r.POST("/employee", employee.CreateEmployee)
+	r.POST("/employees", employee.CreateEmployee)
 	r.PATCH("/employee", employee.UpdateEmployee)
 	r.DELETE("/employee/:id", employee.DeleteEmployee)
 

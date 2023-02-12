@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+ import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import AppBar from "@mui/material/AppBar";
@@ -30,24 +30,6 @@ import {
   GetGender,
   GetRole,
 } from "../../services/HttpClientService";
-//import NavbarEmployee from "./NavbarEmployee";
-
-// import { createStyles, makeStyles, Theme } from '@mui/styles';
-
-// const useStyles = makeStyles((theme: Theme) =>
-//   createStyles({
-//     .root: {
-//       flexGrow: 1,
-//     },
-//     container: {
-//       marginTop: theme.spacing(2),
-//     },
-//     paper: {
-//       padding: theme.spacing(2),
-//       color: theme.palette.text.secondary,
-//     },
-//   })
-// );
 
 //--------------ระบบพนักงาน ------------------------------
 function EmployeeCreate() {
@@ -61,7 +43,11 @@ function EmployeeCreate() {
   const [role, setRole] = React.useState<RoleInterface[]>([]);
   const [gender, setGender] = React.useState<GenderInterface[]>([]);
   const [education, setEducation] = React.useState<EducationInterface[]>([]);
-  const [employee, setEmployee] = useState<Partial<EmployeeInterface>>({});
+  const [employee, setEmployee] = React.useState<Partial<EmployeeInterface>>({
+    // GenderID:0,
+    // EducationID:0,
+    // RoleID:0,
+  });
 
   //--------- รับค่า --------
   const getGender = async () => {
@@ -157,15 +143,14 @@ function EmployeeCreate() {
       Email: employee.Email ?? "",
       Password: employee.Password ?? "",
       DOB: new Date(),
-      GenderID: convertType(employee.GenderID),
-      // GenderID:
-      //   typeof employee.GenderID === "string" ? parseInt(employee.GenderID) : 0,
-      EducationID:
-        typeof employee.EducationID === "string"
-          ? parseInt(employee.EducationID)
-          : 0,
+      GenderID: typeof employee.GenderID === "string" ? parseInt(employee.GenderID) : 0,
+      EducationID:typeof employee.EducationID === "string" ? parseInt(employee.EducationID): 0,
       RoleID:
         typeof employee.RoleID === "string" ? parseInt(employee.RoleID) : 0,
+      User: {
+            Name: employee.Email ?? "",
+            Password: employee.Password ?? "",
+        }
     };
     let res = await CreateEmployee(data);
     if (res.status) {
@@ -178,7 +163,6 @@ function EmployeeCreate() {
   }
 
   return (
-    //ยังไม่ใช้ ถ้าจะใช้ใส่ div ไว้ข้างบน <NavbarEmployee />
     <Container maxWidth='md'>
       <Snackbar id="success" open={success} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
         <Alert onClose={handleClose} severity="success">
@@ -309,8 +293,7 @@ function EmployeeCreate() {
                   กรุณาระบุเพศ
                 </option>
                 {gender.map((item: GenderInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Gtype}
+                  <option value={item.ID}>{item.Gtype}
                   </option>
                 ))}
               </Select>
@@ -334,7 +317,7 @@ function EmployeeCreate() {
                 </option>
                 {role.map((item: RoleInterface) => (
                   <option value={item.ID} key={item.ID}>
-                    {item.Type}
+                    {item.Name}
                   </option>
                 ))}
               </Select>
@@ -357,7 +340,7 @@ function EmployeeCreate() {
                   กรุณาระบุระดับการศึกษา
                 </option>
                 {education.map((item: EducationInterface) => (
-                  <option value={item.ID} key={item.ID}>
+                  <option value={item.ID}>
                     {item.Education}
                   </option>
                 ))}
@@ -368,7 +351,7 @@ function EmployeeCreate() {
           {/* ปุ่ม */}
           <Grid item xs={5} margin={2}>
             <Button
-              component={RouterLink} to="/"
+              component={RouterLink} to="/employee_show"
               variant="contained"
               size="large"
               style={{ height: "42px", width: "100px" }}

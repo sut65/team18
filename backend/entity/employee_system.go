@@ -27,7 +27,7 @@ type Employee struct {
 	Tel      string
 	Email    string
 	Password string
-	DOB      time.Time
+	DOB      time.Time 
 
 	GenderID *uint
 	Gender   Gender

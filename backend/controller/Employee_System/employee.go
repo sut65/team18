@@ -10,8 +10,12 @@ import (
 	"github.com/sut65/team18/entity"
 )
 
-//โครงสร้างตัวควบคุม database
+func SetupPasswordHash(pwd string) string {
+	var password, _ = bcrypt.GenerateFromPassword([]byte(pwd), 14)
+	return string(password)
+}
 
+// โครงสร้างตัวควบคุม database
 // POST //Employee
 func CreateEmployee(c *gin.Context) { // c รับข้อมูลมาจาก api
 	var employee entity.Employee //การประกาศตัวแปรให้เป็นไทป์ที่เราสร้างขึ้นเอง
@@ -30,13 +34,13 @@ func CreateEmployee(c *gin.Context) { // c รับข้อมูลมาจ�
 	//tx.RowsAffected == 0 คือมัน err
 	// : ค้นหา education ด้วย id
 	if tx := entity.DB().Where("id = ?", employee.EducationID).First(&education); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "education not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Education not found"})
 		return
 	}
 
 	// : ค้นหา role ด้วย id
 	if tx := entity.DB().Where("id = ?", employee.RoleID).First(&role); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "role not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Role not found"})
 		return
 	}
 
@@ -46,18 +50,24 @@ func CreateEmployee(c *gin.Context) { // c รับข้อมูลมาจ�
 		return
 	}
 
+	createuserlogin := entity.User{
+		Name:     employee.Email,
+		Password: SetupPasswordHash(employee.Password),
+		Role:     role,
+	}
 	password, _ := bcrypt.GenerateFromPassword([]byte(employee.Password), 14)
 
 	// : สร้างตาราง Employee_System
 	ps := entity.Employee{
-		Name:      employee.Name,      // โยงความสัมพันธ์กับ Entity name
-		Tel:       employee.Tel,       // โยงความสัมพันธ์กับ Entity email
-		Email:     employee.Email,     // โยงความสัมพันธ์กับ Entity tel
-		Password:  string(password),   // ตั้งค่าฟิลด์ password
-		Gender:    employee.Gender,    // โยงความสัมพันธ์กับ Entity gender
-		Role:      employee.Role,      // โยงความสัมพันธ์กับ Entity role
-		Education: employee.Education, // โยงความสัมพันธ์กับ Entity education
-		DOB:       employee.DOB,       // ตั้งค่าฟิลด์ DOB
+		Name:      employee.Name,    // โยงความสัมพันธ์กับ Entity name
+		Tel:       employee.Tel,     // โยงความสัมพันธ์กับ Entity email
+		Email:     employee.Email,   // โยงความสัมพันธ์กับ Entity tel
+		Password:  string(password), // ตั้งค่าฟิลด์ password
+		Gender:    gender,           // โยงความสัมพันธ์กับ Entity gender
+		Role:      role,             // โยงความสัมพันธ์กับ Entity role
+		Education: education,        // โยงความสัมพันธ์กับ Entity education
+		DOB:       employee.DOB,     // ตั้งค่าฟิลด์ DOB
+		User:      createuserlogin,
 	}
 
 	// : บันทึก
@@ -72,7 +82,7 @@ func CreateEmployee(c *gin.Context) { // c รับข้อมูลมาจ�
 func GetEmployee(c *gin.Context) {
 	var employee entity.Employee
 	id := c.Param("id") //มาจาก api จากใน main.go
-	if err := entity.DB().Raw("SELECT * FROM employees WHERE id = ?", id).Scan(&employee).Error; err != nil {
+	if err := entity.DB().Preload("Education").Preload("Role").Preload("Gender").Raw("SELECT * FROM employees WHERE id = ?", id).Find(&employee).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -81,8 +91,8 @@ func GetEmployee(c *gin.Context) {
 
 // GET /Employees
 func ListEmployees(c *gin.Context) {
-	var employees []entity.Employee
-	if err := entity.DB().Raw("SELECT * FROM employees").Scan(&employees).Error; err != nil {
+	var employees []entity.Employee																			// .Scan -> .Find  ทำให้สามารถโชข้อมูลหน้า show รูปแบบ string ได้
+	if err := entity.DB().Preload("Education").Preload("Role").Preload("Gender").Raw("SELECT * FROM employees").Find(&employees).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

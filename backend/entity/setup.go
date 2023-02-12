@@ -223,6 +223,7 @@ func SetupDatabase() {
 		Role:      admin,
 		Education: baDg,
 		DOB:       time.Now(),
+		//DOB: 		time.Date(2022, 12, 10, 0, 0, 0, 0, time.Now().Location()),
 		User:      userAdmin,
 	}
 	db.Model(&Employee{}).Create(&admin2)

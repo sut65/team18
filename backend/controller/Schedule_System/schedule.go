@@ -15,6 +15,8 @@ func CreateSchedule(c *gin.Context) { // c รับข้อมูลมาจ�
 	var schedule entity.Schedule //การประกาศตัวแปรให้เป็นไทป์ที่เราสร้างขึ้นเอง
 	var duty entity.Duty
 	var time entity.Time
+	var employee entity.Employee
+	var role entity.Role
 
 	// ผลลัพธ์ที่ได้จากขั้นตอนที่ 9 จะถูก bind เข้าตัวแปร foodsickeness
 	// c.ShouldBindJSON  คือการผูกข้อมูลที่ได้จากหน้า frontend ให้เข้ากับ structure(โครงสร้าง) ของ backend
@@ -37,13 +39,26 @@ func CreateSchedule(c *gin.Context) { // c รับข้อมูลมาจ�
 		return
 	}
 
+	// : ค้นหา employee ด้วย id
+	if tx := entity.DB().Where("id = ?", schedule.EmployeeID).First(&time); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "employee not found"})
+		return
+	}
+
+	// : ค้นหา employee ด้วย id
+	if tx := entity.DB().Where("id = ?", schedule.RoleID).First(&time); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "role not found"})
+		return
+	}
+	
+
 	// : สร้างตาราง schedule
 	ps := entity.Schedule{
-		Employee: schedule.Employee,
-		Role: schedule.Role,
-		Duty: schedule.Duty,
+		Employee: employee,
+		Role: role,
+		Duty: duty,
 		Ocd: schedule.Ocd,
-		Time: schedule.Time,
+		Time: time,
 		PlaceInfolist: schedule.PlaceInfolist,
 		Record_Time: schedule.Record_Time,
 	}	

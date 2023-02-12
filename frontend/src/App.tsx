@@ -25,6 +25,7 @@ import EquipmentListCreate from './components/EquipmentMenagement/EquipmentCreat
 
 import MemberS from './components/Member/MemberS';
 import MemberShow from './components/Member/MemberShow';
+import EmployeeShow from './components/Employee/EmployeeShow';
 
 
 import NewsCreate from './components/News/NewsCreate';
@@ -107,6 +108,8 @@ export default function App() {
                   <Route path='/employee_create' element={<EmployeeCreate />} />
                   <Route path='/schedule_create' element={<ScheduleCreate/>} />
                   <Route path='/news_create' element={<NewsUpdate />} />
+                  <Route path='/employee_show' element={<EmployeeShow />} />
+
                   </>
                   )
                 }{role === "member" && (
@@ -128,6 +131,7 @@ export default function App() {
                   <Route path='/member_create' element={<MemberCreate/>} />
                   <Route path='/member_edit' element={<MemberEdit/>} />
                   <Route path='/equipment_create' element={<EquipmentListCreate/>} />
+                  <Route path='/schedule_create' element={<ScheduleCreate/>} />
                   </>
                   )
                 }{role === "trainer" && (
