@@ -23,12 +23,6 @@ func CreateNotify(c *gin.Context) {
 		return
 	}
 
-	//แทรกvilid
-	if _, err := govalidator.ValidateStruct(member); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-	
 	// ค้นหา member ด้วย id
 	if tx := entity.DB().Where("id = ?", notify.MemberID).First(&member); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Member not found"})
@@ -51,7 +45,7 @@ func CreateNotify(c *gin.Context) {
 	nt := entity.Notify{
 		Member:        member,
 		Problem:       notify.Problem,
-		Date:          notify.Date,
+		Ddate:         notify.Ddate,
 		EquipmentName: equipmentname,
 		RunNumber:     runnumber,
 	}
@@ -74,7 +68,18 @@ func CreateNotify(c *gin.Context) {
 func GetNotify(c *gin.Context) {
 	var notify entity.Notify
 	id := c.Param("id")
-	if err := entity.DB().Preload("Member").Preload("EquipmentName").Preload("RunNumber").Raw("SELECT * FROM notifys WHERE id = ?", id).Find(&notify).Error; err != nil {
+	if err := entity.DB().Preload("Member").Preload("EquipmentName").Preload("RunNumber").Raw("SELECT * FROM notifies WHERE id = ?", id).Find(&notify).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": notify})
+}
+
+// GET /Notify/:id
+func GetNotifybyMB(c *gin.Context) {
+	var notify []entity.Notify
+	id := c.Param("id")
+	if err := entity.DB().Preload("Member").Preload("EquipmentName").Preload("RunNumber").Raw("SELECT * FROM notifies WHERE member_id = ?", id).Find(&notify).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -82,8 +87,8 @@ func GetNotify(c *gin.Context) {
 }
 
 func ListNotify(c *gin.Context) {
-	var notify []entity.Member
-	if err := entity.DB().Preload("Member").Preload("EquipmentName").Preload("RunNumber").Raw("SELECT * FROM notifys").Find(&notify).Error; err != nil {
+	var notify []entity.Notify
+	if err := entity.DB().Preload("Member").Preload("EquipmentName").Preload("RunNumber").Raw("SELECT * FROM notifies").Find(&notify).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -94,7 +99,7 @@ func ListNotify(c *gin.Context) {
 // DELETE /Notify/:id
 func DeleteNotify(c *gin.Context) {
 	id := c.Param("id")
-	if tx := entity.DB().Exec("DELETE FROM notifys WHERE id = ?", id); tx.RowsAffected == 0 {
+	if tx := entity.DB().Exec("DELETE FROM notifies WHERE id = ?", id); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Notify not found"})
 		return
 	}
@@ -105,13 +110,48 @@ func DeleteNotify(c *gin.Context) {
 // PATCH /Notify
 func UpdateNotify(c *gin.Context) {
 	var notify entity.Notify
-	if err := c.ShouldBindJSON(&notify); err != nil {
+	var newNotify entity.Notify
+	if err := c.ShouldBindJSON(&newNotify); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	if tx := entity.DB().Where("id = ?", notify.ID).First(&notify); tx.RowsAffected == 0 {
+	if tx := entity.DB().Where("id = ?", newNotify.ID).First(&notify); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Notify not found"})
+		return
+	}
+
+	var member entity.Member
+	var equipmentname entity.EquipmentName
+	var runnumber entity.RunNumber
+
+	// ค้นหา member ด้วย id
+	if tx := entity.DB().Where("id = ?", newNotify.MemberID).First(&member); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Member not found"})
+		return
+	}
+
+	// ค้นหา equipmentname ด้วย id
+	if tx := entity.DB().Where("id = ?", newNotify.EquipmentNameID).First(&equipmentname); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Equipmentname not found"})
+		return
+	}
+
+	// ค้นหาrunnumber ด้วย id
+	if tx := entity.DB().Where("id = ?", newNotify.RunNumberID).First(&runnumber); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Runnumber not found"})
+		return
+	}
+
+	notify.Member = member
+	notify.Problem = newNotify.Problem
+	notify.Ddate = newNotify.Ddate
+	notify.EquipmentName = equipmentname
+	notify.RunNumber = runnumber
+
+	// ขั้นตอนการ validate
+	if _, err := govalidator.ValidateStruct(notify); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 

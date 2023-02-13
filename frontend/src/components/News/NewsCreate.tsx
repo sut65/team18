@@ -47,7 +47,7 @@ function NewsCreate() {
     const [sdate, setSdate] = React.useState<Date | null>(
         new Date()
     );
-    const [em, setEm] = React.useState<Partial<EmployeeInterface>>({});
+    const [em, setEm] = React.useState<Partial<EmployeeInterface>>();
     const [error, setError] = React.useState(false);
     const [success, setSuccess] = React.useState(false);
     const [message, setAlertMessage] = React.useState("");

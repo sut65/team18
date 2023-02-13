@@ -37,7 +37,7 @@ import PaymentTwoToneIcon from '@mui/icons-material/PaymentTwoTone';
 import PersonOutlineTwoToneIcon from "@mui/icons-material/PersonOutlineTwoTone";
 import LogoutTwoToneIcon from "@mui/icons-material/LogoutTwoTone";
 
-import { Link as RouterLink} from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import { createTheme, styled, ThemeProvider, useTheme } from "@mui/material/styles";
 import { green, orange } from "@mui/material/colors";
 import { useEffect } from "react";
@@ -126,34 +126,35 @@ function Navbar() {
 
   const menumember = [
     { name: "หน้าแรก", icon: <HomeIcon />, path: "/login" },
-    { name: "ข้อมูลสมาชิก", icon: <PersonIcon />, path: "/member_show",},
-    { name: "จองเทรนเนอร์", icon: <FitnessCenterIcon />, path: "/trainer_booking",},
-    { name: "จองสถานกีฬา", icon: <BookIcon />, path: "/place_booking",},
-    { name: "จองอุปกรณ์กีฬา", icon: <BookIcon/>, path: "/equipment_booking"},
-    { name: "ชำระเงิน",icon: <PaymentTwoToneIcon />,path: "/bill_create",},
+    { name: "ข้อมูลสมาชิก", icon: <PersonIcon />, path: "/member_show", },
+    { name: "จองเทรนเนอร์", icon: <FitnessCenterIcon />, path: "/trainer_booking", },
+    { name: "จองสถานกีฬา", icon: <BookIcon />, path: "/place_booking", },
+    { name: "จองอุปกรณ์กีฬา", icon: <BookIcon />, path: "/equipment_booking" },
+    { name: "ชำระเงิน", icon: <PaymentTwoToneIcon />, path: "/bill_create", },
+    { name: "แจ้งซ่อมอุปกรณ์ชำรุด", icon: <BuildTwoToneIcon />, path: "/notify_show", },
   ]
   const menuemployee = [
     { name: "หน้าแรก", icon: <HomeIcon />, path: "/login" },
-    { name: "ตารางงานพนักงาน", icon: <EventNoteIcon />, path: "/schedule_create",},
-    { name: "ข้อมูลสถานกีฬา", icon: <SportsBasketballIcon/>, path: "/place"},
-    { name: "ข้อมูลอุปกรณ์กีฬา", icon: <SportsCricketTwoToneIcon />, path: "/equipment_create",},
-    { name: "แจ้งซ่อมอุปกรณ์ชำรุด",icon: <BuildTwoToneIcon />,path: "/notice",},
-    { name: "ข่าวประชาสัมพันธ์",icon: <NewspaperTwoToneIcon />,path: "/news",},
+    { name: "ตารางงานพนักงาน", icon: <EventNoteIcon />, path: "/schedule_create", },
+    { name: "ข้อมูลสถานกีฬา", icon: <SportsBasketballIcon />, path: "/place" },
+    { name: "ข้อมูลอุปกรณ์กีฬา", icon: <SportsCricketTwoToneIcon />, path: "/equipment_create", },
+    { name: "ข้อมูลการแจ้งซ่อมอุปกรณ์ชำรุด", icon: <BuildTwoToneIcon />, path: "/notify_shows", },
+    { name: "ข่าวประชาสัมพันธ์", icon: <NewspaperTwoToneIcon />, path: "/news", },
   ]
   const menuadmin = [
     { name: "หน้าแรก", icon: <HomeIcon />, path: "/login" },
     //{ name: "ข้อมูลพนักงาน", icon: <BadgeIcon />, path: "/employee_create",},
-    { name: "ข้อมูลพนักงาน", icon: <BadgeIcon />, path: "/employee_show",},
+    { name: "ข้อมูลพนักงาน", icon: <BadgeIcon />, path: "/employee_show", },
 
-    { name: "ข่าว", icon: <EventNoteIcon />, path: "/news_create",},
+    { name: "ข่าว", icon: <EventNoteIcon />, path: "/news_create", },
   ]
   const menutrainer = [
     { name: "หน้าแรก", icon: <HomeIcon />, path: "/login" },
-    { name: "โปรแกรมออกกำลังกาย", icon: <FitbitIcon />, path: "/program_show",},
+    { name: "โปรแกรมออกกำลังกาย", icon: <FitbitIcon />, path: "/program_show", },
   ]
 
   var menu: any[];
-  switch(role){
+  switch (role) {
     case "member":
       menu = menumember;
       break;
@@ -175,74 +176,74 @@ function Navbar() {
     const getToken = localStorage.getItem("token");
     if (getToken) {
       setRole(localStorage.getItem("role") || "");
-    } 
+    }
   }, []);
   return (
-  <ThemeProvider theme={theme}>
-    <Box sx={{ display: 'flex' }} >
-      <CssBaseline />
-      <AppBar position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="secondary"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
-            <Typography variant="h6" color="secondary" noWrap component="div">
-              Sports Center
-            </Typography>
-            <MenuItem onClick={SignOut}><LogoutIcon style={{ marginRight: ".5rem" }}/>Log out</MenuItem>
-          </Box>
-          
-        </Toolbar>
+    <ThemeProvider theme={theme}>
+      <Box sx={{ display: 'flex' }} >
+        <CssBaseline />
+        <AppBar position="fixed" open={open}>
+          <Toolbar>
+            <IconButton
+              color="secondary"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{ mr: 2, ...(open && { display: 'none' }) }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+              <Typography variant="h6" color="secondary" noWrap component="div">
+                Sports Center
+              </Typography>
+              <MenuItem onClick={SignOut}><LogoutIcon style={{ marginRight: ".5rem" }} />Log out</MenuItem>
+            </Box>
 
-      </AppBar>
+          </Toolbar>
 
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
+        </AppBar>
+
+        <Drawer
+          sx={{
             width: drawerWidth,
-            boxSizing: 'border-box',
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={open}
-      >
-        <DrawerHeader>
-          {/* ปุ่มกด < */}
-          <IconButton onClick={handleDrawerClose}> 
-            {themep.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton> {/* ปุ่มกด < */}
-        </DrawerHeader>
+            flexShrink: 0,
+            '& .MuiDrawer-paper': {
+              width: drawerWidth,
+              boxSizing: 'border-box',
+            },
+          }}
+          variant="persistent"
+          anchor="left"
+          open={open}
+        >
+          <DrawerHeader>
+            {/* ปุ่มกด < */}
+            <IconButton onClick={handleDrawerClose}>
+              {themep.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton> {/* ปุ่มกด < */}
+          </DrawerHeader>
 
-        <Divider />
+          <Divider />
 
-         {menu.map((item, index) => (
-                <ListItem key={index} button component={RouterLink} onClick={handleDrawerClose}
-                 to={item.path}>
-                  <ListItemIcon>{item.icon}</ListItemIcon>
-                  <ListItemText>{item.name}</ListItemText>
-                  
-                </ListItem>
-              ))}
+          {menu.map((item, index) => (
+            <ListItem key={index} button component={RouterLink} onClick={handleDrawerClose}
+              to={item.path}>
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText>{item.name}</ListItemText>
 
-        <Divider />
-      </Drawer>
+            </ListItem>
+          ))}
 
-      <Main open={open}>
-        <DrawerHeader />
-      </Main>
+          <Divider />
+        </Drawer>
 
-    </Box>
-  </ThemeProvider>
+        <Main open={open}>
+          <DrawerHeader />
+        </Main>
+
+      </Box>
+    </ThemeProvider>
   );
 }
 

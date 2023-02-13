@@ -253,8 +253,8 @@ function MemberCreate() {
 
         </Snackbar>
 
-        <Paper sx={{ marginTop: 2}}>
-          <Typography sx={{ marginLeft: 30,marginTop: 3, padding: 1 }}
+        <Paper sx={{ marginTop: 2 }}>
+          <Typography sx={{ marginLeft: 30, marginTop: 3, padding: 1 }}
 
             component="h2"
 
@@ -289,25 +289,26 @@ function MemberCreate() {
           {/* ชื่อ */}
           <Grid item xs={6} sx={{ padding: 2, marginTop: 0, }} >
             <p>ชื่อ-นามสกุล</p>
+            <ThemeProvider theme={theme}>
+              <FormControl fullWidth variant="outlined" >
 
-            <FormControl fullWidth variant="outlined" >
+                <TextField
 
-              <TextField
+                  id="Name" label="ชื่อ-นามสกุล"
 
-                id="Name" label="ชื่อ-นามสกุล"
+                  color="primary" variant="outlined"
 
-                color="secondary" variant="outlined"
+                  type="string"
 
-                type="string"
+                  size="medium"
 
-                size="medium"
+                  value={member.Name || ""}
 
-                value={member.Name || ""}
+                  onChange={handleInputChange}
 
-                onChange={handleInputChange}
-
-              />
-            </FormControl>
+                />
+              </FormControl>
+            </ThemeProvider>
           </Grid>
 
           {/* อีเมล */}
