@@ -4,18 +4,18 @@ import (
 	"os"
 
 	bookInfo "github.com/sut65/team18/controller/BookInfo"
-	placeInfo "github.com/sut65/team18/controller/PlaceInfo"
 	employee "github.com/sut65/team18/controller/Employee_System"
 	eb "github.com/sut65/team18/controller/EquipmentBookingList"
 	el "github.com/sut65/team18/controller/EquipmentManagement"
 	exerciseProgram "github.com/sut65/team18/controller/ExerciseProgram"
 	member "github.com/sut65/team18/controller/Member"
 	notify "github.com/sut65/team18/controller/Notify"
-	payment "github.com/sut65/team18/controller/payment"
+	placeInfo "github.com/sut65/team18/controller/PlaceInfo"
 	schedule "github.com/sut65/team18/controller/Schedule_System"
 	signin "github.com/sut65/team18/controller/Signin"
 	trainerBooking "github.com/sut65/team18/controller/TrainerBooking"
 	new "github.com/sut65/team18/controller/news"
+	payment "github.com/sut65/team18/controller/payment"
 
 	"github.com/sut65/team18/entity"
 
@@ -157,43 +157,42 @@ func main() {
 	r.PATCH("/bookInfo", bookInfo.UpdateBookInfoList)
 	r.DELETE("/bookInfo/:id", bookInfo.DeleteBookInfoList)
 
-	r.GET("/place" ,bookInfo.ListPlace)
+	r.GET("/place", bookInfo.ListPlace)
 	r.GET("/place/:id", bookInfo.GetPlace)
-	r.POST("/place" ,bookInfo.CreatePlace)
+	r.POST("/place", bookInfo.CreatePlace)
 	r.PATCH("/place", bookInfo.UpdatePlace)
 	r.DELETE("/place/:id", bookInfo.DeletePlace)
 
-	r.GET("timeperiod" ,bookInfo.ListTimeperiod)
+	r.GET("timeperiod", bookInfo.ListTimeperiod)
 	r.GET("timeperiod/:id", bookInfo.GetTimeperiod)
 	r.POST("timeperiod", bookInfo.CreateTimeperiod)
 	r.PATCH("timeperiod", bookInfo.UpdateTimeperiod)
-	r.DELETE("timeperiod/:id" ,bookInfo.DeleteTimeperiod)
+	r.DELETE("timeperiod/:id", bookInfo.DeleteTimeperiod)
 
 	//PlaceInfo
-	r.GET("placeInfo" ,placeInfo.ListPlaceInfoList)
-	r.GET("placeInfo/:id" ,placeInfo.GetPlaceInfoList)
-	r.POST("placeInfo" ,placeInfo.CreatePlaceInfoList)
-	r.PATCH("placeInfo" ,placeInfo.UpdatePlaceInfoList)
-	r.DELETE("placeInfo/:id" ,placeInfo.DeletePlaceInfoList)
+	r.GET("placeInfo", placeInfo.ListPlaceInfoList)
+	r.GET("placeInfo/:id", placeInfo.GetPlaceInfoList)
+	r.POST("placeInfo", placeInfo.CreatePlaceInfoList)
+	r.PATCH("placeInfo", placeInfo.UpdatePlaceInfoList)
+	r.DELETE("placeInfo/:id", placeInfo.DeletePlaceInfoList)
 
-	r.GET("service" ,placeInfo.ListService)
-	r.GET("service/:id" ,placeInfo.GetSercive)
-	r.POST("service" ,placeInfo.CreateService)
-	r.PATCH("service" ,placeInfo.UpdateService)
-	r.DELETE("service/:id" ,placeInfo.DeleteService)
+	r.GET("service", placeInfo.ListService)
+	r.GET("service/:id", placeInfo.GetSercive)
+	r.POST("service", placeInfo.CreateService)
+	r.PATCH("service", placeInfo.UpdateService)
+	r.DELETE("service/:id", placeInfo.DeleteService)
 
-	r.GET("openandcolsedays" ,placeInfo.ListOpenandClosedays)
-	r.GET("openandclosedays/:id" ,placeInfo.GetOpenandClosedays)
-	r.POST("openandclosedays" ,placeInfo.CreateOpenandClosedays)
-	r.PATCH("openandclosedays" ,placeInfo.UpdateOpenandclosedays)
-	r.DELETE("openandclosedays/:id" ,placeInfo.DeleteOpenandClosedays)
+	r.GET("openandcolsedays", placeInfo.ListOpenandClosedays)
+	r.GET("openandclosedays/:id", placeInfo.GetOpenandClosedays)
+	r.POST("openandclosedays", placeInfo.CreateOpenandClosedays)
+	r.PATCH("openandclosedays", placeInfo.UpdateOpenandclosedays)
+	r.DELETE("openandclosedays/:id", placeInfo.DeleteOpenandClosedays)
 
-	r.GET("openandclosetime" ,placeInfo.ListOpenandClosetime)
-	r.GET("openandclosetime/:id" ,placeInfo.GetOpenandClosetime)
-	r.POST("openandclosetime" ,placeInfo.CreateOpenandClosetime)
-	r.PATCH("openandclosetime" ,placeInfo.UpdateOpenandClosetime)
-	r.DELETE("openandclosetime/:id" ,placeInfo.DeleteOpenandClosetime)
-	
+	r.GET("openandclosetime", placeInfo.ListOpenandClosetime)
+	r.GET("openandclosetime/:id", placeInfo.GetOpenandClosetime)
+	r.POST("openandclosetime", placeInfo.CreateOpenandClosetime)
+	r.PATCH("openandclosetime", placeInfo.UpdateOpenandClosetime)
+	r.DELETE("openandclosetime/:id", placeInfo.DeleteOpenandClosetime)
 
 	//Member
 	r.GET("/members", member.ListMember)
@@ -214,9 +213,10 @@ func main() {
 	//notify
 	r.GET("/notifys", notify.ListNotify)
 	r.GET("/notify/:id", notify.GetNotify)
+	r.GET("/notifymb/:id", notify.GetNotifybyMB)
 	r.POST("/notifys", notify.CreateNotify)
 	r.DELETE("/notify/:id", notify.DeleteNotify)
-	r.PATCH("/notifys", notify.UpdateNotify)
+	r.PUT("/notifys", notify.UpdateNotify)
 
 	//traniner booking
 	r.GET("/trainerBooking", trainerBooking.ListTrBList)

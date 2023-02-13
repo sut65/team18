@@ -44,7 +44,7 @@ function NewsUpdate() {
     const [sdate, setSdate] = React.useState<Date | null>(
         new Date()
     );
-    const [em, setEm] = React.useState<EmployeeInterface>({});
+    const [em, setEm] = React.useState<EmployeeInterface>();
     const [nnews, setNnews] = React.useState<Partial<NewsInterface>>({
         EmployeeID: 0
     });

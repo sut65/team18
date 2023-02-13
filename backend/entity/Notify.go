@@ -9,7 +9,7 @@ import (
 type Notify struct {
 	gorm.Model
 	Problem string
-	Date    time.Time
+	Ddate    time.Time
 
 	// EquipmentnameID ทำหน้าที่เป็น FK
 	EquipmentNameID *uint

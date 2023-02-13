@@ -740,14 +740,14 @@ func SetupDatabase() {
 	////////////////// ระบบแจ้งชำรุด ///////////////////
 	db.Model(&Notify{}).Create(&Notify{
 		Problem:       "เครื่องเปิดไม่ติด",
-		Date:          time.Date(2022, 12, 10, 0, 0, 0, 0, time.Now().Location()),
+		Ddate:          time.Date(2022, 12, 10, 0, 0, 0, 0, time.Now().Location()),
 		Member:        Somchai,
 		EquipmentName: equipmentNameFitness1,
 		RunNumber:     run1,
 	})
 	db.Model(&Notify{}).Create(&Notify{
 		Problem:       "ลูกบอลรั่ว",
-		Date:          time.Date(2022, 12, 21, 0, 0, 0, 0, time.Now().Location()),
+		Ddate:          time.Date(2022, 12, 21, 0, 0, 0, 0, time.Now().Location()),
 		Member:        Baifern,
 		EquipmentName: equipmentNameFootball2,
 		RunNumber:     run2,
