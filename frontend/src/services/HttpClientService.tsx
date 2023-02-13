@@ -425,7 +425,7 @@ async function GetRunNumber() {
   const requestOptions = {
     method: "GET",
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      //Authorization: `Bearer ${localStorage.getItem("token")}`,
       "Content-Type": "application/json",
     },
   };
@@ -447,7 +447,7 @@ async function GetEquipmentName() {
   const requestOptions = {
     method: "GET",
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      //Authorization: `Bearer ${localStorage.getItem("token")}`,
       "Content-Type": "application/json",
     },
   };
@@ -469,7 +469,7 @@ async function GetEquipmentList() {
   const requestOptions = {
     method: "GET",
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      //Authorization: `Bearer ${localStorage.getItem("token")}`,
       "Content-Type": "application/json",
     },
   };
@@ -554,12 +554,12 @@ export {
   GetStretch,
   CreateExerciseProgram,
 
-    //equipmentList
-    GetRunNumber,
-    GetEquipmentName,
-    GetEquipmentList,
-    CreateEquipmentList,
-    CreateEquipmentBookingList
+  //equipmentList
+  GetRunNumber,
+  GetEquipmentName,
+  GetEquipmentList,
+  CreateEquipmentList,
+  CreateEquipmentBookingList
 
 };
 

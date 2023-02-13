@@ -30,6 +30,7 @@ import EmployeeShow from './components/Employee/EmployeeShow';
 
 import NewsCreate from './components/News/NewsCreate';
 import NewsUpdate from './components/News/NewsUpdate';
+import EquipmentBookingListCreate from './components/EquipmentMenagement/EquipmentBookingListCreate';
 
 
 
@@ -122,6 +123,7 @@ export default function App() {
                   <Route path='/payment_create' element={<PaymentCreate />} />
                   <Route path='/bill_create' element={<BillCreate/>} />
                   <Route path='/payment_show' element={<PaymentShow/>} />
+                  <Route path='/equipment_booking' element={<EquipmentBookingListCreate/>} />
                   </>
                   )
                 }{role === "employee" && (
