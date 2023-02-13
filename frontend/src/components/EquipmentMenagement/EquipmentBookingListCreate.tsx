@@ -16,6 +16,10 @@ import { EquipmentBookingListInterface }  from "../../models/IEquipmentBookingLi
 import { EquipmentListInterface } from "../../models/IEquipmentList";
 import { MemberInterface } from "../../models/IMember";
 
+import { MenuItem, TextField } from "@mui/material";
+import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+
 import {
     CreateEquipmentBookingList,
     GetEquipmentList,
@@ -30,32 +34,18 @@ import {
   });
 
 function EquipmentBookingListCreate() {
+  const [equipmentBookingList, setEquipmentBookingList] = React.useState<Partial<EquipmentBookingListInterface>>({
+    EquipmentListID:0,
+    MemberID:0
+  
+  });
   const [equipmentList, setEquipmentList] = useState<EquipmentListInterface[]>([]);
-  const [member, setMember] = useState<MemberInterface[]>([]);
-  const [equipmentBookingList, setEquipmentBookingList]  = useState<EquipmentBookingListInterface>({});
+  const [member, setMember] = React.useState<Partial<MemberInterface>>({});
+  const [DateTimeBooking, setDateTimeBooking] = React.useState<Date | null>(null);
+  const [message, setAlertMessage] = React.useState("");
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
 
-const [success, setSuccess] = useState(false);
-const [error, setError] = useState(false);
-  
-  const handleClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setSuccess(false);
-    setError(false);
-    };
-
-    const handleChange = (event: SelectChangeEvent) => {
-      const name = event.target.name as keyof typeof equipmentBookingList;
-      setEquipmentBookingList({
-        ...equipmentBookingList,
-        [name]: event.target.value,
-      });
-    };
-  
   const getEquipmentList = async () => {
     let res = await GetEquipmentList();
     if (res) {
@@ -70,25 +60,60 @@ const [error, setError] = useState(false);
     }
   };
 
+
+
   useEffect(() => {
+    const getToken = localStorage.getItem("token");
+    if (getToken) {
+        setMember(JSON.parse(localStorage.getItem("lid") || ""));
+    }
     getEquipmentList();
     getMember();
-  }, []);
-  const convertType = (data: string | number | undefined) => {
-    let val = typeof data === "string" ? parseInt(data) : data;
-    return val;
+}, []);
+
+  const handleChange = (event: SelectChangeEvent) => {
+    const name = event.target.name as keyof typeof equipmentBookingList;
+    setEquipmentBookingList({
+      ...equipmentBookingList,
+      [name]: event.target.value,
+    });
   };
+
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSuccess(false);
+    setError(false);
+    };
+
+    const handleInputChange = (
+
+      event: React.ChangeEvent<{ id?: string; value: any }>
+  
+    ) => {
+      const id = event.target.id as keyof typeof EquipmentBookingListCreate;
+      const { value } = event.target;
+      setEquipmentBookingList({ ...equipmentBookingList, [id]: value });
+    };
+  
   
   async function submit() {
     let data = {
-      EquipmentListID: convertType(equipmentBookingList.EquipmentListID),
-      MemberID: convertType(equipmentBookingList.MemberID),
+      EquipmentListID:typeof  equipmentBookingList.EquipmentListID === "string" ? parseInt(equipmentBookingList.EquipmentListID) : 0,
+      MemberID: typeof  equipmentBookingList.MemberID === "string" ? parseInt(equipmentBookingList.MemberID) : 0,
+      DateTimeBooking: DateTimeBooking,
     };
     
     let res = await CreateEquipmentBookingList(data);
-    if (res) {
+    if (res.status) {
+      setAlertMessage("บันทึกข้อมูลสำเร็จ");
       setSuccess(true);
     } else {
+      setAlertMessage(res.message);
       setError(true);
     }
   }
@@ -101,7 +126,7 @@ const [error, setError] = useState(false);
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Alert onClose={handleClose} severity="success">
-          บันทึกข้อมูลสำเร็จ
+          {message}
         </Alert>
       </Snackbar>
       <Snackbar
@@ -111,7 +136,7 @@ const [error, setError] = useState(false);
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Alert onClose={handleClose} severity="error">
-          บันทึกข้อมูลไม่สำเร็จ
+        {message}
         </Alert>
       </Snackbar>
       <Paper>
@@ -156,26 +181,32 @@ const [error, setError] = useState(false);
               </Select>
             </FormControl>
           </Grid>
+          <Grid item xs={4}>
+                            <FormControl fullWidth variant="outlined">
+                                <p>ผู้จอง:</p>
+                                <Select
+                                    value={equipmentBookingList?.MemberID}
+                                    disabled
+                                >
+                                    <MenuItem value={0} >
+                                        {member?.Name}
+                                    </MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
+          <Grid item xs={12}></Grid>
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <p>Member</p>
-              <Select
-                native
-                value={equipmentBookingList.MemberID + ""}
-                onChange={handleChange}
-                inputProps={{
-                  name: "MemberID",
-                }}
-              >
-                <option aria-label="None" value="">
-                  member
-                </option>
-                {member.map((item: MemberInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Name}
-                  </option>
-                ))}
-              </Select>
+              <p>วันที่และเวลา</p>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DatePicker
+                  value={DateTimeBooking}
+                  onChange={(newValue) => {
+                    setDateTimeBooking(newValue);
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
             </FormControl>
           </Grid>
           <Grid item xs={12}>

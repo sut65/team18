@@ -7,4 +7,5 @@ export interface EquipmentBookingListInterface {
     EquipmentList?: EquipmentListInterface;
     MemberID?:  number;
     Member?:    MemberInterface;
+    DateTimeBooking: Date | null;
 }

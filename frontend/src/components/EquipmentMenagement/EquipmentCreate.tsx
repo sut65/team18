@@ -16,14 +16,17 @@ import { EquipmentListInterface } from "../../models/IEquipmentList";
 import { EquipmentNameInterface } from "../../models/IEquipmentName";
 import { RunNumberInterface } from "../../models/IRunNumber";
 
+import { MenuItem, TextField } from "@mui/material";
+import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+
 import {
     CreateEquipmentList,
    GetEquipmentName,
     GetRunNumber,
+    GetEmployee,
 }from "../../services/HttpClientService";
-import { TextField } from "@mui/material";
-import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { EmployeeInterface } from "../../models/IEmployee";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -33,41 +36,22 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 });
 
 function EquipmentListCreate() {
-  const [equipmentName, setEquipmentName] = useState<EquipmentNameInterface[]>([]);
-  const [runNumber, setRunNumer] = useState<RunNumberInterface[]>([]);
-  const [equipmentList, setEquipmentList] = useState<EquipmentListInterface>({
-    DateTime: new Date(),
-  });
-  
+const [equipmentList, setEquipmentList] = React.useState<Partial<EquipmentListInterface>>({
+
+  RunNumberID:0,
+  EquipmentNameID:0,
+  EmployeeID:0,
+
+});
+const [equipmentName, setEquipmentName] = useState<EquipmentNameInterface[]>([]);
+const [runNumber, setRunNumer] = useState<RunNumberInterface[]>([]);
+const [DateTime, setDateTime] = React.useState<Date | null>(null);
+const [employeee, setEmployee] = React.useState<Partial<EmployeeInterface>>({});
+
+const [message, setAlertMessage] = React.useState("");
+
 const [success, setSuccess] = useState(false);
 const [error, setError] = useState(false);
-  
-  const handleClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setSuccess(false);
-    setError(false);
-    };
-  
-  const handleChange = (event: SelectChangeEvent) => {
-    const name = event.target.name as keyof typeof equipmentList;
-    setEquipmentList({
-      ...equipmentList,
-      [name]: event.target.value,
-    });
-  };
-
-  const handleInputChange = (
-    event: React.ChangeEvent<{ id?: string; value: any }>
-  ) => {
-    const id = event.target.id as keyof typeof EquipmentListCreate;
-    const { value } = event.target;
-    setEquipmentList({ ...equipmentList, [id]: value });
-  };
 
   const getEquipmentName = async () => {
     let res = await GetEquipmentName();
@@ -83,30 +67,78 @@ const [error, setError] = useState(false);
     }
   };
 
+  const getEmployee = async () => {
+    let res = await GetEmployee();
+    if (res) {
+      setEmployee(res);
+    }
+  };
+
   useEffect(() => {
+    const getToken = localStorage.getItem("token");
+    if (getToken) {
+        setEmployee(JSON.parse(localStorage.getItem("lid") || ""));
+    }
     getEquipmentName();
     getRunNumber();
-  }, []);
-  const convertType = (data: string | number | undefined) => {
-    let val = typeof data === "string" ? parseInt(data) : data;
-    return val;
-  };
+}, []);
+
+
+  console.log(equipmentList);
   
-  async function submit() {
-    let data = {
-      EquipmentNameID: convertType(equipmentList.EquipmentNameID),
-      RunNumerID: convertType(equipmentList.RunNumberID),
-      DateTime: equipmentList.DateTime,
-      Detail: equipmentList.Detail ?? "",
+  const handleChange = (event: SelectChangeEvent) => {
+    const name = event.target.name as keyof typeof equipmentList;
+    setEquipmentList({
+      ...equipmentList,
+      [name]: event.target.value,
+    });
+  };
+
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSuccess(false);
+    setError(false);
     };
-    
+
+  const handleInputChange = (
+
+    event: React.ChangeEvent<{ id?: string; value: any }>
+
+  ) => {
+    const id = event.target.id as keyof typeof EquipmentListCreate;
+    const { value } = event.target;
+    setEquipmentList({ ...equipmentList, [id]: value });
+  };
+
+ async function submit() {
+      let data = {
+
+      Detail: equipmentList.Detail ?? "",
+
+      RunNumberID:typeof equipmentList.RunNumberID === "string" ? parseInt(equipmentList.RunNumberID) : 0,
+
+      EquipmentNameID:typeof equipmentList.EquipmentNameID === "string" ? parseInt(equipmentList.EquipmentNameID) : 0,
+
+      EmployeeID:typeof equipmentList.EmployeeID === "string" ? parseInt(equipmentList.EmployeeID) : 0,
+
+      DateTime: DateTime,
+      
+    };
     let res = await CreateEquipmentList(data);
-    if (res) {
+    if (res.status) {
+      setAlertMessage("บันทึกข้อมูลสำเร็จ");
       setSuccess(true);
     } else {
+      setAlertMessage(res.message);
       setError(true);
     }
   }
+
   return (
     <Container maxWidth="md">
       <Snackbar
@@ -116,7 +148,7 @@ const [error, setError] = useState(false);
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Alert onClose={handleClose} severity="success">
-          บันทึกข้อมูลสำเร็จ
+        {message}
         </Alert>
       </Snackbar>
       <Snackbar
@@ -126,7 +158,7 @@ const [error, setError] = useState(false);
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
         <Alert onClose={handleClose} severity="error">
-          บันทึกข้อมูลไม่สำเร็จ
+        {message}
         </Alert>
       </Snackbar>
       <Paper>
@@ -211,18 +243,28 @@ const [error, setError] = useState(false);
               <p>วันที่และเวลา</p>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
-                  value={equipmentList.DateTime}
+                  value={DateTime}
                   onChange={(newValue) => {
-                    setEquipmentList({
-                      ...equipmentList,
-                      DateTime: newValue,
-                    });
+                    setDateTime(newValue);
                   }}
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
             </FormControl>
           </Grid>
+          <Grid item xs={4}>
+                            <FormControl fullWidth variant="outlined">
+                                <p>ผู้บันทึก:</p>
+                                <Select
+                                    value={equipmentList?.EmployeeID}
+                                    disabled
+                                >
+                                    <MenuItem value={0} >
+                                        {employeee?.Name}
+                                    </MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
           <Grid item xs={12}>
             <Button
               component={RouterLink}
