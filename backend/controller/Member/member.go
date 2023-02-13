@@ -55,7 +55,7 @@ func CreateMember(c *gin.Context) {
 	}
 
 	// ค้นหา gender ด้วย id
-	if tx := entity.DB().Where("id = 3", member.RoleID).First(&role); tx.RowsAffected == 0 {
+	if tx := entity.DB().Where("id = 4", member.RoleID).First(&role); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Role not found"})
 		return
 	}
@@ -173,17 +173,17 @@ func UpdateMember(c *gin.Context) {
 
 	//---------------------------------------ค้นหา id ของ combobox แล้วupdate-------------------------------
 	if tx := entity.DB().Where("id = ?", member.TypemID).First(&typem); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Member not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Type not found"})
 		return
 	}
 
 	if tx := entity.DB().Where("id = ?", member.EvidenceID).First(&evidence); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Member not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Evidence not found"})
 		return
 	}
 
 	if tx := entity.DB().Where("id = ?", member.GenderID).First(&gender); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Member not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Gender not found"})
 		return
 	}
 	if tx := entity.DB().Where("id = ?", member.UserID).First(&user); tx.RowsAffected == 0 {
