@@ -112,7 +112,7 @@ export default function App() {
                     <Route path="/login" element={<Home role={role} />} />
                     <Route path='/employee_create' element={<EmployeeCreate />} />
                     <Route path='/schedule_create' element={<ScheduleCreate />} />
-                    <Route path='/news_create' element={<NewsUpdate />} />
+                    <Route path='/news_create' element={<NewsCreate />} />
                     <Route path='/employee_show' element={<EmployeeShow />} />
 
                   </>
