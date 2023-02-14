@@ -39,42 +39,24 @@ type Payee struct {
 
 type Payment struct {
 	gorm.Model
-	BillID          *uint  `valid:"-"`
-	Bill            Bill 
-	PaymentMethodID *uint   `valid:"-"`
-	PaymentMethod   PaymentMethod 
-	PayeeID         *uint   `valid:"-"`
-	Payee           Payee 
+	BillID          *uint  
+	Bill            Bill    `gorm:"references:id" valid:"-"`
+	PaymentMethodID *uint   
+	PaymentMethod   PaymentMethod  `gorm:"references:id" valid:"-"`
+	PayeeID         *uint   
+	Payee           Payee   `gorm:"references:id" valid:"-"`
 
-	PayDate         time.Time  `valid:"DelayNow3Min~วันที่และเวลาไม่ถูกต้อง"`
+	PayDate         time.Time  `valid:"DelayNow2Min~วันที่และเวลาไม่ถูกต้อง"`
 	Note            string    `valid:"stringlength(0|50)~ขนาดข้อความมีความยาวเกินไป ควรมีความยาวไม่เกิน 50 พยางค์"`
 	
 }
 
 func init() {
-	govalidator.CustomTypeTagMap.Set("IsFuture", func(i interface{}, context interface{}) bool {
+	
+	govalidator.CustomTypeTagMap.Set("DelayNow2Min", func(i interface{}, context interface{}) bool {
 		t := i.(time.Time)
-		return t.After(time.Now())
-	})
-
-	govalidator.CustomTypeTagMap.Set("IsPresent", func(i interface{}, context interface{}) bool {
-		t := i.(time.Time)
-		return t.After(time.Now().AddDate(0, 0, -1)) && t.Before(time.Now().AddDate(0, 0, 1))
-	})
-
-	govalidator.CustomTypeTagMap.Set("IsPast", func(i interface{}, context interface{}) bool {
-		t := i.(time.Time)
-		return t.Before(time.Now())
-	})
-	govalidator.CustomTypeTagMap.Set("IsnotPast", func(i interface{}, o interface{}) bool {
-		t := i.(time.Time)
-		// ย้อนหลังไม่เกิน 1 วัน
-		return t.After(time.Now().AddDate(0, 0, -1))
-	})
-	govalidator.CustomTypeTagMap.Set("DelayNow3Min", func(i interface{}, context interface{}) bool {
-		t := i.(time.Time)
-		a := t.After(time.Now().Add(-5 * time.Minute))
-		b := t.Before(time.Now().Add(+5 * time.Minute))
+		a := t.After(time.Now().Add(-2 * time.Minute))
+		b := t.Before(time.Now().Add(+2 * time.Minute))
 		sts := a && b
 		println(a)
 		println(b)

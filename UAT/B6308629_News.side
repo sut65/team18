@@ -1,0 +1,1113 @@
+{
+  "id": "c468bf2b-323c-410d-a92d-c7eaeeba7306",
+  "version": "2.0",
+  "name": "B6308629_News",
+  "url": "http://localhost:3000/news_create",
+  "tests": [{
+    "id": "25a185b9-f8bf-4df0-9a35-1105819d01e3",
+    "name": "Pass",
+    "commands": [{
+      "id": "2da31b31-483f-43b9-a597-e601e32df5e5",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/news_create",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c705753a-8151-4de5-8e3a-7fd506b3ef6a",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1296x696",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5fb3866e-e404-4f5c-b8da-716762ed76bc",
+      "comment": "",
+      "command": "click",
+      "target": "id=Headline",
+      "targets": [
+        ["id=Headline", "id"],
+        ["css=#Headline", "css:finder"],
+        ["xpath=//input[@id='Headline']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[2]/div[2]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9bb42c7b-5a94-4be6-8214-5cf7b19aa646",
+      "comment": "",
+      "command": "type",
+      "target": "id=Headline",
+      "targets": [
+        ["id=Headline", "id"],
+        ["css=#Headline", "css:finder"],
+        ["xpath=//input[@id='Headline']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[2]/div[2]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "ปิดปรับปรุงสนามฟุตบอล ตั้งแต่วันที่ 15 กุมภาพันธ์ 2566 - 20 กุมภาพันธ์ 2566"
+    }, {
+      "id": "8578a216-bd2d-410c-b829-822e0989ad8c",
+      "comment": "",
+      "command": "click",
+      "target": "id=Body",
+      "targets": [
+        ["id=Body", "id"],
+        ["css=#Body", "css:finder"],
+        ["xpath=//input[@id='Body']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[3]/div[2]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/div/div/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b5e24837-8931-421b-9b47-2908bc6b3fb6",
+      "comment": "",
+      "command": "type",
+      "target": "id=Body",
+      "targets": [
+        ["id=Body", "id"],
+        ["css=#Body", "css:finder"],
+        ["xpath=//input[@id='Body']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[3]/div[2]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/div/div/div/input", "xpath:position"]
+      ],
+      "value": "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
+    }, {
+      "id": "5a938f70-b79b-4931-81c7-9ff031e4b4b8",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiGrid-root:nth-child(2) .MuiInputAdornment-root path",
+      "targets": [
+        ["css=.MuiGrid-root:nth-child(2) .MuiInputAdornment-root path", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "593e781a-4491-44ca-b0b7-edde996aa1dc",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,48.14815139770508)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "81067d32-2aae-424a-849b-14c75950f700",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiDayPicker-weekContainer:nth-child(3) > .MuiButtonBase-root:nth-child(5)",
+      "targets": [
+        ["css=.MuiDayPicker-weekContainer:nth-child(3) > .MuiButtonBase-root:nth-child(5)", "css:finder"],
+        ["xpath=(//button[@type='button'])[25]", "xpath:attributes"],
+        ["xpath=//div[3]/button[5]", "xpath:position"],
+        ["xpath=//button[contains(.,'16')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e2f76147-8e8f-410b-8b57-919ea53636a1",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiClock-squareMask",
+      "targets": [
+        ["css=.MuiClock-squareMask", "css:finder"],
+        ["xpath=//div[2]/div[2]/div/div/div/div[2]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3486eb58-66f6-472b-b5bc-5098cb288f57",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiClock-squareMask",
+      "targets": [
+        ["css=.MuiClock-squareMask", "css:finder"],
+        ["xpath=//div[2]/div[2]/div/div/div/div[2]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e181b527-2f39-4b7c-8136-6131c8744e33",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiGrid-root:nth-child(3) .MuiInputAdornment-root path",
+      "targets": [
+        ["css=.MuiGrid-root:nth-child(3) .MuiInputAdornment-root path", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "0c762653-ce28-4823-b818-b85eb9839ee3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiDayPicker-weekContainer:nth-child(3) > .MuiButtonBase-root:nth-child(7)",
+      "targets": [
+        ["css=.MuiDayPicker-weekContainer:nth-child(3) > .MuiButtonBase-root:nth-child(7)", "css:finder"],
+        ["xpath=(//button[@type='button'])[27]", "xpath:attributes"],
+        ["xpath=//div[3]/button[7]", "xpath:position"],
+        ["xpath=//button[contains(.,'18')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "aa611ba8-eb06-4d9e-b2e3-f6a4bb2b0500",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiClock-squareMask",
+      "targets": [
+        ["css=.MuiClock-squareMask", "css:finder"],
+        ["xpath=//div[2]/div[2]/div/div/div/div[2]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a3c6efc3-ba58-42b9-aa46-cf58f2b3021a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiClock-squareMask",
+      "targets": [
+        ["css=.MuiClock-squareMask", "css:finder"],
+        ["xpath=//div[2]/div[2]/div/div/div/div[2]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "399b9a26-16d2-4506-9e40-3b0bab4930d5",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "id=mui-component-select-RecipientID",
+      "targets": [
+        ["id=mui-component-select-RecipientID", "id"],
+        ["css=#mui-component-select-RecipientID", "css:finder"],
+        ["xpath=//div[@id='mui-component-select-RecipientID']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[5]/div/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[5]/div/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "01536650-a472-410c-8360-a56c1b347111",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=.MuiBackdrop-root",
+      "targets": [
+        ["css=.MuiBackdrop-root", "css:finder"],
+        ["xpath=//div[@id='menu-RecipientID']/div", "xpath:idRelative"],
+        ["xpath=//body/div[2]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "bd4344ab-0930-4cac-8eac-b5446cd8d1c7",
+      "comment": "",
+      "command": "click",
+      "target": "css=body",
+      "targets": [
+        ["css=body", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "74053ef5-d467-4153-9e5f-12740976fbc0",
+      "comment": "",
+      "command": "click",
+      "target": "css=.css-n23dbs-MuiButtonBase-root-MuiMenuItem-root:nth-child(2)",
+      "targets": [
+        ["css=.css-n23dbs-MuiButtonBase-root-MuiMenuItem-root:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='menu-RecipientID']/div[3]/ul/li[2]", "xpath:idRelative"],
+        ["xpath=//li[2]", "xpath:position"],
+        ["xpath=//li[contains(.,'Everyone')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "f784ff33-748b-4dc9-a4bc-7c070f19ddf5",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "id=mui-component-select-NewsTypeID",
+      "targets": [
+        ["id=mui-component-select-NewsTypeID", "id"],
+        ["css=#mui-component-select-NewsTypeID", "css:finder"],
+        ["xpath=//div[@id='mui-component-select-NewsTypeID']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[5]/div[2]/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[5]/div[2]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "408a1283-b717-4b3d-afe0-b6354085534a",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=.css-n23dbs-MuiButtonBase-root-MuiMenuItem-root:nth-child(2)",
+      "targets": [
+        ["css=.css-n23dbs-MuiButtonBase-root-MuiMenuItem-root:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='menu-NewsTypeID']/div[3]/ul/li[2]", "xpath:idRelative"],
+        ["xpath=//li[2]", "xpath:position"],
+        ["xpath=//li[contains(.,'ทั่วไป')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "40d77696-5150-449f-917b-2819419f7473",
+      "comment": "",
+      "command": "click",
+      "target": "css=body",
+      "targets": [
+        ["css=body", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "579214bd-fc79-4e60-bc4c-88d346601cb0",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiMenuItem-root:nth-child(3)",
+      "targets": [
+        ["css=.MuiMenuItem-root:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='menu-NewsTypeID']/div[3]/ul/li[3]", "xpath:idRelative"],
+        ["xpath=//li[3]", "xpath:position"],
+        ["xpath=//li[contains(.,'กีฬาและออกกำลังกาย')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e671d938-39b7-40a6-9f13-ba5d465f04f3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiGrid-root:nth-child(2) > .MuiButtonBase-root",
+      "targets": [
+        ["css=.MuiGrid-root:nth-child(2) > .MuiButtonBase-root", "css:finder"],
+        ["xpath=(//button[@type='button'])[6]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[6]/div[2]/button", "xpath:idRelative"],
+        ["xpath=//div[2]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9e2ef3e7-582e-4cf0-965a-3d0c2c45dfe3",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.MuiAlert-message",
+      "targets": [
+        ["css=.MuiAlert-message", "css:finder"],
+        ["xpath=//div[@id='success']/div/div[2]", "xpath:idRelative"],
+        ["xpath=//div/div/div/div[2]", "xpath:position"]
+      ],
+      "value": "บันทึกข้อมูลสำเร็จ"
+    }, {
+      "id": "23dcf74f-c30a-4402-afa2-3a579b9506b2",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "d4694e77-51ca-456e-9fb2-bc0834bfd153",
+    "name": "TestHeadlineNotNull",
+    "commands": [{
+      "id": "2dace2aa-0ab8-47fd-89cb-2fdc4bd61541",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/news_create",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "adeb0595-6cb1-4cf9-9a72-5593d2364c9d",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1089x579",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6bc69eb7-37df-4fbc-a95c-a24229aa110b",
+      "comment": "",
+      "command": "click",
+      "target": "id=Body",
+      "targets": [
+        ["id=Body", "id"],
+        ["css=#Body", "css:finder"],
+        ["xpath=//input[@id='Body']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[3]/div[2]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/div/div/div/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b508698d-a0f5-428d-bbff-f61ab5ace09b",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.MuiGrid-root:nth-child(2) .MuiInputAdornment-root .MuiSvgIcon-root",
+      "targets": [
+        ["css=.MuiGrid-root:nth-child(2) .MuiInputAdornment-root .MuiSvgIcon-root", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "736a8336-9974-40ea-8402-50bf1f7699a9",
+      "comment": "",
+      "command": "type",
+      "target": "id=Body",
+      "targets": [
+        ["id=Body", "id"],
+        ["css=#Body", "css:finder"],
+        ["xpath=//input[@id='Body']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[3]/div[2]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/div/div/div/input", "xpath:position"]
+      ],
+      "value": "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
+    }, {
+      "id": "7e1c7477-6182-48af-a354-1bfa90eebc32",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiGrid-root:nth-child(2) .MuiInputAdornment-root .MuiSvgIcon-root",
+      "targets": [
+        ["css=.MuiGrid-root:nth-child(2) .MuiInputAdornment-root .MuiSvgIcon-root", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "8d230f49-f3f4-4ed1-948e-3584be8ae8e0",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,179.25927734375)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d53f3f50-34bc-4cbe-a4ec-b270ee767d6c",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.MuiGrid-root:nth-child(2) .MuiInputAdornment-root .MuiSvgIcon-root",
+      "targets": [
+        ["css=.MuiGrid-root:nth-child(2) .MuiInputAdornment-root .MuiSvgIcon-root", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "da7da3d5-2841-4612-bd14-3897cb00326c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiDayPicker-weekContainer:nth-child(3) > .MuiButtonBase-root:nth-child(5)",
+      "targets": [
+        ["css=.MuiDayPicker-weekContainer:nth-child(3) > .MuiButtonBase-root:nth-child(5)", "css:finder"],
+        ["xpath=(//button[@type='button'])[25]", "xpath:attributes"],
+        ["xpath=//div[3]/button[5]", "xpath:position"],
+        ["xpath=//button[contains(.,'16')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "d5ca1cd7-34de-4a94-a0db-e71f10c89197",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiClock-squareMask",
+      "targets": [
+        ["css=.MuiClock-squareMask", "css:finder"],
+        ["xpath=//div[2]/div[2]/div/div/div/div[2]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "37179c64-5a9b-4dcc-8aae-158fb1198a35",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiClock-squareMask",
+      "targets": [
+        ["css=.MuiClock-squareMask", "css:finder"],
+        ["xpath=//div[2]/div[2]/div/div/div/div[2]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "58451a26-713f-4802-a948-cc1cbc465660",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.MuiGrid-root:nth-child(3) .MuiInputAdornment-root .MuiSvgIcon-root",
+      "targets": [
+        ["css=.MuiGrid-root:nth-child(3) .MuiInputAdornment-root .MuiSvgIcon-root", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "1821ea55-69cb-4c07-bf2c-e777836ea700",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiGrid-root:nth-child(3) .MuiInputAdornment-root .MuiSvgIcon-root",
+      "targets": [
+        ["css=.MuiGrid-root:nth-child(3) .MuiInputAdornment-root .MuiSvgIcon-root", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "f1ce2b1e-77d1-461c-9b0d-0e92fa4d3972",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.MuiGrid-root:nth-child(3) .MuiInputAdornment-root .MuiSvgIcon-root",
+      "targets": [
+        ["css=.MuiGrid-root:nth-child(3) .MuiInputAdornment-root .MuiSvgIcon-root", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "864557a1-59b2-4748-ab94-609eb10a60ec",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.MuiDayPicker-weekContainer:nth-child(3) > .MuiButtonBase-root:nth-child(7)",
+      "targets": [
+        ["css=.MuiDayPicker-weekContainer:nth-child(3) > .MuiButtonBase-root:nth-child(7)", "css:finder"],
+        ["xpath=(//button[@type='button'])[27]", "xpath:attributes"],
+        ["xpath=//div[3]/button[7]", "xpath:position"],
+        ["xpath=//button[contains(.,'18')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cda6dd15-f341-4b28-a6bd-cd7337396d9b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiDayPicker-weekContainer:nth-child(3) > .MuiButtonBase-root:nth-child(7)",
+      "targets": [
+        ["css=.MuiDayPicker-weekContainer:nth-child(3) > .MuiButtonBase-root:nth-child(7)", "css:finder"],
+        ["xpath=(//button[@type='button'])[27]", "xpath:attributes"],
+        ["xpath=//div[3]/button[7]", "xpath:position"],
+        ["xpath=//button[contains(.,'18')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "39954b26-7328-430e-b04e-f4ceecda25ae",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,193.33334350585938)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f0a57b8d-d2a3-4484-8129-0ea1140f624c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiClock-squareMask",
+      "targets": [
+        ["css=.MuiClock-squareMask", "css:finder"],
+        ["xpath=//div[2]/div[2]/div/div/div/div[2]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "bd1ca265-bb4a-407d-a5af-3ddfd0b2e7f6",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiClock-squareMask",
+      "targets": [
+        ["css=.MuiClock-squareMask", "css:finder"],
+        ["xpath=//div[2]/div[2]/div/div/div/div[2]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "13c02ba9-09c5-4342-bea5-36b288a30237",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,179.25927734375)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "352a907f-ee5e-46e7-b74e-9c17907d6fd6",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "id=mui-component-select-RecipientID",
+      "targets": [
+        ["id=mui-component-select-RecipientID", "id"],
+        ["css=#mui-component-select-RecipientID", "css:finder"],
+        ["xpath=//div[@id='mui-component-select-RecipientID']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[5]/div/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[5]/div/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "999ac817-591e-4611-a911-e0f553a5f0c7",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=.MuiMenuItem-root:nth-child(1)",
+      "targets": [
+        ["css=.MuiMenuItem-root:nth-child(1)", "css:finder"],
+        ["xpath=//div[@id='menu-RecipientID']/div[3]/ul/li", "xpath:idRelative"],
+        ["xpath=//ul/li", "xpath:position"],
+        ["xpath=//li[contains(.,'กรุณาเลือกช่องทางชำระเงิน')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5e7cbf20-bb80-4628-9e78-fd4b6435e4e0",
+      "comment": "",
+      "command": "click",
+      "target": "css=body",
+      "targets": [
+        ["css=body", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "32850be3-5e2f-456f-83ee-060ac4f813d7",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiMenuItem-root:nth-child(4)",
+      "targets": [
+        ["css=.MuiMenuItem-root:nth-child(4)", "css:finder"],
+        ["xpath=//div[@id='menu-RecipientID']/div[3]/ul/li[4]", "xpath:idRelative"],
+        ["xpath=//li[4]", "xpath:position"],
+        ["xpath=//li[contains(.,'Member')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "84eef05e-9e58-4c02-9923-2ec5a18d623f",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "id=mui-component-select-NewsTypeID",
+      "targets": [
+        ["id=mui-component-select-NewsTypeID", "id"],
+        ["css=#mui-component-select-NewsTypeID", "css:finder"],
+        ["xpath=//div[@id='mui-component-select-NewsTypeID']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[5]/div[2]/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[5]/div[2]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f2783a09-1bbe-452a-a8f3-6f3027d76a08",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=.css-n23dbs-MuiButtonBase-root-MuiMenuItem-root:nth-child(2)",
+      "targets": [
+        ["css=.css-n23dbs-MuiButtonBase-root-MuiMenuItem-root:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='menu-NewsTypeID']/div[3]/ul/li[2]", "xpath:idRelative"],
+        ["xpath=//li[2]", "xpath:position"],
+        ["xpath=//li[contains(.,'ทั่วไป')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "90b39bee-921c-4b99-9a49-0d8e2c1c8cb2",
+      "comment": "",
+      "command": "click",
+      "target": "css=body",
+      "targets": [
+        ["css=body", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "554e6068-23b3-4f13-9af8-96a820098c00",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiMenuItem-root:nth-child(3)",
+      "targets": [
+        ["css=.MuiMenuItem-root:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='menu-NewsTypeID']/div[3]/ul/li[3]", "xpath:idRelative"],
+        ["xpath=//li[3]", "xpath:position"],
+        ["xpath=//li[contains(.,'กีฬาและออกกำลังกาย')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "03d9e1f6-cb57-4694-8316-634f97dcbdc7",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiGrid-root:nth-child(2) .MuiTypography-root",
+      "targets": [
+        ["css=.MuiGrid-root:nth-child(2) .MuiTypography-root", "css:finder"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[6]/div[2]/button/p", "xpath:idRelative"],
+        ["xpath=//div[2]/button/p", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "baa5fa85-e516-4205-9cfb-8b08dcd9e193",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.MuiAlert-message",
+      "targets": [
+        ["css=.MuiAlert-message", "css:finder"],
+        ["xpath=//div[@id='error']/div/div[2]", "xpath:idRelative"],
+        ["xpath=//div/div/div/div[2]", "xpath:position"]
+      ],
+      "value": "กรุณากรอกหัวข้อข่าวสาร"
+    }, {
+      "id": "617b9ec2-c416-4e12-95b1-b013dd9c1bea",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "bc3015ad-8064-4125-9789-22563262788f",
+    "name": "TestHeadlineLength",
+    "commands": [{
+      "id": "c69d17d1-6880-4740-b378-54e9c5061302",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/news_create",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ef744476-3b9c-411b-98d5-b97ec799af0c",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1089x578",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "027c98a7-3a7e-4903-b228-2e1f90002637",
+      "comment": "",
+      "command": "click",
+      "target": "id=Headline",
+      "targets": [
+        ["id=Headline", "id"],
+        ["css=#Headline", "css:finder"],
+        ["xpath=//input[@id='Headline']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[2]/div[2]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4a7941b7-b66d-4021-8ef8-37e91943d7c0",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.MuiGrid-root:nth-child(3) .MuiInputAdornment-root .MuiSvgIcon-root",
+      "targets": [
+        ["css=.MuiGrid-root:nth-child(3) .MuiInputAdornment-root .MuiSvgIcon-root", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "c1b8198b-81b7-4217-8bac-8bd11b8b2172",
+      "comment": "",
+      "command": "type",
+      "target": "id=Headline",
+      "targets": [
+        ["id=Headline", "id"],
+        ["css=#Headline", "css:finder"],
+        ["xpath=//input[@id='Headline']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[2]/div[2]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
+    }, {
+      "id": "7fde480d-189d-4c08-aa25-dcafcb22726c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiGrid-root:nth-child(3) .MuiInputAdornment-root .MuiSvgIcon-root",
+      "targets": [
+        ["css=.MuiGrid-root:nth-child(3) .MuiInputAdornment-root .MuiSvgIcon-root", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "4728484b-46a8-43e5-8b16-eb8a58512853",
+      "comment": "",
+      "command": "runScript",
+      "target": "window.scrollTo(0,179.25927734375)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "20627cf4-1498-45df-a4cb-5a34017f0eff",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.MuiGrid-root:nth-child(3) .MuiInputAdornment-root .MuiSvgIcon-root",
+      "targets": [
+        ["css=.MuiGrid-root:nth-child(3) .MuiInputAdornment-root .MuiSvgIcon-root", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "2195b4fe-e619-42b2-ad10-35a7da6e81ad",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.MuiDayPicker-weekContainer:nth-child(3) > .MuiButtonBase-root:nth-child(7)",
+      "targets": [
+        ["css=.MuiDayPicker-weekContainer:nth-child(3) > .MuiButtonBase-root:nth-child(7)", "css:finder"],
+        ["xpath=(//button[@type='button'])[27]", "xpath:attributes"],
+        ["xpath=//div[3]/button[7]", "xpath:position"],
+        ["xpath=//button[contains(.,'18')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8a1738fb-617e-4a54-98c1-c24594b1c0d3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiDayPicker-weekContainer:nth-child(3) > .MuiButtonBase-root:nth-child(7)",
+      "targets": [
+        ["css=.MuiDayPicker-weekContainer:nth-child(3) > .MuiButtonBase-root:nth-child(7)", "css:finder"],
+        ["xpath=(//button[@type='button'])[27]", "xpath:attributes"],
+        ["xpath=//div[3]/button[7]", "xpath:position"],
+        ["xpath=//button[contains(.,'18')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "7f6f983a-05af-4452-be4e-b70c0737b33e",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiClock-squareMask",
+      "targets": [
+        ["css=.MuiClock-squareMask", "css:finder"],
+        ["xpath=//div[2]/div[2]/div/div/div/div[2]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "dc4c5c88-958f-4c27-a968-c16322f91cd1",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiClock-squareMask",
+      "targets": [
+        ["css=.MuiClock-squareMask", "css:finder"],
+        ["xpath=//div[2]/div[2]/div/div/div/div[2]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "a905df46-5bf5-4d3f-96e2-321ba0ba6177",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "id=mui-component-select-RecipientID",
+      "targets": [
+        ["id=mui-component-select-RecipientID", "id"],
+        ["css=#mui-component-select-RecipientID", "css:finder"],
+        ["xpath=//div[@id='mui-component-select-RecipientID']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[5]/div/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[5]/div/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "69900fbf-ac9d-4625-b9b2-0a26e8fd0a19",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=.css-n23dbs-MuiButtonBase-root-MuiMenuItem-root:nth-child(2)",
+      "targets": [
+        ["css=.css-n23dbs-MuiButtonBase-root-MuiMenuItem-root:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='menu-RecipientID']/div[3]/ul/li[2]", "xpath:idRelative"],
+        ["xpath=//li[2]", "xpath:position"],
+        ["xpath=//li[contains(.,'Everyone')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "80d4341b-056b-44c4-b0cb-11f1b60544db",
+      "comment": "",
+      "command": "click",
+      "target": "css=body",
+      "targets": [
+        ["css=body", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "53e51fd7-169b-49e6-b8c5-57954cd0d9ec",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiMenuItem-root:nth-child(3)",
+      "targets": [
+        ["css=.MuiMenuItem-root:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='menu-RecipientID']/div[3]/ul/li[3]", "xpath:idRelative"],
+        ["xpath=//li[3]", "xpath:position"],
+        ["xpath=//li[contains(.,'Employee')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4677c78d-95a1-4228-8873-50a8e0e0cedd",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "id=mui-component-select-NewsTypeID",
+      "targets": [
+        ["id=mui-component-select-NewsTypeID", "id"],
+        ["css=#mui-component-select-NewsTypeID", "css:finder"],
+        ["xpath=//div[@id='mui-component-select-NewsTypeID']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[5]/div[2]/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[5]/div[2]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "bdf35034-6e08-4b4e-a60a-92e13d1bb0fe",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=.css-n23dbs-MuiButtonBase-root-MuiMenuItem-root:nth-child(2)",
+      "targets": [
+        ["css=.css-n23dbs-MuiButtonBase-root-MuiMenuItem-root:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='menu-NewsTypeID']/div[3]/ul/li[2]", "xpath:idRelative"],
+        ["xpath=//li[2]", "xpath:position"],
+        ["xpath=//li[contains(.,'ทั่วไป')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "dc3beaa9-90d7-44b2-9704-181a49454f5c",
+      "comment": "",
+      "command": "click",
+      "target": "css=body",
+      "targets": [
+        ["css=body", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9dea528a-f4b2-412d-b9ba-aa39d76caffb",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiMenuItem-root:nth-child(3)",
+      "targets": [
+        ["css=.MuiMenuItem-root:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='menu-NewsTypeID']/div[3]/ul/li[3]", "xpath:idRelative"],
+        ["xpath=//li[3]", "xpath:position"],
+        ["xpath=//li[contains(.,'กีฬาและออกกำลังกาย')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b08bd647-c231-4daf-9bb6-12a7f5118c7d",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.MuiGrid-root:nth-child(2) > .MuiButtonBase-root",
+      "targets": [
+        ["css=.MuiGrid-root:nth-child(2) > .MuiButtonBase-root", "css:finder"],
+        ["xpath=(//button[@type='button'])[6]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[6]/div[2]/button", "xpath:idRelative"],
+        ["xpath=//div[2]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "1ac7612c-0de6-445b-bcdb-73ed30d3933d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiGrid-root:nth-child(2) > .MuiButtonBase-root",
+      "targets": [
+        ["css=.MuiGrid-root:nth-child(2) > .MuiButtonBase-root", "css:finder"],
+        ["xpath=(//button[@type='button'])[6]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[6]/div[2]/button", "xpath:idRelative"],
+        ["xpath=//div[2]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c11f2715-3f11-422b-b996-dd6d9b61b3a1",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.MuiGrid-root:nth-child(2) > .MuiButtonBase-root",
+      "targets": [
+        ["css=.MuiGrid-root:nth-child(2) > .MuiButtonBase-root", "css:finder"],
+        ["xpath=(//button[@type='button'])[7]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div[2]/div[6]/div[2]/button", "xpath:idRelative"],
+        ["xpath=//div[2]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b03bf979-42a0-4ee2-9090-d8f905a670fa",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.MuiAlert-message",
+      "targets": [
+        ["css=.MuiAlert-message", "css:finder"],
+        ["xpath=//div[@id='error']/div/div[2]", "xpath:idRelative"],
+        ["xpath=//div/div/div/div[2]", "xpath:position"]
+      ],
+      "value": "หัวข้อพาดข่าวมีความยาวเกินไป"
+    }, {
+      "id": "0980b162-5799-4994-a00d-55f4f7076a14",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "e24b7be1-36d8-4ebd-98aa-223d2d4c39c6",
+    "name": "DdateIsFuture",
+    "commands": [{
+      "id": "e0028261-4ba4-46e8-868d-6d2e0350ff2a",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:3000/news_create",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b824a2c0-5194-4563-b29f-da4f5cc8883f",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1088x578",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6a73e722-de6c-457b-9b29-8d24af4d5488",
+      "comment": "",
+      "command": "click",
+      "target": "id=Headline",
+      "targets": [
+        ["id=Headline", "id"],
+        ["css=#Headline", "css:finder"],
+        ["xpath=//input[@id='Headline']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[2]/div[2]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "636d3c3f-18e6-4f30-be8b-a59e6dab2cad",
+      "comment": "",
+      "command": "type",
+      "target": "id=Headline",
+      "targets": [
+        ["id=Headline", "id"],
+        ["css=#Headline", "css:finder"],
+        ["xpath=//input[@id='Headline']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[2]/div[2]/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "aedrftyui8jhgfdwe45r6"
+    }, {
+      "id": "08effc5c-9311-4aab-a335-4de1514bb20f",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.MuiGrid-root:nth-child(3) .MuiInputAdornment-root path",
+      "targets": [
+        ["css=.MuiGrid-root:nth-child(3) .MuiInputAdornment-root path", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "d9c77138-4a74-4418-a39a-5a1d24aae269",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiGrid-root:nth-child(3) .MuiInputAdornment-root path",
+      "targets": [
+        ["css=.MuiGrid-root:nth-child(3) .MuiInputAdornment-root path", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "ed901787-20c1-46ba-a089-d8fc08da7c93",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.MuiGrid-root:nth-child(3) .MuiInputAdornment-root path",
+      "targets": [
+        ["css=.MuiGrid-root:nth-child(3) .MuiInputAdornment-root path", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "cfbd7c0b-f77a-4802-8199-2385e56f6d7d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiDayPicker-weekContainer:nth-child(3) > .MuiButtonBase-root:nth-child(3)",
+      "targets": [
+        ["css=.MuiDayPicker-weekContainer:nth-child(3) > .MuiButtonBase-root:nth-child(3)", "css:finder"],
+        ["xpath=(//button[@type='button'])[23]", "xpath:attributes"],
+        ["xpath=//div[3]/button[3]", "xpath:position"],
+        ["xpath=//button[contains(.,'14')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "2657317a-9bef-4777-a3bd-8bc2464d3a5f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiClock-squareMask",
+      "targets": [
+        ["css=.MuiClock-squareMask", "css:finder"],
+        ["xpath=//div[2]/div[2]/div/div/div/div[2]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6ca01d6b-e698-46c9-a380-43c10fb18d43",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiClock-squareMask",
+      "targets": [
+        ["css=.MuiClock-squareMask", "css:finder"],
+        ["xpath=//div[2]/div[2]/div/div/div/div[2]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "600e944f-c104-413a-9c92-b647d09ac80d",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "id=mui-component-select-RecipientID",
+      "targets": [
+        ["id=mui-component-select-RecipientID", "id"],
+        ["css=#mui-component-select-RecipientID", "css:finder"],
+        ["xpath=//div[@id='mui-component-select-RecipientID']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[5]/div/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[5]/div/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e716c2f3-308c-43c6-9b18-c0a94d58b128",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=.MuiBackdrop-root",
+      "targets": [
+        ["css=.MuiBackdrop-root", "css:finder"],
+        ["xpath=//div[@id='menu-RecipientID']/div", "xpath:idRelative"],
+        ["xpath=//body/div[2]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "de1fa83a-ad79-4baf-9c5e-2507a0b110e4",
+      "comment": "",
+      "command": "click",
+      "target": "css=body",
+      "targets": [
+        ["css=body", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b06350bf-47c1-4cb5-aae4-a0275f55e31c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiMenuItem-root:nth-child(3)",
+      "targets": [
+        ["css=.MuiMenuItem-root:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='menu-RecipientID']/div[3]/ul/li[3]", "xpath:idRelative"],
+        ["xpath=//li[3]", "xpath:position"],
+        ["xpath=//li[contains(.,'Employee')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "60c4dfa6-5dc7-4d0f-9211-02e161d95b78",
+      "comment": "",
+      "command": "mouseDown",
+      "target": "id=mui-component-select-NewsTypeID",
+      "targets": [
+        ["id=mui-component-select-NewsTypeID", "id"],
+        ["css=#mui-component-select-NewsTypeID", "css:finder"],
+        ["xpath=//div[@id='mui-component-select-NewsTypeID']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[5]/div[2]/div/div/div", "xpath:idRelative"],
+        ["xpath=//div[5]/div[2]/div/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6de137f9-8bd0-47d8-8962-39143c748f30",
+      "comment": "",
+      "command": "mouseUp",
+      "target": "css=.css-n23dbs-MuiButtonBase-root-MuiMenuItem-root:nth-child(2)",
+      "targets": [
+        ["css=.css-n23dbs-MuiButtonBase-root-MuiMenuItem-root:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='menu-NewsTypeID']/div[3]/ul/li[2]", "xpath:idRelative"],
+        ["xpath=//li[2]", "xpath:position"],
+        ["xpath=//li[contains(.,'ทั่วไป')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "068dafb3-5676-4424-b104-c6eab478961a",
+      "comment": "",
+      "command": "click",
+      "target": "css=body",
+      "targets": [
+        ["css=body", "css:finder"],
+        ["xpath=//body", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b4de3290-c1f5-4a8f-b1b5-9477f2aecfa0",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiMenuItem-root:nth-child(3)",
+      "targets": [
+        ["css=.MuiMenuItem-root:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='menu-NewsTypeID']/div[3]/ul/li[3]", "xpath:idRelative"],
+        ["xpath=//li[3]", "xpath:position"],
+        ["xpath=//li[contains(.,'กีฬาและออกกำลังกาย')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5a66e7e0-3e6e-4a7a-9142-13b80e6dc9b4",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiGrid-root:nth-child(2) > .MuiButtonBase-root",
+      "targets": [
+        ["css=.MuiGrid-root:nth-child(2) > .MuiButtonBase-root", "css:finder"],
+        ["xpath=(//button[@type='button'])[6]", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/div[6]/div[2]/button", "xpath:idRelative"],
+        ["xpath=//div[2]/button", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "dfc3a7e9-ccd3-437e-b5d7-761cc4a14f90",
+      "comment": "",
+      "command": "verifyText",
+      "target": "css=.MuiAlert-message",
+      "targets": [
+        ["css=.MuiAlert-message", "css:finder"],
+        ["xpath=//div[@id='error']/div/div[2]", "xpath:idRelative"],
+        ["xpath=//div/div/div/div[2]", "xpath:position"]
+      ],
+      "value": "วันที่ยกเลิกแสดงควรเป็นอนาคต"
+    }, {
+      "id": "488f72cf-0e7a-4950-8e44-dd0f24874e63",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "c6ef74b4-b0ee-4163-996c-851cf26c7203",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": ["http://localhost:3000/news_create"],
+  "plugins": []
+}

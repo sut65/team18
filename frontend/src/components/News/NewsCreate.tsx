@@ -125,8 +125,8 @@ function NewsCreate() {
             // PaymentMethodID: typeof payment.PaymentMethodID === "string" ? parseInt(payment.PaymentMethodID) : 0,
             EmployeeID: em?.ID,
             // BillID: typeof payment.BillID === "string" ? parseInt(payment.BillID) : 0,
-            SDate: news.SDate,
-            DDate: news.DDate,
+            SDate: sdate,
+            DDate: ddate,
 
         };
         console.log(data)
@@ -256,7 +256,7 @@ function NewsCreate() {
 
                                         label="Time"
 
-                                        value={news.SDate}
+                                        value={sdate}
 
                                         onChange={setSdate}
                                     />
@@ -279,7 +279,7 @@ function NewsCreate() {
 
                                         label="Time"
 
-                                        value={news.DDate}
+                                        value={ddate}
 
                                         onChange={setDdate}
                                     />
