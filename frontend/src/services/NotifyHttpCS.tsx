@@ -56,7 +56,7 @@ async function GetRunnumber() {
     },
   };
 
-  let res = await fetch(`${apiUrl}/runNumer`, requestOptions)
+  let res = await fetch(`${apiUrl}/runNumber`, requestOptions)
     .then((response) => response.json())
     .then((res) => {
       if (res.data) {
