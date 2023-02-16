@@ -253,7 +253,22 @@ function MemberCreate() {
 
         </Snackbar>
 
-        <Paper>
+        <Paper sx={{ marginTop: 2 }}>
+          <Typography sx={{ marginLeft: 30, marginTop: 3, padding: 1 }}
+
+            component="h2"
+
+            variant="h4"
+
+            color="#FEAC3F"
+
+            gutterBottom
+
+          >
+
+            แบบฟอร์มสมัครสมาชิก
+
+          </Typography>
 
           <Box
 
@@ -261,30 +276,11 @@ function MemberCreate() {
 
             sx={{
 
-              marginTop: -10,
+              marginTop: 0,
 
             }}
 
           >
-            <ThemeProvider theme={theme}>
-              <Box sx={{ backgroundColor: "#FEAC3F", paddingX: 41.4, paddingY: 2 }} >
-                <Typography
-
-                  component="h2"
-
-                  variant="h6"
-
-                  color="secondary"
-
-                  gutterBottom
-
-                >
-
-                  แบบฟอร์มสมัครสมาชิก
-
-                </Typography>
-              </Box>
-            </ThemeProvider>
 
           </Box>
 
@@ -293,25 +289,26 @@ function MemberCreate() {
           {/* ชื่อ */}
           <Grid item xs={6} sx={{ padding: 2, marginTop: 0, }} >
             <p>ชื่อ-นามสกุล</p>
+            <ThemeProvider theme={theme}>
+              <FormControl fullWidth variant="outlined" >
 
-            <FormControl fullWidth variant="outlined" >
+                <TextField
 
-              <TextField
+                  id="Name" label="ชื่อ-นามสกุล"
 
-                id="Name" label="ชื่อ-นามสกุล"
+                  color="primary" variant="outlined"
 
-                color="secondary" variant="outlined"
+                  type="string"
 
-                type="string"
+                  size="medium"
 
-                size="medium"
+                  value={member.Name || ""}
 
-                value={member.Name || ""}
+                  onChange={handleInputChange}
 
-                onChange={handleInputChange}
-
-              />
-            </FormControl>
+                />
+              </FormControl>
+            </ThemeProvider>
           </Grid>
 
           {/* อีเมล */}
@@ -548,11 +545,11 @@ function MemberCreate() {
         </Paper>
 
       </Container >
-      </ div>
+    </ div>
 
-      );
+  );
 
 }
 
 
-      export default MemberCreate;
+export default MemberCreate;

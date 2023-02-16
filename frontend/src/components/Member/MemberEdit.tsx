@@ -108,9 +108,9 @@ function MemberEdit() {
 
   const [ar, setAlet] = React.useState(false);
 
-  const [getUserID , setUserID] = React.useState();
+  const [getUserID, setUserID] = React.useState();
 
-//-------------------------------------------------------------------------//
+  //-------------------------------------------------------------------------//
   async function DeleteMember() {
     localStorage.clear();
     window.location.href = "/";
@@ -361,34 +361,15 @@ function MemberEdit() {
         </ThemeProvider>
 
 
-        <Paper>
-
-          <Box display="flex" sx={{ marginTop: 2, }}
-
-          >
-
-            <Box sx={{ backgroundColor: "#FEAC3F", display: 'flex', alignItems: 'center', width: '100%', paddingX: 45, paddingY: 1 }} >
-              <ThemeProvider theme={theme}>
-                <Typography
-
-                  component="h2"
-
-                  variant="h6"
-
-                  color="secondary"
-
-                  gutterBottom
-
-                >
-
-                  ข้อมูลสมาชิก
-
-                </Typography>
-              </ThemeProvider>
-            </Box>
-
-          </Box>
-
+        <Paper >
+          <ThemeProvider theme={theme}>
+            <Typography sx={{ marginLeft: 40, padding: 1, marginTop: 0 }}
+              component="h2" variant="h4" color="primary"
+              gutterBottom
+            >
+              ข้อมูลสมาชิก
+            </Typography>
+          </ThemeProvider>
           <Divider />
 
 
@@ -482,7 +463,7 @@ function MemberEdit() {
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
 
                   <DatePicker
-                    
+
                     value={user.Bdate}
 
                     // onChange={setBdate}

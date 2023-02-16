@@ -181,20 +181,6 @@ function EquipmentBookingListCreate() {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={4}>
-                            <FormControl fullWidth variant="outlined">
-                                <p>ผู้จอง:</p>
-                                <Select
-                                    value={equipmentBookingList?.MemberID}
-                                    disabled
-                                >
-                                    <MenuItem value={0} >
-                                        {member?.Name}
-                                    </MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Grid>
-          <Grid item xs={12}></Grid>
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
               <p>วันที่และเวลา</p>
@@ -209,6 +195,20 @@ function EquipmentBookingListCreate() {
               </LocalizationProvider>
             </FormControl>
           </Grid>
+          <Grid item xs={4}>
+                            <FormControl fullWidth variant="outlined">
+                                <p>ผู้จอง:</p>
+                                <Select
+                                    value={equipmentBookingList?.MemberID}
+                                    disabled
+                                >
+                                    <MenuItem value={0} >
+                                        {member?.Name}
+                                    </MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
+          <Grid item xs={12}></Grid>
           <Grid item xs={12}>
             <Button
               component={RouterLink}

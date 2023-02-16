@@ -31,6 +31,10 @@ import EmployeeShow from './components/Employee/EmployeeShow';
 import NewsCreate from './components/News/NewsCreate';
 import NewsUpdate from './components/News/NewsUpdate';
 import EquipmentBookingListCreate from './components/EquipmentMenagement/EquipmentBookingListCreate';
+import NotifyShow from './components/Notify/NotifyShow';
+import NotifyShowad from './components/Notify/NotifyAdmin';
+import NotifyEdit from './components/Notify/NotifyEdit';
+import NotifyCreate from './components/Notify/NotifyCreate';
 
 
 
@@ -65,10 +69,10 @@ export default function App() {
     }
   }, []);
 
-   if ((!token) && login) {
+  if ((!token) && login) {
     localStorage.clear();
-     return <Signin />
-    }
+    return <Signin />
+  }
 
   const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{ open?: Boolean; }>(({ theme, open }) => ({
     flexGrow: 1,
@@ -101,68 +105,72 @@ export default function App() {
         <ThemeProvider theme={theme}>
           {token && (
             <>
-              <Navbar/>
+              <Navbar />
               <div className='container-router'>
                 <Routes>{role === "admin" && (
                   <>
-                  <Route path="/login" element={<Home role={role}/>} />
-                  <Route path='/employee_create' element={<EmployeeCreate />} />
-                  <Route path='/schedule_create' element={<ScheduleCreate/>} />
-                  <Route path='/news_create' element={<NewsUpdate />} />
-                  <Route path='/employee_show' element={<EmployeeShow />} />
+                    <Route path="/login" element={<Home role={role} />} />
+                    <Route path='/employee_create' element={<EmployeeCreate />} />
+                    <Route path='/schedule_create' element={<ScheduleCreate />} />
+                    <Route path='/news_create' element={<NewsCreate />} />
+                    <Route path='/employee_show' element={<EmployeeShow />} />
 
                   </>
-                  )
+                )
                 }{role === "member" && (
                   <>
-                  <Route path="/login" element={<Home role={role}/>} />
-                  <Route path='/member_show' element={<MemberS/>} />
-                  <Route path='/member_shows' element={<MemberShow/>} />
-                  <Route path='/member_edit' element={<MemberEdit/>} />
-                  <Route path='/program_booking' element={<ProgramHome/>} />
-                  <Route path='/payment_create' element={<PaymentCreate />} />
-                  <Route path='/bill_create' element={<BillCreate/>} />
-                  <Route path='/payment_show' element={<PaymentShow/>} />
-                  <Route path='/equipment_booking' element={<EquipmentBookingListCreate/>} />
+                    <Route path="/login" element={<Home role={role} />} />
+                    <Route path='/member_show' element={<MemberS />} />
+                    <Route path='/member_shows' element={<MemberShow />} />
+                    <Route path='/member_edit' element={<MemberEdit />} />
+                    <Route path='/notify_create' element={<NotifyCreate />} />
+                    <Route path='/notify_show' element={<NotifyShow />} />
+                    <Route path='/notify_edit' element={<NotifyEdit />} />
+                    <Route path='/program_booking' element={<ProgramHome />} />
+                    <Route path='/payment_create' element={<PaymentCreate />} />
+                    <Route path='/bill_create' element={<BillCreate />} />
+                    <Route path='/payment_show' element={<PaymentShow />} />
+                    <Route path='/equipment_booking' element={<EquipmentBookingListCreate />} />
                   </>
+                )
+                  }{role === "employee" && (
+                    <>
+                      <Route path="/login" element={<Home role={role} />} />
+                      <Route path='/member_shows' element={<MemberS />} />
+                      <Route path='/member_create' element={<MemberCreate />} />
+                      <Route path='/member_edit' element={<MemberEdit />} />
+                      <Route path='/notify_shows' element={<NotifyShowad/>} />
+                      <Route path='/equipment_create' element={<EquipmentListCreate />} />
+                      <Route path='/schedule_create' element={<ScheduleCreate />} />
+                    </>
                   )
-                }{role === "employee" && (
-                  <>
-                  <Route path="/login" element={<Home role={role}/>} />
-                  <Route path='/member_shows' element={<MemberS />} />
-                  <Route path='/member_create' element={<MemberCreate/>} />
-                  <Route path='/member_edit' element={<MemberEdit/>} />
-                  <Route path='/equipment_create' element={<EquipmentListCreate/>} />
-                  <Route path='/schedule_create' element={<ScheduleCreate/>} />
-                  </>
-                  )
-                }{role === "trainer" && (
-                  <>
-                  <Route path="/login" element={<Home role={role}/>} />
-                  <Route path='/program_create' element={<ProgramCreate />} />
-                  <Route path='/program_show' element={<ProgramShow />} />
+                  }{role === "trainer" && (
+                    <>
+                      <Route path="/login" element={<Home role={role} />} />
+                      <Route path='/program_create' element={<ProgramCreate />} />
+                      <Route path='/program_show' element={<ProgramShow />} />
 
-                  
-                  </>
+
+                    </>
                   )
-                }
+                  }
 
 
                 </Routes>
-                
+
               </div>
             </>
           )}
           {!token && (
-          <Fragment>
-            <Routes>
-              <Route path="/" element={<MenuShow />} />
-              <Route path="/login" element={<Signin />} />
-              <Route path="/member_create" element={<MemberCreate />} />
+            <Fragment>
+              <Routes>
+                <Route path="/" element={<MenuShow />} />
+                <Route path="/login" element={<Signin />} />
+                <Route path="/member_create" element={<MemberCreate />} />
 
-            </Routes>
-          </Fragment>)
-      }
+              </Routes>
+            </Fragment>)
+          }
         </ThemeProvider>
       </Router>
     </div>
