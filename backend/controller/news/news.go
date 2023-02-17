@@ -1,6 +1,8 @@
 package controller
 
 import (
+	"time"
+
 	"github.com/asaskevich/govalidator"
 
 	"github.com/sut65/team18/entity"
@@ -9,6 +11,7 @@ import (
 
 	"net/http"
 )
+
 //---------------ไว้สำหรับสร้างข้อมูล----------------------------------
 // POST /news..........................
 
@@ -48,13 +51,13 @@ func CreateNews(c *gin.Context) {
 	}
 
 	ne := entity.News{
-		Employee:       employee,               // โยงความสัมพันธ์
-		Recipient:      recipient,          // โยงความสัมพันธ์
-		NewsType:       nt,             // โยงความสัมพันธ์
-		Headline:       news.Headline,
-	    Body:           news.Body,
-	    SDate:          news.SDate,
-	    DDate:          news.DDate,    // ตั้งค่าฟิลด์ 
+		Employee:  employee,  // โยงความสัมพันธ์
+		Recipient: recipient, // โยงความสัมพันธ์
+		NewsType:  nt,        // โยงความสัมพันธ์
+		Headline:  news.Headline,
+		Body:      news.Body,
+		SDate:     news.SDate,
+		DDate:     news.DDate, // ตั้งค่าฟิลด์
 	}
 
 	if err := entity.DB().Create(&ne).Error; err != nil {
@@ -69,7 +72,7 @@ func CreateNews(c *gin.Context) {
 
 }
 
-//---------------ไว้สำหรับดึงข้อมูล--------------------------------------
+// ---------------ไว้สำหรับดึงข้อมูล--------------------------------------
 func GetNews(c *gin.Context) {
 	var news entity.News
 	id := c.Param("id")
@@ -82,6 +85,45 @@ func GetNews(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"data": news})
+}
+
+func GetNewsbytime(c *gin.Context) {
+	var news []entity.News
+	id := c.Param("id")
+	var user entity.User
+
+	entity.DB().Raw("SELECT * FROM users WHERE id = ?", id).First(&user)
+
+	var AdminRole entity.Role
+	var MemberRole entity.Role
+	var StaffRole entity.Role
+	var TrainerRole entity.Role
+	entity.DB().Raw("SELECT * FROM roles WHERE name = ?", "admin").First(&AdminRole)
+	entity.DB().Raw("SELECT * FROM roles WHERE name = ?", "member").First(&MemberRole)
+	entity.DB().Raw("SELECT * FROM roles WHERE name = ?", "employee").First(&StaffRole)
+	entity.DB().Raw("SELECT * FROM roles WHERE name = ?", "trainer").First(&TrainerRole)
+	if user.Role.ID == MemberRole.ID {
+		if err := entity.DB().Preload("Employee").Preload("Recipient").Preload("NewsType").Raw("SELECT * FROM news WHERE recipient_id <> 2 AND s_date <= ? AND d_date >= ?",time.Now(),time.Now()).Scan(&news).Error; err != nil {
+
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+
+			return
+
+		}
+
+		c.JSON(http.StatusOK, gin.H{"data": news})
+	}else{
+		if err := entity.DB().Preload("Employee").Preload("Recipient").Preload("NewsType").Raw("SELECT * FROM news WHERE recipient_id <> 3 AND s_date <= ? AND d_date >= ?",time.Now(),time.Now()).Scan(&news).Error; err != nil {
+
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+
+			return
+
+		}
+
+		c.JSON(http.StatusOK, gin.H{"data": news})
+
+	}
 }
 
 func ListNews(c *gin.Context) {
@@ -101,7 +143,7 @@ func ListNews(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": news})
 }
 
-//--------ไว้สำหรับลบข้อมูล---------------------
+// --------ไว้สำหรับลบข้อมูล---------------------
 // DELETE /news/:id
 func DeleteNews(c *gin.Context) {
 	id := c.Param("id")
@@ -113,7 +155,7 @@ func DeleteNews(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": id})
 }
 
-//-------------อัพเดรทค่า------------
+// -------------อัพเดรทค่า------------
 func UpdateNews(c *gin.Context) {
 	var news entity.News
 	var ne entity.News
@@ -157,11 +199,10 @@ func UpdateNews(c *gin.Context) {
 	ne.DDate = news.DDate
 	ne.SDate = news.SDate
 
-
 	if err := entity.DB().Save(&ne).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-  
+
 	c.JSON(http.StatusOK, gin.H{"data": ne})
 }

@@ -1,6 +1,7 @@
 import { Grid, Typography } from '@mui/material'
 import { Container } from '@mui/system'
 import React from 'react'
+import NewsShow from '../News/NewsShow'
 
 export default function Home({role} : any) {
   return (
@@ -13,6 +14,7 @@ export default function Home({role} : any) {
                 
             </Grid>
         </Grid>
+        <NewsShow/>
     </Container>
   )
 }

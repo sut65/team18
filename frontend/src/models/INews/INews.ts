@@ -3,8 +3,8 @@ import { NewsTypeInterface } from "./INewsType";
 import { RecipientInterface } from "./IRecipient";
 
 export interface NewsInterface {
-    ID?:               number;
-    Headline?:       string;
+    ID?:          number;
+    Headline?:    string;
     Body?:       string;
     SDate?:      Date | null;
     DDate?:      Date | null;

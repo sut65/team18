@@ -53,6 +53,27 @@ async function GetNewsbys( id : any) {
   return res;
 }
 
+async function GetNewsMbyDate(id: any) {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  let res = await fetch(`${apiUrl}/newsbytime/${id}`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
 async function GetNewstype() {
   const requestOptions = {
     method: "GET",
@@ -148,5 +169,6 @@ async function CreateNews(data: NewsInterface) {
     GetRecipient,
 
     CreateNews,
+    GetNewsMbyDate,
 
   };

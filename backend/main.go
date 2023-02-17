@@ -146,6 +146,7 @@ func main() {
 
 	r.GET("/news", new.ListNews)
 	r.GET("/news/:id", new.GetNews)
+	r.GET("/newsbytime/:id", new.GetNewsbytime)
 	r.POST("/news", new.CreateNews)
 	r.DELETE("/news/:id", new.DeleteNews)
 	r.PATCH("/news", new.UpdateNews)
