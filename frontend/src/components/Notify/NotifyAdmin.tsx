@@ -79,7 +79,7 @@ function NotifyShowad() {
 
         <div>
 
-            <Container maxWidth="md">
+            <Container maxWidth="xl">
 
                 <Box
 
@@ -114,7 +114,7 @@ function NotifyShowad() {
                     </Box>
                 </Box>
                 <div>
-                    <Container maxWidth="md">
+                    <Container maxWidth="lg">
                         <div style={{ height: 500, width: "100%", marginTop: "20px" }}>
                             <TableContainer >
                                 <Table aria-label="simple table">

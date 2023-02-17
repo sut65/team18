@@ -24,6 +24,8 @@ func CreateMember(c *gin.Context) {
 	var gender entity.Gender
 	var role entity.Role
 
+	var status entity.Status
+
 	// ผลลัพธ์ที่ได้จากขั้นตอนที่ x จะถูก bind เข้าตัวแปร member
 	if err := c.ShouldBindJSON(&member); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -60,6 +62,13 @@ func CreateMember(c *gin.Context) {
 		return
 	}
 
+
+
+	if tx := entity.DB().Where("id = 2", status.ID).First(&status); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Role not found"})
+		return
+	}
+
 	createuserlogin := entity.User{
 		Name:     member.Email,
 		Password: SetupPasswordHash(member.Password),
@@ -78,6 +87,7 @@ func CreateMember(c *gin.Context) {
 		Role:     role,
 		User:     createuserlogin,
 	}
+    
 
 	// ขั้นตอนการ validate
 	if _, err := govalidator.ValidateStruct(md); err != nil {
@@ -85,12 +95,27 @@ func CreateMember(c *gin.Context) {
 		return
 	}
 
+
 	// บันทึก
 	if err := entity.DB().Create(&md).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data": md})
+
+	
+
+	bill := entity.Bill{
+		Member:       md,               // โยงความสัมพันธ์
+		Status:       status,         // โยงความสัมพันธ์	
+		PayableAM:    md.Typem.Tpay,
+	}
+
+	if err := entity.DB().Create(&bill).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
 }
 
 // GET /Member/:id

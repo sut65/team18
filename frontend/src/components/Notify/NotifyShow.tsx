@@ -63,7 +63,7 @@ const getToken = localStorage.getItem("token");
 
         <div>
 
-            <Container maxWidth="md" sx={{width: "100%",marginRight: "20" }}>
+            <Container maxWidth="xl" sx={{width: "100%",marginRight: "20" }}>
 
                 <Box
 
@@ -126,7 +126,7 @@ const getToken = localStorage.getItem("token");
                     </Box>
                 </Box>
                 <div>
-                    <Container maxWidth="md" sx={{ bgcolor: '#ffecb3'}}>
+                    <Container maxWidth="lg" sx={{ bgcolor: '#ffecb3'}}>
                         <div style={{ height: 500, width: "100%", marginTop: "20px" }}>
                             <TableContainer >
                                 <Table aria-label="simple table">

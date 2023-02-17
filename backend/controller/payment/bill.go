@@ -13,26 +13,30 @@ import (
 func CreateBill(c *gin.Context) {
 	var bill entity.Bill
 	var member entity.Member
-	var status entity.Status
+	var status entity.Status   
 
 	if err := c.ShouldBindJSON(&bill); err != nil {
 
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+
 	//9: ค้นหา member ด้วย id //tx.RowsAffected ตรวจสอบแถว
-	if tx := entity.DB().Where("id = ?", bill.MemberID).First(&member); tx.RowsAffected == 0 {
+	if  tx := entity.DB().Raw("SELECT * FROM members where id = ?", bill.Member.ID).First(&member); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "bill not found"})
 		return
 	}
 	//9: ค้นหา status ด้วย id
-	if tx := entity.DB().Where("id = ?", bill.StatusID).First(&status); tx.RowsAffected == 0 {
+	if tx := entity.DB().Where("id = 2", bill.StatusID).First(&status); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "method not found"})
 		return
 	}
+
+	
 	bi := entity.Bill{
-		Member:       member,               // โยงความสัมพันธ์
-		Status:       status,          // โยงความสัมพันธ์	
+		Member:       bill.Member,               // โยงความสัมพันธ์
+		Status:       status,         // โยงความสัมพันธ์	
+		PayableAM:    bill.PayableAM,
 	}
 	if err := entity.DB().Create(&bi).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
