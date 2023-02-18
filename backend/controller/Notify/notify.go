@@ -111,6 +111,7 @@ func DeleteNotify(c *gin.Context) {
 func UpdateNotify(c *gin.Context) {
 	var notify entity.Notify
 	var newNotify entity.Notify
+
 	if err := c.ShouldBindJSON(&newNotify); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return

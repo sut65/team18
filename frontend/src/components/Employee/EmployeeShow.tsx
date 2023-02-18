@@ -17,6 +17,8 @@ import { format } from "date-fns";
 import moment from "moment";
 
 import { GetEmployee } from "../../services/HttpClientService";
+import { Grid } from "@mui/material";
+import { spacing } from "@mui/system";
 
 function EmployeeShow() {
   //const classes = useStyles();
@@ -72,15 +74,24 @@ function EmployeeShow() {
               ข้อมูลพนักงาน
             </Typography>
           </Box>
-
-          <Box margin={2}>
+  
+          
+          <Box margin={2} sx={{padding: '2'}}>
+            <Button
+              component={RouterLink}
+              to="/employee_edit"
+              variant="contained"
+              color="primary"
+            >
+              แก้ไขข้อมูลพนักงาน
+            </Button>
             <Button
               component={RouterLink}
               to="/employee_create"
               variant="contained"
               color="primary"
             >
-              แก้ไขข้อมูลพนักงาน
+              บันทึกข้อมูลพนักงาน
             </Button>
           </Box>
         </Box>
@@ -119,9 +130,9 @@ function EmployeeShow() {
               {employees.map((employee: EmployeeInterface) => (
                 <TableRow key={employee.ID}>
                   <TableCell align="center">{employee.ID}</TableCell>
-                  <TableCell align="left">{employee.Name}</TableCell>
-                  <TableCell align="left">{employee.Tel}</TableCell>
-                  <TableCell align="left">{employee.Email}</TableCell>
+                  <TableCell align="center">{employee.Name}</TableCell>
+                  <TableCell align="center">{employee.Tel}</TableCell>
+                  <TableCell align="center">{employee.Email}</TableCell>
                   <TableCell align="center">{employee.Gender?.Gtype}</TableCell>
                   <TableCell align="center">{employee.Role?.Name}</TableCell>
                   <TableCell align="center">{employee.Education?.Education}</TableCell>

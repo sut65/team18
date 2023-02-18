@@ -27,17 +27,19 @@ import { EmployeeInterface } from "../../models/IEmployee";
 import { RoleInterface } from "../../models/IRole";
 import { DutyInterface } from "../../models/Schedule/IDuty";
 import { TimeInterface } from "../../models/Schedule/ITime";
+import { PlaceInterface } from "../../models/IPlace";
+import { OcdInterface } from "../../models/IOcd";
+
 import {
   CreateSchedule,
-  GetEmployee,
   GetDuty,
   GetTime,
   GetRole,
+  GetPlace,
+  GetDays,
 } from "../../services/HttpClientService";
 
 function ScheduleCreate() {
-  // const classes = makeStyles();
-
   const [error, setError] = React.useState(false);
   const [date, setDate] = useState<Date | null>(null);
   const [success, setSuccess] = React.useState(false);
@@ -46,16 +48,30 @@ function ScheduleCreate() {
   const [role, setRole] = React.useState<RoleInterface[]>([]);
   const [duty, setDuty] = React.useState<DutyInterface[]>([]);
   const [time, setTime] = React.useState<TimeInterface[]>([]);
-  const [employee, setEmployee] = React.useState<EmployeeInterface[]>([]);
+  const [place, setPlace] = React.useState<PlaceInterface[]>([]);
+  const [days, setDays] = React.useState<OcdInterface[]>([]);
+
+  //const [employee, setEmployee] = React.useState<EmployeeInterface[]>([]);
   //const [schedule, setSchedule] = useState<ScheduleInterface[]>([]);
-  //const [employee, setEmployee] = useState<Partial<EmployeeInterface>>({});
-  const [schedule, setSchedule] = useState<Partial<ScheduleInterface>>({});
+  const [employee, setEmployee] = useState<Partial<EmployeeInterface>>({});
+  const [schedule, setSchedule] = useState<Partial<ScheduleInterface>>({
+    ID: 0,
+    EmployeeID: 0,
+    RoleID: 0,
+  });
 
   //--------- รับค่า --------
   const getTime = async () => {
     let res = await GetTime();
     if (res) {
       setTime(res);
+    }
+  };
+
+  const getDays = async () => {
+    let res = await GetDays();
+    if (res) {
+      setDays(res);
     }
   };
 
@@ -73,18 +89,32 @@ function ScheduleCreate() {
     }
   };
 
-  const getEmployee = async () => {
-    let res = await GetEmployee();
+  const getPlace = async () => {
+    let res = await GetPlace();
     if (res) {
-      setRole(res);
+      setPlace(res);
     }
   };
+
+  // const getEmployee = async () => {
+  //   let res = await GetEmployee();
+  //   if (res) {
+  //     setRole(res);
+  //   }
+  // };
+
   //ไม่ใส่ useEffect จะไม่ขึ้นให้เลือก combobox
   useEffect(() => {
+    const getToken = localStorage.getItem("token");
+        if (getToken) {
+            setEmployee(JSON.parse(localStorage.getItem("lid") || ""));
+        }
     getDuty();
     getTime();
     getRole();
-    getEmployee();
+    getPlace();
+    getDays();
+    //getEmployee();
   }, []);
   console.log(schedule);
 
@@ -106,9 +136,7 @@ function ScheduleCreate() {
     if (reason === "clickaway") {
       return;
     }
-
     setSuccess(false);
-
     setError(false);
   };
 
@@ -123,13 +151,26 @@ function ScheduleCreate() {
   //Submit
   async function submit() {
     let data = {
-      EmployeeID: Number(localStorage.getItem("employeeId")),
-      RoleID:typeof schedule.RoleID === "string" ? parseInt(schedule.RoleID) : 0,
-      DutyID:typeof schedule.DutyID === "string" ? parseInt(schedule.DutyID) : 0,
-      TimeID:typeof schedule.TimeID === "string" ? parseInt(schedule.TimeID) : 0,
-      //EmployeeID:typeof schedule.EmployeeID === "string" ? parseInt(schedule.EmployeeID) : 0,
-      Recoed_Time: new Date,
+      EmployeeID: employee?.ID,
+
+      RoleID: employee?.RoleID,
+      // RoleID: typeof schedule.RoleID === "string" ? parseInt(schedule.RoleID) : 0,
+      
+      // DutyID: schedule.DutyID,
+      DutyID: typeof schedule.DutyID === "string" ? parseInt(schedule.DutyID) : 0,
+
+      // OcdID: schedule.OcdID,
+      OcdID: typeof schedule.OcdID === "string" ? parseInt(schedule.OcdID) : 0,
+      
+      //TimeID: schedule.TimeID,
+      TimeID: typeof schedule.TimeID === "string" ? parseInt(schedule.TimeID) : 0,
+
+      //PlaceID: schedule.PlaceID,
+      PlaceID: typeof schedule.PlaceID === "string" ? parseInt(schedule.PlaceID) : 0,
+
+      Record_Time: date,
     };
+    console.log(data)
     let res = await CreateSchedule(data);
     if (res.status) {
       setAlertMessage("บันทึกข้อมูลสำเร็จ");
@@ -186,34 +227,19 @@ function ScheduleCreate() {
 
         {/* กำหนด layout ให้ช่องต่างๆ */}
         <Grid container spacing={3} margin={1}>
+         
           {/* ชื่อ */}
           <Grid item xs={5} margin={2} container spacing={1}>
             <p>ชื่อ</p>
             <FormControl fullWidth variant="outlined">
-              <Select
-                //native
+              <Select   
                 disabled
-                value={localStorage.getItem("employeeId")}
-                // onChange={handleChange}
-                // inputProps={{
-                //   name: "EmployeeID",
-                // }}
+                value={schedule?.EmployeeID}
               >
-                {/* <option aria-label="None" value="">
-                  กรุณาระบุชื่อ
-                </option> */}
-                {/* <option aria-label="None" value="">
-                    {employee?.Name}
-                  </option> */}
-                {employee.map(
-                  (
-                    item: EmployeeInterface //map
-                  ) => (
-                    <MenuItem value={item.ID} key={item.ID}>
-                      {item.Name}
-                    </MenuItem> //key ไว้อ้างอิงว่าที่1ชื่อนี้ๆๆ value: เก็บค่า
-                  )
-                )}
+                <MenuItem value={0}>
+                      {employee?.Name}
+                </MenuItem> //key ไว้อ้างอิงว่าที่1ชื่อนี้ๆๆ value: เก็บค่า
+                
               </Select>
             </FormControl>
           </Grid>
@@ -223,21 +249,13 @@ function ScheduleCreate() {
             <p>ประเภทพนักงาน</p>
             <FormControl fullWidth variant="outlined">
               <Select
-                native
-                value={schedule.RoleID}
+                disabled
+                value={schedule?.RoleID}
                 onChange={handleChange}
-                inputProps={{
-                  name: "RoleID",
-                }}
               >
-                <option aria-label="None" value="">
-                  กรุณาระบุประเภทพนักงาน
-                </option>
-                {role.map((item: RoleInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Name}
-                  </option>
-                ))}
+                <MenuItem value={0}>
+                      {employee?.RoleID}
+                </MenuItem> //key ไว้อ้างอิงว่าที่1ชื่อนี้ๆๆ value: เก็บค่า  
               </Select>
             </FormControl>
           </Grid>
@@ -294,22 +312,22 @@ function ScheduleCreate() {
           <Grid item xs={5} margin={2} container spacing={1}>
             <p>สถานที่</p>
             <FormControl fullWidth variant="outlined">
-              <Select
-              // native
-              // value={employee.GenderID}
-              // onChange={handleChange}
-              // inputProps={{
-              //   name: "GenderID",
-              // }}
+            <Select
+                native
+                value={schedule.PlaceID}
+                onChange={handleChange}
+                inputProps={{
+                  name: "PlaceID",
+                }}
               >
-                {/* <option aria-label="None" value="">
-                  กรุณาระบุเพศ
+                <option aria-label="None" value="">
+                  กรุณาระบุสถานที่
                 </option>
-                {gender.map((item: GenderInterface) => (
+                {place.map((item: PlaceInterface) => (
                   <option value={item.ID} key={item.ID}>
-                    {item.Gtype}
+                    {item.Locate}
                   </option>
-                ))} */}
+                ))}
               </Select>
             </FormControl>
           </Grid>
@@ -320,14 +338,23 @@ function ScheduleCreate() {
             <p>วัน</p>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <FormControl fullWidth variant="outlined">
-                <DatePicker
-                  renderInput={(props) => <TextField {...props} />}
-                  label="Date"
-                  value={date}
-                  onChange={(newValue) => {
-                    setDate(newValue);
-                  }}
-                />
+              <Select
+                native
+                value={schedule.OcdID}
+                onChange={handleChange}
+                inputProps={{
+                  name: "OcdID",
+                }}
+              >
+                <option aria-label="None" value="">
+                  กรุณาระบุวันที่ต้องการบันทึก               
+                  </option>
+                {days.map((item: OcdInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.Days}
+                  </option>
+                ))}
+              </Select>
               </FormControl>
             </LocalizationProvider>
           </Grid>

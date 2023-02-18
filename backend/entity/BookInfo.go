@@ -10,6 +10,7 @@ type Place struct {
 	gorm.Model
 	Locate       string
 	BookInfolist []BookInfolist `gorm:"foreignKey:PlaceID"`
+	Schedule 	 []Schedule `gorm:"foreignKey:PlaceID"`
 }
 
 type TimePeriod struct {

@@ -1,4 +1,4 @@
- import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import AppBar from "@mui/material/AppBar";
@@ -12,6 +12,7 @@ import Typography from "@mui/material/Typography";
 import InputLabel from "@mui/material/InputLabel";
 import IconButton from "@mui/material/IconButton";
 import FormControl from "@mui/material/FormControl";
+import Autocomplete from "@mui/material/Autocomplete";
 import { Link as RouterLink } from "react-router-dom";
 import { createTheme, Divider, Grid } from "@mui/material";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
@@ -27,27 +28,74 @@ import { EducationInterface } from "../../models/Employee/IEducation";
 import {
   CreateEmployee,
   GetEducation,
+  GetEmployee,
+  GetEmployeeID,
   GetGender,
   GetRole,
+  ListEmployeeID,
+  UpdateEmployee,
 } from "../../services/HttpClientService";
 
 //--------------ระบบพนักงาน ------------------------------
-function EmployeeCreate() {
-  // const classes = makeStyles();
+function EmployeeEdit() {
   const [error, setError] = React.useState(false);
   const [date, setDate] = useState<Date | null>(null);
   const [message, setAlertMessage] = React.useState("");
   const [success, setSuccess] = React.useState(false);
-  
-  //const [name, setName] = useState("");
+  //const [ar, setAlet] = React.useState(false);
+
   const [role, setRole] = React.useState<RoleInterface[]>([]);
   const [gender, setGender] = React.useState<GenderInterface[]>([]);
   const [education, setEducation] = React.useState<EducationInterface[]>([]);
-  const [employee, setEmployee] = React.useState<Partial<EmployeeInterface>>({
-    // GenderID:0,
-    // EducationID:0,
-    // RoleID:0,
-  });
+
+  const [user, setUser] = React.useState<Partial<EmployeeInterface>>({});
+  const [employee, setEmployee] = React.useState<EmployeeInterface[]>([]);
+  const [employee_Id, setEmployeeID] = React.useState<
+    Partial<EmployeeInterface>
+  >({});
+
+  // ----------------------ลบข้อมูล------------------------
+  async function DeleteEmployee() {
+    localStorage.clear();
+    //window.location.href = "/employee_show"; หน้าขาว
+    const apiUrl = "http://localhost:8080";
+    const requestOptions = {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(employee_Id.ID),
+    };
+
+    let res = await fetch(
+      `${apiUrl}/employee/${JSON.stringify(employee_Id.ID)}`,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.data) {
+          // DeleteEmployee();
+          return { status: true, message: res.data };
+        } else {
+          return { status: false, message: res.error };
+        }
+      });
+    return res;
+  }
+
+  const listEmployeeID = async (id: any) => {
+    let res = await ListEmployeeID(id);
+    if (res) {
+      setEmployee(res);
+      console.log(res);
+    }
+  };
+
+  // กรณีอยากกดยืนยันใน  Alert
+  // async function setAl() {
+  //   setAlet(true)
+  // };
 
   //--------- รับค่า --------
   const getGender = async () => {
@@ -71,92 +119,112 @@ function EmployeeCreate() {
     }
   };
 
+  //ฟังก์ชันที่เอาไว้ใช้เรียกงานเมื่อ component มีการเปลี่้ยนแปลง สามารถส่เงื่อนไขการเรียกใช้ได้ที่[]
   useEffect(() => {
+    // ดึงข้อมูล database จาก storage
+    const getToken = localStorage.getItem("token");
+    if (getToken) {
+      const x = JSON.parse(localStorage.getItem("lid") || "");
+      setUser(x);
+      listEmployeeID(x.ID);
+    }
     getGender();
     getEducation();
     getRole();
   }, []);
   console.log(employee);
 
+  // ----------------------------------- ค้นหาข้อมูล --------------------------------------------------------
+  const onChange = async (event: SelectChangeEvent) => {
+    const id = event.target.value;
+    let res = await GetEmployeeID(id);
+    if (res) {
+      let data = {
+        // Combobox เปลี่ยนไปด้วย
+        ID: res.ID,
+        Name: res.Name,
+        Tel: res.Tel,
+        Email: res.Email,
+        Password: res.Password,
+        DOB: res.DOB,
+
+        GenderID: res.GenderID,
+        EducationID: res.EducationID,
+        RoleID: res.RoleID,
+      };
+
+      setEmployeeID(res);
+    }
+  };
+
   // TextField
   const handleChangeEmployee = (
     event: React.ChangeEvent<{ id?: string; value: any }>
   ) => {
-    const id = event.target.id as keyof typeof EmployeeCreate;
+    const id = event.target.id as keyof typeof EmployeeEdit;
     const { value } = event.target;
-    setEmployee({ ...employee, [id]: value });
+    setEmployeeID({ ...employee_Id, [id]: value });
   };
 
   // Combobox
   const handleChange = (event: SelectChangeEvent<number>) => {
     const name = event.target.name as keyof typeof employee;
-    setEmployee({
-      ...employee,
+    setEmployeeID({
+      ...employee_Id,
       [name]: event.target.value,
     });
   };
 
   //Alert
   const handleClose = (
-
     event?: React.SyntheticEvent | Event,
 
     reason?: string
-
   ) => {
-
     if (reason === "clickaway") {
-
       return;
-
     }
 
     setSuccess(false);
 
     setError(false);
-
   };
 
   const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
-
     props,
-  
     ref
-  
   ) {
-  
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  
   });
-
-  // Delay function
-  function timeout(delay: number) {
-    return new Promise( res => setTimeout(res, delay) );
-}
 
   // Submit
   async function submit() {
     let data = {
-      Name: employee.Name ?? "",
-      Tel: employee.Tel ?? "",
-      Email: employee.Email ?? "",
-      Password: employee.Password ?? "",
+      ID: employee_Id.ID,
+      Name: employee_Id.Name,
+      Tel: employee_Id.Tel,
+      Email: employee_Id.Email,
+      Password: employee_Id.Password,
       DOB: new Date(),
-      GenderID: typeof employee.GenderID === "string" ? parseInt(employee.GenderID) : 0,
-      EducationID:typeof employee.EducationID === "string" ? parseInt(employee.EducationID): 0,
+      GenderID:
+        typeof employee_Id.GenderID === "string"
+          ? parseInt(employee_Id.GenderID)
+          : employee_Id.GenderID,
+      EducationID:
+        typeof employee_Id.EducationID === "string"
+          ? parseInt(employee_Id.EducationID)
+          : employee_Id.EducationID,
       RoleID:
-        typeof employee.RoleID === "string" ? parseInt(employee.RoleID) : 0,
-      User: {
-            Name: employee.Email ?? "",
-            Password: employee.Password ?? "",
-        }
+        typeof employee_Id.RoleID === "string"
+          ? parseInt(employee_Id.RoleID)
+          : employee_Id.RoleID,
     };
-    let res = await CreateEmployee(data);
+    console.log("submit");
+    console.log(data);
+    let res = await UpdateEmployee(data);
     if (res.status) {
-      setAlertMessage("บันทึกข้อมูลสำเร็จ");
+      setAlertMessage("แก้ไขข้อมูลสำเร็จ");
       setSuccess(true);
-      await timeout(3000); //for 3 sec delay
-      window.location.href = "/employee_show" //เด้งไปหน้าโชว์
     } else {
       setAlertMessage(res.message);
       setError(true);
@@ -164,13 +232,25 @@ function EmployeeCreate() {
   }
 
   return (
-    <Container maxWidth='md'>
-      <Snackbar id="success" open={success} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
+    <Container maxWidth="md">
+      <Snackbar
+        id="true"
+        open={success}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
         <Alert onClose={handleClose} severity="success">
           {message}
         </Alert>
       </Snackbar>
-      <Snackbar id="error" open={error} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
+      <Snackbar
+        id="error"
+        open={error}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
         <Alert onClose={handleClose} severity="error">
           {message}
         </Alert>
@@ -188,16 +268,42 @@ function EmployeeCreate() {
               align="center"
               margin={2}
             >
-              บันทึกข้อมูลพนักงาน
+              แก้ไขข้อมูลพนักงาน
             </Typography>
           </Box>
         </Box>
         <Divider />
 
         {/* กำหนด layout ให้ช่องต่างๆ */}
-        <Grid container spacing={3} margin={1}>
+        <Grid container spacing={1} margin={1} padding={1}>
+          {/* ค้นหา */}
+          <Grid item spacing={2}>
+            <p>ค้นหารายชื่อที่ต้องการแก้ไข</p>
+          </Grid>
+          <Grid item xs={8.5}>
+            <FormControl variant="outlined" fullWidth>
+              <Select
+                native
+                value={employee_Id.ID + ""}
+                onChange={onChange}
+                inputProps={{
+                  name: "ID",
+                }}
+              >
+                <option aria-label="None" value="">
+                  ID
+                </option>
+                {employee?.map((item: EmployeeInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.ID}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+
           {/* ชื่อ */}
-          <Grid item xs={5} margin={2} container spacing={1}>
+          <Grid item xs={5} margin={2} container spacing={2}>
             <p>ชื่อ</p>
             <FormControl fullWidth variant="outlined">
               <TextField
@@ -205,15 +311,15 @@ function EmployeeCreate() {
                 variant="outlined"
                 type="string"
                 size="medium"
-                placeholder="กรุณากรอกข้อมูลชื่อ"
-                value={employee.Name || ""}
+                //placeholder="กรุณากรอกข้อมูลชื่อ"
+                value={employee_Id?.Name}
                 onChange={handleChangeEmployee}
               />
             </FormControl>
           </Grid>
 
           {/* เบอร์โทร */}
-          <Grid item xs={5} margin={2} container spacing={1}>
+          <Grid item xs={5} margin={2} container spacing={3}>
             <p>เบอร์โทรศัพท์</p>
             <FormControl fullWidth variant="outlined">
               <TextField
@@ -222,14 +328,14 @@ function EmployeeCreate() {
                 type="string"
                 size="medium"
                 placeholder="กรุณากรอกเบอร์โทร"
-                value={employee.Tel || ""}
+                value={employee_Id?.Tel}
                 onChange={handleChangeEmployee}
               />
             </FormControl>
           </Grid>
 
           {/* อีเมลล์ */}
-          <Grid item xs={5} margin={2} container spacing={1}>
+          <Grid item xs={5} margin={2} container spacing={2}>
             <p>อีเมลล์</p>
             <FormControl fullWidth variant="outlined">
               <TextField
@@ -238,14 +344,14 @@ function EmployeeCreate() {
                 type="string"
                 size="medium"
                 placeholder="กรุณากรอกอกเมลล์"
-                value={employee.Email || ""}
+                value={employee_Id?.Email}
                 onChange={handleChangeEmployee}
               />
             </FormControl>
           </Grid>
 
           {/* รหัสผ่าน */}
-          <Grid item xs={5} margin={2} container spacing={1}>
+          <Grid item xs={5} margin={2} container spacing={3}>
             <p>รหัสผ่าน</p>
             <FormControl fullWidth variant="outlined">
               <TextField
@@ -254,7 +360,7 @@ function EmployeeCreate() {
                 type="string" //type="password" จะมองไม่เห็นรหัสที่ตั้ง
                 size="medium"
                 placeholder="กรุณาตั้งรหัสผ่าน"
-                value={employee.Password || ""}
+                value={employee_Id?.Password}
                 onChange={handleChangeEmployee}
               />
             </FormControl>
@@ -262,7 +368,7 @@ function EmployeeCreate() {
 
           {/* วันเกิด */}
           {/* npm install @mui/x-date-pickers */}
-          <Grid item xs={5} margin={2} container spacing={1}>
+          <Grid item xs={5} margin={2} container spacing={2}>
             <p>วันเกิด</p>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <FormControl fullWidth variant="outlined">
@@ -279,12 +385,12 @@ function EmployeeCreate() {
           </Grid>
 
           {/* เพศ */}
-          <Grid item xs={5} margin={2} container spacing={1}>
+          <Grid item xs={5} margin={2} container spacing={3}>
             <p>เพศ</p>
             <FormControl fullWidth variant="outlined">
               <Select
                 native
-                value={employee.GenderID}
+                value={employee_Id?.GenderID}
                 onChange={handleChange}
                 inputProps={{
                   name: "GenderID",
@@ -294,20 +400,19 @@ function EmployeeCreate() {
                   กรุณาระบุเพศ
                 </option>
                 {gender.map((item: GenderInterface) => (
-                  <option value={item.ID}>{item.Gtype}
-                  </option>
+                  <option value={item.ID}>{item.Gtype}</option>
                 ))}
               </Select>
             </FormControl>
           </Grid>
 
           {/* ประเภทพนักงาน*/}
-          <Grid item xs={5} margin={2} container spacing={1}>
+          <Grid item xs={5} margin={2} container spacing={2}>
             <p>ประเภทพนักงาน</p>
             <FormControl fullWidth variant="outlined">
               <Select
                 native
-                value={employee.RoleID}
+                value={employee_Id?.RoleID}
                 onChange={handleChange}
                 inputProps={{
                   name: "RoleID",
@@ -326,12 +431,12 @@ function EmployeeCreate() {
           </Grid>
 
           {/* ระดับการศึกษา */}
-          <Grid item xs={5} margin={2} container spacing={1}>
+          <Grid item xs={5} margin={2} container spacing={3}>
             <p>ระดับการศึกษา</p>
             <FormControl fullWidth variant="outlined">
               <Select
                 native
-                value={employee.EducationID}
+                value={employee_Id?.EducationID}
                 onChange={handleChange}
                 inputProps={{
                   name: "EducationID",
@@ -341,18 +446,17 @@ function EmployeeCreate() {
                   กรุณาระบุระดับการศึกษา
                 </option>
                 {education.map((item: EducationInterface) => (
-                  <option value={item.ID}>
-                    {item.Education}
-                  </option>
+                  <option value={item.ID}>{item.Education}</option>
                 ))}
               </Select>
             </FormControl>
           </Grid>
 
           {/* ปุ่ม */}
-          <Grid item xs={5} margin={2}>
+          <Grid item xs={5} margin={2} padding={1}>
             <Button
-              component={RouterLink} to="/employee_show"
+              component={RouterLink}
+              to="/employee_show"
               variant="contained"
               size="large"
               style={{ height: "42px", width: "100px" }}
@@ -368,7 +472,21 @@ function EmployeeCreate() {
               onClick={submit}
               style={{ float: "right", height: "42px", width: "95px" }}
             >
-              Submit
+              Edit
+            </Button>
+            <Button
+              variant="contained"
+              color="error"
+              size="large"
+              onClick={DeleteEmployee}
+              style={{
+                float: "right",
+                height: "42px",
+                width: "95px",
+                padding: 1,
+              }}
+            >
+              Delete
             </Button>
           </Grid>
         </Grid>
@@ -376,4 +494,4 @@ function EmployeeCreate() {
     </Container>
   );
 }
-export default EmployeeCreate;
+export default EmployeeEdit;

@@ -204,16 +204,15 @@ async function GetRole() {
   return res;
 }
 
-async function GetEmployee() {
+async function GetEmployee(){
   const requestOptions = {
     method: "GET",
     headers: {
-      // Authorization: `Bearer ${localStorage.getItem("token")}`,
+       Authorization: `Bearer ${localStorage.getItem("token")}`,
       "Content-Type": "application/json",
     },
   };
 
-  const uid = Number(localStorage.getItem("employeeId"));
   let res = await fetch(`${apiUrl}/employee`, requestOptions)
     .then((response) => response.json())
     .then((res) => {
@@ -227,6 +226,53 @@ async function GetEmployee() {
   return res;
 }
 
+// ค้าหาข้อมูลคนใช้อยู่ด้วย id
+async function GetEmployeeID(id: any) {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  let res = await fetch(`${apiUrl}/employee/${id}`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+
+//แสดงข้อมูลคนที่ใช้ด้วย id
+async function ListEmployeeID(id: any) {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  let res = await fetch(`${apiUrl}/employeeid/${id}`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+
+
 async function CreateEmployee(data: EmployeeInterface) {
   const requestOptions = {
     method: "POST",
@@ -235,6 +281,27 @@ async function CreateEmployee(data: EmployeeInterface) {
   };
   console.log(data)
   let res = await fetch(`${apiUrl}/employees`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return { status: true, message: res.data };
+      } else {
+        return { status: false, message: res.error };
+      }
+    });
+
+  return res;
+}
+
+
+async function UpdateEmployee(data: EmployeeInterface) {
+  const requestOptions = {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/employee`, requestOptions)
     .then((response) => response.json())
     .then((res) => {
       if (res.data) {
@@ -258,6 +325,51 @@ async function GetDuty() {
   };
 
   let res = await fetch(`${apiUrl}/duties`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+
+async function GetDays() {
+  const requestOptions = {
+    method: "GET", //from list 
+    headers: {
+      // Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  let res = await fetch(`${apiUrl}/ocds`, requestOptions)
+  // let res = await fetch(`${apiUrl}/openandcolsedays`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+
+async function GetPlace() {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      // Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  let res = await fetch(`${apiUrl}/place`, requestOptions)
     .then((response) => response.json())
     .then((res) => {
       if (res.data) {
@@ -537,14 +649,19 @@ export {
   GetMemberOne,
 
   //Employees
+  GetRole,
   GetEducation,
   GetEmployee,
-  GetRole,
   CreateEmployee,
+  GetEmployeeID,
+  ListEmployeeID,
+  UpdateEmployee,
 
   //Schedule
   GetDuty,
   GetTime,
+  GetDays,
+  GetPlace,
   GetSchedule,
   CreateSchedule,
 

@@ -2,30 +2,30 @@ import { EmployeeInterface } from "../IEmployee";
 import { RoleInterface } from "../IRole";
 import { TimeInterface } from "./ITime";
 import { DutyInterface } from "./IDuty";
+import { OcdInterface } from "../IOcd";
+import { PlaceInterface } from "../IPlace";
 
-export interface ScheduleInterface{
-    
+export interface ScheduleInterface {
+
 	ID?: number;
 
 	EmployeeID?: number;
-	Employee?:   EmployeeInterface;
+	Employee?: EmployeeInterface;
 
 	RoleID?: number;
 	Role?: RoleInterface;
 
-	
 	DutyID?: number;
-	Duty?:   DutyInterface;
+	Duty?: DutyInterface;
 
-	// OcdID: number,
-	// Ocd:    OcdInterface,
+	OcdID?: number;
+	Ocd?: OcdInterface;
 
 	TimeID?: number;
-	Time?:   TimeInterface;
+	Time?: TimeInterface;
 
-	
-	// PlaceInfolistID: number,
-	// PlaceInfolist:   PlaceInfolistInterface,
-	
-    Record_Time?: Date;
+	PlaceID?: number;
+	Place?: PlaceInterface;
+
+	Record_Time?: Date | null;
 }

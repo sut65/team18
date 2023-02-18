@@ -78,11 +78,24 @@ func CreateEmployee(c *gin.Context) { // c รับข้อมูลมาจ�
 	c.JSON(http.StatusCreated, gin.H{"data": ps}) //ส่ง ps กลับไปตรงที่ fetch ที่เราเรียกใช้
 }
 
+//--------------------- ดึงข้อมูล --------------------
+
 // GET /Employee/:id
 func GetEmployee(c *gin.Context) {
 	var employee entity.Employee
 	id := c.Param("id") //มาจาก api จากใน main.go
-	if err := entity.DB().Preload("Education").Preload("Role").Preload("Gender").Raw("SELECT * FROM employees WHERE id = ?", id).Find(&employee).Error; err != nil {
+	if err := entity.DB().Preload("Education").Preload("Role").Preload("Gender").Raw("SELECT * FROM employees WHERE id = ?", id).Scan(&employee).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": employee})
+}
+
+//------- ค้นหา id 
+func GetEmployeebyID(c *gin.Context) {
+	var employee []entity.Employee
+	id := c.Param("id")		// .Preload("id") -> ดึงตารางย่อยมา												// WHERE user_id = ? จะค้นหาเฉพาะข้อมูลของ user(admin) ที่ login เข้ามาใช้งาน
+	if err := entity.DB().Preload("Education").Preload("Role").Preload("Gender").Raw("SELECT * FROM employees", id).Find(&employee).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -90,9 +103,9 @@ func GetEmployee(c *gin.Context) {
 }
 
 // GET /Employees
-func ListEmployees(c *gin.Context) {
+func ListEmployees(c *gin.Context) {																		// WHERE deleted_at is null เพิ่มล่าสุด
 	var employees []entity.Employee																			// .Scan -> .Find  ทำให้สามารถโชข้อมูลหน้า show รูปแบบ string ได้
-	if err := entity.DB().Preload("Education").Preload("Role").Preload("Gender").Raw("SELECT * FROM employees").Find(&employees).Error; err != nil {
+	if err := entity.DB().Preload("Education").Preload("Role").Preload("Gender").Raw("SELECT * FROM employees WHERE deleted_at is null").Find(&employees).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -111,24 +124,9 @@ func DeleteEmployee(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": id})
 }
 
-// PATCH /Employees
-func UpdateEmployee(c *gin.Context) {
-	var employee entity.Employee
-	if err := c.ShouldBindJSON(&employee); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-	if tx := entity.DB().Where("id = ?", employee.ID).First(&employee); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "employee not found"})
-		return
-	}
-	if err := entity.DB().Save(&employee).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"data": employee})
-}
 
+// ค้าหา id แบบตัว GetEmployeebyID
+// สร้าง id ของ user ที่เพิ่มเข้าไป
 func GetEmployeeByUserID(c *gin.Context) {
 	var employee entity.Employee
 	id := c.Param("id")
@@ -138,3 +136,60 @@ func GetEmployeeByUserID(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"data": employee})
 }
+
+// PATCH or PUT /Employees
+func UpdateEmployee(c *gin.Context) {
+	var employee entity.Employee
+	var newEmployee entity.Employee
+
+
+	if err := c.ShouldBindJSON(&newEmployee); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	if tx := entity.DB().Where("id = ?", newEmployee.ID).First(&employee); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "employee not found"})
+		return
+	}
+
+	var education entity.Education
+	var role entity.Role
+	var gender entity.Gender
+
+	// : ค้นหา education ด้วย id
+	if tx := entity.DB().Where("id = ?", newEmployee.EducationID).First(&education); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Education not found"})
+		return
+	}
+
+	// : ค้นหา role ด้วย id
+	if tx := entity.DB().Where("id = ?", newEmployee.RoleID).First(&role); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Role not found"})
+		return
+	}
+
+	// : ค้นหา gender ด้วย id
+	if tx := entity.DB().Where("id = ?", newEmployee.GenderID).First(&gender); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Gender not found"})
+		return
+	}
+
+	employee.Education = education
+	employee.Role = role
+	employee.Gender = gender
+	employee.Name = newEmployee.Name
+	employee.Tel = newEmployee.Tel
+	employee.Email = newEmployee.Email
+	employee.Password = newEmployee.Password
+	employee.DOB = newEmployee.DOB
+
+
+
+
+	if err := entity.DB().Save(&employee).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": employee})
+}
+

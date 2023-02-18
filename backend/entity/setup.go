@@ -207,10 +207,11 @@ func SetupDatabase() {
 		Name:      "Max",
 		Tel:       "060000000",
 		Email:     "Max@email.com",
+		Password: 	"123456",
 		Gender:    Male,
 		Role:      admin,
 		Education: hs,
-		DOB:       time.Now(),
+		DOB:       time.Date(2001, 9, 24, 0, 0, 0, 0, time.Now().Location()),
 		User:      uAdmin,
 	}
 	db.Model(&Employee{}).Create(&admin1)
@@ -219,11 +220,12 @@ func SetupDatabase() {
 		Name:      "Tanaphat",
 		Tel:       "090000000",
 		Email:     "Tanaphat@email.com",
+		Password: 	"123456",
 		Gender:    Male,
 		Role:      admin,
 		Education: baDg,
-		DOB:       time.Now(),
-		//DOB: 		time.Date(2022, 12, 10, 0, 0, 0, 0, time.Now().Location()),
+		//DOB:       time.Now(),
+		DOB: 		time.Date(2022, 12, 10, 0, 0, 0, 0, time.Now().Location()),
 		User:      userAdmin,
 	}
 	db.Model(&Employee{}).Create(&admin2)
@@ -232,10 +234,11 @@ func SetupDatabase() {
 		Name:      "BoonChoo",
 		Tel:       "060000000",
 		Email:     "BoonChoo@email.com",
+		Password: 	"123456",
 		Gender:    Male,
 		Role:      trainer,
 		Education: hs,
-		DOB:       time.Now(),
+		DOB:       time.Date(2003, 9, 24, 0, 0, 0, 0, time.Now().Location()),
 		User:      uTrainer,
 	}
 	db.Model(&Employee{}).Create(&tr1)
@@ -244,10 +247,11 @@ func SetupDatabase() {
 		Name:      "Napakan",
 		Tel:       "060000000",
 		Email:     "Napakan@email.com",
+		Password: 	"123456",
 		Gender:    Male,
 		Role:      trainer,
 		Education: hs,
-		DOB:       time.Now(),
+		DOB:       time.Date(2005, 8, 22, 0, 0, 0, 0, time.Now().Location()),
 		User:      userTrainer,
 	}
 	db.Model(&Employee{}).Create(&tr2)
@@ -256,43 +260,50 @@ func SetupDatabase() {
 		Name:      "Tanapon",
 		Tel:       "060000000",
 		Email:     "Tanapon@email.com",
+		Password: 	"123456",
 		Gender:    Male,
 		Role:      employee,
 		Education: hs,
-		DOB:       time.Now(),
+		DOB:       time.Date(2001, 4, 1, 0, 0, 0, 0, time.Now().Location()),
 		User:      uEmployee,
 	}
 	db.Model(&Employee{}).Create(&em1)
+
 	em2 := Employee{
 		Name:      "Siriprapa",
 		Tel:       "060000000",
 		Email:     "Siriprapa@email.com",
+		Password: 	"123456",
 		Gender:    Female,
 		Role:      employee,
 		Education: hs,
-		DOB:       time.Now(),
+		DOB:       time.Date(2001, 3, 5, 0, 0, 0, 0, time.Now().Location()),
 		User:      userEmployee,
 	}
 	db.Model(&Employee{}).Create(&em2)
+
 	em3 := Employee{
 		Name:      "Manatpong",
 		Tel:       "060000000",
 		Email:     "Manatpong@email.com",
+		Password: 	"123456",
 		Gender:    Male,
 		Role:      employee,
 		Education: hs,
-		DOB:       time.Now(),
+		DOB:       time.Date(2001, 7, 18, 0, 0, 0, 0, time.Now().Location()),
 		User:      userEmployee,
 	}
 	db.Model(&Employee{}).Create(&em3)
+
 	em4 := Employee{
 		Name:      "Kantaya",
 		Tel:       "060000000",
 		Email:     "Kantaya@email.com",
+		Password: 	"123456",
 		Gender:    Female,
 		Role:      employee,
 		Education: hs,
-		DOB:       time.Now(),
+		DOB:       time.Date(2001, 9, 11, 0, 0, 0, 0, time.Now().Location()),
 		User:      userEmployee,
 	}
 	db.Model(&Employee{}).Create(&em4)
@@ -430,6 +441,40 @@ func SetupDatabase() {
 	}
 	db.Model(&Duty{}).Create(&d_trainer)
 
+	//--สถานที่--
+	place := Place{
+		Locate: "Fitness Room",
+	}
+	db.Model(&Place{}).Create(&place)
+	place1 := Place{
+		Locate: "คอร์ท 1",
+	}
+	db.Model(&Place{}).Create(&place1)
+	place2 := Place{
+		Locate: "คอร์ท 2",
+	}
+	db.Model(&Place{}).Create(&place2)
+	place3 := Place{
+		Locate: "สนามล่าง 1",
+	}
+	db.Model(&Place{}).Create(&place3)
+	place4 := Place{
+		Locate: "สนามล่าง 2",
+	}
+	db.Model(&Place{}).Create(&place4)
+	place5 := Place{
+		Locate: "สนามฟุตซอลยิม",
+	}
+	db.Model(&Place{}).Create(&place5)
+	place6 := Place{
+		Locate: "สนามบาส 1",
+	}
+	db.Model(&Place{}).Create(&place6)
+	place7 := Place{
+		Locate: "สนามบาส 2",
+	}
+	db.Model(&Place{}).Create(&place7)
+
 	//-------Schedule---------//
 	schedule_1 := Schedule{
 		Employee:      admin2,
@@ -437,7 +482,7 @@ func SetupDatabase() {
 		Duty:          d_checker,
 		Ocd:           ocd3,
 		Time:          q1,
-		PlaceInfolist: placeinfo,
+		Place: 		   place,
 	}
 	db.Model(&Schedule{}).Create(&schedule_1)
 
@@ -768,39 +813,6 @@ func SetupDatabase() {
 	})
 
 	///////////// ระบบจองสถานที่ ///////////////
-	//--สถานที่--
-	place := Place{
-		Locate: "Fitness Room",
-	}
-	db.Model(&Place{}).Create(&place)
-	place1 := Place{
-		Locate: "คอร์ท 1",
-	}
-	db.Model(&Place{}).Create(&place1)
-	place2 := Place{
-		Locate: "คอร์ท 2",
-	}
-	db.Model(&Place{}).Create(&place2)
-	place3 := Place{
-		Locate: "สนามล่าง 1",
-	}
-	db.Model(&Place{}).Create(&place3)
-	place4 := Place{
-		Locate: "สนามล่าง 2",
-	}
-	db.Model(&Place{}).Create(&place4)
-	place5 := Place{
-		Locate: "สนามฟุตซอลยิม",
-	}
-	db.Model(&Place{}).Create(&place5)
-	place6 := Place{
-		Locate: "สนามบาส 1",
-	}
-	db.Model(&Place{}).Create(&place6)
-	place7 := Place{
-		Locate: "สนามบาส 2",
-	}
-	db.Model(&Place{}).Create(&place7)
 	//---ช่วงเวลาการจอง---
 	tp := TimePeriod{
 		Period: "08:00 - 10:00",
@@ -826,6 +838,7 @@ func SetupDatabase() {
 		Period: "18:00 - 20:00",
 	}
 	db.Model(&TimePeriod{}).Create(&tp5)
+
 	bookinfo := BookInfolist{
 		Service:    service1,
 		Place:      place,

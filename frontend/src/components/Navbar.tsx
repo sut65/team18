@@ -143,9 +143,7 @@ function Navbar() {
   ]
   const menuadmin = [
     { name: "หน้าแรก", icon: <HomeIcon />, path: "/login" },
-    //{ name: "ข้อมูลพนักงาน", icon: <BadgeIcon />, path: "/employee_create",},
     { name: "ข้อมูลพนักงาน", icon: <BadgeIcon />, path: "/employee_show", },
-
     { name: "ข่าว", icon: <EventNoteIcon />, path: "/news_create", },
   ]
   const menutrainer = [
