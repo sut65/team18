@@ -41,5 +41,4 @@ type PlaceInfolist struct {
 	Detail     string
 	PDate      time.Time
 
-	Schedule []Schedule `gorm:"foreignKey:PlaceInfolistID"`
 }

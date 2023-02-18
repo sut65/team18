@@ -44,7 +44,6 @@ func CORSMiddleware() gin.HandlerFunc {
 	}
 
 }
-
 func main() {
 
 	os.Remove("./Team18.db")
@@ -55,11 +54,17 @@ func main() {
 
 	r.Use(CORSMiddleware())
 
+	// ****** PUT VS PATCH ******
+	// PUT - ใช้สำหรับ update ข้อมูลทั้งหมดทุก field ( อัพเดททั้ง doc หรือทั้ง record จากข้อมูลเก่าให้เป็นข้อมูลชุดที่ส่งมาอัพเดทแทน )
+	// PATCH - ใช้สำหรับ update ข้อมูลเฉพาะ field ที่เราส่งไป ( ถ้า field ไหนเราไม่ได้ส่งไปให้ คือใช้ค่าเดิม )
+
 	// Employee Routes
 	r.GET("/employees", employee.ListEmployees)
 	r.GET("/employee/:id", employee.GetEmployee)
+	r.GET("/employeeid/:id", employee.GetEmployeebyID)
 	r.POST("/employees", employee.CreateEmployee)
-	r.PATCH("/employee", employee.UpdateEmployee)
+	//r.PATCH("/employee", employee.UpdateEmployee)
+	r.PUT("/employee", employee.UpdateEmployee)
 	r.DELETE("/employee/:id", employee.DeleteEmployee)
 
 	// Education Routes
@@ -183,8 +188,11 @@ func main() {
 	r.PATCH("service", placeInfo.UpdateService)
 	r.DELETE("service/:id", placeInfo.DeleteService)
 
-	r.GET("openandcolsedays", placeInfo.ListOpenandClosedays)
-	r.GET("openandclosedays/:id", placeInfo.GetOpenandClosedays)
+	r.GET("ocds", placeInfo.ListOpenandClosedays)
+	r.GET("ocd/:id", placeInfo.GetOpenandClosedays)
+
+	// r.GET("openandcolsedays", placeInfo.ListOpenandClosedays)
+	// r.GET("openandclosedays/:id", placeInfo.GetOpenandClosedays)
 	r.POST("openandclosedays", placeInfo.CreateOpenandClosedays)
 	r.PATCH("openandclosedays", placeInfo.UpdateOpenandclosedays)
 	r.DELETE("openandclosedays/:id", placeInfo.DeleteOpenandClosedays)

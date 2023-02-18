@@ -44,8 +44,8 @@ type Schedule struct {
 	Time   Time 
 
 	//ใส่ใน struct ของคนอื่น <-- ทำแล้ว
-	PlaceInfolistID *uint
-	PlaceInfolist   PlaceInfolist `gorm:"references:ID"`
+	PlaceID  *uint
+	Place  Place 
 
 	Record_Time time.Time
 }

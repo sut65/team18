@@ -14,11 +14,13 @@ import (
 func CreateSchedule(c *gin.Context) { // c รับข้อมูลมาจาก api
 	var schedule entity.Schedule //การประกาศตัวแปรให้เป็นไทป์ที่เราสร้างขึ้นเอง
 	var duty entity.Duty
+	var ocd entity.Ocd
 	var time entity.Time
 	var employee entity.Employee
 	var role entity.Role
+	var place entity.Place
 
-	// ผลลัพธ์ที่ได้จากขั้นตอนที่ 9 จะถูก bind เข้าตัวแปร foodsickeness
+	// ผลลัพธ์ที่ได้จากขั้นตอนที่ 9 จะถูก bind เข้าตัวแปร
 	// c.ShouldBindJSON  คือการผูกข้อมูลที่ได้จากหน้า frontend ให้เข้ากับ structure(โครงสร้าง) ของ backend
 	if err := c.ShouldBindJSON(&schedule); err != nil {
 		// c.JSON เปลี่ยนข้อมูลที่มีให้เป็นนข้อมูลแบบ json
@@ -33,6 +35,12 @@ func CreateSchedule(c *gin.Context) { // c รับข้อมูลมาจ�
 		return
 	}
 
+	// ค้นหา ocd ด้วย id
+	if tx := entity.DB().Where("id = ?", schedule.OcdID).First(&ocd); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "days not found"})
+		return
+	}
+
 	// : ค้นหา time ด้วย id
 	if tx := entity.DB().Where("id = ?", schedule.TimeID).First(&time); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "time not found"})
@@ -40,28 +48,33 @@ func CreateSchedule(c *gin.Context) { // c รับข้อมูลมาจ�
 	}
 
 	// : ค้นหา employee ด้วย id
-	if tx := entity.DB().Where("id = ?", schedule.EmployeeID).First(&time); tx.RowsAffected == 0 {
+	if tx := entity.DB().Where("id = ?", schedule.EmployeeID).First(&employee); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "employee not found"})
 		return
 	}
 
-	// : ค้นหา employee ด้วย id
-	if tx := entity.DB().Where("id = ?", schedule.RoleID).First(&time); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "role not found"})
+	// : ค้นหา role ด้วย id
+	if tx := entity.DB().Where("id = ?", schedule.RoleID).First(&role); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Role not found"})
 		return
 	}
-	
+
+	// : ค้นหา place ด้วย id
+	if tx := entity.DB().Where("id = ?", schedule.PlaceID).First(&place); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "place not found"})
+		return
+	}
 
 	// : สร้างตาราง schedule
 	ps := entity.Schedule{
-		Employee: employee,
-		Role: role,
-		Duty: duty,
-		Ocd: schedule.Ocd,
-		Time: time,
-		PlaceInfolist: schedule.PlaceInfolist,
+		Employee:    employee,
+		Role:        role,
+		Duty:        duty,
+		Ocd:         ocd,
+		Time:        time,
+		Place:       place,
 		Record_Time: schedule.Record_Time,
-	}	
+	}
 
 	// : บันทึก
 	if err := entity.DB().Create(&ps).Error; err != nil {
@@ -75,17 +88,17 @@ func CreateSchedule(c *gin.Context) { // c รับข้อมูลมาจ�
 func GetSchedule(c *gin.Context) {
 	var schedule entity.Schedule
 	id := c.Param("id") //มาจาก api จากใน main.go
-	if tx := entity.DB().Where("id = ?", id).First(&schedule); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "schedule not found"})
+	if err := entity.DB().Preload("Role").Preload("Duty").Preload("Ocd").Preload("Time").Preload("Place").Raw("SELECT * FROM schedules WHERE id = ?", id).Scan(&schedule).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data": schedule})
 }
 
-// GET /Schedules 
+// GET /Schedules
 func ListSchedules(c *gin.Context) {
 	var schedules []entity.Schedule
-	if err := entity.DB().Preload("Gender").Preload("Role").Preload("Education").Raw("SELECT * FROM schedules").Find(&schedules).Error; err != nil {
+	if err := entity.DB().Preload("Role").Preload("Duty").Preload("Ocd").Preload("Time").Preload("Place").Raw("SELECT * FROM schedules").Find(&schedules).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -104,7 +117,7 @@ func DeleteSchedule(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": id})
 }
 
-// PATCH /Schedules 
+// PATCH /Schedules
 func UpdateSchedule(c *gin.Context) {
 	var schedule entity.Schedule
 	if err := c.ShouldBindJSON(&schedule); err != nil {

@@ -25,9 +25,9 @@ import EquipmentListCreate from './components/EquipmentMenagement/EquipmentCreat
 
 import MemberS from './components/Member/MemberS';
 import MemberShow from './components/Member/MemberShow';
+
 import EmployeeShow from './components/Employee/EmployeeShow';
-
-
+import EmployeeEdit from './components/Employee/EmployeeEdit';
 import NewsCreate from './components/News/NewsCreate';
 import NewsUpdate from './components/News/NewsUpdate';
 import EquipmentBookingListCreate from './components/EquipmentMenagement/EquipmentBookingListCreate';
@@ -111,7 +111,7 @@ export default function App() {
                   <>
                     <Route path="/login" element={<Home role={role} />} />
                     <Route path='/employee_create' element={<EmployeeCreate />} />
-                    <Route path='/schedule_create' element={<ScheduleCreate />} />
+                    <Route path='/employee_edit' element={<EmployeeEdit  />} />
                     <Route path='/news_create' element={<NewsCreate />} />
                     <Route path='/employee_show' element={<EmployeeShow />} />
 
