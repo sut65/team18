@@ -22,19 +22,25 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import AccountBoxTwoToneIcon from '@mui/icons-material/AccountBoxTwoTone';
 
-import { GetPayment} from "../../services/PaymentHttpClientService";
+import { GetPayment } from "../../services/PaymentHttpClientService";
 import { PaymentInterface } from "../../models/IPayment/IPayment";
+import { PaymentMethodInterface } from "../../models/IPayment/IMethod";
+import moment from "moment";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: green[400],
+      main: "#FEAC3F",
     },
     secondary: {
-      main: '#e8f5e9',
+      main: "#ff3d00"
     },
+    text: {
+      primary: "#1B2420",
+      secondary: "#1B2420"
+    }
   },
-});
+})
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
   ref
@@ -44,18 +50,19 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 function PaymentShow() {
 
+  const [method, setMethod] = React.useState<PaymentMethodInterface[]>([]);
   const [payments, setPayments] = React.useState<PaymentInterface[]>([]);
   const [payment, setPayment] = React.useState<Partial<PaymentInterface>>({
     ID: 0,
   });
- 
+
   const [error, setError] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
 
   //-----------------------------get----------
 
-  const getPayments = async () => {
-    let res = await GetPayment();
+  const getPayments = async (id: any) => {
+    let res = await GetPayment(id);
     if (res) {
       setPayments(res);
     }
@@ -85,40 +92,45 @@ function PaymentShow() {
   //----------------------
 
   function Delete() {
-    
-  const apiUrl = "http://localhost:8080";
-  const requestOptions = {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payment.ID),
-  };
-  fetch(`${apiUrl}/payment/${JSON.stringify(payment.ID)}`,requestOptions)
-    .then((response) => response.json())
-    .then((res) => {
-      if (res.data) {
-        setSuccess(true);
-      } else {
-        setError(true);
-      }
-    });
+
+    const apiUrl = "http://localhost:8080";
+    const requestOptions = {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payment.ID),
+    };
+    fetch(`${apiUrl}/payment/${JSON.stringify(payment.ID)}`, requestOptions)
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.data) {
+          setSuccess(true);
+        } else {
+          setError(true);
+        }
+      });
   }
 
 
   const columns: GridColDef[] = [
 
     { field: "ID", headerName: "Payment_ID", width: 100 },
-    { field: "Bill", headerName: "รายการชำระเงิน", width: 300, valueFormatter: (params) => params.value.ID },
-    { field: "PaymentMethod", headerName: "วิธีการชำระเงิน", width: 200 , valueFormatter: (params) => params.value.Method},
-    { field: "PayDate", headerName: "วัน-เวลาทำรายการ", width: 200 },
+    { field: "BillID", headerName: "รายการชำระเงิน", width: 300 },
+    { field: "PaymentMethod", headerName: "วิธีการชำระเงิน", width: 200, valueFormatter: (params) => params.value.Method },
+    { field: "PayDate", headerName: "วัน-เวลาทำรายการ", width: 200, valueFormatter: params => moment(params?.value).format("DD/MM/YYYY hh:mm A") },
 
   ];
 
   useEffect(() => {
-    getPayments();
-  },[]);
+    const getToken = localStorage.getItem("token");
+    if (getToken) {
+      const x = JSON.parse(localStorage.getItem("lid") || "")
+      getPayments(x.ID);
+
+    }
+  }, []);
 
   return (
     <div>
@@ -132,7 +144,7 @@ function PaymentShow() {
             autoHideDuration={6000}
           >
             <Alert onClose={handleClose} severity="success">
-              ลบรายการชำระสำเร็จ 
+              ลบรายการชำระสำเร็จ
             </Alert>
           </Snackbar>
           <Snackbar open={error} autoHideDuration={6000} onClose={handleClose}>
@@ -166,13 +178,14 @@ function PaymentShow() {
               rowsPerPageOptions={[5]}
             />
           </div>
+          <Typography component="h2" variant="h6" color="primary" gutterBottom
+          >
+            <p>รายการเงินที่ต้องการลบ: </p>
+          </Typography>
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <FormControl fullWidth variant="outlined">
-                <Typography component="h2" variant="h6" color="primary" gutterBottom
-                >
-                  <p>รายการเงินที่ต้องการลบ: </p>
-                </Typography>
+
                 <Select
                   value={payment?.ID}
                   onChange={handleChange}
@@ -191,18 +204,37 @@ function PaymentShow() {
               </FormControl>
             </Grid>
             <Grid item xs={6}>
-              <Button
-                style={{ marginTop: 10, width: 170, float: "right" }}
-                onClick={Delete}
-                variant="contained"
-                color="primary"
-              >
-                <Typography
-                  color="secondary"
-                >
-                  ลบ
-                </Typography>
-              </Button>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <Button
+                    style={{ marginTop: 10, width: 170, float: "right" }}
+                    onClick={Delete}
+                    variant="contained"
+                    color="secondary"
+                  >
+                    <Typography
+                      style={{ color: "#f5f5f5" }}
+                    >
+                      ลบ
+                    </Typography>
+                  </Button>
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    style={{ marginTop: 10, width: 170, float: "right" }}
+                    variant="contained"
+                    component={RouterLink}
+                    to="/bill_create"
+                    color="primary"
+                  >
+                    <Typography
+                      style={{ color: "#f5f5f5" }}
+                    >
+                      ย้อนกลับ
+                    </Typography>
+                  </Button>
+                </Grid>
+              </Grid>
             </Grid>
 
           </Grid>

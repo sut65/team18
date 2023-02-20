@@ -887,8 +887,8 @@ func SetupDatabase() {
 	news1 := News{
 		Headline:  "แจ้งหยุดพนักงาน",
 		Body:      "เนื่องจากเป็นวันสำคัญทางศาสนา จึงให้พนักงานหยุดระหว่างวันที่  2021-01-05 - 2021-01-06",
-		SDate:     time.Date(2023, 1, 2, 10, 0, 0, 0, time.Now().Location()),
-		DDate:     time.Date(2023, 1, 6, 10, 0, 0, 0, time.Now().Location()),
+		SDate:     time.Date(2023, 2, 2, 10, 0, 0, 0, time.Now().Location()),
+		DDate:     time.Date(2023, 3, 10, 10, 0, 0, 0, time.Now().Location()),
 		Recipient: employ,
 		NewsType:  typeI,
 		Employee:  em2,
@@ -897,8 +897,8 @@ func SetupDatabase() {
 	news2 := News{
 		Headline:  "เลื่อนเวลาปิด",
 		Body:      "แจ้งสมาชิกทุกวัน เนื่องจากมีการแพร่ระบาดโควิด ทางสถานกีฬาจะเลื่อนเวลาปิดเป็น 18.00 น.",
-		SDate:     time.Date(2023, 3, 2, 10, 0, 0, 0, time.Now().Location()),
-		DDate:     time.Date(2023, 5, 2, 10, 0, 0, 0, time.Now().Location()),
+		SDate:     time.Date(2023, 2, 2, 10, 0, 0, 0, time.Now().Location()),
+		DDate:     time.Date(2023, 3, 10, 10, 0, 0, 0, time.Now().Location()),
 		Recipient: members,
 		NewsType:  typeI,
 		Employee:  em2,
@@ -914,6 +914,17 @@ func SetupDatabase() {
 		Employee:  em2,
 	}
 	db.Model(&News{}).Create(&news3)
+
+	news4 := News{
+		Headline:  "แจ้งปิดห้องน้ำสนามกีฬา",
+		Body:      "มีการปิดห้องน้ำที่ 18 เนื่องจากไม่มีการใช้งาน",
+		SDate:     time.Date(2023, 2, 3, 10, 0, 0, 0, time.Now().Location()),
+		DDate:     time.Date(2023, 3, 10, 10, 0, 0, 0, time.Now().Location()),
+		Recipient: everyone,
+		NewsType:  typeI,
+		Employee:  em2,
+	}
+	db.Model(&News{}).Create(&news4)
 
 	////////////// ระบบชำระเงิน /////////////////
 	//----Status-----
@@ -945,6 +956,13 @@ func SetupDatabase() {
 		PayableAM: 500,
 	}
 	db.Model(&Bill{}).Create(&Bill3)
+
+	Bill4 := Bill{
+		Status:    Status2,
+		Member:    Baifern,
+		PayableAM: 2999,
+	}
+	db.Model(&Bill{}).Create(&Bill4)
 
 	//----method
 	Transfer := PaymentMethod{

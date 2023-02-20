@@ -77,7 +77,7 @@ async function GetMethod() {
   return res;
 }
 
-async function GetBill() {
+async function GetBill(id: any) {
   const requestOptions = {
     method: "GET",
     headers: {
@@ -86,7 +86,7 @@ async function GetBill() {
     },
   };
 
-  let res = await fetch(`${apiUrl}/billbys`, requestOptions)
+  let res = await fetch(`${apiUrl}/billbys/${id}`, requestOptions)
     .then((response) => response.json())
     .then((res) => {
       if (res.data) {
@@ -99,7 +99,7 @@ async function GetBill() {
   return res;
 }
 
-async function GetPayment() {
+async function GetPayment(id: any) {
   const requestOptions = {
     method: "GET",
     headers: {
@@ -108,7 +108,7 @@ async function GetPayment() {
     },
   };
 
-  let res = await fetch(`${apiUrl}/payment`, requestOptions)
+  let res = await fetch(`${apiUrl}/payment/${id}`, requestOptions)
     .then((response) => response.json())
     .then((res) => {
       if (res.data) {

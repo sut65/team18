@@ -114,7 +114,7 @@ func main() {
 	r.GET("/status/:id", payment.GetStatus)
 
 	r.GET("/bills", payment.ListBill)
-	r.GET("/billbys", payment.ListBillByStatus)
+	r.GET("/billbys/:id", payment.ListBillByStatus)
 	r.GET("/bill/:id", payment.GetBill)
 	r.POST("/bill", payment.CreateBill)
 	r.PATCH("/bill", payment.UpdateBill)

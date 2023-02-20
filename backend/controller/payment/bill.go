@@ -83,8 +83,9 @@ func ListBill(c *gin.Context) {
 func ListBillByStatus(c *gin.Context) {
 
 	var bill []entity.Bill
+	id := c.Param("id")
 
-	if err := entity.DB().Preload("Member").Preload("Status").Raw("SELECT * FROM bills where status_id = 2").Find(&bill).Error; err != nil {
+	if err := entity.DB().Preload("Member").Preload("Status").Raw("SELECT * FROM bills where status_id = 2 AND member_id = ?",id).Find(&bill).Error; err != nil {
 
 		//ดึงตารางย่อยมา .preload
 

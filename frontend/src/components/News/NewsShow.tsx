@@ -32,19 +32,18 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 const theme = createTheme({
     palette: {
-        primary: {
-            main: "#FEAC3F",
-        },
-        secondary: {
-            main: "#ffebee"
-        },
-        text: {
-            primary: "#1B2420",
-            secondary: "#1B2420"
-        }
+      primary: {
+        main: "#FEAC3F",
+      },
+      secondary: {
+        main: "#ff3d00"
+      },
+      text: {
+        primary: "#1B2420",
+        secondary: "#1B2420"
+      }
     },
-
-})
+  })
 function NewsShow() {
     const [news, setNews] = React.useState<NewsInterface[]>([]);
 
@@ -124,7 +123,7 @@ function NewsShow() {
                                         {news?.map((item:NewsInterface) => (
                                             <TableRow key={item.ID}>
                                                 <TableCell align="center" width="20%">
-                                                    <CampaignIcon style={{ color: "#a5d6a7", fontSize: '70px', }} />
+                                                    <CampaignIcon style={{ color: "#ffd54f", fontSize: '70px', }} />
                                                 </TableCell>
                                                 <TableCell align="left" width="70%">
                                                     <Grid container spacing={3} sx={{ padding: 2 }}>

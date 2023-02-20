@@ -36,13 +36,17 @@ import { BillInterface } from "../../models/IPayment/IBill";
 const theme = createTheme({
   palette: {
     primary: {
-      main: green[400],
+      main: "#FEAC3F",
     },
     secondary: {
-      main: '#e8f5e9',
+      main: "#ff3d00"
     },
+    text: {
+      primary: "#1B2420",
+      secondary: "#1B2420"
+    }
   },
-});
+})
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
   ref
@@ -65,28 +69,8 @@ function BillCreate() {
   const [error, setError] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
 
-
-  // const getBill = async () => {
-  //   const apiUrl = "http://localhost:8080/billbys";
-  //   const requestOptions = {
-  //     method: "GET",
-  //     headers: { "Content-Type": "application/json" },
-  //   };
-  //   //การกระทำ
-  //   let res = await fetch(apiUrl, requestOptions)
-  //     .then((response) => response.json())
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       if (res.data) {
-  //         setBill(res.data);
-  //       } else {
-  //         console.log("else");
-  //       }
-  //     });
-  // };
-
-  const getBills = async () => {
-    let res = await GetBill();
+  const getBills = async (id: any) => {
+    let res = await GetBill(id);
     if (res) {
       setBills(res);
     }
@@ -118,12 +102,12 @@ function BillCreate() {
     const apiUrl = "http://localhost:8080/bill/";
     localStorage.setItem("bill", JSON.stringify(bi));
     const b = localStorage.getItem("bill");
-    if (b =='{"ID":0}' || b =='{"ID":""}') {
+    if (b == '{"ID":0}' || b == '{"ID":""}') {
       setError(true);
       setSuccess(false);
     } else {
       setSuccess(true);
-      
+
     }
     const requestOptions = {
       method: "GET",
@@ -136,8 +120,8 @@ function BillCreate() {
       `${apiUrl}${bi.ID}`,
       requestOptions
     )
-    .then((response) => response.json())
-    .then((res) => {
+      .then((response) => response.json())
+      .then((res) => {
         if (res.data) {
           localStorage.setItem("bills", JSON.stringify(res.data));
           return res.data;
@@ -145,7 +129,7 @@ function BillCreate() {
           return false;
         }
       });
-    
+
   }
   async function signUp() {
     localStorage.setItem("token", "ppppppppppppppp");
@@ -162,9 +146,14 @@ function BillCreate() {
   ];
 
   useEffect(() => {
-    getBills()
+    const getToken = localStorage.getItem("token");
+    if (getToken) {
+      const x = JSON.parse(localStorage.getItem("lid") || "")
+      getBills(x.ID);
+
+    }
     localStorage.setItem("bill", JSON.stringify(bi));
-  }, [bi]);
+  }, []);
 
   return (
     <div>
@@ -177,7 +166,7 @@ function BillCreate() {
             anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
           >
             <Alert onClose={handleClose} severity="success">
-              เลือกรายการชำระสำเร็จ 
+              เลือกรายการชำระสำเร็จ
               <Button
                 style={{ marginLeft: 10, width: 250, float: "right" }}
                 variant="contained"
@@ -224,13 +213,14 @@ function BillCreate() {
               rowsPerPageOptions={[5]}
             />
           </div>
-          <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <FormControl fullWidth variant="outlined">
-                <Typography component="h2" variant="h6" color="primary" gutterBottom
+          <Typography component="h2" variant="h6" color="primary" gutterBottom
                 >
                   <p>รายการเงินที่ต้องการชำระ: </p>
                 </Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <FormControl fullWidth variant="outlined">
+                
                 <Select
                   value={bi?.ID}
                   onChange={handleChange}
@@ -249,20 +239,38 @@ function BillCreate() {
               </FormControl>
             </Grid>
             <Grid item xs={6}>
-              <Button
-                style={{ marginTop: 10, width: 170, float: "right" }}
-                onClick={saveBill}
-                variant="contained"
-                color="primary"
-              >
-                <Typography
-                  color="secondary"
-                >
-                  ชำระเงิน
-                </Typography>
-              </Button>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <Button
+                    style={{ marginTop: 10, width: 170, float: "right" }}
+                    onClick={saveBill}
+                    variant="contained"
+                    color="primary"
+                  >
+                    <Typography
+                      style={{ color: "#f5f5f5" }}
+                    >
+                      ชำระเงิน
+                    </Typography>
+                  </Button>
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    style={{ marginTop: 10, width: 170, float: "right" }}
+                    component={RouterLink}
+                    to="/payment_show"
+                    variant="contained"
+                    color="primary"
+                  >
+                    <Typography
+                     style={{ color: "#f5f5f5" }}
+                    >
+                      ประวัติชำระเงิน
+                    </Typography>
+                  </Button>
+                </Grid>
+              </Grid>
             </Grid>
-
           </Grid>
         </Container>
 
