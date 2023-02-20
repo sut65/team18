@@ -21,6 +21,6 @@ export interface EmployeeInterface {
 	RoleID?: number;
 	Role?: RoleInterface;
 
-	// UserID: number,
+	UserID?: number,
 	// User:   CanvasUserInterface,
 }

@@ -69,9 +69,9 @@ func CreatePayment(c *gin.Context) {
 
 //---------------ไว้สำหรับดึงข้อมูล--------------------------------------
 func GetPayment(c *gin.Context) {
-	var payment entity.Payment
+	var payment []entity.Payment
 	id := c.Param("id")
-	if err := entity.DB().Raw("SELECT * FROM payments WHERE id = ?", id).Scan(&payment).Error; err != nil {
+	if err := entity.DB().Preload("Bill").Preload("PaymentMethod").Preload("Payee").Raw("SELECT * FROM payments WHERE id = ?", id).Find(&payment).Error; err != nil {
 
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 

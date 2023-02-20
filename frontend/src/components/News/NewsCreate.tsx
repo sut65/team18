@@ -17,14 +17,18 @@ import { EmployeeInterface } from "../../models/IEmployee";
 
 const theme = createTheme({
     palette: {
-        primary: {
-            main: green[400],
-        },
-        secondary: {
-            main: '#e8f5e9',
-        },
+      primary: {
+        main: "#FEAC3F",
+      },
+      secondary: {
+        main: "#ff3d00"
+      },
+      text: {
+        primary: "#1B2420",
+        secondary: "#1B2420"
+      }
     },
-});
+  })
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,

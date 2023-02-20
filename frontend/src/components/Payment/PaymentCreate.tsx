@@ -30,17 +30,23 @@ import { PaymentMethodInterface } from "../../models/IPayment/IMethod";
 
 import { PaymentInterface } from "../../models/IPayment/IPayment";
 import { BillInterface } from "../../models/IPayment/IBill";
+import { red } from '@mui/material/colors';
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: green[400],
+      main: "#FEAC3F",
     },
     secondary: {
-      main: '#e8f5e9',
+      main: "#ff3d00"
     },
+    text: {
+      primary: "#1B2420",
+      secondary: "#1B2420"
+    }
   },
-});
+})
+const redd = red[500];
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -65,6 +71,7 @@ function PaymentCreate() {
   const [error, setError] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
   const [message, setAlertMessage] = React.useState("");
+  const [er, setEr] = React.useState(false);
 
   //-----------------------getPayee
 
@@ -124,6 +131,7 @@ function PaymentCreate() {
     }
     setSuccess(false);
     setError(false);
+    setEr(false);
   };
 
   const handleChange = (
@@ -135,6 +143,10 @@ function PaymentCreate() {
       [name]: event.target.value,
     });
   };
+  async function cancle() {
+    setEr(true);
+  }
+
 
   //--------------------------submit--------------------
   async function submit() {
@@ -214,16 +226,41 @@ function PaymentCreate() {
             {message}
           </Alert>
         </Snackbar>
+        <Snackbar
+          id="error"
+          open={er}
+          autoHideDuration={8000}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <Alert onClose={handleClose} severity="error">
+            ต้องการยกเลิกรายการชำระเงิน
+            <Button
+              style={{ marginLeft: 10, width: 250, float: "right" }}
+              variant="contained"
+              color="secondary"
+              component={RouterLink}
+              to="/bill_create"
+            >
+              <Typography
+              style={{ color: "#f5f5f5" }}
+              >
+                คลิกทีนี้ เพื่อตกลง
+              </Typography>
+            </Button>
+          </Alert>
+        </Snackbar>
         <Paper>
           {/* ---------------------------------------------------------------------------------------------------- */}
           <Box
             display="flex"
             sx={{
-              marginTop: 2,
+              marginTop: 2,backgroundColor: "#ffca28"
             }}
           >
-            <Box sx={{ paddingX: 2, paddingY: 1 }}>
-              <Typography component="h2" variant="h6" color="primary" gutterBottom
+            <Box sx={{ paddingX: 2, paddingY: 1 }} >
+              <Typography component="h2" variant="h4" color="primary" gutterBottom
+              style={{ color: "#424242"}}
               >
                 ระบบชำระเงิน
               </Typography>
@@ -237,8 +274,9 @@ function PaymentCreate() {
               marginTop: 2,
             }}
           >
-            <Box sx={{ paddingX: 2, paddingY: 1 }}>
+            <Box sx={{ paddingX: 2, paddingY: 1 }} >
               <Typography component="h2" variant="h6" color="primary" gutterBottom
+               style={{ color: "#424242"}}
               >
                 รายการชำระเงิน
               </Typography>
@@ -260,7 +298,7 @@ function PaymentCreate() {
                       <Button
                         style={{ marginLeft: 100, width: 170, }}
                         variant="contained"
-                      > DEPT:{bills?.PayableAM}
+                      >DEPT:{bills?.PayableAM}
                       </Button>
                     </MenuItem>
                   </Select>
@@ -272,10 +310,10 @@ function PaymentCreate() {
             <Grid item xs={4}>
               <Grid container spacing={1}  >
                 <Grid item xs={12} >
-                  <AccountBoxTwoToneIcon style={{ color: "#a5d6a7", fontSize: '100px', marginLeft: 80, marginTop: 0, }} />
+                  <AccountBoxTwoToneIcon style={{ color: "#424242", fontSize: '100px', marginLeft: 80, marginTop: 0, }} />
                   <Typography
                     variant="h5"
-                    style={{ color: "green", marginLeft: 90, }}
+                    style={{ color: "#424242", marginLeft: 85, }}
                     gutterBottom>Member </Typography>
                 </Grid>
               </Grid>
@@ -354,7 +392,7 @@ function PaymentCreate() {
             </Grid>
             <Grid container spacing={1} sx={{ padding: 4 }}>
               <Grid item xs={3}>
-              <p>วันที่ทำการชำระเงิน:</p>
+                <p>วันที่ทำการชำระเงิน:</p>
               </Grid>
               <Grid item xs={5}>
                 <FormControl fullWidth variant="outlined">
@@ -370,10 +408,10 @@ function PaymentCreate() {
 
                       onChange={(newValue) => {
                         setPayment({
-                            ...payment,
-                            PayDate: newValue,
-                          });
-                    }}
+                          ...payment,
+                          PayDate: newValue,
+                        });
+                      }}
                     />
 
                   </LocalizationProvider>
@@ -387,10 +425,11 @@ function PaymentCreate() {
               <Button
                 style={{ marginLeft: 0, marginTop: 10, width: 170, }}
                 variant="contained"
-                color="primary"
+                color = "secondary"
+                onClick={cancle}
               >
                 <Typography
-                  color="secondary"
+                  style={{ color: "#f5f5f5" }}
                 >
                   Cancle
                 </Typography>
@@ -398,13 +437,13 @@ function PaymentCreate() {
             </Grid>
             <Grid item xs={6}>
               <Button
-                style={{ marginTop: 10, width: 170, float: "right" }}
+                style={{ color: "#f5f5f5" ,marginTop: 10, width: 170, float: "right" }}
                 onClick={submit}
                 variant="contained"
-                color="primary"
+                color = "primary"
               >
                 <Typography
-                  color="secondary"
+                  style={{ color: "#f5f5f5" }}
                 >
                   ชำระเงิน
                 </Typography>

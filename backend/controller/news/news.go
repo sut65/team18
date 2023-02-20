@@ -92,18 +92,13 @@ func GetNewsbytime(c *gin.Context) {
 	id := c.Param("id")
 	var user entity.User
 
-	entity.DB().Raw("SELECT * FROM users WHERE id = ?", id).First(&user)
+	entity.DB().Preload("Role").Raw("SELECT * FROM users WHERE id = ?", id).First(&user)
 
-	var AdminRole entity.Role
 	var MemberRole entity.Role
-	var StaffRole entity.Role
-	var TrainerRole entity.Role
-	entity.DB().Raw("SELECT * FROM roles WHERE name = ?", "admin").First(&AdminRole)
 	entity.DB().Raw("SELECT * FROM roles WHERE name = ?", "member").First(&MemberRole)
-	entity.DB().Raw("SELECT * FROM roles WHERE name = ?", "employee").First(&StaffRole)
-	entity.DB().Raw("SELECT * FROM roles WHERE name = ?", "trainer").First(&TrainerRole)
+	
 	if user.Role.ID == MemberRole.ID {
-		if err := entity.DB().Preload("Employee").Preload("Recipient").Preload("NewsType").Raw("SELECT * FROM news WHERE recipient_id <> 2 AND s_date <= ? AND d_date >= ?",time.Now(),time.Now()).Scan(&news).Error; err != nil {
+		if err := entity.DB().Preload("Employee").Preload("Recipient").Preload("NewsType").Raw("SELECT * FROM news WHERE recipient_id != 2 AND s_date <= ? AND d_date >= ?",time.Now(),time.Now()).Scan(&news).Error; err != nil {
 
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 

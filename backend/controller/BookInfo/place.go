@@ -37,13 +37,13 @@ func GetPlace(c *gin.Context) {
 
 // List /place
 func ListPlace(c *gin.Context) {
-	var place []entity.Place
-	if err := entity.DB().Raw("SELECT * FROM place").Scan(&place).Error; err != nil {
+	var places []entity.Place
+	if err := entity.DB().Raw("SELECT * FROM places").Scan(&places).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": place})
+	c.JSON(http.StatusOK, gin.H{"data": places})
 }
 
 // DELETE /place/:id
