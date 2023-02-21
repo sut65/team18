@@ -11,6 +11,7 @@ type Place struct {
 	Locate       string
 	BookInfolist []BookInfolist `gorm:"foreignKey:PlaceID"`
 	Schedule 	 []Schedule `gorm:"foreignKey:PlaceID"`
+	EquipmentBookingList []EquipmentBookingList `gorm:"foreignKey:PlaceID"`
 }
 
 type TimePeriod struct {

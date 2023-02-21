@@ -798,20 +798,6 @@ func SetupDatabase() {
 		RunNumber:     run2,
 	})
 
-	///////////////// ระบบจองอุปกรณ์ ///////////////////
-
-	db.Model(&EquipmentBookingList{}).Create(&EquipmentBookingList{
-		Member:        Somchai,
-		EquipmentList: EquipmentList1,
-		Employee:      em1,
-	})
-
-	db.Model(&EquipmentBookingList{}).Create(&EquipmentBookingList{
-		Member:        Baifern,
-		EquipmentList: EquipmentList2,
-		Employee:      em1,
-	})
-
 	///////////// ระบบจองสถานที่ ///////////////
 	//---ช่วงเวลาการจอง---
 	tp := TimePeriod{
@@ -855,6 +841,23 @@ func SetupDatabase() {
 		BDate:      time.Date(2022, 12, 10, 0, 0, 0, 0, time.Now().Location()),
 	}
 	db.Model(&BookInfolist{}).Create(&bookinfo1)
+
+	///////////////// ระบบจองอุปกรณ์ ///////////////////
+	EquipmentBooking1 := EquipmentBookingList{
+		Member:        Somchai,
+		EquipmentList: EquipmentList1,
+		Place:      	place,
+		DateBooking: 	time.Now(),
+	}
+	db.Model(&EquipmentBookingList{}).Create(&EquipmentBooking1)
+
+	EquipmentBooking2 := EquipmentBookingList{
+		Member:        Baifern,
+		EquipmentList: EquipmentList2,
+		Place:      	place6,
+		DateBooking: 	time.Now(),
+	}
+	db.Model(&EquipmentBookingList{}).Create(&EquipmentBooking2)
 
 	////////////// ระบบประชาสัมพันธ์ ////////////////
 	//-------- Recipient------

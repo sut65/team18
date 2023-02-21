@@ -2,8 +2,8 @@ import { MemberInterface } from "../models/IMember";
 import { EmployeeInterface } from "../models/IEmployee";
 import { ScheduleInterface } from "../models/Schedule/ISchedule";
 import { ExerciseProgramInterface } from "../models/ExerciseProgram/IExerciseProgram";
-import { EquipmentBookingListInterface } from "../models/IEquipmentBookingList";
-import { EquipmentListInterface } from "../models/IEquipmentList";
+import { EquipmentBookingListInterface } from "../models/EquipmentBooking/IEquipmentBookingList";
+import { EquipmentListInterface } from "../models/EquipmentList/IEquipmentList";
 
 const apiUrl = "http://localhost:8080";
 
@@ -658,7 +658,7 @@ async function GetEquipmentList() {
     },
   };
 
-  let res = await fetch(`${apiUrl}/equipmentList`, requestOptions)
+  let res = await fetch(`${apiUrl}/equipmentLists`, requestOptions)
     .then((response) => response.json())
     .then((res) => {
       if (res.data) {
@@ -670,7 +670,48 @@ async function GetEquipmentList() {
 
   return res;
 }
+async function GetEquipmentBookingList(id: any) {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
 
+  let res = await fetch(`${apiUrl}/equipmentBookingShow/${id}`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+async function GetEquipmentListShow(id: any) {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  let res = await fetch(`${apiUrl}/equipmentListShow/${id}`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
 async function CreateEquipmentList(data: EquipmentListInterface) {
   const requestOptions = {
     method: "POST",
@@ -710,6 +751,7 @@ async function CreateEquipmentBookingList(data: EquipmentBookingListInterface) {
 
   return res;
 }
+
 export {
   //Member
   GetTypem,
@@ -755,6 +797,8 @@ export {
   GetEquipmentName,
   GetEquipmentList,
   CreateEquipmentList,
+  GetEquipmentListShow,
+  GetEquipmentBookingList,
   CreateEquipmentBookingList
 
 };

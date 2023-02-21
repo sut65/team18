@@ -12,21 +12,21 @@ import Snackbar from "@mui/material/Snackbar";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 
-import { EquipmentListInterface } from "../../models/IEquipmentList";
-import { EquipmentNameInterface } from "../../models/IEquipmentName";
-import { RunNumberInterface } from "../../models/IRunNumber";
+import { EquipmentListInterface } from "../../models/EquipmentList/IEquipmentList";
+import { EquipmentNameInterface } from "../../models/EquipmentList/IEquipmentName";
+import { RunNumberInterface } from "../../models/EquipmentList/IRunNumber";
 
 import { MenuItem, TextField } from "@mui/material";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { EmployeeInterface } from "../../models/IEmployee";
 
 import {
     CreateEquipmentList,
-   GetEquipmentName,
+    GetEquipmentName,
     GetRunNumber,
     GetEmployee,
 }from "../../services/HttpClientService";
-import { EmployeeInterface } from "../../models/IEmployee";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -47,6 +47,7 @@ const [equipmentName, setEquipmentName] = useState<EquipmentNameInterface[]>([])
 const [runNumber, setRunNumer] = useState<RunNumberInterface[]>([]);
 const [DateTime, setDateTime] = React.useState<Date | null>(null);
 const [employeee, setEmployee] = React.useState<Partial<EmployeeInterface>>({});
+const [employeeeName, setEmployeeName] = React.useState<Partial<EmployeeInterface>>({});
 
 const [message, setAlertMessage] = React.useState("");
 
@@ -77,10 +78,11 @@ const [error, setError] = useState(false);
   useEffect(() => {
     const getToken = localStorage.getItem("token");
     if (getToken) {
-        setEmployee(JSON.parse(localStorage.getItem("lid") || ""));
+        setEmployeeName(JSON.parse(localStorage.getItem("lid") || ""));
     }
     getEquipmentName();
     getRunNumber();
+    getEmployee();
 }, []);
 
 
@@ -124,7 +126,7 @@ const [error, setError] = useState(false);
 
       EquipmentNameID:typeof equipmentList.EquipmentNameID === "string" ? parseInt(equipmentList.EquipmentNameID) : 0,
 
-      EmployeeID:typeof equipmentList.EmployeeID === "string" ? parseInt(equipmentList.EmployeeID) : 0,
+      EmployeeID: employeeeName?.ID,
 
       DateTime: DateTime,
       
@@ -252,23 +254,32 @@ const [error, setError] = useState(false);
               </LocalizationProvider>
             </FormControl>
           </Grid>
-          <Grid item xs={4}>
-                            <FormControl fullWidth variant="outlined">
-                                <p>ผู้บันทึก:</p>
-                                <Select
-                                    value={equipmentList?.EmployeeID}
-                                    disabled
-                                >
-                                    <MenuItem value={0} >
-                                        {employeee?.Name}
-                                    </MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Grid>
+          <Grid item xs={6} sx={{ padding: 2, marginTop: 0, }} >
+                        <p>ชื่อผู้บันทึก</p>
+
+                        <FormControl fullWidth variant="outlined" >
+
+                            <TextField
+
+                                disabled
+
+                                id="employeeID"
+
+                                color="secondary" variant="outlined"
+
+                                type="string"
+
+                                size="medium"
+
+                                value={employeeeName?.Name}
+
+                            />
+                        </FormControl>
+                    </Grid>
           <Grid item xs={12}>
             <Button
               component={RouterLink}
-              to="/equipmentList"
+              to="/equipment_shows"
               variant="contained"
               color="inherit"
             >

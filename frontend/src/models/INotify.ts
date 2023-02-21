@@ -1,6 +1,6 @@
-import { EquipmentNameInterface } from "./IEquipmentName";
+import { EquipmentNameInterface } from "./EquipmentList/IEquipmentName";
 import { MemberInterface } from "./IMember";
-import { RunNumberInterface } from "./IRunNumber";
+import { RunNumberInterface } from "./EquipmentList/IRunNumber";
 
 export interface NotifyInterface {
 

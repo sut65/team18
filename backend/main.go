@@ -133,14 +133,16 @@ func main() {
 	r.GET("/equipmentName", el.ListEquipmentName)
 	r.GET("/equipmentName/:id", el.GetEquipmentName)
 
-	r.GET("/equipmentList", el.ListEquipmentList)
+	r.GET("/equipmentLists", el.ListEquipmentList)
 	r.GET("/equipmentList/:id", el.GetEquipmentList)
+	r.GET("/equipmentListShow/:id", el.ListEquipmentList)
 	r.POST("/equipmentList", el.CreateEquipmentList)
 	r.DELETE("/equipmentList/:id", el.DeleteEquipmentList)
 
 	//Equipment booking
-	r.GET("/equipmentBookingList", eb.ListEquipmentBookingList)
+	r.GET("/equipmentBookingLists", eb.ListEquipmentBookingList)
 	r.GET("/equipmentBookingList/:id", eb.GetEquipmentBookingList)
+	r.GET("/equipmentBookingShow/:id", eb.GetEquipmentBookingShow)
 	r.POST("/equipmentBookingList", eb.CreateEquipmentBookingList)
 	r.DELETE("/equipmentBookingList/:id", eb.DeleteEquipmentBookingList)
 
