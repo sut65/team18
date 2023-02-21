@@ -102,6 +102,18 @@ func GetEmployeebyID(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": employee})
 }
 
+// ค้าหา id แบบตัว GetEmployeebyID
+// สร้าง id ของ user ที่เพิ่มเข้าไป
+func GetEmployeeByUserID(c *gin.Context) {
+	var employee entity.Employee
+	id := c.Param("id")
+	if err := entity.DB().Raw("SELECT * FROM employees WHERE user_id = ?", id).Scan(&employee).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": employee})
+}
+
 // GET /Employees
 func ListEmployees(c *gin.Context) {																		// WHERE deleted_at is null เพิ่มล่าสุด
 	var employees []entity.Employee																			// .Scan -> .Find  ทำให้สามารถโชข้อมูลหน้า show รูปแบบ string ได้
@@ -116,6 +128,28 @@ func ListEmployees(c *gin.Context) {																		// WHERE deleted_at is nul
 // DELETE /Employees/:id
 func DeleteEmployee(c *gin.Context) {
 	id := c.Param("id")
+	// var employee entity.Employee
+	// if err := entity.DB().Raw("SELECT * FROM employees WHERE id = ?", id).Scan(&employee).Error; err != nil {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	// 	return
+	// }
+	// var user entity.User
+	// if err := entity.DB().Raw("SELECT * FROM users WHERE id = ?", employee.UserID).Scan(&user).Error; err != nil {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	// 	return
+	// }
+
+	// // UPDATE user SET deleted_at="now" WHERE id = ?;
+	// if tx := entity.DB().Where("id = ?", user.ID).Delete(&user); tx.RowsAffected == 0 {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "User not found"})
+	// 	return
+	// }
+	// // UPDATE member SET deleted_at="now" WHERE id = ?;
+	// if tx := entity.DB().Where("id = ?", employee.ID).Delete(&employee); tx.RowsAffected == 0 {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "Employee not found"})
+	// 	return
+	// }
+	
 	if tx := entity.DB().Exec("DELETE FROM employees WHERE id = ?", id); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "employee not found"})
 		return
@@ -125,17 +159,6 @@ func DeleteEmployee(c *gin.Context) {
 }
 
 
-// ค้าหา id แบบตัว GetEmployeebyID
-// สร้าง id ของ user ที่เพิ่มเข้าไป
-func GetEmployeeByUserID(c *gin.Context) {
-	var employee entity.Employee
-	id := c.Param("id")
-	if err := entity.DB().Raw("SELECT * FROM employees WHERE user_id = ?", id).Scan(&employee).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-	c.JSON(http.StatusOK, gin.H{"data": employee})
-}
 
 // PATCH or PUT /Employees
 func UpdateEmployee(c *gin.Context) {
@@ -152,6 +175,7 @@ func UpdateEmployee(c *gin.Context) {
 		return
 	}
 
+	//-------Id ของ Combobox------------------------
 	var education entity.Education
 	var role entity.Role
 	var gender entity.Gender
@@ -174,16 +198,17 @@ func UpdateEmployee(c *gin.Context) {
 		return
 	}
 
+	//Combobox
 	employee.Education = education
 	employee.Role = role
 	employee.Gender = gender
+
+	//TextField
 	employee.Name = newEmployee.Name
 	employee.Tel = newEmployee.Tel
 	employee.Email = newEmployee.Email
 	employee.Password = newEmployee.Password
 	employee.DOB = newEmployee.DOB
-
-
 
 
 	if err := entity.DB().Save(&employee).Error; err != nil {

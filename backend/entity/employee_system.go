@@ -23,23 +23,23 @@ type Role struct {
 }
 type Employee struct {
 	gorm.Model
-	Name     string
-	Tel      string
-	Email    string
-	Password string
+	Name     string `valid:"required~กรุณากรอกชื่อ-นามสกุล"`
+	Tel      string `valid:"matches(^\\d{10}$)~Tel does not validate as matches(^\\d{10}$), required~กรุณากรอกเบอร์โทร"`
+	Email    string `gorm:"uniqueIndex" valid:"email, required~Email: กรุณากรอกอีเมล"`
+	Password string `valid:"minstringlength(6)~Password ต้องมีอย่างน้อย6ตัว, required~กรุณากรอกPassword"`
 	DOB      time.Time 
 
 	GenderID *uint
-	Gender   Gender
+	Gender   Gender `gorm:"references:id" valid:"-"`
 
 	EducationID *uint
-	Education   Education
+	Education   Education `gorm:"references:id" valid:"-"`
 
 	RoleID *uint
-	Role   Role
+	Role   Role `gorm:"references:id" valid:"-"`
 
 	UserID *uint
-	User   User
+	User   User `gorm:"references:id" valid:"-"`
 
 	News                 []News                 `gorm:"foreignKey:EmployeeID"`
 	Schedule             []Schedule             `gorm:"foreignKey:EmployeeID"`

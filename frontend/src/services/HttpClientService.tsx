@@ -213,7 +213,7 @@ async function GetEmployee(){
     },
   };
 
-  let res = await fetch(`${apiUrl}/employee`, requestOptions)
+  let res = await fetch(`${apiUrl}/employees`, requestOptions)
     .then((response) => response.json())
     .then((res) => {
       if (res.data) {
@@ -236,6 +236,7 @@ async function GetEmployeeID(id: any) {
     },
   };
 
+  //Route: r.GET("/employee/:id", employee.GetEmployee)
   let res = await fetch(`${apiUrl}/employee/${id}`, requestOptions)
     .then((response) => response.json())
     .then((res) => {
@@ -259,6 +260,7 @@ async function ListEmployeeID(id: any) {
     },
   };
 
+  //Route: r.GET("/employeeid/:id", employee.GetEmployeebyID)
   let res = await fetch(`${apiUrl}/employeeid/${id}`, requestOptions)
     .then((response) => response.json())
     .then((res) => {
@@ -314,7 +316,7 @@ async function UpdateEmployee(data: EmployeeInterface) {
   return res;
 }
 
-//--------------Schedule----------------
+//--------------Schedule----------------------------------------------------------------
 async function GetDuty() {
   const requestOptions = {
     method: "GET",
@@ -426,9 +428,76 @@ async function GetSchedule() {
   return res;
 }
 
+// ค้าหาข้อมูลด้วย id
+async function GetScheduleID(id: any) {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  let res = await fetch(`${apiUrl}/schedule/${id}`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+
+//แสดงข้อมูลคนที่ใช้ด้วย id
+async function ListScheduleID(id: any) {
+  const requestOptions = {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  //Route: r.GET("/employeeid/:id", employee.GetEmployeebyID)
+  let res = await fetch(`${apiUrl}/scheduleid/${id}`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return res.data;
+      } else {
+        return false;
+      }
+    });
+
+  return res;
+}
+
 async function CreateSchedule(data: ScheduleInterface) {
   const requestOptions = {
     method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  };
+
+  let res = await fetch(`${apiUrl}/schedules`, requestOptions)
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        return { status: true, message: res.data };
+      } else {
+        return { status: false, message: res.error };
+      }
+    });
+
+  return res;
+}
+
+async function UpdateSchedule(data: ScheduleInterface) {
+  const requestOptions = {
+    method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   };
@@ -445,6 +514,9 @@ async function CreateSchedule(data: ScheduleInterface) {
 
   return res;
 }
+
+
+
 
 //////////////// Exercise Program System ////////////////
 async function GetWormUp() {
@@ -652,9 +724,11 @@ export {
   GetRole,
   GetEducation,
   GetEmployee,
-  CreateEmployee,
+
   GetEmployeeID,
   ListEmployeeID,
+
+  CreateEmployee,
   UpdateEmployee,
 
   //Schedule
@@ -663,7 +737,12 @@ export {
   GetDays,
   GetPlace,
   GetSchedule,
+
+  GetScheduleID,
+  ListScheduleID,
+  
   CreateSchedule,
+  UpdateSchedule,
 
   //ExerciseProgram
   GetWormUp,

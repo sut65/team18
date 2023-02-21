@@ -26,26 +26,26 @@ type Schedule struct {
 
 	//ใส่ใน struct ของคนอื่น <-- ทำแล้ว
 	EmployeeID *uint
-	Employee   Employee 
+	Employee   Employee `gorm:"references:id" valid:"-"`
 
 	//ใส่ใน struct ของคนอื่น <-- ทำแล้ว
 	RoleID *uint
-	Role   Role
+	Role   Role `gorm:"references:id" valid:"-"`
 
 	//DutyID ทำหน้าที่เป็น FK
 	DutyID *uint
-	Duty   Duty 
+	Duty   Duty  `gorm:"references:id" valid:"-"`
 
 	//ใส่ใน struct ของคนอื่น <-- ทำแล้ว
 	OcdID *uint
-	Ocd   Ocd
+	Ocd   Ocd `gorm:"references:id" valid:"-"`
 
 	TimeID *uint
-	Time   Time 
+	Time   Time  `gorm:"references:id" valid:"-"`
 
 	//ใส่ใน struct ของคนอื่น <-- ทำแล้ว
 	PlaceID  *uint
-	Place  Place 
+	Place  Place  `gorm:"references:id" valid:"-"`
 
 	Record_Time time.Time
 }

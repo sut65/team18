@@ -65,7 +65,7 @@ func main() {
 	r.POST("/employees", employee.CreateEmployee)
 	//r.PATCH("/employee", employee.UpdateEmployee)
 	r.PUT("/employee", employee.UpdateEmployee)
-	r.DELETE("/employee/:id", employee.DeleteEmployee)
+	r.DELETE("/employees/:id", employee.DeleteEmployee)
 
 	// Education Routes
 	r.GET("/educations", employee.ListEducations)
@@ -84,9 +84,11 @@ func main() {
 	//Schedule Routes
 	r.GET("/schedules", schedule.ListSchedules)
 	r.GET("/schedule/:id", schedule.GetSchedule)
-	r.POST("/schedule", schedule.CreateSchedule)
-	r.PATCH("/schedule", schedule.UpdateSchedule)
-	r.DELETE("/schedule/:id", schedule.DeleteSchedule)
+	r.GET("/scheduleid/:id", schedule.GetSchedulebyID)
+	r.POST("/schedules", schedule.CreateSchedule)
+	// r.PATCH("/schedule", schedule.UpdateSchedule)
+	r.PUT("/schedule", schedule.UpdateSchedule)
+	r.DELETE("/schedules/:id", schedule.DeleteSchedule)
 
 	//Duty Routes
 	r.GET("/duties", schedule.ListDuties)
@@ -188,9 +190,9 @@ func main() {
 	r.PATCH("service", placeInfo.UpdateService)
 	r.DELETE("service/:id", placeInfo.DeleteService)
 
+	
 	r.GET("ocds", placeInfo.ListOpenandClosedays)
 	r.GET("ocd/:id", placeInfo.GetOpenandClosedays)
-
 	// r.GET("openandcolsedays", placeInfo.ListOpenandClosedays)
 	// r.GET("openandclosedays/:id", placeInfo.GetOpenandClosedays)
 	r.POST("openandclosedays", placeInfo.CreateOpenandClosedays)

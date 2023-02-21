@@ -16,8 +16,8 @@ import Paper from "@mui/material/Paper";
 import { format } from "date-fns";
 import moment from "moment";
 
-import { GetEmployee } from "../../services/HttpClientService";
-import { Grid } from "@mui/material";
+//import { GetEmployee } from "../../services/HttpClientService";
+import { Grid , Stack} from "@mui/material";
 import { spacing } from "@mui/system";
 
 function EmployeeShow() {
@@ -77,6 +77,7 @@ function EmployeeShow() {
   
           
           <Box margin={2} sx={{padding: '2'}}>
+          <Stack direction="row-reverse" spacing={2}>
             <Button
               component={RouterLink}
               to="/employee_edit"
@@ -93,6 +94,7 @@ function EmployeeShow() {
             >
               บันทึกข้อมูลพนักงาน
             </Button>
+          </Stack>
           </Box>
         </Box>
 
@@ -136,10 +138,8 @@ function EmployeeShow() {
                   <TableCell align="center">{employee.Gender?.Gtype}</TableCell>
                   <TableCell align="center">{employee.Role?.Name}</TableCell>
                   <TableCell align="center">{employee.Education?.Education}</TableCell>
-                  <TableCell align="center">{format(new Date(employee.DOB), "dd MMMM yyyy ")}</TableCell>
-                  {/* <TableCell align="center">
-                    {moment(employee.DOB).format("DD/MM/YYYY")}
-                  </TableCell> */}
+                  {/* <TableCell align="center">{format(new Date(employee.DOB), "dd MMMM yyyy ")}</TableCell> */}
+                  <TableCell align="center">{moment(employee.DOB).format("DD/MM/YYYY")}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

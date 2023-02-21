@@ -95,6 +95,30 @@ func GetSchedule(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": schedule})
 }
 
+//------- ค้นหา id 
+func GetSchedulebyID(c *gin.Context) {
+	var schedule []entity.Schedule
+	id := c.Param("id")		// .Preload("id") -> ดึงตารางย่อยมา												// WHERE user_id = ? จะค้นหาเฉพาะข้อมูลของ user(admin) ที่ login เข้ามาใช้งาน
+	if err := entity.DB().Preload("Role").Preload("Duty").Preload("Ocd").Preload("Time").Preload("Place").Raw("SELECT * FROM schedules", id).Find(&schedule).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": schedule})
+}
+
+// ค้าหา id แบบตัว GetSchedulebyID
+// สร้าง id ของ user ที่เพิ่มเข้าไป
+func GetScheduleByUserID(c *gin.Context) {
+	var schedule entity.Employee
+	id := c.Param("id")
+	if err := entity.DB().Raw("SELECT * FROM employees WHERE user_id = ?", id).Scan(&schedule).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": schedule})
+}
+
+
 // GET /Schedules
 func ListSchedules(c *gin.Context) {
 	var schedules []entity.Schedule
@@ -120,14 +144,72 @@ func DeleteSchedule(c *gin.Context) {
 // PATCH /Schedules
 func UpdateSchedule(c *gin.Context) {
 	var schedule entity.Schedule
-	if err := c.ShouldBindJSON(&schedule); err != nil {
+	var newSchedule entity.Schedule
+
+	if err := c.ShouldBindJSON(&newSchedule); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	if tx := entity.DB().Where("id = ?", schedule.ID).First(&schedule); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "schedule not found"})
+	if tx := entity.DB().Where("id = ?", newSchedule.ID).First(&schedule); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Schedule not found"})
 		return
 	}
+
+	var employee entity.Employee
+	var role entity.Role
+	var duty entity.Duty
+	var ocd entity.Ocd
+	var time entity.Time
+	var place entity.Place
+
+	// : ค้นหา duty ด้วย id
+	if tx := entity.DB().Where("id = ?", newSchedule.DutyID).First(&duty); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Education not found"})
+		return
+	}
+
+	// : ค้นหา ocd ด้วย id
+	if tx := entity.DB().Where("id = ?", newSchedule.OcdID).First(&ocd); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Role not found"})
+		return
+	}
+
+	// : ค้นหา time ด้วย id
+	if tx := entity.DB().Where("id = ?", newSchedule.TimeID).First(&time); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Time not found"})
+		return
+	}
+
+	// : ค้นหา employee ด้วย id
+	if tx := entity.DB().Where("id = ?", newSchedule.EmployeeID).First(&employee); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Employee not found"})
+		return
+	}
+
+	// : ค้นหา role ด้วย id
+	if tx := entity.DB().Where("id = ?", newSchedule.RoleID).First(&role); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Role not found"})
+		return
+	}
+
+	// : ค้นหา place ด้วย id
+	if tx := entity.DB().Where("id = ?", newSchedule.PlaceID).First(&place); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Place not found"})
+		return
+	}
+
+	// Combobox
+	schedule.Employee = employee
+	schedule.Role = role
+	schedule.Duty = duty
+	schedule.Ocd = ocd
+	schedule.Time = time
+	schedule.Place = place
+
+
+	// TextField
+	
+
 	if err := entity.DB().Save(&schedule).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return

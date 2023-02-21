@@ -13,7 +13,7 @@ import InputLabel from "@mui/material/InputLabel";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import FormControl from "@mui/material/FormControl";
-import { createTheme, Divider, Grid } from "@mui/material";
+import { createTheme, Divider, Grid , Stack} from "@mui/material";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { create } from "@mui/material/styles/createTransitions";
@@ -31,15 +31,19 @@ import { PlaceInterface } from "../../models/IPlace";
 import { OcdInterface } from "../../models/IOcd";
 
 import {
-  CreateSchedule,
   GetDuty,
   GetTime,
   GetRole,
   GetPlace,
   GetDays,
+  GetEmployee,
+  GetScheduleID,
+  ListScheduleID,
+  CreateSchedule,
+  UpdateSchedule,
 } from "../../services/HttpClientService";
 
-function ScheduleCreate() {
+function ScheduleEdit() {
   const [error, setError] = React.useState(false);
   const [date, setDate] = useState<Date | null>(new Date());
   const [success, setSuccess] = React.useState(false);
@@ -51,16 +55,48 @@ function ScheduleCreate() {
   const [place, setPlace] = React.useState<PlaceInterface[]>([]);
   const [days, setDays] = React.useState<OcdInterface[]>([]);
 
-  //const [employee, setEmployee] = React.useState<EmployeeInterface[]>([]);
+  // const [employee, setEmployee] = React.useState<EmployeeInterface[]>([]);
   //const [schedule, setSchedule] = useState<ScheduleInterface[]>([]);
+  const [mapEmployee, setMapEmployee] = useState<EmployeeInterface[]>([]);
   const [employee, setEmployee] = useState<Partial<EmployeeInterface>>({});
-  const [schedule, setSchedule] = useState<Partial<ScheduleInterface>>({
-    //ID: 0,
-    EmployeeID: 0,
-    RoleID: 0,
+  const [schedule, setSchedule] = useState<ScheduleInterface[]>([]);
+  const [newSchedule, setNewSchedule] = useState<Partial<ScheduleInterface>>({
+    // ID: 0,
+    // EmployeeID: 0,
+    //RoleID: 0,
   });
+// --------------------------------------------ลบข้อมูล------------------------------------------------
+async function DeleteSchedule() {
+  //localStorage.clear();
+  window.location.href = "/schedule_show"; //หน้าขาว
+  const apiUrl = "http://localhost:8080";
+  const requestOptions = {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newSchedule.ID),
+  };
 
-  //--------- รับค่า --------
+  let res = await fetch(
+    `${apiUrl}/schedules/${JSON.stringify(newSchedule.ID)}`,
+    requestOptions
+  )
+    .then((response) => response.json())
+    .then((res) => {
+      if (res.data) {
+        // DeleteSchedule();
+        return { status: true, message: res.data };
+      } else {
+        return { status: false, message: res.error };
+      }
+    });
+  return res;
+}
+
+
+  //-------------------------------------------- รับค่า --------------------------------------------------------
   const getTime = async () => {
     let res = await GetTime();
     if (res) {
@@ -96,38 +132,72 @@ function ScheduleCreate() {
     }
   };
 
-  // const getEmployee = async () => {
-  //   let res = await GetEmployee();
-  //   if (res) {
-  //     setRole(res);
-  //   }
-  // };
+  const listScheduleID = async (id: any) => {
+    let res = await ListScheduleID(id);
+    if (res) {
+      setSchedule(res);
+      console.log(res);
+    }
+  };
+
+  const getEmployee = async () => {
+    let res = await GetEmployee();
+    if (res) {
+      setMapEmployee(res);
+    }
+  };
 
   //ไม่ใส่ useEffect จะไม่ขึ้นให้เลือก combobox
   useEffect(() => {
+    // ดึงข้อมูล database จาก storage
     const getToken = localStorage.getItem("token");
-        if (getToken) {
-            setEmployee(JSON.parse(localStorage.getItem("lid") || ""));
-        }
+    if (getToken) {
+      //setEmployee(JSON.parse(localStorage.getItem("lid") || ""));
+      const x = JSON.parse(localStorage.getItem("lid") || "");
+      setEmployee(x);
+      listScheduleID(x.ID);
+    }
     getDuty();
     getTime();
     getRole();
     getPlace();
     getDays();
-    //getEmployee();
+    getEmployee();
   }, []);
   console.log(schedule);
 
+  // ----------------------------------- ค้นหาข้อมูล --------------------------------------------------------
+  const onChange = async (event: SelectChangeEvent) => {
+    const id = event.target.value;
+    let res = await GetScheduleID(id);
+    if (res) {
+      let data = {
+        // Combobox เปลี่ยนไปด้วย
+        ID: res.ID,
+        EmployeeID: res.EmployeeID,
+        RoleID: res.RoleID,
+        DutyID: res.DutyID,
+        OcdID: res.OcdID,
+        TimeID: res.TimeID,
+        PlaceID: res.PlaceID,
+  
+        Record_Time: date,
+      };
+
+      setNewSchedule(res);
+    }
+  };
+
   // Combobox
-  const handleChange = (event: SelectChangeEvent<number>) => {
-    const name = event.target.name as keyof typeof schedule;
-    setSchedule({
-      ...schedule,
+  const handleChange = (event: SelectChangeEvent) => {
+    const name = event.target.name as keyof typeof newSchedule;
+    setNewSchedule({
+      ...newSchedule,
       [name]: event.target.value,
     });
   };
 
-  //Alert
+  // -----------------------------------  Alert --------------------------------------------------------
   const handleClose = (
     event?: React.SyntheticEvent | Event,
 
@@ -151,36 +221,55 @@ function ScheduleCreate() {
   //Submit
   async function submit() {
     let data = {
-      EmployeeID: employee?.ID,
+      ID: newSchedule.ID,
 
+      EmployeeID: employee?.ID,
       RoleID: employee?.RoleID,
       // RoleID: typeof schedule.RoleID === "string" ? parseInt(schedule.RoleID) : 0,
-      
-      // DutyID: schedule.DutyID,
-      DutyID: typeof schedule.DutyID === "string" ? parseInt(schedule.DutyID) : 0,
 
-      // OcdID: schedule.OcdID,
-      OcdID: typeof schedule.OcdID === "string" ? parseInt(schedule.OcdID) : 0,
-      
-      //TimeID: schedule.TimeID,
-      TimeID: typeof schedule.TimeID === "string" ? parseInt(schedule.TimeID) : 0,
+      // DutyID: newSchedule.DutyID,
+      DutyID: typeof newSchedule.DutyID === "string" ? parseInt(newSchedule.DutyID) : 0,
 
-      //PlaceID: schedule.PlaceID,
-      PlaceID: typeof schedule.PlaceID === "string" ? parseInt(schedule.PlaceID) : 0,
+      // OcdID: newSchedule.OcdID,
+      OcdID: typeof newSchedule.OcdID === "string" ? parseInt(newSchedule.OcdID) : 0,
+
+      // TimeID: newSchedule.TimeID,
+      TimeID: typeof newSchedule.TimeID === "string" ? parseInt(newSchedule.TimeID) : 0,
+
+      // PlaceID: newSchedule.PlaceID,
+      PlaceID: typeof newSchedule.PlaceID === "string" ? parseInt(newSchedule.PlaceID) : 0,
 
       Record_Time: date,
     };
-    console.log(data)
-    let res = await CreateSchedule(data);
+    console.log("submit");
+    console.log(data);
+    let res = await UpdateSchedule(data);
     if (res.status) {
-      setAlertMessage("บันทึกข้อมูลสำเร็จ");
+      setAlertMessage("แก้ไขข้อมูลสำเร็จ");
       setSuccess(true);
     } else {
       setAlertMessage(res.message);
       setError(true);
     }
   }
- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <Container maxWidth="md">
@@ -219,7 +308,7 @@ function ScheduleCreate() {
               align="center"
               margin={2}
             >
-              บันทึกตารางงาน
+              แก้ไขตารางงาน
             </Typography>
           </Box>
         </Box>
@@ -227,19 +316,54 @@ function ScheduleCreate() {
 
         {/* กำหนด layout ให้ช่องต่างๆ */}
         <Grid container spacing={3} margin={1}>
-         
+
+          {/* ค้นหา */}
+          <Grid item spacing={2}>
+            <p>ค้นหารายชื่อที่ต้องการแก้ไข</p>
+          </Grid>
+          <Grid item xs={8.5}>
+            <FormControl variant="outlined" fullWidth>
+              <Select
+                native
+                value={newSchedule.ID + ""}
+                onChange={onChange}
+                inputProps={{
+                  name: "ID",
+                }}
+              >
+                <option aria-label="None" value="">
+                  ID
+                </option>
+                {schedule?.map((item: ScheduleInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.ID}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+
           {/* ชื่อ */}
           <Grid item xs={5} margin={2} container spacing={1}>
             <p>ชื่อ</p>
             <FormControl fullWidth variant="outlined">
-              <Select   
-                disabled
-                value={schedule?.EmployeeID}
-              >
-                <MenuItem value={0}>
-                      {employee?.Name}
-                </MenuItem> //key ไว้อ้างอิงว่าที่1ชื่อนี้ๆๆ value: เก็บค่า
-                
+              <Select 
+                //disabled 
+                native
+                value={newSchedule.EmployeeID + ""}
+                onChange={handleChange}
+                inputProps={{
+                  name: "EmployeeID",
+                }}
+                >
+                <option aria-label="None" value="">
+                  พนักงาน
+                </option>
+                {mapEmployee?.map((item: EmployeeInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.Name}
+                  </option>
+                ))}
               </Select>
             </FormControl>
           </Grid>
@@ -248,14 +372,22 @@ function ScheduleCreate() {
           <Grid item xs={5} margin={2} container spacing={1}>
             <p>ประเภทพนักงาน</p>
             <FormControl fullWidth variant="outlined">
-              <Select
-                disabled
-                value={schedule?.RoleID}
+              <Select 
+                disabled 
+                value={newSchedule.RoleID + ""} 
                 onChange={handleChange}
-              >
-                <MenuItem value={0}>
-                      {employee?.RoleID}
-                </MenuItem> //key ไว้อ้างอิงว่าที่1ชื่อนี้ๆๆ value: เก็บค่า  
+                inputProps={{
+                  name: "RoleID",
+                }}
+                >
+                <option aria-label="None" value="">
+                  กรุณาระบุประเภทพนักงาน
+                </option>
+                {role.map((item: RoleInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.Name}
+                  </option>
+                ))}
               </Select>
             </FormControl>
           </Grid>
@@ -266,7 +398,7 @@ function ScheduleCreate() {
             <FormControl fullWidth variant="outlined">
               <Select
                 native
-                value={schedule.DutyID}
+                value={newSchedule.DutyID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "DutyID",
@@ -290,7 +422,7 @@ function ScheduleCreate() {
             <FormControl fullWidth variant="outlined">
               <Select
                 native
-                value={schedule.TimeID}
+                value={newSchedule.TimeID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "TimeID",
@@ -312,9 +444,9 @@ function ScheduleCreate() {
           <Grid item xs={5} margin={2} container spacing={1}>
             <p>สถานที่</p>
             <FormControl fullWidth variant="outlined">
-            <Select
+              <Select
                 native
-                value={schedule.PlaceID}
+                value={newSchedule.PlaceID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "PlaceID",
@@ -338,32 +470,32 @@ function ScheduleCreate() {
             <p>วัน</p>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <FormControl fullWidth variant="outlined">
-              <Select
-                native
-                value={schedule.OcdID}
-                onChange={handleChange}
-                inputProps={{
-                  name: "OcdID",
-                }}
-              >
-                <option aria-label="None" value="">
-                  กรุณาระบุวันที่ต้องการบันทึก               
+                <Select
+                  native
+                  value={newSchedule.OcdID + ""}
+                  onChange={handleChange}
+                  inputProps={{
+                    name: "OcdID",
+                  }}
+                >
+                  <option aria-label="None" value="">
+                    กรุณาระบุวันที่ต้องการบันทึก
                   </option>
-                {days.map((item: OcdInterface) => (
-                  <option value={item.ID} key={item.ID}>
-                    {item.Days}
-                  </option>
-                ))}
-              </Select>
+                  {days.map((item: OcdInterface) => (
+                    <option value={item.ID} key={item.ID}>
+                      {item.Days}
+                    </option>
+                  ))}
+                </Select>
               </FormControl>
             </LocalizationProvider>
           </Grid>
 
-          {/* ปุ่ม */}
-          <Grid item xs={5} margin={2}>
+             {/* ปุ่ม */}
+             <Grid item xs={5} margin={2} padding={1}>
             <Button
               component={RouterLink}
-              to="/schedule_show"
+              to="/employee_show"
               variant="contained"
               size="large"
               style={{ height: "42px", width: "100px" }}
@@ -372,6 +504,7 @@ function ScheduleCreate() {
             </Button>
           </Grid>
           <Grid item xs={5} margin={2} spacing={1}>
+          <Stack direction="row-reverse" spacing={2}>
             <Button
               variant="contained"
               color="success"
@@ -379,13 +512,29 @@ function ScheduleCreate() {
               onClick={submit}
               style={{ float: "right", height: "42px", width: "95px" }}
             >
-              Submit
+              Edit
             </Button>
+            <Button
+              variant="contained"
+              color="error"
+              size="large"
+              onClick={DeleteSchedule}
+              style={{
+                float: "right",
+                height: "42px",
+                width: "95px",
+                padding: 1,
+              }}
+            >
+              Delete
+            </Button>
+            </Stack>
           </Grid>
+
         </Grid>
       </Paper>
     </Container>
   );
 }
 
-export default ScheduleCreate;
+export default ScheduleEdit;
