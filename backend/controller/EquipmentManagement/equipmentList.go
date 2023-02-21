@@ -3,6 +3,7 @@ package controller
 import (
 	"net/http"
 
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 
 	"github.com/sut65/team18/entity"
@@ -33,12 +34,24 @@ func CreateEquipmentList(c *gin.Context) {
 		return
 	}
 
+	if tx := entity.DB().Where("id = ?", equipmentList.EmployeeID).First(&employee); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Employee not found"})
+		return
+	}
+
 	//สร้าง ตารางequipmentList
 	el := entity.EquipmentList{
+
 		Detail: 		equipmentList.Detail,
-		Employee:      employee,
-		EquipmentName: equipmentName,
-		RunNumber:     runNumber,
+		Employee:      	employee,
+		EquipmentName: 	equipmentName,
+		RunNumber:     	runNumber,
+		DateTime: 		equipmentList.DateTime,
+	}
+	// ขั้นตอนการ validate
+	if _, err := govalidator.ValidateStruct(el); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 	if err := entity.DB().Create(&el).Error; err != nil {
 
@@ -52,11 +65,23 @@ func CreateEquipmentList(c *gin.Context) {
 
 }
 
-// GET /Member/:id
+// GET /equiment/:id
 func GetEquipmentList(c *gin.Context) {
 	var equipmentList entity.EquipmentList
 	id := c.Param("id")
-	if err := entity.DB().Preload("Employee").Preload("RunNumber").Preload("EquipmentName").Raw("SELECT * FROM equipment_lists WHERE id = ?", id).Find(&equipmentList).Error; err != nil {
+	if err := entity.DB().Preload("Employee").Preload("RunNumber").Preload("EquipmentName").
+	Raw("SELECT * FROM equipment_lists WHERE id = ?", id).Find(&equipmentList).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"data": equipmentList})
+}
+
+func GetEquipmentListShow(c *gin.Context) {
+	var equipmentList []entity.EquipmentList
+	id := c.Param("id")
+	if err := entity.DB().Preload("Employee").Preload("RunNumber").Preload("EquipmentName").
+	Raw("SELECT * FROM equipment_lists WHERE employee_id = ? = ?", id).Find(&equipmentList).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -65,7 +90,8 @@ func GetEquipmentList(c *gin.Context) {
 
 func ListEquipmentList(c *gin.Context) {
 	var equipmentList []entity.EquipmentList
-	if err := entity.DB().Preload("Employee").Preload("RunNumber").Preload("EquipmentName").Raw("SELECT * FROM equipment_lists").Find(&equipmentList).Error; err != nil {
+	if err := entity.DB().Preload("Employee").Preload("RunNumber").Preload("EquipmentName").
+	Raw("SELECT * FROM equipment_lists").Find(&equipmentList).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -87,13 +113,47 @@ func DeleteEquipmentList(c *gin.Context) {
 // PATCH /equipmentList
 func UpdateEquipmentList(c *gin.Context) {
 	var equipmentList entity.EquipmentList
-	if err := c.ShouldBindJSON(&equipmentList); err != nil {
+	var newEquipmentList entity.EquipmentList
+
+	if err := c.ShouldBindJSON(&newEquipmentList); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	if tx := entity.DB().Where("id = ?", equipmentList.ID).First(&equipmentList); tx.RowsAffected == 0 {
+	if tx := entity.DB().Where("id = ?", newEquipmentList.ID).First(&equipmentList); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "equipment_lists not found"})
+		return
+	}
+
+	var employee entity.Employee
+	var equipmentname entity.EquipmentName
+	var runnumber entity.RunNumber
+
+	// ค้นหา employee ด้วย id
+	if tx := entity.DB().Where("id = ?", newEquipmentList.EmployeeID).First(&employee); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Employee not found"})
+		return
+	}
+
+	// ค้นหา equipmentname ด้วย id
+	if tx := entity.DB().Where("id = ?", newEquipmentList.EquipmentNameID).First(&equipmentname); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Equipmentname not found"})
+		return
+	}
+
+	// ค้นหาrunnumber ด้วย id
+	if tx := entity.DB().Where("id = ?", newEquipmentList.RunNumberID).First(&runnumber); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Runnumber not found"})
+		return
+	}
+	equipmentList.Employee = employee
+	equipmentList.Detail	= newEquipmentList.Detail
+	equipmentList.EquipmentName = equipmentname
+	equipmentList.RunNumber = runnumber
+	equipmentList.DateTime	= newEquipmentList.DateTime
+
+	if _, err := govalidator.ValidateStruct(equipmentList); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -101,6 +161,5 @@ func UpdateEquipmentList(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-
 	c.JSON(http.StatusOK, gin.H{"data": equipmentList})
 }

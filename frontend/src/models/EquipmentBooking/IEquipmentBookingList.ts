@@ -1,5 +1,5 @@
-import { EquipmentListInterface } from "./IEquipmentList";
-import { MemberInterface } from "./IMember";
+import { EquipmentListInterface } from "../EquipmentList/IEquipmentList";
+import { MemberInterface } from "../IMember";
 
 export interface EquipmentBookingListInterface {
     ID?: number,
@@ -7,5 +7,5 @@ export interface EquipmentBookingListInterface {
     EquipmentList?: EquipmentListInterface;
     MemberID?:  number;
     Member?:    MemberInterface;
-    DateTimeBooking: Date | null;
+    DateBooking: Date | null;
 }

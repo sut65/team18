@@ -12,8 +12,8 @@ import Snackbar from "@mui/material/Snackbar";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 
-import { EquipmentBookingListInterface }  from "../../models/IEquipmentBookingList";
-import { EquipmentListInterface } from "../../models/IEquipmentList";
+import { EquipmentBookingListInterface }  from "../../models/EquipmentBooking/IEquipmentBookingList";
+import { EquipmentListInterface } from "../../models/EquipmentList/IEquipmentList";
 import { MemberInterface } from "../../models/IMember";
 
 import { MenuItem, TextField } from "@mui/material";
@@ -40,8 +40,9 @@ function EquipmentBookingListCreate() {
   
   });
   const [equipmentList, setEquipmentList] = useState<EquipmentListInterface[]>([]);
-  const [member, setMember] = React.useState<Partial<MemberInterface>>({});
-  const [DateTimeBooking, setDateTimeBooking] = React.useState<Date | null>(null);
+  const [member, setMember] = React.useState<MemberInterface>();
+  const [memberName, setmemberName] = React.useState<Partial<MemberInterface>>({ Name: "" });
+  const [DateBooking, setDateBooking] = React.useState<Date | null>(null);
   const [message, setAlertMessage] = React.useState("");
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
@@ -56,16 +57,16 @@ function EquipmentBookingListCreate() {
   const getMember = async () => {
     let res = await GetMember();
     if (res) {
-      setMember(res);
+        setMember(res);
     }
-  };
+};
 
 
 
   useEffect(() => {
     const getToken = localStorage.getItem("token");
     if (getToken) {
-        setMember(JSON.parse(localStorage.getItem("lid") || ""));
+        setmemberName(JSON.parse(localStorage.getItem("lid") || ""));
     }
     getEquipmentList();
     getMember();
@@ -104,8 +105,8 @@ function EquipmentBookingListCreate() {
   async function submit() {
     let data = {
       EquipmentListID:typeof  equipmentBookingList.EquipmentListID === "string" ? parseInt(equipmentBookingList.EquipmentListID) : 0,
-      MemberID: typeof  equipmentBookingList.MemberID === "string" ? parseInt(equipmentBookingList.MemberID) : 0,
-      DateTimeBooking: DateTimeBooking,
+      MemberID: memberName?.ID,
+      DateBooking: DateBooking,
     };
     
     let res = await CreateEquipmentBookingList(data);
@@ -182,37 +183,45 @@ function EquipmentBookingListCreate() {
             </FormControl>
           </Grid>
           <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined">
-              <p>วันที่และเวลา</p>
+          <FormControl fullWidth variant="outlined">
+              <p>วันที่รับอุปกรณ์</p>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
-                  value={DateTimeBooking}
+                  value={DateBooking}
                   onChange={(newValue) => {
-                    setDateTimeBooking(newValue);
+                    setDateBooking(newValue);
                   }}
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
             </FormControl>
           </Grid>
-          <Grid item xs={4}>
-                            <FormControl fullWidth variant="outlined">
-                                <p>ผู้จอง:</p>
-                                <Select
-                                    value={equipmentBookingList?.MemberID}
-                                    disabled
-                                >
-                                    <MenuItem value={0} >
-                                        {member?.Name}
-                                    </MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Grid>
-          <Grid item xs={12}></Grid>
+          <Grid item xs={6} sx={{ padding: 2, marginTop: 0, }} >
+                        <p>ชื่อผู้จอง</p>
+
+                        <FormControl fullWidth variant="outlined" >
+
+                            <TextField
+
+                                disabled
+
+                                id="MemberID"
+
+                                color="secondary" variant="outlined"
+
+                                type="string"
+
+                                size="medium"
+
+                                value={memberName?.Name}
+
+                            />
+                        </FormControl>
+                    </Grid>
           <Grid item xs={12}>
             <Button
               component={RouterLink}
-              to="/equipmentBookingList"
+              to="/equipment_booking_show"
               variant="contained"
               color="inherit"
             >

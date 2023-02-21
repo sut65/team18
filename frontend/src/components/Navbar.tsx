@@ -129,7 +129,7 @@ function Navbar() {
     { name: "ข้อมูลสมาชิก", icon: <PersonIcon />, path: "/member_show", },
     { name: "จองเทรนเนอร์", icon: <FitnessCenterIcon />, path: "/trainer_booking", },
     { name: "จองสถานกีฬา", icon: <BookIcon />, path: "/place_booking", },
-    { name: "จองอุปกรณ์กีฬา", icon: <BookIcon />, path: "/equipment_booking" },
+    { name: "จองอุปกรณ์กีฬา", icon: <BookIcon />, path: "/equipment_booking_show" },
     { name: "ชำระเงิน", icon: <PaymentTwoToneIcon />, path: "/bill_create", },
     { name: "แจ้งซ่อมอุปกรณ์ชำรุด", icon: <BuildTwoToneIcon />, path: "/notify_show", },
   ]
@@ -137,7 +137,7 @@ function Navbar() {
     { name: "หน้าแรก", icon: <HomeIcon />, path: "/login" },
     { name: "บันทึกตารางงานพนักงาน", icon: <EventNoteIcon />, path: "/schedule_show", },
     { name: "ข้อมูลสถานกีฬา", icon: <SportsBasketballIcon />, path: "/place" },
-    { name: "ข้อมูลอุปกรณ์กีฬา", icon: <SportsCricketTwoToneIcon />, path: "/equipment_create", },
+    { name: "ข้อมูลอุปกรณ์กีฬา", icon: <SportsCricketTwoToneIcon />, path: "/equipment_shows", },
     { name: "ข้อมูลการแจ้งซ่อมอุปกรณ์ชำรุด", icon: <BuildTwoToneIcon />, path: "/notify_shows", },
     { name: "ข่าวประชาสัมพันธ์", icon: <NewspaperTwoToneIcon />, path: "/news", },
   ]

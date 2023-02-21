@@ -9,8 +9,8 @@ import (
 type EquipmentBookingList struct {
 	gorm.Model
 
-	EmployeeID *uint
-	Employee   Employee 
+	PlaceID *uint
+	Place	Place
 
 	EquipmentListID *uint
 	EquipmentList   EquipmentList 

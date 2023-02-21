@@ -43,8 +43,8 @@ import { GetGender, GetTypem, CreateMember, GetEvidence, GetMember } from "../..
 import LoginIcon from '@mui/icons-material/Login';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { NotifyInterface } from "../../models/INotify";
-import { EquipmentNameInterface } from "../../models/IEquipmentName";
-import { RunNumberInterface } from "../../models/IRunNumber";
+import { EquipmentNameInterface } from "../../models/EquipmentList/IEquipmentName";
+import { RunNumberInterface } from "../../models/EquipmentList/IRunNumber";
 import { CreateNotify, GetEquipmentname, GetRunnumber } from "../../services/NotifyHttpCS";
 
 

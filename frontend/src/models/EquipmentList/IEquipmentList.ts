@@ -1,6 +1,6 @@
 import { RunNumberInterface } from "./IRunNumber";
 import { EquipmentNameInterface } from "./IEquipmentName";
-import { EmployeeInterface } from "./IEmployee";
+import { EmployeeInterface } from "../IEmployee";
 export interface EquipmentListInterface {
     ID?: number,
     Detail?: string;
