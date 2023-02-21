@@ -26,15 +26,17 @@ import { GenderInterface } from "../../models/IGender";
 import { RoleInterface } from "../../models/IRole";
 import { EducationInterface } from "../../models/Employee/IEducation";
 import {
-  CreateEmployee,
-  GetEducation,
-  GetEmployee,
-  GetEmployeeID,
-  GetGender,
   GetRole,
+  GetGender,
+  GetEmployee,
+  GetEducation,
+
+  GetEmployeeID,
   ListEmployeeID,
+  CreateEmployee,
   UpdateEmployee,
 } from "../../services/HttpClientService";
+import { Stack } from "@mui/system";
 
 //--------------ระบบพนักงาน ------------------------------
 function EmployeeEdit() {
@@ -42,7 +44,6 @@ function EmployeeEdit() {
   const [date, setDate] = useState<Date | null>(null);
   const [message, setAlertMessage] = React.useState("");
   const [success, setSuccess] = React.useState(false);
-  //const [ar, setAlet] = React.useState(false);
 
   const [role, setRole] = React.useState<RoleInterface[]>([]);
   const [gender, setGender] = React.useState<GenderInterface[]>([]);
@@ -50,14 +51,12 @@ function EmployeeEdit() {
 
   const [user, setUser] = React.useState<Partial<EmployeeInterface>>({});
   const [employee, setEmployee] = React.useState<EmployeeInterface[]>([]);
-  const [employee_Id, setEmployeeID] = React.useState<
-    Partial<EmployeeInterface>
-  >({});
+  const [employee_Id, setEmployeeID] = React.useState<Partial<EmployeeInterface>>({});
 
-  // ----------------------ลบข้อมูล------------------------
+  // --------------------------------------------ลบข้อมูล------------------------------------------------
   async function DeleteEmployee() {
-    localStorage.clear();
-    //window.location.href = "/employee_show"; หน้าขาว
+    //localStorage.clear();
+    window.location.href = "/employee_show"; //หน้าขาว
     const apiUrl = "http://localhost:8080";
     const requestOptions = {
       method: "DELETE",
@@ -69,7 +68,7 @@ function EmployeeEdit() {
     };
 
     let res = await fetch(
-      `${apiUrl}/employee/${JSON.stringify(employee_Id.ID)}`,
+      `${apiUrl}/employees/${JSON.stringify(employee_Id.ID)}`,
       requestOptions
     )
       .then((response) => response.json())
@@ -84,38 +83,35 @@ function EmployeeEdit() {
     return res;
   }
 
-  const listEmployeeID = async (id: any) => {
-    let res = await ListEmployeeID(id);
-    if (res) {
-      setEmployee(res);
-      console.log(res);
-    }
-  };
-
-  // กรณีอยากกดยืนยันใน  Alert
-  // async function setAl() {
-  //   setAlet(true)
-  // };
-
-  //--------- รับค่า --------
+  
+  //-------------------------------------------- รับค่า --------------------------------------------------------
   const getGender = async () => {
     let res = await GetGender();
     if (res) {
       setGender(res);
     }
   };
-
+  
   const getEducation = async () => {
     let res = await GetEducation();
     if (res) {
       setEducation(res);
     }
   };
-
+  
   const getRole = async () => {
     let res = await GetRole();
     if (res) {
       setRole(res);
+    }
+  };
+
+  // ดึงข้อมูลออกมาในรูป ID
+  const listEmployeeID = async (id: any) => {
+    let res = await ListEmployeeID(id);
+    if (res) {
+      setEmployee(res);
+      console.log(res);
     }
   };
 
@@ -157,6 +153,7 @@ function EmployeeEdit() {
     }
   };
 
+  // ----------------------------------- เปลี่ยนข้อมูล(input) --------------------------------------------------------
   // TextField
   const handleChangeEmployee = (
     event: React.ChangeEvent<{ id?: string; value: any }>
@@ -175,7 +172,7 @@ function EmployeeEdit() {
     });
   };
 
-  //Alert
+  // -----------------------------------  Alert --------------------------------------------------------
   const handleClose = (
     event?: React.SyntheticEvent | Event,
 
@@ -197,7 +194,7 @@ function EmployeeEdit() {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
 
-  // Submit
+  // -----------------------------------  Submit --------------------------------------------------------
   async function submit() {
     let data = {
       ID: employee_Id.ID,
@@ -230,6 +227,25 @@ function EmployeeEdit() {
       setError(true);
     }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   return (
     <Container maxWidth="md">
@@ -465,6 +481,7 @@ function EmployeeEdit() {
             </Button>
           </Grid>
           <Grid item xs={5} margin={2} spacing={1}>
+          <Stack direction="row-reverse" spacing={2}>
             <Button
               variant="contained"
               color="success"
@@ -488,7 +505,9 @@ function EmployeeEdit() {
             >
               Delete
             </Button>
+            </Stack>
           </Grid>
+          
         </Grid>
       </Paper>
     </Container>

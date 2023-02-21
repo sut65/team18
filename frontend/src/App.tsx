@@ -14,20 +14,22 @@ import Navbar from './components/Navbar';
 import ProgramHome from './components/ExerciseProgram/ProgramShow';
 import ProgramCreate from './components/ExerciseProgram/ProgramCreate';
 import MenuShow from './components/Menu';
-import EmployeeCreate from './components/Employee/EmployeeCreate';
-import ScheduleCreate from './components/Schedule/ScheduleCreate';
 import PaymentCreate from './components/Payment/PaymentCreate';
 import BillCreate from './components/Payment/billsCreate';
 import PaymentShow from './components/Payment/PaymentShow';
 import ProgramShow from './components/ExerciseProgram/ProgramShow';
 import EquipmentListCreate from './components/EquipmentMenagement/EquipmentCreate';
-
-
 import MemberS from './components/Member/MemberS';
 import MemberShow from './components/Member/MemberShow';
 
 import EmployeeShow from './components/Employee/EmployeeShow';
 import EmployeeEdit from './components/Employee/EmployeeEdit';
+import EmployeeCreate from './components/Employee/EmployeeCreate';
+
+import ScheduleShow from './components/Schedule/ScheduleShow';
+import ScheduleEdit from './components/Schedule/ScheduleEdit';
+import ScheduleCreate from './components/Schedule/ScheduleCreate';
+
 import NewsCreate from './components/News/NewsCreate';
 import NewsUpdate from './components/News/NewsUpdate';
 import EquipmentBookingListCreate from './components/EquipmentMenagement/EquipmentBookingListCreate';
@@ -110,10 +112,10 @@ export default function App() {
                 <Routes>{role === "admin" && (
                   <>
                     <Route path="/login" element={<Home role={role} />} />
-                    <Route path='/employee_create' element={<EmployeeCreate />} />
-                    <Route path='/employee_edit' element={<EmployeeEdit  />} />
                     <Route path='/news_create' element={<NewsCreate />} />
+                    <Route path='/employee_edit' element={<EmployeeEdit  />} />
                     <Route path='/employee_show' element={<EmployeeShow />} />
+                    <Route path='/employee_create' element={<EmployeeCreate />} />
 
                   </>
                 )
@@ -141,6 +143,8 @@ export default function App() {
                       <Route path='/member_edit' element={<MemberEdit />} />
                       <Route path='/notify_shows' element={<NotifyShowad/>} />
                       <Route path='/equipment_create' element={<EquipmentListCreate />} />
+                      <Route path='/schedule_edit' element={<ScheduleEdit />} />
+                      <Route path='/schedule_show' element={<ScheduleShow />} />
                       <Route path='/schedule_create' element={<ScheduleCreate />} />
                     </>
                   )
@@ -149,8 +153,9 @@ export default function App() {
                       <Route path="/login" element={<Home role={role} />} />
                       <Route path='/program_create' element={<ProgramCreate />} />
                       <Route path='/program_show' element={<ProgramShow />} />
-
-
+                      <Route path='/schedule_edit' element={<ScheduleEdit />} />
+                      <Route path='/schedule_show' element={<ScheduleShow />} />
+                      <Route path='/schedule_create' element={<ScheduleCreate />} />
                     </>
                   )
                   }

@@ -477,7 +477,7 @@ func SetupDatabase() {
 
 	//-------Schedule---------//
 	schedule_1 := Schedule{
-		Employee:      admin2,
+		Employee:      em1,
 		Role:          employee,
 		Duty:          d_checker,
 		Ocd:           ocd3,

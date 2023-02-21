@@ -10,7 +10,7 @@ export interface EmployeeInterface {
     Tel?: string;
     Email?: string;
     Password?: string;
-    DOB: Date;
+    DOB?: Date | null ;
     
     GenderID?: number;
 	Gender?:   GenderInterface;

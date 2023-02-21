@@ -1,4 +1,4 @@
- import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import AppBar from "@mui/material/AppBar";
@@ -12,18 +12,18 @@ import Typography from "@mui/material/Typography";
 import InputLabel from "@mui/material/InputLabel";
 import IconButton from "@mui/material/IconButton";
 import FormControl from "@mui/material/FormControl";
+import { RoleInterface } from "../../models/IRole";
 import { Link as RouterLink } from "react-router-dom";
+import { GenderInterface } from "../../models/IGender";
+import { EmployeeInterface } from "../../models/IEmployee";
 import { createTheme, Divider, Grid } from "@mui/material";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { create } from "@mui/material/styles/createTransitions";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { EmployeeInterface } from "../../models/IEmployee";
-import { GenderInterface } from "../../models/IGender";
-import { RoleInterface } from "../../models/IRole";
 import { EducationInterface } from "../../models/Employee/IEducation";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import {
   CreateEmployee,
   GetEducation,
@@ -38,7 +38,7 @@ function EmployeeCreate() {
   const [date, setDate] = useState<Date | null>(null);
   const [message, setAlertMessage] = React.useState("");
   const [success, setSuccess] = React.useState(false);
-  
+
   //const [name, setName] = useState("");
   const [role, setRole] = React.useState<RoleInterface[]>([]);
   const [gender, setGender] = React.useState<GenderInterface[]>([]);
@@ -98,41 +98,31 @@ function EmployeeCreate() {
 
   //Alert
   const handleClose = (
-
     event?: React.SyntheticEvent | Event,
 
     reason?: string
-
   ) => {
-
     if (reason === "clickaway") {
-
       return;
-
     }
 
     setSuccess(false);
 
     setError(false);
-
   };
 
   const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
-
     props,
-  
+
     ref
-  
   ) {
-  
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  
   });
 
   // Delay function
   function timeout(delay: number) {
-    return new Promise( res => setTimeout(res, delay) );
-}
+    return new Promise((res) => setTimeout(res, delay));
+  }
 
   // Submit
   async function submit() {
@@ -142,21 +132,25 @@ function EmployeeCreate() {
       Email: employee.Email ?? "",
       Password: employee.Password ?? "",
       DOB: new Date(),
-      GenderID: typeof employee.GenderID === "string" ? parseInt(employee.GenderID) : 0,
-      EducationID:typeof employee.EducationID === "string" ? parseInt(employee.EducationID): 0,
+      GenderID:
+        typeof employee.GenderID === "string" ? parseInt(employee.GenderID) : 0,
+      EducationID:
+        typeof employee.EducationID === "string"
+          ? parseInt(employee.EducationID)
+          : 0,
       RoleID:
         typeof employee.RoleID === "string" ? parseInt(employee.RoleID) : 0,
       User: {
-            Name: employee.Email ?? "",
-            Password: employee.Password ?? "",
-        }
+        Name: employee.Email ?? "",
+        Password: employee.Password ?? "",
+      },
     };
     let res = await CreateEmployee(data);
     if (res.status) {
       setAlertMessage("บันทึกข้อมูลสำเร็จ");
       setSuccess(true);
       await timeout(3000); //for 3 sec delay
-      window.location.href = "/employee_show" //เด้งไปหน้าโชว์
+      window.location.href = "/employee_show"; //เด้งไปหน้าโชว์
     } else {
       setAlertMessage(res.message);
       setError(true);
@@ -164,13 +158,25 @@ function EmployeeCreate() {
   }
 
   return (
-    <Container maxWidth='md'>
-      <Snackbar id="success" open={success} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
+    <Container maxWidth="md">
+      <Snackbar
+        id="success"
+        open={success}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
         <Alert onClose={handleClose} severity="success">
           {message}
         </Alert>
       </Snackbar>
-      <Snackbar id="error" open={error} autoHideDuration={6000} onClose={handleClose} anchorOrigin={{ vertical: "top", horizontal: "center" }}>
+      <Snackbar
+        id="error"
+        open={error}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
         <Alert onClose={handleClose} severity="error">
           {message}
         </Alert>
@@ -266,13 +272,22 @@ function EmployeeCreate() {
             <p>วันเกิด</p>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <FormControl fullWidth variant="outlined">
-                <DatePicker
-                  renderInput={(props) => <TextField {...props} />}
+                {/* <DatePicker
+                 renderInput={(props) => <TextField {...props} />}
+                  // renderInput={(params) => <TextField {...params} />}
+
                   label="Date"
                   value={date}
                   onChange={(newValue) => {
                     setDate(newValue);
                   }}
+                /> */}
+                <DatePicker
+                  value={date}
+                  onChange={(newValue) => {
+                    setDate(newValue);
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
                 />
               </FormControl>
             </LocalizationProvider>
@@ -294,8 +309,7 @@ function EmployeeCreate() {
                   กรุณาระบุเพศ
                 </option>
                 {gender.map((item: GenderInterface) => (
-                  <option value={item.ID}>{item.Gtype}
-                  </option>
+                  <option value={item.ID}>{item.Gtype}</option>
                 ))}
               </Select>
             </FormControl>
@@ -341,9 +355,7 @@ function EmployeeCreate() {
                   กรุณาระบุระดับการศึกษา
                 </option>
                 {education.map((item: EducationInterface) => (
-                  <option value={item.ID}>
-                    {item.Education}
-                  </option>
+                  <option value={item.ID}>{item.Education}</option>
                 ))}
               </Select>
             </FormControl>
@@ -352,7 +364,8 @@ function EmployeeCreate() {
           {/* ปุ่ม */}
           <Grid item xs={5} margin={2}>
             <Button
-              component={RouterLink} to="/employee_show"
+              component={RouterLink}
+              to="/employee_show"
               variant="contained"
               size="large"
               style={{ height: "42px", width: "100px" }}
