@@ -3,7 +3,7 @@ package controller
 import (
 	"net/http"
 
-	//"github.com/asaskevich/govalidator"
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 
@@ -27,6 +27,12 @@ func CreateEmployee(c *gin.Context) { // c รับข้อมูลมาจ�
 	// c.ShouldBindJSON  คือการผูกข้อมูลที่ได้จากหน้า frontend ให้เข้ากับ structure(โครงสร้าง) ของ backend
 	if err := c.ShouldBindJSON(&employee); err != nil {
 		// c.JSON เปลี่ยนข้อมูลที่มีให้เป็นนข้อมูลแบบ json
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	//แทรกvilid
+	if _, err := govalidator.ValidateStruct(employee); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -68,6 +74,13 @@ func CreateEmployee(c *gin.Context) { // c รับข้อมูลมาจ�
 		Education: education,        // โยงความสัมพันธ์กับ Entity education
 		DOB:       employee.DOB,     // ตั้งค่าฟิลด์ DOB
 		User:      createuserlogin,
+	}
+
+
+	// ขั้นตอนการ validate
+	if _, err := govalidator.ValidateStruct(ps); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
 	// : บันทึก

@@ -88,7 +88,7 @@ func CreateSchedule(c *gin.Context) { // c รับข้อมูลมาจ�
 func GetSchedule(c *gin.Context) {
 	var schedule entity.Schedule
 	id := c.Param("id") //มาจาก api จากใน main.go
-	if err := entity.DB().Preload("Role").Preload("Duty").Preload("Ocd").Preload("Time").Preload("Place").Raw("SELECT * FROM schedules WHERE id = ?", id).Scan(&schedule).Error; err != nil {
+	if err := entity.DB().Preload("Employee").Preload("Role").Preload("Duty").Preload("Ocd").Preload("Time").Preload("Place").Raw("SELECT * FROM schedules WHERE id = ?", id).Scan(&schedule).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -99,7 +99,7 @@ func GetSchedule(c *gin.Context) {
 func GetSchedulebyID(c *gin.Context) {
 	var schedule []entity.Schedule
 	id := c.Param("id")		// .Preload("id") -> ดึงตารางย่อยมา												// WHERE user_id = ? จะค้นหาเฉพาะข้อมูลของ user(admin) ที่ login เข้ามาใช้งาน
-	if err := entity.DB().Preload("Role").Preload("Duty").Preload("Ocd").Preload("Time").Preload("Place").Raw("SELECT * FROM schedules", id).Find(&schedule).Error; err != nil {
+	if err := entity.DB().Preload("Employee").Preload("Role").Preload("Duty").Preload("Ocd").Preload("Time").Preload("Place").Raw("SELECT * FROM schedules", id).Find(&schedule).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -122,7 +122,7 @@ func GetScheduleByUserID(c *gin.Context) {
 // GET /Schedules
 func ListSchedules(c *gin.Context) {
 	var schedules []entity.Schedule
-	if err := entity.DB().Preload("Role").Preload("Duty").Preload("Ocd").Preload("Time").Preload("Place").Raw("SELECT * FROM schedules").Find(&schedules).Error; err != nil {
+	if err := entity.DB().Preload("Employee").Preload("Role").Preload("Duty").Preload("Ocd").Preload("Time").Preload("Place").Raw("SELECT * FROM schedules").Find(&schedules).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -164,7 +164,7 @@ func UpdateSchedule(c *gin.Context) {
 
 	// : ค้นหา duty ด้วย id
 	if tx := entity.DB().Where("id = ?", newSchedule.DutyID).First(&duty); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Education not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Duty not found"})
 		return
 	}
 

@@ -149,8 +149,8 @@ function EmployeeCreate() {
     if (res.status) {
       setAlertMessage("บันทึกข้อมูลสำเร็จ");
       setSuccess(true);
-      await timeout(3000); //for 3 sec delay
-      window.location.href = "/employee_show"; //เด้งไปหน้าโชว์
+      //await timeout(5000); //for 5 sec delay
+      //window.location.href = "/employee_show"; //เด้งไปหน้าโชว์
     } else {
       setAlertMessage(res.message);
       setError(true);
