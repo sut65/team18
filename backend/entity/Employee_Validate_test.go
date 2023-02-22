@@ -109,7 +109,7 @@ func Test_EmployeeEmail(t *testing.T) { // email ไม่ตรง format
 
 	employee := Employee{
 		Name:      "BoonChoo",
-		Tel:       "060000000",
+		Tel:       "0600000000",
 		Email:     "BoonChoo.com", //Faluse Variable
 		Password: 	"123456",
 		DOB:       time.Date(2003, 9, 24, 0, 0, 0, 0, time.Now().Location()),
@@ -160,9 +160,9 @@ func Test_EmployeePassword(t *testing.T) {
 
 	employee := Employee{
 		Name:      "BoonChoo",
-		Tel:       "060000000",
+		Tel:       "0600000000",
 		Email:     "BoonChoo@email.com",
-		Password: 	"12345",
+		Password: 	"1234",
 		DOB:       time.Date(2003, 9, 24, 0, 0, 0, 0, time.Now().Location()),
 	}
 
@@ -176,7 +176,7 @@ func Test_EmployeePassword(t *testing.T) {
 	g.Expect(err).ToNot(BeNil())
 
 	// err.Error() ต้องมี message แสดงออกมา
-	g.Expect(err.Error()).To(Equal("Password ต้องมีอย่างน้อย6ตัว"))
+	g.Expect(err.Error()).To(Equal("Passwordต้องมีอย่างน้อย6ตัว"))
 }
 
 func Test_EmployeePasswordNull(t *testing.T) {

@@ -8,7 +8,7 @@ import (
 )
 
 type Duty struct {
-	gorm.Model
+	gorm.Model `valid:"required~Duty cannot be blank"`
 	Name string
 
 	Schedule []Schedule `gorm:"foreignKey:DutyID"`
@@ -47,5 +47,6 @@ type Schedule struct {
 	PlaceID  *uint
 	Place  Place  `gorm:"references:id" valid:"-"`
 
+	Note	string `valid:"maxstringlength(50)~กรอกข้อมูลไม่เกิน50ตัวอักษร, required~Note cannot be blank, "`
 	Record_Time time.Time
 }

@@ -26,7 +26,7 @@ type Employee struct {
 	Name     string `valid:"required~กรุณากรอกชื่อ-นามสกุล"`
 	Tel      string `valid:"matches(^\\d{10}$)~Tel does not validate as matches(^\\d{10}$), required~กรุณากรอกเบอร์โทร"`
 	Email    string `gorm:"uniqueIndex" valid:"email, required~Email: กรุณากรอกอีเมล"`
-	Password string `valid:"minstringlength(6)~Password ต้องมีอย่างน้อย6ตัว, required~กรุณากรอกPassword"`
+	Password string `valid:"minstringlength(6)~Passwordต้องมีอย่างน้อย6ตัว, required~กรุณากรอกPassword"`
 	DOB      time.Time 
 
 	GenderID *uint
