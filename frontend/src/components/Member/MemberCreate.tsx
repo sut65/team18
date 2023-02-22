@@ -312,67 +312,69 @@ function MemberCreate() {
           </Grid>
 
           {/* อีเมล */}
-          <Grid item xs={6} sx={{ padding: 2, marginTop: -3, }} >
+          <Grid container spacing={3} sx={{ padding: 2, marginTop: -7, }} item xs={12}>
+            <Grid item xs={6} sx={{ padding: 2 }} >
 
-            <p>Email</p>
+              <p>Email</p>
 
-            <FormControl fullWidth variant="outlined">
+              <FormControl fullWidth variant="outlined">
 
-              <TextField
+                <TextField
 
-                id="Email" label="Email"
+                  id="Email" label="Email"
 
-                variant="outlined"
+                  variant="outlined"
 
-                type="string"
+                  type="string"
 
-                size="medium"
+                  size="medium"
 
-                value={member.Email || ""}
+                  value={member.Email || ""}
 
-                // InputProps={{
-                //   startAdornment: (
-                //     <InputAdornment position="start">
-                //       <AccountCircle />
-                //     </InputAdornment>
-                //   ),
-                // }}
+                  // InputProps={{
+                  //   startAdornment: (
+                  //     <InputAdornment position="start">
+                  //       <AccountCircle />
+                  //     </InputAdornment>
+                  //   ),
+                  // }}
 
-                onChange={handleInputChange}
+                  onChange={handleInputChange}
 
-              />
+                />
 
-            </FormControl>
+              </FormControl>
 
+            </Grid>
+            {/* password */}
+            <Grid item xs={6} sx={{ padding: 2}}>
+
+              <p>Password</p>
+
+              <FormControl fullWidth variant="outlined">
+
+                <TextField
+
+                  id="Password" label="Password"
+
+                  variant="outlined"
+
+                  type="string"
+
+                  size="medium"
+
+                  value={member.Password || ""}
+
+                  onChange={handleInputChange}
+
+                />
+
+              </FormControl>
+
+            </Grid>
           </Grid>
 
 
-          {/* password */}
-          <Grid item xs={6} sx={{ padding: 2, marginTop: -3, }}>
-
-            <p>Password</p>
-
-            <FormControl fullWidth variant="outlined">
-
-              <TextField
-
-                id="Password" label="Password"
-
-                variant="outlined"
-
-                type="string"
-
-                size="medium"
-
-                value={member.Password || ""}
-
-                onChange={handleInputChange}
-
-              />
-
-            </FormControl>
-
-          </Grid>
 
           <Grid container spacing={3} sx={{ padding: 2, marginTop: -7, }}>
             {/* birth */}
