@@ -12,7 +12,7 @@ func TestPassTr(t *testing.T) { //กรณีข้อมูลถูกทั�
 
 	
 	trblist := TrainerBookingList{
-		Training_Time: time.Now(),
+		Training_Time: time.Now().Add(3 * time.Hour),
 	}
 
 
