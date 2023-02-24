@@ -8,6 +8,7 @@ import (
 	"net/http"
 )
 
+
 // POST /timeperiod
 func CreateTimeperiod(c *gin.Context) {
 	var timeperiod entity.TimePeriod
@@ -27,7 +28,7 @@ func CreateTimeperiod(c *gin.Context) {
 func GetTimeperiod(c *gin.Context) {
 	var timeperiod entity.TimePeriod
 	id := c.Param("id")
-	if err := entity.DB().Raw("SELECT * FROM timeperiod WHERE id = ?", id).Scan(&timeperiod).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM time_periods WHERE id = ?", id).Scan(&timeperiod).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -38,7 +39,7 @@ func GetTimeperiod(c *gin.Context) {
 // List /timeperiod
 func ListTimeperiod(c *gin.Context) {
 	var timeperiod []entity.TimePeriod
-	if err := entity.DB().Raw("SELECT * FROM timeperiod").Scan(&timeperiod).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM time_periods").Scan(&timeperiod).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -49,7 +50,7 @@ func ListTimeperiod(c *gin.Context) {
 // DELETE /timeperiod/:id
 func DeleteTimeperiod(c *gin.Context) {
 	id := c.Param("id")
-	if tx := entity.DB().Exec("DELETE FROM timeperiod WHERE id = ?", id); tx.RowsAffected == 0 {
+	if tx := entity.DB().Exec("DELETE FROM time_periods WHERE id = ?", id); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "timeperiod not found"})
 		return
 	}
