@@ -261,7 +261,7 @@ func main() {
 	r.GET("/exerciseprograms", exerciseProgram.ListExPList)
 	r.GET("/exerciseprogram/:id", exerciseProgram.GetExPList)
 	r.POST("/exerciseprogram", exerciseProgram.CreateExerciseProgramList)
-	r.DELETE("/exerciseprogram/:id", exerciseProgram.DeleteExPList)
+	r.DELETE("/exerciseprogram/:id", exerciseProgram.DeleteExPListByID)
 	r.PATCH("/exerciseprogram", exerciseProgram.UpdateExPList)
 
 	//user
