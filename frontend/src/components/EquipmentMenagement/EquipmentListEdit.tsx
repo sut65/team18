@@ -29,6 +29,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { EquipmentNameInterface } from "../../models/EquipmentList/IEquipmentName";
 import { RunNumberInterface } from "../../models/EquipmentList/IRunNumber";
 import { EquipmentListInterface } from "../../models/EquipmentList/IEquipmentList";
+import { DateTimePicker } from "@mui/x-date-pickers";
 
 const theme = createTheme({
     palette: {
@@ -398,7 +399,7 @@ function EquipmentListEdit() {
 
                         {/* ประเภทสมาชิก */}
                         <Grid item xs={6}>
-                            <p>รหัสของอุปกรณ์</p>
+                            <p>หมายเลขของอุปกรณ์</p>
 
                             <FormControl fullWidth variant="outlined">
                                 <Select
@@ -456,7 +457,7 @@ function EquipmentListEdit() {
 
                                 <LocalizationProvider dateAdapter={AdapterDateFns}>
 
-                                    <DatePicker
+                                    <DateTimePicker
 
                                         value={equipmentList.DateTime}
 

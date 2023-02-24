@@ -27,6 +27,7 @@ import {
 } from "../../services/EquipmentHttpClientService";
 import { PlaceInterface } from "../../models/IPlace";
 import { GetPlace } from "../../services/HttpClientService";
+import { DateTimePicker } from "@mui/x-date-pickers";
 const theme = createTheme({
     palette: {
         primary: {
@@ -395,7 +396,7 @@ function EquipmentBookingEdit() {
 
                                 <LocalizationProvider dateAdapter={AdapterDateFns}>
 
-                                    <DatePicker
+                                    <DateTimePicker
 
                                         value={equipmentBookingList.DateBooking}
                                         onChange={(newValue) => {
