@@ -49,6 +49,9 @@ import TrainerUpdate from './components/Trainer/TrainerUpdate';
 import BookInfoShow from './components/BookInfo/BookInfoShow';
 import BookInfoCreate from './components/BookInfo/BookInfoCreate';
 import BookInfoUpdate from './components/BookInfo/BookInfoUpdate';
+import PlaceInfoShow from './components/PlaceInfo/PlaceInfoShow';
+import PlaceInfoCreate from './components/PlaceInfo/PlaceInfoCreate';
+import PlaceInfoUpdate from './components/PlaceInfo/PlaceInfoUpdate';
 
 
 
@@ -173,6 +176,9 @@ export default function App() {
                       <Route path='/news_create' element={<NewsCreate />} />
                       <Route path='/news_update' element={<NewsUpdate />} />
                       <Route path='/member_shows' element={<MemberShow />} />
+                      <Route path='/place' element={<PlaceInfoShow/>}/>
+                      <Route path='/place/place_create' element={<PlaceInfoCreate/>}/>
+                      <Route path='/place/place_edit' element={<PlaceInfoUpdate/>}/>
                     </>
                   )
                   }{role === "trainer" && (
