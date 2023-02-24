@@ -124,6 +124,7 @@ function PaymentShow() {
   ];
 
   useEffect(() => {
+    getPayments()
     
   }, []);
 
