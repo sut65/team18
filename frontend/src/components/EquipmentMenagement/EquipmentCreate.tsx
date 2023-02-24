@@ -20,13 +20,12 @@ import { MenuItem, TextField } from "@mui/material";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { EmployeeInterface } from "../../models/IEmployee";
-
+import { GetEmployee } from "../../services/HttpClientService";
 import {
     CreateEquipmentList,
     GetEquipmentName,
     GetRunNumber,
-    GetEmployee,
-}from "../../services/HttpClientService";
+}from "../../services/EquipmentHttpClientService";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -37,7 +36,6 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 function EquipmentListCreate() {
 const [equipmentList, setEquipmentList] = React.useState<Partial<EquipmentListInterface>>({
-
   RunNumberID:0,
   EquipmentNameID:0,
   EmployeeID:0,
@@ -46,7 +44,7 @@ const [equipmentList, setEquipmentList] = React.useState<Partial<EquipmentListIn
 const [equipmentName, setEquipmentName] = useState<EquipmentNameInterface[]>([]);
 const [runNumber, setRunNumer] = useState<RunNumberInterface[]>([]);
 const [DateTime, setDateTime] = React.useState<Date | null>(null);
-const [employeee, setEmployee] = React.useState<Partial<EmployeeInterface>>({});
+const [employeee, setEmployee] = React.useState<EmployeeInterface>();
 const [employeeeName, setEmployeeName] = React.useState<Partial<EmployeeInterface>>({});
 
 const [message, setAlertMessage] = React.useState("");

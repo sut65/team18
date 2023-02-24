@@ -70,7 +70,8 @@ func GetEquipmentList(c *gin.Context) {
 	var equipmentList entity.EquipmentList
 	id := c.Param("id")
 	if err := entity.DB().Preload("Employee").Preload("RunNumber").Preload("EquipmentName").
-	Raw("SELECT * FROM equipment_lists WHERE id = ?", id).Find(&equipmentList).Error; err != nil {
+	Raw("SELECT * FROM equipment_lists WHERE id = ?", id).
+	Find(&equipmentList).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -81,7 +82,7 @@ func GetEquipmentListShow(c *gin.Context) {
 	var equipmentList []entity.EquipmentList
 	id := c.Param("id")
 	if err := entity.DB().Preload("Employee").Preload("RunNumber").Preload("EquipmentName").
-	Raw("SELECT * FROM equipment_lists WHERE employee_id = ? = ?", id).Find(&equipmentList).Error; err != nil {
+	Raw("SELECT * FROM equipment_lists WHERE employee_id = ?", id).Find(&equipmentList).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -110,7 +111,7 @@ func DeleteEquipmentList(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": id})
 }
 
-// PATCH /equipmentList
+// PATCH or PUT /equipmentList
 func UpdateEquipmentList(c *gin.Context) {
 	var equipmentList entity.EquipmentList
 	var newEquipmentList entity.EquipmentList

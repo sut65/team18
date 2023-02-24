@@ -16,7 +16,6 @@ func CreateEquipmentBookingList(c *gin.Context) {
 	var member entity.Member
 	var equipmentBookingList entity.EquipmentBookingList
 
-	// ผลลัพธ์ที่ได้จากขั้นตอนที่ x จะถูก bind เข้าตัวแปร member
 	if err := c.ShouldBindJSON(&equipmentBookingList); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -57,7 +56,9 @@ func CreateEquipmentBookingList(c *gin.Context) {
 func GetEquipmentBookingList(c *gin.Context) {
 	var equipmentBookingList entity.EquipmentBookingList
 	id := c.Param("id")
-	if err := entity.DB().Preload("Member").Preload("EquipmentList").Preload("Place").Raw("SELECT * FROM equipment_booking_lists WHERE = ?", id).Find(&equipmentBookingList).Error; err != nil {
+	if err := entity.DB().Preload("Member").Preload("EquipmentList").Preload("Place").
+	Raw("SELECT * FROM equipment_booking_lists WHERE id = ?", id).
+	Find(&equipmentBookingList).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -65,18 +66,17 @@ func GetEquipmentBookingList(c *gin.Context) {
 }
 
 func GetEquipmentBookingShow(c *gin.Context) {
-	var equipmentBookingLists []entity.EquipmentBookingList
+	var equipmentBookingList []entity.EquipmentBookingList
 	id := c.Param("id")
-	if err := entity.DB().Preload("Member").Preload("EquipmentList").Preload("Place").Raw("SELECT * FROM equipment_booking_lists WHERE member_id = ?", id).Find(&equipmentBookingLists).Error; err != nil {
+	if err := entity.DB().Preload("Member").Preload("EquipmentList").Preload("Place").Raw("SELECT * FROM equipment_booking_lists WHERE member_id = ?", id).Find(&equipmentBookingList).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": equipmentBookingLists})
+	c.JSON(http.StatusOK, gin.H{"data": equipmentBookingList})
 }
-
 func ListEquipmentBookingList(c *gin.Context) {
-	var equipmentBookingList []entity.EquipmentBookingList
-	if err := entity.DB().Preload("Member").Preload("EquipmentList").Raw("SELECT * FROM equipment_booking_lists").Find(&equipmentBookingList).Error; err != nil {
+	var equipmentBookingList []entity.Notify
+	if err := entity.DB().Preload("Member").Preload("EquipmentName").Preload("RunNumber").Raw("SELECT * FROM equipment_booking_lists ").Find(&equipmentBookingList).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -95,45 +95,45 @@ func DeleteEquipmentBookingList(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": id})
 }
 
-// PATCH /equipmentBookingList
 func UpdateEquipmentBookingList(c *gin.Context) {
 	var equipmentBookingList entity.EquipmentBookingList
-	var newequipmentBookingList entity.EquipmentBookingList
-	if err := c.ShouldBindJSON(&equipmentBookingList); err != nil {
+	var newEquipmentBookingList entity.EquipmentBookingList
+
+	if err := c.ShouldBindJSON(&newEquipmentBookingList); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	if tx := entity.DB().Where("id = ?", equipmentBookingList.ID).First(&equipmentBookingList); tx.RowsAffected == 0 {
+	if tx := entity.DB().Where("id = ?", newEquipmentBookingList.ID).First(&equipmentBookingList); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "equipment_booking_lists not found"})
 		return
 	}
 
 	var member entity.Member
 	var equipmentList entity.EquipmentList
-	var place	entity.Place
+	// var place	entity.Place
 
 	// ค้นหา member ด้วย id
-	if tx := entity.DB().Where("id = ?", newequipmentBookingList.MemberID).First(&member); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "member not found"})
+	if tx := entity.DB().Where("id = ?", newEquipmentBookingList.MemberID).First(&member); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Member not found"})
 		return
 	}
 
 	// ค้นหา equipmentList ด้วย id
-	if tx := entity.DB().Where("id = ?", newequipmentBookingList.EquipmentListID).First(&equipmentList); tx.RowsAffected == 0 {
+	if tx := entity.DB().Where("id = ?", newEquipmentBookingList.EquipmentListID).First(&equipmentList); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Equipment name not found"})
 		return
 	}
 
-	// ค้นหาplace ด้วย id
-	if tx := entity.DB().Where("id = ?", newequipmentBookingList.PlaceID).First(&place); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Place not found"})
-		return
-	}
+	// // ค้นหาplace ด้วย id
+	// if tx := entity.DB().Where("id = ?", newEquipmentBookingList.PlaceID).First(&place); tx.RowsAffected == 0 {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "Place not found"})
+	// 	return
+	// }
 	equipmentBookingList.Member = member
-	equipmentBookingList.Place = place
+	// equipmentBookingList.Place = place
 	equipmentBookingList.EquipmentList = equipmentList
-	equipmentBookingList.DateBooking = newequipmentBookingList.DateBooking
+	equipmentBookingList.DateBooking = newEquipmentBookingList.DateBooking
 
 	if _, err := govalidator.ValidateStruct(equipmentBookingList); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

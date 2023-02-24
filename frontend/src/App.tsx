@@ -38,8 +38,9 @@ import NotifyShowad from './components/Notify/NotifyAdmin';
 import NotifyEdit from './components/Notify/NotifyEdit';
 import NotifyCreate from './components/Notify/NotifyCreate';
 import EquipmentBookingShow from './components/EquipmentMenagement/EquipmentBookingShow';
-import { GetEquipmentBookingList, GetEquipmentListShow } from './services/HttpClientService';
 import EquipmentListShow from './components/EquipmentMenagement/EquipmentListShow';
+import EquipmentListEdit from './components/EquipmentMenagement/EquipmentListEdit';
+import EquipmentBookingEdit from './components/EquipmentMenagement/EquipmentBookingEdit';
 
 
 
@@ -137,6 +138,7 @@ export default function App() {
                     <Route path='/payment_show' element={<PaymentShow />} />
                     <Route path='/equipment_booking' element={<EquipmentBookingListCreate />} />
                     <Route path='/equipment_booking_show' element={<EquipmentBookingShow />} />
+                    <Route path='/equipment_booking_edit' element={<EquipmentBookingEdit />} />
                   </>
                 )
                   }{role === "employee" && (
@@ -151,6 +153,7 @@ export default function App() {
                       <Route path='/schedule_show' element={<ScheduleShow />} />
                       <Route path='/schedule_create' element={<ScheduleCreate />} />
                       <Route path='/equipment_shows' element={<EquipmentListShow />} />
+                      <Route path='/equipment_edit' element={<EquipmentListEdit />} />
                     </>
                   )
                   }{role === "trainer" && (

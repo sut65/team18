@@ -135,16 +135,18 @@ func main() {
 
 	r.GET("/equipmentLists", el.ListEquipmentList)
 	r.GET("/equipmentList/:id", el.GetEquipmentList)
-	r.GET("/equipmentListShow/:id", el.ListEquipmentList)
+	r.GET("/equipmentListShow/:id", el.GetEquipmentListShow)
 	r.POST("/equipmentList", el.CreateEquipmentList)
-	r.DELETE("/equipmentList/:id", el.DeleteEquipmentList)
+	r.PUT("equipmentList", el.UpdateEquipmentList)
+	r.DELETE("/equipmentLists/:id", el.DeleteEquipmentList)
 
 	//Equipment booking
 	r.GET("/equipmentBookingLists", eb.ListEquipmentBookingList)
 	r.GET("/equipmentBookingList/:id", eb.GetEquipmentBookingList)
 	r.GET("/equipmentBookingShow/:id", eb.GetEquipmentBookingShow)
 	r.POST("/equipmentBookingList", eb.CreateEquipmentBookingList)
-	r.DELETE("/equipmentBookingList/:id", eb.DeleteEquipmentBookingList)
+	r.PUT("equipmentBookingList", eb.UpdateEquipmentBookingList)
+	r.DELETE("/equipmentBookingLists/:id", eb.DeleteEquipmentBookingList)
 
 	// News------------------------------
 	r.GET("/newstype", new.ListNewsType)
@@ -192,7 +194,6 @@ func main() {
 	r.PATCH("service", placeInfo.UpdateService)
 	r.DELETE("service/:id", placeInfo.DeleteService)
 
-	
 	r.GET("ocds", placeInfo.ListOpenandClosedays)
 	r.GET("ocd/:id", placeInfo.GetOpenandClosedays)
 	// r.GET("openandcolsedays", placeInfo.ListOpenandClosedays)
