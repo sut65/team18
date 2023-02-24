@@ -363,10 +363,11 @@ function MemberEdit() {
         </ThemeProvider>
 
 
-        <Paper >
+        <Paper sx={{ bgcolor: "#fffde7" }} >
           <ThemeProvider theme={theme}>
-            <Typography sx={{ marginLeft: 40, padding: 1, marginTop: 0 }}
+            <Typography sx={{ marginLeft: 40, padding: 1, marginTop: 0, }}
               component="h2" variant="h4" color="primary"
+              fontFamily= 'Prompt'
               gutterBottom
             >
               ข้อมูลสมาชิก
@@ -374,37 +375,34 @@ function MemberEdit() {
           </ThemeProvider>
           <Divider />
 
-          <Grid item xs={4}>
-            <Grid container spacing={1}  >
-              <Grid item xs={12} >
 
-                <Grid item xs={6} sx={{ padding: 2, marginTop: 0, }} >
-                  <p>ชื่อ-นามสกุล</p>
 
-                  <FormControl fullWidth variant="outlined" >
+          <Grid item xs={6} sx={{ padding: 2, marginTop: 0, }} >
+            <p>ชื่อ-นามสกุล</p>
 
-                    <TextField
+            <FormControl fullWidth variant="outlined" >
 
-                      id="Name"
+              <TextField
 
-                      variant="outlined"
+                id="Name"
 
-                      type="string"
+                variant="outlined"
 
-                      size="medium"
+                type="string"
 
-                      value={user?.Name || ""}
+                size="medium"
 
-                      onChange={handleInputChange}
-                    />
-                  </FormControl>
-                </Grid>
-              </Grid>
-            </Grid>
+                value={user?.Name || ""}
+
+                onChange={handleInputChange}
+              />
+            </FormControl>
           </Grid>
 
+
           {/* อีเมล */}
-          <Grid item xs={6} sx={{ padding: 2, marginTop: -3 }}>
+          <Grid container spacing={3} sx={{ padding: 2, marginTop: -7, }} item xs={12}>
+          <Grid item xs={6} sx={{ padding: 2 }}>
 
             <p>Email</p>
 
@@ -434,7 +432,7 @@ function MemberEdit() {
 
 
           {/* password */}
-          <Grid item xs={6} sx={{ padding: 2, marginTop: -3, }}>
+          <Grid item xs={6} sx={{ padding: 2 }}>
 
             <p>Password</p>
 
@@ -458,6 +456,7 @@ function MemberEdit() {
 
             </FormControl>
 
+          </Grid>
           </Grid>
 
           <Grid container spacing={3} sx={{ padding: 2, marginTop: -7, }}>
@@ -601,7 +600,7 @@ function MemberEdit() {
               <ThemeProvider theme={theme}>
                 <Button component={RouterLink} to="/member_show" variant="contained" color="primary"
                 >
-                  <Typography color="secondary">
+                  <Typography color="secondary" fontFamily= 'Prompt'>
 
                     ย้อนกลับ
 
@@ -624,7 +623,7 @@ function MemberEdit() {
                     color="primary"
 
                   >
-                    <Typography color="secondary">
+                    <Typography color="secondary" fontFamily= 'Prompt'>
 
                       ยืนยันการแก้ไข
 
@@ -634,7 +633,7 @@ function MemberEdit() {
 
 
                   <Button endIcon={<DeleteIcon color="secondary" />} variant="contained" color="primary" onClick={setAl} style={{ float: "right" }}>
-                    <Typography color="secondary">
+                    <Typography color="secondary" fontFamily= 'Prompt'>
                       ยกเลิกการเป็นสมาชิก
                     </Typography>
                   </Button>

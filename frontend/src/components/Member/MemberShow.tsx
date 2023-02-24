@@ -104,6 +104,8 @@ function MemberShow() {
 
                 color="primary"
 
+                fontFamily= 'Prompt'
+
                 gutterBottom
 
                 align="center"

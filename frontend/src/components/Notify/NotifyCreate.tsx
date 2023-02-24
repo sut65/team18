@@ -252,7 +252,7 @@ function NotifyCreate() {
 
 
 
-                <Paper>
+                <Paper sx={{ bgcolor: "#fffde7" }}>
                     <ThemeProvider theme={theme}>
                         <Typography sx={{ marginLeft: 0, padding: 1, marginTop: 0, }}
 
@@ -261,6 +261,7 @@ function NotifyCreate() {
                             variant="h4"
 
                             color="primary"
+                            fontFamily= 'Prompt'
 
                             gutterBottom
 
@@ -420,7 +421,7 @@ function NotifyCreate() {
                     <Grid item xs={12}>
                         <ThemeProvider theme={theme}>
                             <Button component={RouterLink} to="/notify_show" variant="contained" color="primary">
-                                <Typography color="secondary">
+                                <Typography color="secondary" fontFamily= 'Prompt'>
 
                                     ย้อนกลับ
 
@@ -440,7 +441,7 @@ function NotifyCreate() {
                                 color="primary"
 
                             >
-                                <Typography color="secondary">
+                                <Typography color="secondary" fontFamily= 'Prompt'>
 
                                     บันทึกข้อมูล
 

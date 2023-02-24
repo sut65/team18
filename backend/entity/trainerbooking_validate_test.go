@@ -48,7 +48,7 @@ func TestTraintime(t *testing.T) {
 
 	
 	trblist := TrainerBookingList{
-		Training_Time: time.Now().Add(-2 * time.Hour),
+		Training_Time: time.Now(),
 	}
 
 	// ตรวจสอบด้วย govalidator

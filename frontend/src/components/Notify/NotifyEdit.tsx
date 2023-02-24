@@ -335,7 +335,7 @@ function NotifyEdit() {
 
 
 
-                <Paper sx={{ marginLeft: 0, padding: 1, marginTop:-1 }}>
+                <Paper sx={{ marginLeft: 0, padding: 1, marginTop:-1, bgcolor: "#fffde7" }}>
                     <ThemeProvider theme={theme}>
                         <Typography sx={{ marginLeft: 0, padding: 1, marginTop: 0 }}
 
@@ -344,6 +344,8 @@ function NotifyEdit() {
                             variant="h4"
 
                             color="primary"
+
+                            fontFamily= 'Prompt'
 
                             gutterBottom
 
@@ -531,7 +533,7 @@ function NotifyEdit() {
                             <ThemeProvider theme={theme}>
                                 <Button component={RouterLink} to="/notify_show" variant="contained" color="primary"
                                  sx={{ marginTop: 0 }}>
-                                    <Typography color="secondary">
+                                    <Typography color="secondary" fontFamily= 'Prompt'>
 
                                         ย้อนกลับ
 
@@ -544,7 +546,7 @@ function NotifyEdit() {
                                     <Button style={{ float: "right" }} onClick={submit} variant="contained" color="primary"
 
                                     >
-                                        <Typography color="secondary">
+                                        <Typography color="secondary" fontFamily= 'Prompt'>
 
                                             ยืนยันการแก้ไข
 
@@ -552,7 +554,7 @@ function NotifyEdit() {
                                     </Button>
 
                                     <Button endIcon={<DeleteIcon color="secondary" />} variant="contained" color="primary" onClick={setAlDelete} style={{ float: "right" }}>
-                                        <Typography color="secondary">
+                                        <Typography color="secondary" fontFamily= 'Prompt'>
                                             ยกเลิกการแจ้งชำรุด
                                         </Typography>
 

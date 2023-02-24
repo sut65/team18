@@ -105,6 +105,8 @@ function NotifyShowad() {
 
                                 color="primary"
                                 
+                                fontFamily= 'Prompt'
+                                
 
                                 gutterBottom
 

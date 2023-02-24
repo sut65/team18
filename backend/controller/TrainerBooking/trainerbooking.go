@@ -48,6 +48,12 @@ func CreateTrainerBookingList(c *gin.Context) {
 		ExerciseProgramList: explist,       // โยงความสัมพันธ์กับ Entity ExerciseProgramList
 		Training_Time:   trblist.Training_Time, // ตั้งค่าฟิลด์ Training Time
 	}
+	if _, err := govalidator.ValidateStruct(&trblist); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
 
 	// 13: บันทึก
 	if err := entity.DB().Create(&list).Error; err != nil {

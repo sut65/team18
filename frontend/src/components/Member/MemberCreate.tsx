@@ -264,6 +264,8 @@ function MemberCreate() {
 
             align="center"
 
+            fontFamily= 'Prompt'
+
             gutterBottom
 
           >
@@ -514,7 +516,7 @@ function MemberCreate() {
             <Grid item xs={12}>
               <ThemeProvider theme={theme}>
                 <Button component={RouterLink} to="/" variant="contained" color="primary">
-                  <Typography color="secondary">
+                  <Typography color="secondary" fontFamily= 'Prompt'>
 
                     Back
 
@@ -534,7 +536,7 @@ function MemberCreate() {
                   color="primary"
 
                 >
-                  <Typography color="secondary">
+                  <Typography color="secondary" fontFamily= 'Prompt'>
 
                     Submit
 

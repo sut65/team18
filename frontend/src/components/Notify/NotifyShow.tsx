@@ -85,6 +85,7 @@ function NotifyShow() {
                                 component="h2"
                                 variant="h4"
                                 color="primary"
+                                fontFamily= 'Prompt'
                                 gutterBottom
                             >
 
@@ -105,6 +106,7 @@ function NotifyShow() {
                                         color="primary"
                                         variant="h6"
                                         component="div"
+                                        fontFamily= 'Prompt'
                                         sx={{ flexGrow: 1 }}
                                     >
                                         แก้ไขข้อมูลที่เคยแจ้ง
@@ -119,6 +121,7 @@ function NotifyShow() {
                                         color="primary"
                                         variant="h6"
                                         component="div"
+                                        fontFamily= 'Prompt'
                                         sx={{ flexGrow: 1 }}
                                     >
                                         แจ้งอุปกรณ์ที่ชำรุด
