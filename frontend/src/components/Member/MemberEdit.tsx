@@ -367,6 +367,7 @@ function MemberEdit() {
           <ThemeProvider theme={theme}>
             <Typography sx={{ marginLeft: 40, padding: 1, marginTop: 0, }}
               component="h2" variant="h4" color="primary"
+              fontFamily= 'Prompt'
               gutterBottom
             >
               ข้อมูลสมาชิก
@@ -599,7 +600,7 @@ function MemberEdit() {
               <ThemeProvider theme={theme}>
                 <Button component={RouterLink} to="/member_show" variant="contained" color="primary"
                 >
-                  <Typography color="secondary">
+                  <Typography color="secondary" fontFamily= 'Prompt'>
 
                     ย้อนกลับ
 
@@ -622,7 +623,7 @@ function MemberEdit() {
                     color="primary"
 
                   >
-                    <Typography color="secondary">
+                    <Typography color="secondary" fontFamily= 'Prompt'>
 
                       ยืนยันการแก้ไข
 
@@ -632,7 +633,7 @@ function MemberEdit() {
 
 
                   <Button endIcon={<DeleteIcon color="secondary" />} variant="contained" color="primary" onClick={setAl} style={{ float: "right" }}>
-                    <Typography color="secondary">
+                    <Typography color="secondary" fontFamily= 'Prompt'>
                       ยกเลิกการเป็นสมาชิก
                     </Typography>
                   </Button>
