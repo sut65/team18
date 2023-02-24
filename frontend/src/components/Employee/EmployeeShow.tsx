@@ -1,30 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { EmployeeInterface } from "../../models/IEmployee";
+import moment from "moment";
+import { format } from "date-fns";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
-import { Link as RouterLink } from "react-router-dom";
-
+import { spacing } from "@mui/system";
 import Table from "@mui/material/Table";
+import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
+import { Grid, Stack } from "@mui/material";
+import TableRow from "@mui/material/TableRow";
+import Container from "@mui/material/Container";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { format } from "date-fns";
-import moment from "moment";
-
-//import { GetEmployee } from "../../services/HttpClientService";
-import { Grid , Stack} from "@mui/material";
-import { spacing } from "@mui/system";
+import Typography from "@mui/material/Typography";
+import { Link as RouterLink } from "react-router-dom";
+import TableContainer from "@mui/material/TableContainer";
+import { EmployeeInterface } from "../../models/IEmployee";
 
 function EmployeeShow() {
-  //const classes = useStyles();
-  //const [foodSicknesses, setFoodSicknesses] = useState<FoodSicknessInterface[]>([]);
   const [employees, setEmployees] = React.useState<EmployeeInterface[]>([]);
-  
+
   const apiUrl = "http://localhost:8080";
   const requestOptions = {
     method: "GET",
@@ -34,9 +29,7 @@ function EmployeeShow() {
     },
   };
 
-
-
-  //get from list 
+  //get from list
   const getEmployees = async () => {
     fetch(`${apiUrl}/employees`, requestOptions)
       .then((response) => response.json())
@@ -47,7 +40,6 @@ function EmployeeShow() {
         } else {
           console.log("else");
         }
-        
       });
   };
 
@@ -74,27 +66,26 @@ function EmployeeShow() {
               ข้อมูลพนักงาน
             </Typography>
           </Box>
-  
-          
-          <Box margin={2} sx={{padding: '2'}}>
-          <Stack direction="row-reverse" spacing={2}>
-            <Button
-              component={RouterLink}
-              to="/employee_edit"
-              variant="contained"
-              color="primary"
-            >
-              แก้ไขข้อมูลพนักงาน
-            </Button>
-            <Button
-              component={RouterLink}
-              to="/employee_create"
-              variant="contained"
-              color="primary"
-            >
-              บันทึกข้อมูลพนักงาน
-            </Button>
-          </Stack>
+
+          <Box margin={2} sx={{ padding: "2" }}>
+            <Stack direction="row-reverse" spacing={2}>
+              <Button
+                component={RouterLink}
+                to="/employee_edit"
+                variant="contained"
+                color="primary"
+              >
+                แก้ไขข้อมูลพนักงาน
+              </Button>
+              <Button
+                component={RouterLink}
+                to="/employee_create"
+                variant="contained"
+                color="primary"
+              >
+                บันทึกข้อมูลพนักงาน
+              </Button>
+            </Stack>
           </Box>
         </Box>
 
@@ -137,9 +128,13 @@ function EmployeeShow() {
                   <TableCell align="center">{employee.Email}</TableCell>
                   <TableCell align="center">{employee.Gender?.Gtype}</TableCell>
                   <TableCell align="center">{employee.Role?.Name}</TableCell>
-                  <TableCell align="center">{employee.Education?.Education}</TableCell>
+                  <TableCell align="center">
+                    {employee.Education?.Education}
+                  </TableCell>
                   {/* <TableCell align="center">{format(new Date(employee.DOB), "dd MMMM yyyy ")}</TableCell> */}
-                  <TableCell align="center">{moment(employee.DOB).format("DD/MM/YYYY")}</TableCell>
+                  <TableCell align="center">
+                    {moment(employee.DOB).format("DD/MM/YYYY")}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

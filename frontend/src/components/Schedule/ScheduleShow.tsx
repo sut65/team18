@@ -23,7 +23,6 @@ import { GetSchedule } from "../../services/HttpClientService";
 import { ListEmployeeID } from "../../services/HttpClientService";
 
 function ScheduleShow() {
-  //const [employee, setEmployee] = React.useState<EmployeeInterface>({});
   const [schedules, setSchedules] = React.useState<ScheduleInterface[]>([]);
 
   //get from list
@@ -36,16 +35,6 @@ function ScheduleShow() {
         "Content-Type": "application/json",
       },
     };
-
-    // fetch(`${apiUrl}/schedules`, requestOptions)
-    //   .then((response) => response.json())
-    //   .then((res) => {
-    //     if (res.data) {
-    //       //console.log(res.data);
-    //       setSchedules(res.data);
-    //     }
-    //   });
-
     fetch(apiUrl, requestOptions)
       .then((response) => response.json()) //เรียกได้จะให้แสดงเป็น json ซึ่ง json คือ API
       .then((res) => {

@@ -159,7 +159,6 @@ function ScheduleCreate() {
       EmployeeID: employee?.ID,
 
       RoleID: employee?.RoleID,
-      // RoleID: typeof schedule.RoleID === "string" ? parseInt(schedule.RoleID) : 0,
       
       // DutyID: schedule.DutyID,
       DutyID: typeof schedule.DutyID === "string" ? parseInt(schedule.DutyID) : 0,

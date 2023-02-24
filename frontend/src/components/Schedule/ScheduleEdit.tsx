@@ -234,32 +234,22 @@ function ScheduleEdit() {
 
       EmployeeID: employee?.ID,
       RoleID: employee?.RoleID,
-      // RoleID: typeof schedule.RoleID === "string" ? parseInt(schedule.RoleID) : 0,
-
-      // DutyID: newSchedule.DutyID,
       DutyID:
         typeof newSchedule.DutyID === "string"
           ? parseInt(newSchedule.DutyID)
           : newSchedule.DutyID,
-
-      // OcdID: newSchedule.OcdID,
       OcdID:
         typeof newSchedule.OcdID === "string"
           ? parseInt(newSchedule.OcdID)
           : newSchedule.OcdID,
-
-      // TimeID: newSchedule.TimeID,
       TimeID:
         typeof newSchedule.TimeID === "string"
           ? parseInt(newSchedule.TimeID)
           : newSchedule.TimeID,
-
-      // PlaceID: newSchedule.PlaceID,
       PlaceID:
         typeof newSchedule.PlaceID === "string"
           ? parseInt(newSchedule.PlaceID)
           : newSchedule.PlaceID,
-
       Detail: newSchedule.Detail,
       Record_Time: date,
     };
@@ -351,7 +341,7 @@ function ScheduleEdit() {
             <p>ชื่อ</p>
             <FormControl fullWidth variant="outlined">
               <Select
-                //disabled
+                disabled
                 native
                 value={newSchedule.EmployeeID + ""}
                 onChange={handleChange}

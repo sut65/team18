@@ -33,21 +33,14 @@ import {
 
 //--------------ระบบพนักงาน ------------------------------
 function EmployeeCreate() {
-  // const classes = makeStyles();
   const [error, setError] = React.useState(false);
   const [date, setDate] = useState<Date | null>(null); //วันเกิด
-  const [message, setAlertMessage] = React.useState("");
   const [success, setSuccess] = React.useState(false);
-
-  //const [name, setName] = useState("");
+  const [message, setAlertMessage] = React.useState("");
   const [role, setRole] = React.useState<RoleInterface[]>([]);
   const [gender, setGender] = React.useState<GenderInterface[]>([]);
   const [education, setEducation] = React.useState<EducationInterface[]>([]);
-  const [employee, setEmployee] = React.useState<Partial<EmployeeInterface>>({
-    // GenderID:0,
-    // EducationID:0,
-    // RoleID:0,
-  });
+  const [employee, setEmployee] = React.useState<Partial<EmployeeInterface>>({});
 
   //--------- รับค่า --------
   const getGender = async () => {
@@ -149,8 +142,8 @@ function EmployeeCreate() {
     if (res.status) {
       setAlertMessage("บันทึกข้อมูลสำเร็จ");
       setSuccess(true);
-      //await timeout(5000); //for 5 sec delay
-      //window.location.href = "/employee_show"; //เด้งไปหน้าโชว์
+      await timeout(5000); //for 5 sec delay
+      window.location.href = "/employee_show"; //เด้งไปหน้าโชว์
     } else {
       setAlertMessage(res.message);
       setError(true);

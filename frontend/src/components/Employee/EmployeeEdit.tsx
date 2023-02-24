@@ -30,7 +30,6 @@ import {
   GetGender,
   GetEmployee,
   GetEducation,
-
   GetEmployeeID,
   ListEmployeeID,
   CreateEmployee,
@@ -51,7 +50,9 @@ function EmployeeEdit() {
 
   const [user, setUser] = React.useState<Partial<EmployeeInterface>>({});
   const [employee, setEmployee] = React.useState<EmployeeInterface[]>([]);
-  const [employee_Id, setEmployeeID] = React.useState<Partial<EmployeeInterface>>({});
+  const [employee_Id, setEmployeeID] = React.useState<
+    Partial<EmployeeInterface>
+  >({});
 
   // --------------------------------------------ลบข้อมูล------------------------------------------------
   async function DeleteEmployee() {
@@ -83,7 +84,6 @@ function EmployeeEdit() {
     return res;
   }
 
-  
   //-------------------------------------------- รับค่า --------------------------------------------------------
   const getGender = async () => {
     let res = await GetGender();
@@ -91,14 +91,14 @@ function EmployeeEdit() {
       setGender(res);
     }
   };
-  
+
   const getEducation = async () => {
     let res = await GetEducation();
     if (res) {
       setEducation(res);
     }
   };
-  
+
   const getRole = async () => {
     let res = await GetRole();
     if (res) {
@@ -224,25 +224,6 @@ function EmployeeEdit() {
       setError(true);
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   return (
     <Container maxWidth="md">
@@ -478,33 +459,32 @@ function EmployeeEdit() {
             </Button>
           </Grid>
           <Grid item xs={5} margin={2} spacing={1}>
-          <Stack direction="row-reverse" spacing={2}>
-            <Button
-              variant="contained"
-              color="success"
-              size="large"
-              onClick={submit}
-              style={{ float: "right", height: "42px", width: "95px" }}
-            >
-              Edit
-            </Button>
-            <Button
-              variant="contained"
-              color="error"
-              size="large"
-              onClick={DeleteEmployee}
-              style={{
-                float: "right",
-                height: "42px",
-                width: "95px",
-                padding: 1,
-              }}
-            >
-              Delete
-            </Button>
+            <Stack direction="row-reverse" spacing={2}>
+              <Button
+                variant="contained"
+                color="success"
+                size="large"
+                onClick={submit}
+                style={{ float: "right", height: "42px", width: "95px" }}
+              >
+                Edit
+              </Button>
+              <Button
+                variant="contained"
+                color="error"
+                size="large"
+                onClick={DeleteEmployee}
+                style={{
+                  float: "right",
+                  height: "42px",
+                  width: "95px",
+                  padding: 1,
+                }}
+              >
+                Delete
+              </Button>
             </Stack>
           </Grid>
-          
         </Grid>
       </Paper>
     </Container>
