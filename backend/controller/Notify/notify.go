@@ -156,11 +156,6 @@ func UpdateNotify(c *gin.Context) {
 	notify.EquipmentName = equipmentname
 	notify.RunNumber = runnumber
 
-	// ขั้นตอนการ validate
-	if _, err := govalidator.ValidateStruct(notify); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
 
 	if err := entity.DB().Save(&notify).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
