@@ -27,7 +27,7 @@ func CreateOpenandClosetime(c *gin.Context) {
 func GetOpenandClosetime(c *gin.Context) {
 	var oct entity.Oct
 	id := c.Param("id")
-	if err := entity.DB().Raw("SELECT * FROM openandclosetime WHERE id = ?", id).Scan(&oct).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM octs WHERE id = ?", id).Scan(&oct).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -38,7 +38,7 @@ func GetOpenandClosetime(c *gin.Context) {
 // List /openandclosetime
 func ListOpenandClosetime(c *gin.Context) {
 	var oct []entity.Oct
-	if err := entity.DB().Raw("SELECT * FROM openandclosetime").Scan(&oct).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM octs").Scan(&oct).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -49,7 +49,7 @@ func ListOpenandClosetime(c *gin.Context) {
 // DELETE /openandclosetime/:id
 func DeleteOpenandClosetime(c *gin.Context) {
 	id := c.Param("id")
-	if tx := entity.DB().Exec("DELETE FROM openandclosetime WHERE id = ?", id); tx.RowsAffected == 0 {
+	if tx := entity.DB().Exec("DELETE FROM octs WHERE id = ?", id); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "openandclosetime not found"})
 		return
 	}
