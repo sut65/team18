@@ -233,8 +233,9 @@ func main() {
 	r.PUT("/notifys", notify.UpdateNotify)
 
 	//traniner booking
-	r.GET("/trainerBooking", trainerBooking.ListTrBList)
+	r.GET("/trainerBookings", trainerBooking.ListTrBList)
 	r.GET("/trainerBooking/:id", trainerBooking.GetTrBList)
+	r.GET("/trainerBookingmid/:id", trainerBooking.GetTrBListByMem)
 	r.POST("/trainerBooking", trainerBooking.CreateTrainerBookingList)
 	r.DELETE("/trainerBooking/:id", trainerBooking.DeleteTrBList)
 	r.PATCH("/trainerBooking", trainerBooking.UpdateTrBList)
