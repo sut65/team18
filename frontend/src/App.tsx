@@ -42,6 +42,7 @@ import EquipmentListShow from './components/EquipmentMenagement/EquipmentListSho
 import EquipmentListEdit from './components/EquipmentMenagement/EquipmentListEdit';
 import EquipmentBookingEdit from './components/EquipmentMenagement/EquipmentBookingEdit';
 import News from './components/News/News';
+import ProgramUpdate from './components/ExerciseProgram/ProgramUpdate';
 
 
 
@@ -166,8 +167,9 @@ export default function App() {
                   }{role === "trainer" && (
                     <>
                       <Route path="/login" element={<Home role={role} />} />
-                      <Route path='/program_create' element={<ProgramCreate />} />
-                      <Route path='/program_show' element={<ProgramShow />} />
+                      <Route path='/program' element={<ProgramShow />} />
+                      <Route path='/program/program_create' element={<ProgramCreate />} />
+                      <Route path='/program/program_edit' element={<ProgramUpdate />} />
                       <Route path='/schedule_edit' element={<ScheduleEdit />} />
                       <Route path='/schedule_show' element={<ScheduleShow />} />
                       <Route path='/schedule_create' element={<ScheduleCreate />} />
