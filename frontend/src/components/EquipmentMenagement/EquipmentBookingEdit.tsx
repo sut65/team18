@@ -172,7 +172,7 @@ function EquipmentBookingEdit() {
 
 
                 EquipmentListID: res.ID,
-                PlcaeID: res.ID,
+                PlaceID: res.PlaceID,
                 DateBooking: new Date(),
 
             };
@@ -371,7 +371,7 @@ function EquipmentBookingEdit() {
                                     value={equipmentBookingList.PlaceID}
                                     onChange={handleChange}
                                     inputProps={{
-                                        name: "EquipmentListID",
+                                        name: "PlaceID",
                                     }}
 
                                 >
