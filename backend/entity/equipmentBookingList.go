@@ -19,15 +19,12 @@ type EquipmentBookingList struct {
 	MemberID *uint
 	Member   Member `gorm:"references:id" valid:"-"`
 
-	DateBooking time.Time	`valid:"notNow~DateBooking must not be in the now,notPast30min~DateBooking must not be in the past"`
+	DateBooking time.Time	`valid:"notPastBooking~Date booking must not be in the past"`
 }
 func init() {
-	govalidator.CustomTypeTagMap.Set("notPast30min", func(i interface{}, context interface{}) bool {
+
+	govalidator.CustomTypeTagMap.Set("notPastBooking", func(i interface{}, context interface{}) bool {
 		t := i.(time.Time)
-		return t.After(time.Now().Add(time.Minute * -30))
-	})
-	govalidator.CustomTypeTagMap.Set("notNow", func(i interface{}, context interface{}) bool {
-		t := i.(time.Time)
-		return t.Equal(time.Now())
+		return t.After(time.Now().Add(time.Minute * -1000))
 	})
 }

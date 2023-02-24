@@ -8,32 +8,32 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-func TestDateBookingTimeNotPast(t *testing.T) {
+func TestEquipmentBooking(t *testing.T) {
 	g := NewGomegaWithT(t)
-	EquipmentBookingList := EquipmentBookingList{
 
-		DateBooking: time.Now().AddDate(0,-1,0),
-
+	equipmentBookingList := EquipmentBookingList{
+		DateBooking: time.Now().AddDate(0, 0, 1),
 	}
-	ok, err := govalidator.ValidateStruct(EquipmentBookingList)
+	// ตรวจสอบด้วย govalidator
+	ok, err := govalidator.ValidateStruct(equipmentBookingList)
+	//ok = nil
+	// err = true
 
-	g.Expect(ok).ToNot(BeTrue())
+	// ok ต้องไม่เป็นค่า true แปลว่าต้องจับ error ได้
+	g.Expect(ok).To(BeTrue())
 
-	// err ต้องไม่เป็น nil แปลว่าต้องจับ error ได้
-	g.Expect(err).ToNot(BeNil())
+	// err.Error ต้องมี error message แสดงออกมา
+	g.Expect(err).To(BeNil())
 
-	// err.Error() ต้องมี message แสดงออกมา
-	g.Expect(err.Error()).To(Equal("DateBooking must not be in the now;DateBooking must not be in the past"))
 }
 
-func TestDateBookingTimeNotNow(t *testing.T) {
+func TestDateBookinTimeNotPast(t *testing.T) {
 	g := NewGomegaWithT(t)
-	EquipmentBookingList := EquipmentBookingList{
+	equipmentBookingList := EquipmentBookingList{
 
-		DateBooking: time.Now(),
-
+		DateBooking: time.Now().AddDate(0, 0, -1),
 	}
-	ok, err := govalidator.ValidateStruct(EquipmentBookingList)
+	ok, err := govalidator.ValidateStruct(equipmentBookingList)
 
 	g.Expect(ok).ToNot(BeTrue())
 
@@ -41,5 +41,5 @@ func TestDateBookingTimeNotNow(t *testing.T) {
 	g.Expect(err).ToNot(BeNil())
 
 	// err.Error() ต้องมี message แสดงออกมา
-	g.Expect(err.Error()).To(Equal("DateBooking must not be in the now"))
+	g.Expect(err.Error()).To(Equal("Date booking must not be in the past"))
 }

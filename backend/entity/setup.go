@@ -848,7 +848,7 @@ func SetupDatabase() {
 		Member:        Somchai,
 		EquipmentList: EquipmentList1,
 		Place:      	place,
-		DateBooking: 	time.Now(),
+		DateBooking: 	time.Now().AddDate(0,1,0),
 	}
 	db.Model(&EquipmentBookingList{}).Create(&EquipmentBooking1)
 
@@ -856,7 +856,7 @@ func SetupDatabase() {
 		Member:        Baifern,
 		EquipmentList: EquipmentList2,
 		Place:      	place6,
-		DateBooking: 	time.Now(),
+		DateBooking: 	time.Now().AddDate(0,1,0),
 	}
 	db.Model(&EquipmentBookingList{}).Create(&EquipmentBooking2)
 

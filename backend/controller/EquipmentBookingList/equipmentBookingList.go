@@ -11,7 +11,7 @@ import (
 
 // POST /equipmentBookingList
 func CreateEquipmentBookingList(c *gin.Context) {
-	// var place entity.Place
+	var locate entity.Place
 	var equipmentList entity.EquipmentList
 	var member entity.Member
 	var equipmentBookingList entity.EquipmentBookingList
@@ -29,16 +29,21 @@ func CreateEquipmentBookingList(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Member not found"})
 		return
 	}
-	// if tx := entity.DB().Where("id = ?", equipmentBookingList.PlaceID).First(&place); tx.RowsAffected == 0 {
-	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "Place not found"})
-	// 	return
-	// }
+	if tx := entity.DB().Where("id = ?", equipmentBookingList.PlaceID).First(&locate); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "locate not found"})
+		return
+	}
 	// สร้าง ตารางequipmentList
 	eb := entity.EquipmentBookingList{
 		EquipmentList: equipmentList,
-		// Place:      place,
+		Place:      locate,
 		Member:        member,
 		DateBooking: equipmentBookingList.DateBooking,
+	}
+	
+	if _, err := govalidator.ValidateStruct(eb); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 	if err := entity.DB().Create(&eb).Error; err != nil {
 
@@ -75,7 +80,7 @@ func GetEquipmentBookingShow(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": equipmentBookingList})
 }
 func ListEquipmentBookingList(c *gin.Context) {
-	var equipmentBookingList []entity.Notify
+	var equipmentBookingList []entity.EquipmentBookingList
 	if err := entity.DB().Preload("Member").Preload("EquipmentName").Preload("RunNumber").Raw("SELECT * FROM equipment_booking_lists ").Find(&equipmentBookingList).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -111,7 +116,7 @@ func UpdateEquipmentBookingList(c *gin.Context) {
 
 	var member entity.Member
 	var equipmentList entity.EquipmentList
-	// var place	entity.Place
+	var locate	entity.Place
 
 	// ค้นหา member ด้วย id
 	if tx := entity.DB().Where("id = ?", newEquipmentBookingList.MemberID).First(&member); tx.RowsAffected == 0 {
@@ -126,12 +131,12 @@ func UpdateEquipmentBookingList(c *gin.Context) {
 	}
 
 	// // ค้นหาplace ด้วย id
-	// if tx := entity.DB().Where("id = ?", newEquipmentBookingList.PlaceID).First(&place); tx.RowsAffected == 0 {
-	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "Place not found"})
-	// 	return
-	// }
+	if tx := entity.DB().Where("id = ?", newEquipmentBookingList.PlaceID).First(&locate); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Locate not found"})
+		return
+	}
 	equipmentBookingList.Member = member
-	// equipmentBookingList.Place = place
+	equipmentBookingList.Place = locate
 	equipmentBookingList.EquipmentList = equipmentList
 	equipmentBookingList.DateBooking = newEquipmentBookingList.DateBooking
 

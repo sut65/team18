@@ -36,7 +36,7 @@ type EquipmentList struct {
 
 	RunNumberID *uint
 	RunNumber   RunNumber	`gorm:"references:id" valid:"-"`
-	DateTime	time.Time	`valid:"notFuture30min~DateTime must not be in the future,notPast30min~DateTime must not be in the past"`
+	DateTime	time.Time	`valid:"notFuture30min~DateTime must not be in the future,notPast100min~DateTime must not be in the past"`
 
 	EquipmentBookingList []EquipmentBookingList `gorm:"foreignKey:EquipmentListID"`
 	
@@ -47,9 +47,10 @@ func init() {
 		return t.Before(time.Now().Add(time.Minute * 30))
 	})
 
-	govalidator.CustomTypeTagMap.Set("notPast30min", func(i interface{}, context interface{}) bool {
+	govalidator.CustomTypeTagMap.Set("notPast100min", func(i interface{}, context interface{}) bool {
 		t := i.(time.Time)
-		return t.After(time.Now().Add(time.Minute * -30))
+		return t.After(time.Now().Add(time.Minute * -1000))
 	})
+
 }
 

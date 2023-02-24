@@ -24,6 +24,8 @@ import {
     CreateEquipmentBookingList,
     GetEquipmentList,
   }from "../../services/EquipmentHttpClientService";
+import { PlaceInterface } from "../../models/IPlace";
+import { GetPlace } from "../../services/HttpClientService";
 
   const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
@@ -35,10 +37,12 @@ import {
 function EquipmentBookingListCreate() {
   const [equipmentBookingList, setEquipmentBookingList] = React.useState<Partial<EquipmentBookingListInterface>>({
     EquipmentListID:0,
-    MemberID:0
+    MemberID:0,
+    PlaceID:0
   
   });
   const [equipmentList, setEquipmentList] = useState<EquipmentListInterface[]>([]);
+  const [place, setPlace] = useState<PlaceInterface[]>([]);
   const [member, setMember] = React.useState<MemberInterface>();
   const [memberName, setmemberName] = React.useState<Partial<MemberInterface>>({ Name: "" });
   const [DateBooking, setDateBooking] = React.useState<Date | null>(null);
@@ -50,6 +54,13 @@ function EquipmentBookingListCreate() {
     let res = await GetEquipmentList();
     if (res) {
       setEquipmentList(res);
+    }
+  };
+
+  const getPlace = async () => {
+    let res = await GetPlace();
+    if (res) {
+      setPlace(res);
     }
   };
     
@@ -69,6 +80,7 @@ function EquipmentBookingListCreate() {
     }
     getEquipmentList();
     getMember();
+    getPlace();
   }, []);
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -90,20 +102,10 @@ function EquipmentBookingListCreate() {
     setError(false);
     };
 
-    const handleInputChange = (
-
-      event: React.ChangeEvent<{ id?: string; value: any }>
-  
-    ) => {
-      const id = event.target.id as keyof typeof EquipmentBookingListCreate;
-      const { value } = event.target;
-      setEquipmentBookingList({ ...equipmentBookingList, [id]: value });
-    };
-  
-  
   async function submit() {
     let data = {
       EquipmentListID:typeof  equipmentBookingList.EquipmentListID === "string" ? parseInt(equipmentBookingList.EquipmentListID) : 0,
+      PlaceID:typeof  equipmentBookingList.PlaceID === "string" ? parseInt(equipmentBookingList.PlaceID) : 0,
       MemberID: memberName?.ID,
       DateBooking: DateBooking,
     };
@@ -161,7 +163,7 @@ function EquipmentBookingListCreate() {
         <Grid container spacing={3} sx={{ padding: 2 }}>
           <Grid item xs={6}>
             <FormControl fullWidth variant="outlined">
-              <p>Equipment name</p>
+              <p>อุปกรณ์ที่ต้องการจอง</p>
               <Select
                 native
                 value={equipmentBookingList.EquipmentListID + ""}
@@ -176,6 +178,28 @@ function EquipmentBookingListCreate() {
                 {equipmentList.map((item: EquipmentListInterface) => (
                   <option value={item.ID} key={item.ID}>
                     {item.Detail}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={6}>
+            <FormControl fullWidth variant="outlined">
+              <p>สถานที่รับอุปกรณ์</p>
+              <Select
+                native
+                value={equipmentBookingList.PlaceID + ""}
+                onChange={handleChange}
+                inputProps={{
+                  name: "PlaceID",
+                }}
+              >
+                <option aria-label="None" value="">
+                  Name
+                </option>
+                {place.map((item: PlaceInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.Locate}
                   </option>
                 ))}
               </Select>
