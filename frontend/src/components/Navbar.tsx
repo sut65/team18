@@ -150,7 +150,7 @@ function Navbar() {
   ]
   const menutrainer = [
     { name: "หน้าแรก", icon: <HomeIcon />, path: "/login" },
-    { name: "โปรแกรมออกกำลังกาย", icon: <FitbitIcon />, path: "/program_show", },
+    { name: "โปรแกรมออกกำลังกาย", icon: <FitbitIcon />, path: "/program", },
     { name: "บันทึกตารางงานพนักงาน", icon: <EventNoteIcon />, path: "/schedule_create", },
   ]
 

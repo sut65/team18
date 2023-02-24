@@ -1,9 +1,6 @@
 import { MemberInterface } from "../models/IMember";
 import { EmployeeInterface } from "../models/IEmployee";
 import { ScheduleInterface } from "../models/Schedule/ISchedule";
-import { ExerciseProgramInterface } from "../models/ExerciseProgram/IExerciseProgram";
-import { EquipmentBookingListInterface } from "../models/EquipmentBooking/IEquipmentBookingList";
-import { EquipmentListInterface } from "../models/EquipmentList/IEquipmentList";
 
 const apiUrl = "http://localhost:8080";
 
@@ -515,96 +512,6 @@ async function UpdateSchedule(data: ScheduleInterface) {
   return res;
 }
 
-
-
-
-//////////////// Exercise Program System ////////////////
-async function GetWormUp() {
-  const requestOptions = {
-    method: "GET",
-    headers: {
-      // Authorization: `Bearer ${localStorage.getItem("token")}`,
-      "Content-Type": "application/json",
-    },
-  };
-
-  let res = await fetch(`${apiUrl}/wormups`, requestOptions)
-    .then((response) => response.json())
-    .then((res) => {
-      if (res.data) {
-        return res.data;
-      } else {
-        return false;
-      }
-    });
-
-  return res;
-}
-
-async function GetExercise() {
-  const requestOptions = {
-    method: "GET",
-    headers: {
-      // Authorization: `Bearer ${localStorage.getItem("token")}`,
-      "Content-Type": "application/json",
-    },
-  };
-
-  let res = await fetch(`${apiUrl}/exercises`, requestOptions)
-    .then((response) => response.json())
-    .then((res) => {
-      if (res.data) {
-        return res.data;
-      } else {
-        return false;
-      }
-    });
-
-  return res;
-}
-
-async function GetStretch() {
-  const requestOptions = {
-    method: "GET",
-    headers: {
-      // Authorization: `Bearer ${localStorage.getItem("token")}`,
-      "Content-Type": "application/json",
-    },
-  };
-
-  let res = await fetch(`${apiUrl}/stretchs`, requestOptions)
-    .then((response) => response.json())
-    .then((res) => {
-      if (res.data) {
-        return res.data;
-      } else {
-        return false;
-      }
-    });
-
-  return res;
-}
-
-async function CreateExerciseProgram(data: ExerciseProgramInterface) {
-  const requestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  };
-
-  let res = await fetch(`${apiUrl}/exerciseprogram`, requestOptions)
-    .then((response) => response.json())
-    .then((res) => {
-      if (res.data) {
-        return { status: true, message: res.data };
-      } else {
-        return { status: false, message: res.error };
-      }
-    });
-
-  return res;
-}
-
 export {
   //Member
   GetTypem,
@@ -638,12 +545,6 @@ export {
   
   CreateSchedule,
   UpdateSchedule,
-
-  //ExerciseProgram
-  GetWormUp,
-  GetExercise,
-  GetStretch,
-  CreateExerciseProgram,
 };
 
 //status 404: เชื่อม url หรือ apiurl ไม่ได้
