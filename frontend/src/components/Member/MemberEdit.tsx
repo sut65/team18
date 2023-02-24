@@ -28,6 +28,8 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
+import DeleteIcon from '@mui/icons-material/Delete';
+
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -372,27 +374,33 @@ function MemberEdit() {
           </ThemeProvider>
           <Divider />
 
+          <Grid item xs={4}>
+            <Grid container spacing={1}  >
+              <Grid item xs={12} >
 
-          <Grid item xs={6} sx={{ padding: 2, marginTop: 0, }} >
-            <p>ชื่อ-นามสกุล</p>
+                <Grid item xs={6} sx={{ padding: 2, marginTop: 0, }} >
+                  <p>ชื่อ-นามสกุล</p>
 
-            <FormControl fullWidth variant="outlined" >
+                  <FormControl fullWidth variant="outlined" >
 
-              <TextField
+                    <TextField
 
-                id="Name"
+                      id="Name"
 
-                variant="outlined"
+                      variant="outlined"
 
-                type="string"
+                      type="string"
 
-                size="medium"
+                      size="medium"
 
-                value={user?.Name || ""}
+                      value={user?.Name || ""}
 
-                onChange={handleInputChange}
-              />
-            </FormControl>
+                      onChange={handleInputChange}
+                    />
+                  </FormControl>
+                </Grid>
+              </Grid>
+            </Grid>
           </Grid>
 
           {/* อีเมล */}
@@ -442,7 +450,7 @@ function MemberEdit() {
 
                 size="medium"
 
-                value={user?.Password}
+                value={user?.Password || ""}
 
                 onChange={handleInputChange}
 
@@ -625,7 +633,7 @@ function MemberEdit() {
 
 
 
-                  <Button variant="contained" color="primary" onClick={setAl} style={{ float: "right" }}>
+                  <Button endIcon={<DeleteIcon color="secondary" />} variant="contained" color="primary" onClick={setAl} style={{ float: "right" }}>
                     <Typography color="secondary">
                       ยกเลิกการเป็นสมาชิก
                     </Typography>

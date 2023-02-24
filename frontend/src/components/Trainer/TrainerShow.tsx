@@ -7,47 +7,40 @@ import { Link as RouterLink } from "react-router-dom";
 import { ListExPList } from '../../services/ExerciseprogramHttpClientService';
 import { ExerciseProgramInterface } from '../../models/ExerciseProgram/IExerciseProgram';
 import EditIcon from '@mui/icons-material/Edit';
-import ProgramDelete from './ProgramDelete';
+import ProgramDelete from './TrainerDelete';
+import { TrainerBookingInterface } from '../../models/Trainer/ITrainerBooking';
+import { GetTrBListByID, GetTrBListByMemID, ListTrBList } from '../../services/TrainerHttpClientService';
+import { MemberInterface } from '../../models/IMember';
+import moment from 'moment';
+import { id } from 'date-fns/locale';
 
-function ProgramShow() {
+function TrainerShow() {
 
-
-    const [explist, setExplist] = useState<ExerciseProgramInterface[]>([])
-    const getExPList = async () => {
-        let res = await ListExPList();
+    const [trbklist, setTrBklist] = useState<TrainerBookingInterface[]>([])
+    const getTrBklist = async (id:any) => {
+        let res = await GetTrBListByMemID(id);
         if (res.data) {
             console.log(res)
-            setExplist(res.data);
+            setTrBklist(res.data);
         }
     };
 
     useEffect(() => {
         
+        // getTrBklist()
+        getTrBklist(JSON.parse(localStorage.getItem("lid") || "").ID);
         
-        setExplist(JSON.parse(localStorage.getItem("lid") || ""));
-        
-        getExPList();
-
     }, []);
 
     const columns: GridColDef[] = [
-        { field: "ID", headerName: "รายการ", width: 50, headerAlign: "center", align: "center" },
-        { field: "ProgramName", headerName: "ชื่อโปรแกรม", width: 210, headerAlign: "center", align: "center", renderCell: (params: GridRenderCellParams<any>) => {
-            return <>{params.row.ProgramName}</>},
-        },
-        { field: "Employee.Name", headerName: "ชื่อเทรนเนอร์", width: 120, headerAlign: "center", align: "center", renderCell: (params: GridRenderCellParams<any>) => {
-            return <>{params.row.Employee.Name}</>},
-        },
-        { field: "WormUp.SetName", headerName: "เซ็ตวอร์มอัพ", width: 150, headerAlign: "center", align: "center", renderCell: (params: GridRenderCellParams<any>) => {
-            return <>{params.row.WormUp.SetName}</>;
-          },},
-        { field: "Exercise.SetName", headerName: "เซ็ตออกกำลังกาย", width: 150, headerAlign: "center", align: "center", renderCell: (params: GridRenderCellParams<any>) => {
-            return <>{params.row.Exercise.SetName}</>;
-          }, },
-        { field: "Stretch.SetName", headerName: "เซ็ตยืดกล้ามเนื้อ", width: 150, headerAlign: "center", align: "center", renderCell: (params: GridRenderCellParams<any>) => {
-            return <>{params.row.Stretch.SetName}</>;
-          }, },
-        { field: "Minute", headerName: "เวลาที่ใช้(นาที)", width: 100, headerAlign: "center", align: "center" },
+        { field: "ID", headerName: "ID", width: 150, headerAlign: "center", align: "center" },
+        { field: "Member.Name", headerName: "สมาชิกที่จอง", width: 120, headerAlign: "center", align: "center", renderCell: (params: GridRenderCellParams<any>) => {
+            return <>{params.row.Member.Name}</>},},
+        { field: "Employee.Name", headerName: "เทรนเนอร์", width: 240, headerAlign: "center", align: "center", renderCell: (params: GridRenderCellParams<any>) => {
+            return <>{params.row.Employee.Name}</>},},
+        { field: "ExerciseProgramList.ProgramName", headerName: "โปรแกรมออกกำลังกาย", width: 240, headerAlign: "center", align: "center", renderCell: (params: GridRenderCellParams<any>) => {
+            return <>{params.row.ExerciseProgramList.ProgramName}</>},},
+        { field: "Training_Time", headerName: "เวลานัดเทรน", width: 240, headerAlign: "center", align: "center", valueFormatter: (params) => moment(params?.value).format("DD/MM/YYYY hh:mm A") },
         {
             field: "แก้ไขข้อมูล",
             align: "center",
@@ -55,12 +48,12 @@ function ProgramShow() {
             width: 85,
             renderCell: ({ row }: Partial<GridRowParams>) =>
               <IconButton  component={RouterLink}
-              to="/program/program_edit"
+              to="/trainer/trainer_edit"
                   size="small"
                   color="primary"
                   onClick={() => {
                       console.log("ID", row.ID)
-                      localStorage.setItem("ep_id", row.ID);
+                      localStorage.setItem("tr_id", row.ID);
                   }}
               >
                 <EditIcon />
@@ -110,7 +103,7 @@ function ProgramShow() {
                     <Box>
                         <Button
                             component={RouterLink}
-                            to="/program/program_create"
+                            to="/trainer/trainer_create"
                             variant="contained"
                             color="primary"
                             sx={{ borderRadius: 20, '&:hover': { color: '#065D95', backgroundColor: '#e3f2fd' } }}
@@ -121,11 +114,11 @@ function ProgramShow() {
                 </Box>
                 <Box sx={{ borderRadius: 20 }}>
                     <DataGrid
-                        rows={explist}
+                        rows={trbklist}
                         getRowId={(row) => row.ID}
                         columns={columns}
-                        pageSize={20}
-                        rowsPerPageOptions={[20]}
+                        pageSize={5}
+                        rowsPerPageOptions={[5]}
                         autoHeight={true}
                         density={'comfortable'}
                         sx={{ mt: 2, backgroundColor: '#fff' }}
@@ -137,4 +130,4 @@ function ProgramShow() {
     )
 }
 
-export default ProgramShow
+export default TrainerShow

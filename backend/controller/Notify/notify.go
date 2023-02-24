@@ -117,6 +117,12 @@ func UpdateNotify(c *gin.Context) {
 		return
 	}
 
+	// ขั้นตอนการ validate
+	if _, err := govalidator.ValidateStruct(notify); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
 	if tx := entity.DB().Where("id = ?", newNotify.ID).First(&notify); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Notify not found"})
 		return

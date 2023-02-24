@@ -129,6 +129,7 @@ function EquipmentBookingShow() {
                                             <TableCell align="center" width="5%"> ID </TableCell>
                                             <TableCell align="center" width="20%"> ชื่อผู้จอง </TableCell>
                                             <TableCell align="center" width="20%"> รายละเอียด </TableCell>
+                                            <TableCell align="center" width="20%"> สถานที่รับอุปกรณ์ </TableCell>
                                             <TableCell align="center" width="20%"> วันที่รับอุปกรณ์ </TableCell>
                                         </TableRow>
                                     </TableHead>
@@ -139,8 +140,8 @@ function EquipmentBookingShow() {
                                                 <TableCell align="center">{item.ID}</TableCell>
                                                 <TableCell align="center">{item.Member?.Name}</TableCell>
                                                 <TableCell align="center">{item.EquipmentList?.Detail}</TableCell>
+                                                <TableCell align="center">{item.Place?.Locate}</TableCell>
                                                 <TableCell align="center">{moment(item.DateBooking).format("DD/MM/YYYY")}</TableCell>
-
                                             </TableRow>
                                         ))}
                                     </TableBody>

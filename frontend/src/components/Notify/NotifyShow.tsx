@@ -14,6 +14,8 @@ import moment from "moment";
 import { MemberInterface } from "../../models/IMember";
 import { NotifyInterface } from "../../models/INotify";
 import { ListNotifybyMember } from "../../services/NotifyHttpCS";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 
 
 
@@ -38,7 +40,7 @@ function NotifyShow() {
     const [notifies_Member, setNotifies_Member] = React.useState<NotifyInterface[]>([]);
 
 
-    const listNotifybyMember = async (id:any) => {
+    const listNotifybyMember = async (id: any) => {
         let res = await ListNotifybyMember(id);
         if (res) {
             setNotifies_Member(res);
@@ -49,7 +51,7 @@ function NotifyShow() {
 
 
     useEffect(() => {
-const getToken = localStorage.getItem("token");
+        const getToken = localStorage.getItem("token");
         if (getToken) {
             const x = JSON.parse(localStorage.getItem("lid") || "")
             setMember(x);
@@ -63,7 +65,7 @@ const getToken = localStorage.getItem("token");
 
         <div>
 
-            <Container maxWidth="xl" sx={{width: "100%",marginRight: "20" }}>
+            <Container maxWidth="xl" sx={{ width: "100%", marginRight: "20" }}>
 
                 <Box
 
@@ -79,9 +81,9 @@ const getToken = localStorage.getItem("token");
 
                     <Box flexGrow={1}>
                         <ThemeProvider theme={theme}>
-                            <Typography
+                            <Typography 
                                 component="h2"
-                                variant="h5"
+                                variant="h4"
                                 color="primary"
                                 gutterBottom
                             >
@@ -93,40 +95,42 @@ const getToken = localStorage.getItem("token");
                     </Box>
                     <Box>
                         <ThemeProvider theme={theme}>
-                        <Stack direction="column-reverse" spacing={2}>
-                            <Button component={RouterLink} to="/notify_edit"
-                                size="medium" variant="outlined" color="primary"
-                            >
-
-                                <Typography
-                                    color="pimary"
-                                    variant="h6"
-                                    component="div"
-                                    sx={{ flexGrow: 1 }}
+                            <Stack direction="column-reverse" spacing={2}>
+                                <Button component={RouterLink} to="/notify_edit"
+                                    size="small"  color="primary"
+                                    startIcon={<BuildCircleIcon color="primary" />}
                                 >
-                                    แก้ไขข้อมูลที่เคยแจ้ง
 
-                                </Typography>
-                            </Button>
-                            <Button component={RouterLink} to="/notify_create"
-                                variant="outlined" size="medium" color="primary"
-                            >
-                                <Typography
-                                    color="pimary"
-                                    variant="h6"
-                                    component="div"
-                                    sx={{ flexGrow: 1 }}
+                                    <Typography
+                                        color="primary"
+                                        variant="h6"
+                                        component="div"
+                                        sx={{ flexGrow: 1 }}
+                                    >
+                                        แก้ไขข้อมูลที่เคยแจ้ง
+
+                                    </Typography>
+                                </Button>
+                                <Button component={RouterLink} to="/notify_create"
+                                     size="small" color="primary"
+                                     startIcon={<AddCircleIcon color="primary" />}
                                 >
-                                    แจ้งอุปกรณ์ที่ชำรุด
+                                    <Typography
+                                        color="primary"
+                                        variant="h6"
+                                        component="div"
+                                        sx={{ flexGrow: 1 }}
+                                    >
+                                        แจ้งอุปกรณ์ที่ชำรุด
 
-                                </Typography>
-                            </Button>
+                                    </Typography>
+                                </Button>
                             </Stack>
                         </ThemeProvider>
                     </Box>
                 </Box>
                 <div>
-                    <Container maxWidth="lg" sx={{ bgcolor: '#ffecb3'}}>
+                    <Container maxWidth="lg" sx={{ bgcolor: '#ffecb3' }}>
                         <div style={{ height: 500, width: "100%", marginTop: "20px" }}>
                             <TableContainer >
                                 <Table aria-label="simple table">

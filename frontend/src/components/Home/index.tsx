@@ -1,20 +1,37 @@
 import { Grid, Typography } from '@mui/material'
-import { Container } from '@mui/system'
+import { Box, Container } from '@mui/system'
 import React from 'react'
 import NewsShow from '../News/NewsShow'
-
-export default function Home({role} : any) {
+import sportscenter from './../../image/sportscenter.png';
+export default function Home({ role }: any) {
   return (
-    <Container>
-        <Grid container spacing={3}>
-            <Grid item xs={12} textAlign="center">
-                <h1>
-                    ยินดีต้อนรับเข้าสู่ระบบในฐานะ {role}
-                </h1>
-                
-            </Grid>
-        </Grid>
-        <NewsShow/>
-    </Container>
+    <div>
+      <Grid item xs={12} textAlign="center">
+        <Typography
+          fontFamily='Anton'
+          component="h2"
+          variant="h1"
+        >
+     
+            Welcome {role} To Sport Center
+        
+        </Typography>
+      </Grid>
+      <Box component="img"
+        sx={{
+
+          width: '100%',
+          height: '700',
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "left",
+        }}
+        src={sportscenter}
+      />
+      <Container sx={{ width: "100%", marginTop: 10, alignItems: "center" }}>
+
+        <NewsShow />
+      </Container>
+    </div>
   )
 }

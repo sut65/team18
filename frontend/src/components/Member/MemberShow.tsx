@@ -17,20 +17,20 @@ import { MemberInterface } from "../../models/IMember";
 
 
 const theme = createTheme({
-	palette: {
-	  primary: {
-		main: "#FEAC3F",
-	  },
-	  secondary: {
-		main: "#ffebee"
-	  },
-	  text: {
-		primary: "#1B2420",
-		secondary: "#1B2420"
-	  }
-	},
-	
-  })
+  palette: {
+    primary: {
+      main: "#FEAC3F",
+    },
+    secondary: {
+      main: "#ffebee"
+    },
+    text: {
+      primary: "#1B2420",
+      secondary: "#1B2420"
+    }
+  },
+
+})
 function MemberShow() {
 
   const [members, setMembers] = React.useState<MemberInterface[]>([]);
@@ -80,7 +80,7 @@ function MemberShow() {
 
     <div>
 
-      <Container maxWidth="md">
+      <Container maxWidth="lg">
 
         <Box
 
@@ -100,70 +100,45 @@ function MemberShow() {
 
                 component="h2"
 
-                variant="h6"
+                variant="h5"
 
                 color="primary"
 
                 gutterBottom
+
+                align="center"
 
               >
 
                 ข้อมูลสมาชิก
 
               </Typography>
+
             </ThemeProvider>
           </Box>
 
           <Box>
             <ThemeProvider theme={theme}>
-              <Button
-                component={RouterLink}
-
-                size="large"
-
-                to="/membershows"
-
-                variant="contained"
-
-                color="primary"
-
-              >
-
-                <Typography
-
-                  color="secondary"
-
-                  variant="h6"
-
-                  component="div"
-
-                  sx={{ flexGrow: 1 }}
-                >
-                  แก้ไขข้อมูลสมาชิก
-
-                </Typography>
-              </Button>
             </ThemeProvider>
           </Box>
 
         </Box>
         <div>
-          <Container maxWidth="md">
+          <Container maxWidth="lg" sx={{ bgcolor: '#ffecb3' }}>
             <div style={{ height: 500, width: "100%", marginTop: "20px" }}>
               <TableContainer >
                 <Table aria-label="simple table">
                   <TableHead>
                     {/* หัวข้อตาราง */}
                     <TableRow>
-                      <TableCell align="center" width="20%"> ID </TableCell>
-                      <TableCell align="center" width="20%"> Name </TableCell>
-                      <TableCell align="center" width="20%"> Email </TableCell>
-                      <TableCell align="center" width="20%"> Password </TableCell>
-                      <TableCell align="center" width="20%"> Birth Day </TableCell>
-                      <TableCell align="center" width="20%"> Age </TableCell>
-                      <TableCell align="center" width="20%"> Gender </TableCell>
-					            <TableCell align="center" width="20%"> Type </TableCell>
-					            <TableCell align="center" width="20%"> Evidence </TableCell>
+                      <TableCell align="center" width="5%"> ID </TableCell>
+                      <TableCell align="center" width="15%"> Name </TableCell>
+                      <TableCell align="center" width="18%"> Email </TableCell>
+                      <TableCell align="center" width="10%"> Birth Day </TableCell>
+                      <TableCell align="center" width="10%"> Age </TableCell>
+                      <TableCell align="center" width="10%"> Gender </TableCell>
+                      <TableCell align="center" width="10%"> Type </TableCell>
+                      <TableCell align="center" width="40%"> Evidence </TableCell>
                     </TableRow>
                   </TableHead>
 
@@ -172,11 +147,10 @@ function MemberShow() {
                       <TableRow key={item.ID}>
                         <TableCell align="center">{item.ID}</TableCell>
                         <TableCell align="center">{item.Name}</TableCell>
-						            <TableCell align="center">{item.Email}</TableCell>
-						            <TableCell align="center">{item.Password}</TableCell>
+                        <TableCell align="center">{item.Email}</TableCell>
                         <TableCell align="center">{moment(item.Bdate).format("DD/MM/YYYY")}</TableCell>
-						            <TableCell align="center">{item.Age}</TableCell>
-						            <TableCell align="center">{item.Gender?.Gtype}</TableCell>
+                        <TableCell align="center">{item.Age}</TableCell>
+                        <TableCell align="center">{item.Gender?.Gtype}</TableCell>
                         <TableCell align="center">{item.Typem?.Ttype}</TableCell>
                         <TableCell align="center">{item.Evidence?.Etype}</TableCell>
                       </TableRow>

@@ -27,6 +27,7 @@ import {
 } from "../../services/EquipmentHttpClientService";
 import { PlaceInterface } from "../../models/IPlace";
 import { GetPlace } from "../../services/HttpClientService";
+import { DateTimePicker } from "@mui/x-date-pickers";
 const theme = createTheme({
     palette: {
         primary: {
@@ -172,7 +173,7 @@ function EquipmentBookingEdit() {
 
 
                 EquipmentListID: res.ID,
-                PlcaeID: res.ID,
+                PlaceID: res.PlaceID,
                 DateBooking: new Date(),
 
             };
@@ -371,7 +372,7 @@ function EquipmentBookingEdit() {
                                     value={equipmentBookingList.PlaceID}
                                     onChange={handleChange}
                                     inputProps={{
-                                        name: "EquipmentListID",
+                                        name: "PlaceID",
                                     }}
 
                                 >
@@ -395,7 +396,7 @@ function EquipmentBookingEdit() {
 
                                 <LocalizationProvider dateAdapter={AdapterDateFns}>
 
-                                    <DatePicker
+                                    <DateTimePicker
 
                                         value={equipmentBookingList.DateBooking}
                                         onChange={(newValue) => {

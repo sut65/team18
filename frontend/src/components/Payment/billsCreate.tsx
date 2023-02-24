@@ -31,7 +31,7 @@ import { PaymentInterface } from "../../models/IPayment/IPayment";
 import { PayeeInterface } from "../../models/IPayment/IPayee";
 import { PaymentMethodInterface } from "../../models/IPayment/IMethod";
 import { BillInterface } from "../../models/IPayment/IBill";
-
+import '../News/News.css';
 
 const theme = createTheme({
   palette: {
@@ -175,6 +175,7 @@ function BillCreate() {
                 to="/payment_create"
               >
                 <Typography
+                  fontFamily= 'Prompt'
                   style={{ color: "#424242" }}
                 >
                   คลิกทีนี้ เพื่อทำรายการต่อ
@@ -195,6 +196,7 @@ function BillCreate() {
           >
             <Box flexGrow={1}>
               <Typography
+                fontFamily= 'Prompt'
                 component="h2"
                 variant="h5"
                 style={{ color: "#2196f3" }}
@@ -213,7 +215,7 @@ function BillCreate() {
               rowsPerPageOptions={[5]}
             />
           </div>
-          <Typography component="h2" variant="h6" color="primary" gutterBottom
+          <Typography component="h2" variant="h6" color="primary" gutterBottom 
                 >
                   <p>รายการเงินที่ต้องการชำระ: </p>
                 </Typography>

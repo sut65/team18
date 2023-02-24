@@ -95,6 +95,7 @@ function NewsShow() {
                     <Box flexGrow={1}>
                         <ThemeProvider theme={theme}>
                             <Typography
+                               fontFamily= 'Prompt'
                                 component="h2"
                                 variant="h4"
                                 align="center"
@@ -125,6 +126,7 @@ function NewsShow() {
                                                     <Grid container spacing={3} sx={{ padding: 2 }}>
                                                         <Grid item xs={6} >
                                                             <Typography
+                                                               fontFamily= 'Prompt'
                                                                 component="h2"
                                                                 variant="h6"
                                                             >
@@ -139,6 +141,7 @@ function NewsShow() {
                                                 </TableCell>
                                                 <TableCell align="center" width="20%">
                                                     <Link
+                                                        fontFamily= 'Prompt'
                                                         component="button"
                                                         underline="hover"
                                                         variant="body2"

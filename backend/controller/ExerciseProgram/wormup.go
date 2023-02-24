@@ -47,7 +47,7 @@ func ListWormUp(c *gin.Context) {
 // DELETE /wormup/:id
 func DeleteWormUp(c *gin.Context) {
 	id := c.Param("id")
-	if tx := entity.DB().Exec("DELETE FROM wormups WHERE id = ?", id); tx.RowsAffected == 0 {
+	if tx := entity.DB().Exec("DELETE FROM worm_ups WHERE id = ?", id); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "WormUp not found"})
 		return
 	}

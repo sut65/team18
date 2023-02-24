@@ -127,7 +127,7 @@ function Navbar() {
   const menumember = [
     { name: "หน้าแรก", icon: <HomeIcon />, path: "/login" },
     { name: "ข้อมูลสมาชิก", icon: <PersonIcon />, path: "/member_show", },
-    { name: "จองเทรนเนอร์", icon: <FitnessCenterIcon />, path: "/trainer_booking", },
+    { name: "จองเทรนเนอร์", icon: <FitnessCenterIcon />, path: "/trainer", },
     { name: "จองสถานกีฬา", icon: <BookIcon />, path: "/place_booking", },
     { name: "จองอุปกรณ์กีฬา", icon: <BookIcon />, path: "/equipment_booking_show" },
     { name: "ชำระเงิน", icon: <PaymentTwoToneIcon />, path: "/bill_create", },
@@ -136,6 +136,7 @@ function Navbar() {
   const menuemployee = [
     { name: "หน้าแรก", icon: <HomeIcon />, path: "/login" },
     { name: "บันทึกตารางงานพนักงาน", icon: <EventNoteIcon />, path: "/schedule_show", },
+    { name: "ข้อมูลสมาชิก", icon: <PersonIcon />, path: "/member_shows", },
     { name: "ข้อมูลสถานกีฬา", icon: <SportsBasketballIcon />, path: "/place" },
     { name: "ข้อมูลอุปกรณ์กีฬา", icon: <SportsCricketTwoToneIcon />, path: "/equipment_shows", },
     { name: "ข้อมูลการแจ้งซ่อมอุปกรณ์ชำรุด", icon: <BuildTwoToneIcon />, path: "/notify_shows", },
@@ -144,11 +145,12 @@ function Navbar() {
   const menuadmin = [
     { name: "หน้าแรก", icon: <HomeIcon />, path: "/login" },
     { name: "ข้อมูลพนักงาน", icon: <BadgeIcon />, path: "/employee_show", },
+    { name: "ข้อมูลสมาชิก", icon: <PersonIcon />, path: "/member_shows", },
     { name: "ข่าว", icon: <EventNoteIcon />, path: "/news_create", },
   ]
   const menutrainer = [
     { name: "หน้าแรก", icon: <HomeIcon />, path: "/login" },
-    { name: "โปรแกรมออกกำลังกาย", icon: <FitbitIcon />, path: "/program_show", },
+    { name: "โปรแกรมออกกำลังกาย", icon: <FitbitIcon />, path: "/program", },
     { name: "บันทึกตารางงานพนักงาน", icon: <EventNoteIcon />, path: "/schedule_create", },
   ]
 
@@ -193,7 +195,7 @@ function Navbar() {
               <MenuIcon />
             </IconButton>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-              <Typography variant="h6" color="secondary" noWrap component="div">
+              <Typography variant="h6" color="secondary" noWrap component="div" fontFamily= 'Gloock'>
                 Sports Center
               </Typography>
               <MenuItem onClick={SignOut}><LogoutIcon style={{ marginRight: ".5rem" }} />Log out</MenuItem>

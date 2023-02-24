@@ -42,6 +42,10 @@ import EquipmentListShow from './components/EquipmentMenagement/EquipmentListSho
 import EquipmentListEdit from './components/EquipmentMenagement/EquipmentListEdit';
 import EquipmentBookingEdit from './components/EquipmentMenagement/EquipmentBookingEdit';
 import News from './components/News/News';
+import ProgramUpdate from './components/ExerciseProgram/ProgramUpdate';
+import TrainerShow from './components/Trainer/TrainerShow';
+import TrainerCreate from './components/Trainer/TrainerCreate';
+import TrainerUpdate from './components/Trainer/TrainerUpdate';
 
 
 
@@ -124,6 +128,7 @@ export default function App() {
                     <Route path='/news_shows' element={<News />} />
                     <Route path='/news_create' element={<NewsCreate />} />
                     <Route path='/news_update' element={<NewsUpdate />} />
+                    <Route path='/member_shows' element={<MemberShow />} />
                   </>
                 )
                 }{role === "member" && (
@@ -135,7 +140,9 @@ export default function App() {
                     <Route path='/notify_create' element={<NotifyCreate />} />
                     <Route path='/notify_show' element={<NotifyShow />} />
                     <Route path='/notify_edit' element={<NotifyEdit />} />
-                    <Route path='/program_booking' element={<ProgramHome />} />
+                    <Route path='/trainer' element={<TrainerShow />} />
+                    <Route path='/trainer/trainer_create' element={<TrainerCreate />} />
+                    <Route path='/trainer/trainer_edit' element={<TrainerUpdate />} />
                     <Route path='/payment_create' element={<PaymentCreate />} />
                     <Route path='/bill_create' element={<BillCreate />} />
                     <Route path='/payment_show' element={<PaymentShow />} />
@@ -148,9 +155,7 @@ export default function App() {
                   }{role === "employee" && (
                     <>
                       <Route path="/login" element={<Home role={role} />} />
-                      <Route path='/member_shows' element={<MemberS />} />
-                      <Route path='/member_create' element={<MemberCreate />} />
-                      <Route path='/member_edit' element={<MemberEdit />} />
+                      <Route path='/member_shows' element={<MemberShow />} />
                       <Route path='/notify_shows' element={<NotifyShowad/>} />
                       <Route path='/equipment_create' element={<EquipmentListCreate />} />
                       <Route path='/schedule_edit' element={<ScheduleEdit />} />
@@ -161,13 +166,15 @@ export default function App() {
                       <Route path='/news_shows' element={<News />} />
                       <Route path='/news_create' element={<NewsCreate />} />
                       <Route path='/news_update' element={<NewsUpdate />} />
+                      <Route path='/member_shows' element={<MemberShow />} />
                     </>
                   )
                   }{role === "trainer" && (
                     <>
                       <Route path="/login" element={<Home role={role} />} />
-                      <Route path='/program_create' element={<ProgramCreate />} />
-                      <Route path='/program_show' element={<ProgramShow />} />
+                      <Route path='/program' element={<ProgramShow />} />
+                      <Route path='/program/program_create' element={<ProgramCreate />} />
+                      <Route path='/program/program_edit' element={<ProgramUpdate />} />
                       <Route path='/schedule_edit' element={<ScheduleEdit />} />
                       <Route path='/schedule_show' element={<ScheduleShow />} />
                       <Route path='/schedule_create' element={<ScheduleCreate />} />
