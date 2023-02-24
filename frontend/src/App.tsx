@@ -43,6 +43,9 @@ import EquipmentListEdit from './components/EquipmentMenagement/EquipmentListEdi
 import EquipmentBookingEdit from './components/EquipmentMenagement/EquipmentBookingEdit';
 import News from './components/News/News';
 import ProgramUpdate from './components/ExerciseProgram/ProgramUpdate';
+import TrainerShow from './components/Trainer/TrainerShow';
+import TrainerCreate from './components/Trainer/TrainerCreate';
+import TrainerUpdate from './components/Trainer/TrainerUpdate';
 
 
 
@@ -137,7 +140,9 @@ export default function App() {
                     <Route path='/notify_create' element={<NotifyCreate />} />
                     <Route path='/notify_show' element={<NotifyShow />} />
                     <Route path='/notify_edit' element={<NotifyEdit />} />
-                    <Route path='/program_booking' element={<ProgramHome />} />
+                    <Route path='/trainer' element={<TrainerShow />} />
+                    <Route path='/trainer/trainer_create' element={<TrainerCreate />} />
+                    <Route path='/trainer/trainer_edit' element={<TrainerUpdate />} />
                     <Route path='/payment_create' element={<PaymentCreate />} />
                     <Route path='/bill_create' element={<BillCreate />} />
                     <Route path='/payment_show' element={<PaymentShow />} />
