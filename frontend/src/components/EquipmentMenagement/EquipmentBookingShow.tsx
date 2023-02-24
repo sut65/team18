@@ -13,8 +13,8 @@ import { Button, Stack, Table, TableBody, TableCell, TableContainer, TableHead, 
 import moment from "moment";
 import { MemberInterface } from "../../models/IMember";
 import { EquipmentBookingListInterface } from "../../models/EquipmentBooking/IEquipmentBookingList";
-import { GetEquipmentBookingList }from "../../services/HttpClientService";
-  const theme = createTheme({
+import { GetEquipmentBookingList, ListEquipmentBookingMember } from "../../services/EquipmentHttpClientService";
+const theme = createTheme({
     palette: {
         primary: {
             main: "#0065B9",
@@ -33,8 +33,8 @@ function EquipmentBookingShow() {
     const [booking, setBooking] = React.useState<EquipmentBookingListInterface[]>([]);
 
 
-    const getEquipmentBookingList = async (id:any) => {
-        let res = await GetEquipmentBookingList(id);
+    const listEquipmentBookingMember = async (id: any) => {
+        let res = await ListEquipmentBookingMember(id);
         if (res) {
             setBooking(res);
             console.log(res)
@@ -42,11 +42,11 @@ function EquipmentBookingShow() {
     };
 
     useEffect(() => {
-const getToken = localStorage.getItem("token");
+        const getToken = localStorage.getItem("token");
         if (getToken) {
             const x = JSON.parse(localStorage.getItem("lid") || "")
             setMember(x);
-            getEquipmentBookingList(x.ID);
+            listEquipmentBookingMember(x.ID);
         }
 
     }, []);
@@ -56,7 +56,7 @@ const getToken = localStorage.getItem("token");
 
         <div>
 
-            <Container maxWidth="md" sx={{width: "100%",marginRight: "20" }}>
+            <Container maxWidth="md" sx={{ width: "100%", marginRight: "20" }}>
 
                 <Box
 
@@ -86,20 +86,34 @@ const getToken = localStorage.getItem("token");
                     </Box>
                     <Box>
                         <ThemeProvider theme={theme}>
-                        <Stack direction="column-reverse" spacing={2}>
-                            <Button component={RouterLink} to="/equipment_booking"
-                                variant="outlined" size="medium" color="primary"
-                            >
-                                <Typography
-                                    color="pimary"
-                                    variant="h6"
-                                    component="div"
-                                    sx={{ flexGrow: 1 }}
+                            <Stack direction="column-reverse" spacing={2}>
+                                <Button component={RouterLink} to="/equipment_booking"
+                                    variant="outlined" size="medium" color="primary"
                                 >
-                                    จองอุปกรณ์กีฬา
+                                    <Typography
+                                        color="pimary"
+                                        variant="h6"
+                                        component="div"
+                                        sx={{ flexGrow: 1 }}
+                                    >
+                                        จองอุปกรณ์กีฬา
 
-                                </Typography>
-                            </Button>
+                                    </Typography>
+                                </Button>
+                                <Button component={RouterLink} to="/equipment_booking_edit"
+                                    size="medium" variant="outlined" color="primary"
+                                >
+
+                                    <Typography
+                                        color="pimary"
+                                        variant="h6"
+                                        component="div"
+                                        sx={{ flexGrow: 1 }}
+                                    >
+                                        แก้ไขข้อมูลที่เคยบันทึก
+
+                                    </Typography>
+                                </Button>
                             </Stack>
                         </ThemeProvider>
                     </Box>

@@ -19,12 +19,11 @@ import { MemberInterface } from "../../models/IMember";
 import { MenuItem, TextField } from "@mui/material";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-
+import { GetMember } from "../../services/NotifyHttpCS";
 import {
     CreateEquipmentBookingList,
     GetEquipmentList,
-    GetMember,
-  }from "../../services/HttpClientService";
+  }from "../../services/EquipmentHttpClientService";
 
   const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
@@ -70,7 +69,7 @@ function EquipmentBookingListCreate() {
     }
     getEquipmentList();
     getMember();
-}, []);
+  }, []);
 
   const handleChange = (event: SelectChangeEvent) => {
     const name = event.target.name as keyof typeof equipmentBookingList;

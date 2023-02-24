@@ -13,7 +13,7 @@ import { Button, Stack, Table, TableBody, TableCell, TableContainer, TableHead, 
 import moment from "moment";
 import { EmployeeInterface } from "../../models/IEmployee";
 import { EquipmentListInterface } from "../../models/EquipmentList/IEquipmentList";
-import { GetEquipmentListShow } from "../../services/HttpClientService";
+import { ListEquipmentListShow } from "../../services/EquipmentHttpClientService";
   const theme = createTheme({
     palette: {
         primary: {
@@ -34,7 +34,7 @@ function EquipmentListShow() {
 
 
     const getEquipmentListShow= async (id:any) => {
-        let res = await GetEquipmentListShow(id);
+        let res = await ListEquipmentListShow(id);
         if (res) {
             setEquipmentListShow(res);
             console.log(res)
@@ -97,6 +97,20 @@ const getToken = localStorage.getItem("token");
                                     sx={{ flexGrow: 1 }}
                                 >
                                     เพิ่มอุปกรณ์
+
+                                </Typography>
+                            </Button>
+                            <Button component={RouterLink} to="/equipment_edit"
+                                size="medium" variant="outlined" color="primary"
+                            >
+
+                                <Typography
+                                    color="pimary"
+                                    variant="h6"
+                                    component="div"
+                                    sx={{ flexGrow: 1 }}
+                                >
+                                    แก้ไขข้อมูลที่เคยบันทึก
 
                                 </Typography>
                             </Button>
