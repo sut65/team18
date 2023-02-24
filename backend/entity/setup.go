@@ -831,6 +831,7 @@ func SetupDatabase() {
 		Place:      place,
 		TimePeriod: tp,
 		Member:     Somchai,
+		Tel: "0817819456",
 		BDate:      time.Date(2022, 12, 10, 0, 0, 0, 0, time.Now().Location()),
 	}
 	db.Model(&BookInfolist{}).Create(&bookinfo)
@@ -839,9 +840,11 @@ func SetupDatabase() {
 		Place:      place1,
 		TimePeriod: tp1,
 		Member:     Baifern,
+		Tel: "0850966017",
 		BDate:      time.Date(2022, 12, 10, 0, 0, 0, 0, time.Now().Location()),
 	}
 	db.Model(&BookInfolist{}).Create(&bookinfo1)
+
 
 	///////////////// ระบบจองอุปกรณ์ ///////////////////
 	EquipmentBooking1 := EquipmentBookingList{
