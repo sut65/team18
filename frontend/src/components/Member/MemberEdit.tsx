@@ -28,6 +28,8 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
+import DeleteIcon from '@mui/icons-material/Delete';
+
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -631,7 +633,7 @@ function MemberEdit() {
 
 
 
-                  <Button variant="contained" color="primary" onClick={setAl} style={{ float: "right" }}>
+                  <Button endIcon={<DeleteIcon color="secondary" />} variant="contained" color="primary" onClick={setAl} style={{ float: "right" }}>
                     <Typography color="secondary">
                       ยกเลิกการเป็นสมาชิก
                     </Typography>

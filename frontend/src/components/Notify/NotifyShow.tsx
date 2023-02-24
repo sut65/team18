@@ -14,6 +14,8 @@ import moment from "moment";
 import { MemberInterface } from "../../models/IMember";
 import { NotifyInterface } from "../../models/INotify";
 import { ListNotifybyMember } from "../../services/NotifyHttpCS";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 
 
 
@@ -81,7 +83,7 @@ function NotifyShow() {
                         <ThemeProvider theme={theme}>
                             <Typography 
                                 component="h2"
-                                variant="h5"
+                                variant="h4"
                                 color="primary"
                                 gutterBottom
                             >
@@ -95,11 +97,12 @@ function NotifyShow() {
                         <ThemeProvider theme={theme}>
                             <Stack direction="column-reverse" spacing={2}>
                                 <Button component={RouterLink} to="/notify_edit"
-                                    size="medium" variant="outlined" color="primary"
+                                    size="small"  color="primary"
+                                    startIcon={<BuildCircleIcon color="primary" />}
                                 >
 
                                     <Typography
-                                        color="pimary"
+                                        color="primary"
                                         variant="h6"
                                         component="div"
                                         sx={{ flexGrow: 1 }}
@@ -109,10 +112,11 @@ function NotifyShow() {
                                     </Typography>
                                 </Button>
                                 <Button component={RouterLink} to="/notify_create"
-                                    variant="outlined" size="medium" color="primary"
+                                     size="small" color="primary"
+                                     startIcon={<AddCircleIcon color="primary" />}
                                 >
                                     <Typography
-                                        color="pimary"
+                                        color="primary"
                                         variant="h6"
                                         component="div"
                                         sx={{ flexGrow: 1 }}
