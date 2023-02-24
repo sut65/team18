@@ -17,7 +17,8 @@ import { ListNotifybyMember } from "../../services/NotifyHttpCS";
 import CampaignIcon from '@mui/icons-material/Campaign';
 import { GetNewsMbyDate } from "../../services/NewsHttpClientService";
 import { NewsInterface } from "../../models/INews/INews";
-import Frame1 from './../../image/Frame1.svg';
+import cen from './../../image/cen.jpg';
+import Link from '@mui/material/Link';
 
 
 
@@ -32,18 +33,18 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 const theme = createTheme({
     palette: {
-      primary: {
-        main: "#FEAC3F",
-      },
-      secondary: {
-        main: "#ff3d00"
-      },
-      text: {
-        primary: "#1B2420",
-        secondary: "#1B2420"
-      }
+        primary: {
+            main: "#FEAC3F",
+        },
+        secondary: {
+            main: "#ff3d00"
+        },
+        text: {
+            primary: "#1B2420",
+            secondary: "#1B2420"
+        }
     },
-  })
+})
 function NewsShow() {
     const [news, setNews] = React.useState<NewsInterface[]>([]);
 
@@ -74,14 +75,9 @@ function NewsShow() {
     return (
 
         <div>
-            <img
-                style={{ maxHeight: "100vh" }}
-                className="img-box"
-                alt="Banner"
-                src={Frame1}
-            />
+    
 
-            <Container maxWidth="xl" sx={{ width: "100%", marginRight: "20" }}>
+            <Container maxWidth="xl" sx={{ width: "100%", marginRight: "20" ,alignItems: "center"}}>
 
                 <Box
 
@@ -110,7 +106,7 @@ function NewsShow() {
                             </Typography>
                         </ThemeProvider>
                     </Box>
-                    
+
                 </Box>
                 <Divider />
                 <div>
@@ -120,12 +116,12 @@ function NewsShow() {
                                 <Table aria-label="simple table">
 
                                     <TableBody>
-                                        {news?.map((item:NewsInterface) => (
+                                        {news?.map((item: NewsInterface) => (
                                             <TableRow key={item.ID}>
                                                 <TableCell align="center" width="20%">
                                                     <CampaignIcon style={{ color: "#ffd54f", fontSize: '70px', }} />
                                                 </TableCell>
-                                                <TableCell align="left" width="70%">
+                                                <TableCell align="left" width="40%">
                                                     <Grid container spacing={3} sx={{ padding: 2 }}>
                                                         <Grid item xs={6} >
                                                             <Typography
@@ -140,9 +136,21 @@ function NewsShow() {
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
-
                                                 </TableCell>
+                                                <TableCell align="center" width="20%">
+                                                    <Link
+                                                        component="button"
+                                                        underline="hover"
+                                                        variant="body2"
+                                                        onClick={() => {
+                                                            localStorage.setItem("news", JSON.stringify(item.ID));
+                                                            window.location.href = "/news_shows";
 
+                                                        }}
+                                                    >
+                                                        อ่านเพิ่มเติม
+                                                    </Link>
+                                                </TableCell>
                                             </TableRow>
 
                                         ))}

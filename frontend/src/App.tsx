@@ -41,6 +41,7 @@ import EquipmentBookingShow from './components/EquipmentMenagement/EquipmentBook
 import EquipmentListShow from './components/EquipmentMenagement/EquipmentListShow';
 import EquipmentListEdit from './components/EquipmentMenagement/EquipmentListEdit';
 import EquipmentBookingEdit from './components/EquipmentMenagement/EquipmentBookingEdit';
+import News from './components/News/News';
 
 
 
@@ -120,7 +121,9 @@ export default function App() {
                     <Route path='/employee_edit' element={<EmployeeEdit  />} />
                     <Route path='/employee_show' element={<EmployeeShow />} />
                     <Route path='/employee_create' element={<EmployeeCreate />} />
-
+                    <Route path='/news_shows' element={<News />} />
+                    <Route path='/news_create' element={<NewsCreate />} />
+                    <Route path='/news_update' element={<NewsUpdate />} />
                   </>
                 )
                 }{role === "member" && (
@@ -139,6 +142,7 @@ export default function App() {
                     <Route path='/equipment_booking' element={<EquipmentBookingListCreate />} />
                     <Route path='/equipment_booking_show' element={<EquipmentBookingShow />} />
                     <Route path='/equipment_booking_edit' element={<EquipmentBookingEdit />} />
+                    <Route path='/news_shows' element={<News />} />
                   </>
                 )
                   }{role === "employee" && (
@@ -154,6 +158,9 @@ export default function App() {
                       <Route path='/schedule_create' element={<ScheduleCreate />} />
                       <Route path='/equipment_shows' element={<EquipmentListShow />} />
                       <Route path='/equipment_edit' element={<EquipmentListEdit />} />
+                      <Route path='/news_shows' element={<News />} />
+                      <Route path='/news_create' element={<NewsCreate />} />
+                      <Route path='/news_update' element={<NewsUpdate />} />
                     </>
                   )
                   }{role === "trainer" && (
@@ -164,6 +171,7 @@ export default function App() {
                       <Route path='/schedule_edit' element={<ScheduleEdit />} />
                       <Route path='/schedule_show' element={<ScheduleShow />} />
                       <Route path='/schedule_create' element={<ScheduleCreate />} />
+                      <Route path='/news_shows' element={<News />} />
                     </>
                   )
                   }

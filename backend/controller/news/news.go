@@ -76,7 +76,7 @@ func CreateNews(c *gin.Context) {
 func GetNews(c *gin.Context) {
 	var news entity.News
 	id := c.Param("id")
-	if err := entity.DB().Preload("Employee").Preload("Recipient").Preload("NewsType").Raw("SELECT * FROM news WHERE id = ?", id).Scan(&news).Error; err != nil {
+	if err := entity.DB().Preload("Employee").Preload("Recipient").Preload("NewsType").Raw("SELECT * FROM news WHERE id = ?", id).Find(&news).Error; err != nil {
 
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 

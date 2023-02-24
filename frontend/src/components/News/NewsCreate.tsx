@@ -10,6 +10,7 @@ import { NewsTypeInterface } from "../../models/INews/INewsType";
 import { NewsInterface } from "../../models/INews/INews";
 import { CreateNews, GetNewstype, GetRecipient } from "../../services/NewsHttpClientService";
 import { EmployeeInterface } from "../../models/IEmployee";
+import { Link as RouterLink } from "react-router-dom";
 
 
 //สี
@@ -356,9 +357,10 @@ function NewsCreate() {
                                 style={{ marginLeft: 0, marginTop: 10, width: 170, }}
                                 variant="contained"
                                 color="primary"
+                                component={RouterLink} to="/news_update"
                             >
                                 <Typography
-                                    color="secondary"
+                                    style={{ color: "#f5f5f5" }}
                                 >
                                     Cancle
                                 </Typography>
@@ -372,7 +374,7 @@ function NewsCreate() {
                                 color="primary"
                             >
                                 <Typography
-                                    color="secondary"
+                                    style={{ color: "#f5f5f5" }}
                                 >
                                     Save
                                 </Typography>
