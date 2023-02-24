@@ -22,7 +22,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import AccountBoxTwoToneIcon from '@mui/icons-material/AccountBoxTwoTone';
 
-import { GetPayment } from "../../services/PaymentHttpClientService";
+import { GetPayment, GetPaymentbym } from "../../services/PaymentHttpClientService";
 import { PaymentInterface } from "../../models/IPayment/IPayment";
 import { PaymentMethodInterface } from "../../models/IPayment/IMethod";
 import moment from "moment";
@@ -61,8 +61,8 @@ function PaymentShow() {
 
   //-----------------------------get----------
 
-  const getPayments = async (id: any) => {
-    let res = await GetPayment(id);
+  const getPayments = async () => {
+    let res = await GetPaymentbym();
     if (res) {
       setPayments(res);
     }
@@ -124,12 +124,7 @@ function PaymentShow() {
   ];
 
   useEffect(() => {
-    const getToken = localStorage.getItem("token");
-    if (getToken) {
-      const x = JSON.parse(localStorage.getItem("lid") || "")
-      getPayments(x.ID);
-
-    }
+    
   }, []);
 
   return (

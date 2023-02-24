@@ -270,6 +270,7 @@ function MemberS() {
                     <ThemeProvider theme={theme}>
                         <Typography sx={{ marginLeft: 40, padding: 1, marginTop: 0 }}
                             component="h2" variant="h4" color="primary"
+                            fontFamily= 'Prompt'
                             gutterBottom
                         >
                             ข้อมูลสมาชิก
@@ -510,7 +511,7 @@ function MemberS() {
                             <ThemeProvider theme={theme}>
                                 <Button component={RouterLink} to="/home" variant="contained" color="primary"
                                 >
-                                    <Typography color="secondary">
+                                    <Typography color="secondary" fontFamily= 'Prompt'>
 
                                         ย้อนกลับ
 
@@ -532,7 +533,7 @@ function MemberS() {
                                     color="primary"
 
                                 >
-                                    <Typography color="secondary">
+                                    <Typography color="secondary" fontFamily= 'Prompt'>
 
                                         แก้ไขข้อมูลสมาชิก
 

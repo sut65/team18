@@ -8,6 +8,7 @@ import (
 	"net/http"
 )
 
+
 // POST /place
 func CreatePlace(c *gin.Context) {
 	var place entity.Place

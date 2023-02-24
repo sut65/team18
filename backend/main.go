@@ -163,51 +163,49 @@ func main() {
 	r.PATCH("/news", new.UpdateNews)
 
 	// // BookInfo
-	r.GET("/bookInfo", bookInfo.ListBookInfoList)
+	r.GET("/bookInfos", bookInfo.ListBookInfoList)
 	r.GET("/bookInfo/:id", bookInfo.GetBookInfoList)
+	r.GET("/bookInfomb/:id", bookInfo.GetBookInfobyMB)
 	r.POST("/bookInfo", bookInfo.CreateBookInfoList)
 	r.PATCH("/bookInfo", bookInfo.UpdateBookInfoList)
 	r.DELETE("/bookInfo/:id", bookInfo.DeleteBookInfoList)
 
-	r.GET("/place", bookInfo.ListPlace)
+	r.GET("/places", bookInfo.ListPlace)
 	r.GET("/place/:id", bookInfo.GetPlace)
 	r.POST("/place", bookInfo.CreatePlace)
 	r.PATCH("/place", bookInfo.UpdatePlace)
 	r.DELETE("/place/:id", bookInfo.DeletePlace)
 
-	r.GET("timeperiod", bookInfo.ListTimeperiod)
+	r.GET("timeperiods", bookInfo.ListTimeperiod)
 	r.GET("timeperiod/:id", bookInfo.GetTimeperiod)
 	r.POST("timeperiod", bookInfo.CreateTimeperiod)
 	r.PATCH("timeperiod", bookInfo.UpdateTimeperiod)
 	r.DELETE("timeperiod/:id", bookInfo.DeleteTimeperiod)
 
 	//PlaceInfo
-	r.GET("placeInfo", placeInfo.ListPlaceInfoList)
+	r.GET("placeInfos", placeInfo.ListPlaceInfoList)
 	r.GET("placeInfo/:id", placeInfo.GetPlaceInfoList)
 	r.POST("placeInfo", placeInfo.CreatePlaceInfoList)
 	r.PATCH("placeInfo", placeInfo.UpdatePlaceInfoList)
 	r.DELETE("placeInfo/:id", placeInfo.DeletePlaceInfoList)
 
-	r.GET("service", placeInfo.ListService)
+	r.GET("services", placeInfo.ListService)
 	r.GET("service/:id", placeInfo.GetSercive)
 	r.POST("service", placeInfo.CreateService)
 	r.PATCH("service", placeInfo.UpdateService)
 	r.DELETE("service/:id", placeInfo.DeleteService)
 
-	r.GET("ocds", placeInfo.ListOpenandClosedays)
-	r.GET("ocd/:id", placeInfo.GetOpenandClosedays)
-	// r.GET("openandcolsedays", placeInfo.ListOpenandClosedays)
-	// r.GET("openandclosedays/:id", placeInfo.GetOpenandClosedays)
-	r.POST("openandclosedays", placeInfo.CreateOpenandClosedays)
-	r.PATCH("openandclosedays", placeInfo.UpdateOpenandclosedays)
-	r.DELETE("openandclosedays/:id", placeInfo.DeleteOpenandClosedays)
+	r.GET("openandclosedays", placeInfo.ListOpenandClosedays)
+	r.GET("openandcloseday/:id", placeInfo.GetOpenandClosedays)
+	r.POST("openandcloseday", placeInfo.CreateOpenandClosedays)
+	r.PATCH("openandcloseday", placeInfo.UpdateOpenandclosedays)
+	r.DELETE("openandcloseday/:id", placeInfo.DeleteOpenandClosedays)
 
-	r.GET("openandclosetime", placeInfo.ListOpenandClosetime)
+	r.GET("openandclosetimes", placeInfo.ListOpenandClosetime)
 	r.GET("openandclosetime/:id", placeInfo.GetOpenandClosetime)
 	r.POST("openandclosetime", placeInfo.CreateOpenandClosetime)
 	r.PATCH("openandclosetime", placeInfo.UpdateOpenandClosetime)
 	r.DELETE("openandclosetime/:id", placeInfo.DeleteOpenandClosetime)
-
 	//Member
 	r.GET("/members", member.ListMember)
 	r.GET("/member/:id", member.GetMember)
