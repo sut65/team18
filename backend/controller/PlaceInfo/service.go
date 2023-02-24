@@ -27,7 +27,7 @@ func CreateService(c *gin.Context) {
 func GetSercive(c *gin.Context) {
 	var service entity.Service
 	id := c.Param("id")
-	if err := entity.DB().Raw("SELECT * FROM service WHERE id = ?", id).Scan(&service).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM services WHERE id = ?", id).Scan(&service).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -38,7 +38,7 @@ func GetSercive(c *gin.Context) {
 // List /service
 func ListService(c *gin.Context) {
 	var service []entity.Service
-	if err := entity.DB().Raw("SELECT * FROM service").Scan(&service).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM services").Scan(&service).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -49,7 +49,7 @@ func ListService(c *gin.Context) {
 // DELETE /service/:id
 func DeleteService(c *gin.Context) {
 	id := c.Param("id")
-	if tx := entity.DB().Exec("DELETE FROM service WHERE id = ?", id); tx.RowsAffected == 0 {
+	if tx := entity.DB().Exec("DELETE FROM services WHERE id = ?", id); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "service not found"})
 		return
 	}
