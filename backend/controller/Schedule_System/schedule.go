@@ -28,11 +28,11 @@ func CreateSchedule(c *gin.Context) { // c รับข้อมูลมาจ�
 		return
 	}
 
-		//แทรกvilid
-		if _, err := govalidator.ValidateStruct(employee); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			return
-		}
+	//แทรกvilid
+	if _, err := govalidator.ValidateStruct(schedule); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 
 	//tx.RowsAffected == 0 คือมัน err
 	// : ค้นหา duty ด้วย id
@@ -108,10 +108,10 @@ func GetSchedule(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": schedule})
 }
 
-//------- ค้นหา id 
+// ------- ค้นหา id
 func GetSchedulebyID(c *gin.Context) {
 	var schedule []entity.Schedule
-	id := c.Param("id")		// .Preload("id") -> ดึงตารางย่อยมา												// WHERE user_id = ? จะค้นหาเฉพาะข้อมูลของ user(admin) ที่ login เข้ามาใช้งาน
+	id := c.Param("id") // .Preload("id") -> ดึงตารางย่อยมา												// WHERE user_id = ? จะค้นหาเฉพาะข้อมูลของ user(admin) ที่ login เข้ามาใช้งาน
 	if err := entity.DB().Preload("Employee").Preload("Role").Preload("Duty").Preload("Ocd").Preload("Time").Preload("Place").Raw("SELECT * FROM schedules", id).Find(&schedule).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -131,11 +131,10 @@ func GetScheduleByUserID(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": schedule})
 }
 
-
 // GET /Schedules
 func ListSchedules(c *gin.Context) {
 	var schedules []entity.Schedule
-	if err := entity.DB().Preload("Employee").Preload("Role").Preload("Duty").Preload("Ocd").Preload("Time").Preload("Place").Raw("SELECT * FROM schedules").Find(&schedules).Error; err != nil {
+	if err := entity.DB().Preload("Employee").Preload("Role").Preload("Duty").Preload("Ocd").Preload("Time").Preload("Place").Raw("SELECT * FROM schedules WHERE deleted_at is null").Find(&schedules).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -219,7 +218,6 @@ func UpdateSchedule(c *gin.Context) {
 	schedule.Ocd = ocd
 	schedule.Time = time
 	schedule.Place = place
-
 
 	// TextField
 	schedule.Detail = newSchedule.Detail

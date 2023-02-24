@@ -175,15 +175,12 @@ function EmployeeEdit() {
   // -----------------------------------  Alert --------------------------------------------------------
   const handleClose = (
     event?: React.SyntheticEvent | Event,
-
     reason?: string
   ) => {
     if (reason === "clickaway") {
       return;
     }
-
     setSuccess(false);
-
     setError(false);
   };
 

@@ -41,21 +41,16 @@ import {
 
 function ScheduleCreate() {
   const [error, setError] = React.useState(false);
-  const [date, setDate] = useState<Date | null>(new Date());
   const [success, setSuccess] = React.useState(false);
   const [message, setAlertMessage] = React.useState("");
-
+  const [date, setDate] = useState<Date | null>(new Date());
+  const [days, setDays] = React.useState<OcdInterface[]>([]);
   const [role, setRole] = React.useState<RoleInterface[]>([]);
   const [duty, setDuty] = React.useState<DutyInterface[]>([]);
   const [time, setTime] = React.useState<TimeInterface[]>([]);
   const [place, setPlace] = React.useState<PlaceInterface[]>([]);
-  const [days, setDays] = React.useState<OcdInterface[]>([]);
-
-  //const [employee, setEmployee] = React.useState<EmployeeInterface[]>([]);
-  //const [schedule, setSchedule] = useState<ScheduleInterface[]>([]);
   const [employee, setEmployee] = useState<Partial<EmployeeInterface>>({});
   const [schedule, setSchedule] = useState<Partial<ScheduleInterface>>({
-    //ID: 0,
     EmployeeID: 0,
     RoleID: 0,
   });
@@ -268,6 +263,11 @@ function ScheduleCreate() {
                 <MenuItem value={0}>
                       {employee?.RoleID}
                 </MenuItem> //key ไว้อ้างอิงว่าที่1ชื่อนี้ๆๆ value: เก็บค่า  
+                {/* {role.map((item: RoleInterface) => (
+                  <option value={item.ID} key={item.ID}>
+                    {item.Name}
+                  </option>
+                ))} */}
               </Select>
             </FormControl>
           </Grid>

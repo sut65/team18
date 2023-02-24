@@ -13,7 +13,7 @@ import InputLabel from "@mui/material/InputLabel";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import FormControl from "@mui/material/FormControl";
-import { createTheme, Divider, Grid , Stack} from "@mui/material";
+import { createTheme, Divider, Grid, Stack } from "@mui/material";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { create } from "@mui/material/styles/createTransitions";
@@ -65,36 +65,35 @@ function ScheduleEdit() {
     // EmployeeID: 0,
     //RoleID: 0,
   });
-// --------------------------------------------ลบข้อมูล------------------------------------------------
-async function DeleteSchedule() {
-  //localStorage.clear();
-  window.location.href = "/schedule_show"; 
-  const apiUrl = "http://localhost:8080";
-  const requestOptions = {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(newSchedule.ID),
-  };
+  // --------------------------------------------ลบข้อมูล------------------------------------------------
+  async function DeleteSchedule() {
+    //localStorage.clear();
+    window.location.href = "/schedule_show";
+    const apiUrl = "http://localhost:8080";
+    const requestOptions = {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newSchedule.ID),
+    };
 
-  let res = await fetch(
-    `${apiUrl}/schedules/${JSON.stringify(newSchedule.ID)}`,
-    requestOptions
-  )
-    .then((response) => response.json())
-    .then((res) => {
-      if (res.data) {
-        // DeleteSchedule();
-        return { status: true, message: res.data };
-      } else {
-        return { status: false, message: res.error };
-      }
-    });
-  return res;
-}
-
+    let res = await fetch(
+      `${apiUrl}/schedules/${JSON.stringify(newSchedule.ID)}`,
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.data) {
+          // DeleteSchedule();
+          return { status: true, message: res.data };
+        } else {
+          return { status: false, message: res.error };
+        }
+      });
+    return res;
+  }
 
   //-------------------------------------------- รับค่า --------------------------------------------------------
   const getTime = async () => {
@@ -152,7 +151,6 @@ async function DeleteSchedule() {
     // ดึงข้อมูล database จาก storage
     const getToken = localStorage.getItem("token");
     if (getToken) {
-      //setEmployee(JSON.parse(localStorage.getItem("lid") || ""));
       const x = JSON.parse(localStorage.getItem("lid") || "");
       setEmployee(x);
       listScheduleID(x.ID);
@@ -176,12 +174,13 @@ async function DeleteSchedule() {
         ID: res.ID,
         EmployeeID: res.EmployeeID,
         RoleID: res.RoleID,
+
         DutyID: res.DutyID,
         OcdID: res.OcdID,
         TimeID: res.TimeID,
         PlaceID: res.PlaceID,
+
         Detail: res.Detail,
-  
         Record_Time: date,
       };
 
@@ -189,14 +188,15 @@ async function DeleteSchedule() {
     }
   };
 
-    // TextField
- const handleChangeEmployee = (
-  event: React.ChangeEvent<{ id?: string; value: any }>
-) => {
-  const id = event.target.id as keyof typeof ScheduleEdit;
-  const { value } = event.target;
-  setNewSchedule({ ...newSchedule, [id]: value });
-};
+  // ----------------------------------- เปลี่ยนข้อมูล(input) --------------------------------------------------------
+  // TextField
+  const handleChangeEmployee = (
+    event: React.ChangeEvent<{ id?: string; value: any }>
+  ) => {
+    const id = event.target.id as keyof typeof ScheduleEdit;
+    const { value } = event.target;
+    setNewSchedule({ ...newSchedule, [id]: value });
+  };
 
   // Combobox
   const handleChange = (event: SelectChangeEvent) => {
@@ -222,12 +222,11 @@ async function DeleteSchedule() {
 
   const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
-
     ref
   ) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
-  
+
   // -----------------------------------  Submit --------------------------------------------------------
   async function submit() {
     let data = {
@@ -238,16 +237,28 @@ async function DeleteSchedule() {
       // RoleID: typeof schedule.RoleID === "string" ? parseInt(schedule.RoleID) : 0,
 
       // DutyID: newSchedule.DutyID,
-      DutyID: typeof newSchedule.DutyID === "string" ? parseInt(newSchedule.DutyID) : 0,
+      DutyID:
+        typeof newSchedule.DutyID === "string"
+          ? parseInt(newSchedule.DutyID)
+          : newSchedule.DutyID,
 
       // OcdID: newSchedule.OcdID,
-      OcdID: typeof newSchedule.OcdID === "string" ? parseInt(newSchedule.OcdID) : 0,
+      OcdID:
+        typeof newSchedule.OcdID === "string"
+          ? parseInt(newSchedule.OcdID)
+          : newSchedule.OcdID,
 
       // TimeID: newSchedule.TimeID,
-      TimeID: typeof newSchedule.TimeID === "string" ? parseInt(newSchedule.TimeID) : 0,
+      TimeID:
+        typeof newSchedule.TimeID === "string"
+          ? parseInt(newSchedule.TimeID)
+          : newSchedule.TimeID,
 
       // PlaceID: newSchedule.PlaceID,
-      PlaceID: typeof newSchedule.PlaceID === "string" ? parseInt(newSchedule.PlaceID) : 0,
+      PlaceID:
+        typeof newSchedule.PlaceID === "string"
+          ? parseInt(newSchedule.PlaceID)
+          : newSchedule.PlaceID,
 
       Detail: newSchedule.Detail,
       Record_Time: date,
@@ -263,24 +274,6 @@ async function DeleteSchedule() {
       setError(true);
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   return (
     <Container maxWidth="md">
@@ -327,7 +320,6 @@ async function DeleteSchedule() {
 
         {/* กำหนด layout ให้ช่องต่างๆ */}
         <Grid container spacing={3} margin={1}>
-
           {/* ค้นหา */}
           <Grid item spacing={2}>
             <p>ค้นหารายชื่อที่ต้องการแก้ไข</p>
@@ -358,15 +350,15 @@ async function DeleteSchedule() {
           <Grid item xs={5} margin={2} container spacing={1}>
             <p>ชื่อ</p>
             <FormControl fullWidth variant="outlined">
-              <Select 
-                //disabled 
+              <Select
+                //disabled
                 native
                 value={newSchedule.EmployeeID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "EmployeeID",
                 }}
-                >
+              >
                 <option aria-label="None" value="">
                   พนักงาน
                 </option>
@@ -383,14 +375,14 @@ async function DeleteSchedule() {
           <Grid item xs={5} margin={2} container spacing={1}>
             <p>ประเภทพนักงาน</p>
             <FormControl fullWidth variant="outlined">
-              <Select 
-                disabled 
-                value={newSchedule.RoleID + ""} 
+              <Select
+                disabled
+                value={newSchedule.RoleID + ""}
                 onChange={handleChange}
                 inputProps={{
                   name: "RoleID",
                 }}
-                >
+              >
                 <option aria-label="None" value="">
                   กรุณาระบุประเภทพนักงาน
                 </option>
@@ -518,9 +510,8 @@ async function DeleteSchedule() {
             </FormControl>
           </Grid>
 
-
-             {/* ปุ่ม */}
-             <Grid item xs={5} margin={2} padding={1}>
+          {/* ปุ่ม */}
+          <Grid item xs={5} margin={2} padding={1}>
             <Button
               component={RouterLink}
               to="/schedule_show"
@@ -532,33 +523,32 @@ async function DeleteSchedule() {
             </Button>
           </Grid>
           <Grid item xs={5} margin={2} spacing={1}>
-          <Stack direction="row-reverse" spacing={2}>
-            <Button
-              variant="contained"
-              color="success"
-              size="large"
-              onClick={submit}
-              style={{ float: "right", height: "42px", width: "95px" }}
-            >
-              Edit
-            </Button>
-            <Button
-              variant="contained"
-              color="error"
-              size="large"
-              onClick={DeleteSchedule}
-              style={{
-                float: "right",
-                height: "42px",
-                width: "95px",
-                padding: 1,
-              }}
-            >
-              Delete
-            </Button>
+            <Stack direction="row-reverse" spacing={2}>
+              <Button
+                variant="contained"
+                color="success"
+                size="large"
+                onClick={submit}
+                style={{ float: "right", height: "42px", width: "95px" }}
+              >
+                Edit
+              </Button>
+              <Button
+                variant="contained"
+                color="error"
+                size="large"
+                onClick={DeleteSchedule}
+                style={{
+                  float: "right",
+                  height: "42px",
+                  width: "95px",
+                  padding: 1,
+                }}
+              >
+                Delete
+              </Button>
             </Stack>
           </Grid>
-
         </Grid>
       </Paper>
     </Container>

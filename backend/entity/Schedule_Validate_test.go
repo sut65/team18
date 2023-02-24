@@ -8,7 +8,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-func Test_Note(t *testing.T) { //กรณีข้อมูลถูกทั้งหมด
+func Test_Detail(t *testing.T) { //กรณีข้อมูลถูกทั้งหมด
 	g := NewGomegaWithT(t)
 
 	schedule := Schedule{
@@ -26,7 +26,7 @@ func Test_Note(t *testing.T) { //กรณีข้อมูลถูกทั�
 	g.Expect(err).To(BeNil())
 }
 
-func Test_NoteNotBlank(t *testing.T) { //กรณีข้อมูลถูกทั้งหมด
+func Test_DetailNotBlank(t *testing.T) { //กรณีข้อมูลถูกทั้งหมด
 	g := NewGomegaWithT(t)
 
 	schedule := Schedule{
