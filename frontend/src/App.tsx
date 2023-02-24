@@ -46,6 +46,9 @@ import ProgramUpdate from './components/ExerciseProgram/ProgramUpdate';
 import TrainerShow from './components/Trainer/TrainerShow';
 import TrainerCreate from './components/Trainer/TrainerCreate';
 import TrainerUpdate from './components/Trainer/TrainerUpdate';
+import BookInfoShow from './components/BookInfo/BookInfoShow';
+import BookInfoCreate from './components/BookInfo/BookInfoCreate';
+import BookInfoUpdate from './components/BookInfo/BookInfoUpdate';
 
 
 
@@ -150,6 +153,9 @@ export default function App() {
                     <Route path='/equipment_booking_show' element={<EquipmentBookingShow />} />
                     <Route path='/equipment_booking_edit' element={<EquipmentBookingEdit />} />
                     <Route path='/news_shows' element={<News />} />
+                    <Route path='/place_booking' element={<BookInfoShow />} />
+                    <Route path='/place_booking/place_booking_create' element={<BookInfoCreate />} />
+                    <Route path='/place_booking/place_booking_edit' element={<BookInfoUpdate />} />
                   </>
                 )
                   }{role === "employee" && (
