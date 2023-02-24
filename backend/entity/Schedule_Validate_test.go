@@ -12,7 +12,7 @@ func Test_Note(t *testing.T) { //กรณีข้อมูลถูกทั�
 	g := NewGomegaWithT(t)
 
 	schedule := Schedule{
-		Note:        "ล้างห้องน้ำ", //ถูก
+		Detail:        "ล้างห้องน้ำ", //ถูก
 		Record_Time: time.Now(),
 	}
 
@@ -30,7 +30,7 @@ func Test_NoteNotBlank(t *testing.T) { //กรณีข้อมูลถูก
 	g := NewGomegaWithT(t)
 
 	schedule := Schedule{
-		Note:        "", //ผิด
+		Detail:        "", //ผิด
 		Record_Time: time.Now(),
 	}
 
@@ -43,7 +43,7 @@ func Test_NoteNotBlank(t *testing.T) { //กรณีข้อมูลถูก
 	g.Expect(err).ToNot(BeNil())
 
 	// err.Error() ต้องมี message แสดงออกมา
-	g.Expect(err.Error()).To(Equal("Note cannot be blank"))
+	g.Expect(err.Error()).To(Equal("Detail cannot be blank"))
 }
 
 func Test_NoteCharacterLessThan20(t *testing.T) { // Tel ไม่ตรง format
@@ -51,7 +51,7 @@ func Test_NoteCharacterLessThan20(t *testing.T) { // Tel ไม่ตรง form
 	g := NewGomegaWithT(t)
 
 	schedule := Schedule{
-		Note:        "ทดสอบกรอกข้อมูลให้เกิน50ตัวอักษรแต่ตอนนี้มันไม่เกินเพราะคิดไม่ออก", //ผิด
+		Detail:        "ทดสอบกรอกข้อมูลให้เกิน50ตัวอักษรแต่ตอนนี้มันไม่เกินเพราะคิดไม่ออก", //ผิด
 		Record_Time: time.Now(),
 	}
 

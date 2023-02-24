@@ -79,7 +79,7 @@ func CreateMember(c *gin.Context) {
 		Name:     member.Name,
 		Email:    member.Email,
 		Password: member.Password,
-		Bdate:    member.Bdate,
+		Bdate:    member.Bdate, //วันเกิด
 		Age:      member.Age,
 		Typem:    typem,
 		Evidence: evidence,

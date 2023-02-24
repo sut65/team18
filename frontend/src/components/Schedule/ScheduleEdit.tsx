@@ -68,7 +68,7 @@ function ScheduleEdit() {
 // --------------------------------------------ลบข้อมูล------------------------------------------------
 async function DeleteSchedule() {
   //localStorage.clear();
-  window.location.href = "/schedule_show"; //หน้าขาว
+  window.location.href = "/schedule_show"; 
   const apiUrl = "http://localhost:8080";
   const requestOptions = {
     method: "DELETE",
@@ -180,6 +180,7 @@ async function DeleteSchedule() {
         OcdID: res.OcdID,
         TimeID: res.TimeID,
         PlaceID: res.PlaceID,
+        Detail: res.Detail,
   
         Record_Time: date,
       };
@@ -187,6 +188,15 @@ async function DeleteSchedule() {
       setNewSchedule(res);
     }
   };
+
+    // TextField
+ const handleChangeEmployee = (
+  event: React.ChangeEvent<{ id?: string; value: any }>
+) => {
+  const id = event.target.id as keyof typeof ScheduleEdit;
+  const { value } = event.target;
+  setNewSchedule({ ...newSchedule, [id]: value });
+};
 
   // Combobox
   const handleChange = (event: SelectChangeEvent) => {
@@ -217,8 +227,8 @@ async function DeleteSchedule() {
   ) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
-
-  //Submit
+  
+  // -----------------------------------  Submit --------------------------------------------------------
   async function submit() {
     let data = {
       ID: newSchedule.ID,
@@ -239,6 +249,7 @@ async function DeleteSchedule() {
       // PlaceID: newSchedule.PlaceID,
       PlaceID: typeof newSchedule.PlaceID === "string" ? parseInt(newSchedule.PlaceID) : 0,
 
+      Detail: newSchedule.Detail,
       Record_Time: date,
     };
     console.log("submit");
@@ -491,11 +502,28 @@ async function DeleteSchedule() {
             </LocalizationProvider>
           </Grid>
 
+          {/* รายละเอียดงานที่ทำ */}
+          <Grid item xs={10.5} margin={2} container spacing={1}>
+            <p>รายละเอียด</p>
+            <FormControl fullWidth variant="outlined">
+              <TextField
+                id="Detail"
+                variant="outlined"
+                type="string"
+                size="medium"
+                placeholder="กรุณากรอกข้อมูลชื่อ"
+                value={newSchedule.Detail || ""}
+                onChange={handleChangeEmployee}
+              />
+            </FormControl>
+          </Grid>
+
+
              {/* ปุ่ม */}
              <Grid item xs={5} margin={2} padding={1}>
             <Button
               component={RouterLink}
-              to="/employee_show"
+              to="/schedule_show"
               variant="contained"
               size="large"
               style={{ height: "42px", width: "100px" }}

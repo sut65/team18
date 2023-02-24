@@ -483,6 +483,7 @@ func SetupDatabase() {
 		Ocd:           ocd3,
 		Time:          q1,
 		Place: 		   place,
+		Detail:        "เช็คจักรยานในห้องฟิสเนส",		
 	}
 	db.Model(&Schedule{}).Create(&schedule_1)
 

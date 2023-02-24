@@ -35,7 +35,7 @@ import {
 function EmployeeCreate() {
   // const classes = makeStyles();
   const [error, setError] = React.useState(false);
-  const [date, setDate] = useState<Date | null>(null);
+  const [date, setDate] = useState<Date | null>(null); //วันเกิด
   const [message, setAlertMessage] = React.useState("");
   const [success, setSuccess] = React.useState(false);
 
@@ -131,7 +131,7 @@ function EmployeeCreate() {
       Tel: employee.Tel ?? "",
       Email: employee.Email ?? "",
       Password: employee.Password ?? "",
-      DOB: new Date(),
+      DOB: date,
       GenderID:
         typeof employee.GenderID === "string" ? parseInt(employee.GenderID) : 0,
       EducationID:
@@ -272,16 +272,6 @@ function EmployeeCreate() {
             <p>วันเกิด</p>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <FormControl fullWidth variant="outlined">
-                {/* <DatePicker
-                 renderInput={(props) => <TextField {...props} />}
-                  // renderInput={(params) => <TextField {...params} />}
-
-                  label="Date"
-                  value={date}
-                  onChange={(newValue) => {
-                    setDate(newValue);
-                  }}
-                /> */}
                 <DatePicker
                   value={date}
                   onChange={(newValue) => {

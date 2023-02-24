@@ -117,6 +117,16 @@ function ScheduleCreate() {
     //getEmployee();
   }, []);
   console.log(schedule);
+ 
+  // TextField
+ const handleChangeEmployee = (
+  event: React.ChangeEvent<{ id?: string; value: any }>
+) => {
+  const id = event.target.id as keyof typeof ScheduleCreate;
+  const { value } = event.target;
+  setSchedule({ ...schedule, [id]: value });
+};
+
 
   // Combobox
   const handleChange = (event: SelectChangeEvent<number>) => {
@@ -167,6 +177,8 @@ function ScheduleCreate() {
 
       //PlaceID: schedule.PlaceID,
       PlaceID: typeof schedule.PlaceID === "string" ? parseInt(schedule.PlaceID) : 0,
+      
+      Detail: schedule.Detail ?? "",
 
       Record_Time: date,
     };
@@ -357,6 +369,22 @@ function ScheduleCreate() {
               </Select>
               </FormControl>
             </LocalizationProvider>
+          </Grid>
+
+           {/* รายละเอียดงานที่ทำ */}
+           <Grid item xs={10.5} margin={2} container spacing={1}>
+            <p>รายละเอียด</p>
+            <FormControl fullWidth variant="outlined">
+              <TextField
+                id="Detail"
+                variant="outlined"
+                type="string"
+                size="medium"
+                placeholder="กรุณากรอกข้อมูลชื่อ"
+                value={schedule.Detail || ""}
+                onChange={handleChangeEmployee}
+              />
+            </FormControl>
           </Grid>
 
           {/* ปุ่ม */}

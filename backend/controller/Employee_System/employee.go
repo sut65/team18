@@ -61,18 +61,19 @@ func CreateEmployee(c *gin.Context) { // c รับข้อมูลมาจ�
 		Password: SetupPasswordHash(employee.Password),
 		Role:     role,
 	}
-	password, _ := bcrypt.GenerateFromPassword([]byte(employee.Password), 14)
+	//password, _ := bcrypt.GenerateFromPassword([]byte(employee.Password), 14) //เข้ารหัส
 
 	// : สร้างตาราง Employee_System
 	ps := entity.Employee{
 		Name:      employee.Name,    // โยงความสัมพันธ์กับ Entity name
 		Tel:       employee.Tel,     // โยงความสัมพันธ์กับ Entity email
 		Email:     employee.Email,   // โยงความสัมพันธ์กับ Entity tel
-		Password:  string(password), // ตั้งค่าฟิลด์ password
+		// Password:  string(password), // ตั้งค่าฟิลด์ password
+		Password:  employee.Password, // ตั้งค่าฟิลด์ password
 		Gender:    gender,           // โยงความสัมพันธ์กับ Entity gender
 		Role:      role,             // โยงความสัมพันธ์กับ Entity role
 		Education: education,        // โยงความสัมพันธ์กับ Entity education
-		DOB:       employee.DOB,     // ตั้งค่าฟิลด์ DOB
+		DOB:       employee.DOB,     // ตั้งค่าฟิลด์ DOB //วันเกิด
 		User:      createuserlogin,
 	}
 

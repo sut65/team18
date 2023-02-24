@@ -75,7 +75,7 @@ func Test_EmployeeTel(t *testing.T) { //กรณีข้อมูลถูก�
 	g.Expect(err).ToNot(BeNil())
 
 	// err.Error() ต้องมี message แสดงออกมา
-	g.Expect(err.Error()).To(Equal("Tel does not validate as matches(^\\d{10}$)"))
+	g.Expect(err.Error()).To(Equal("โปรดตรวจสอบความถูกต้องของเบอร์โทร"))
 }
 
 func Test_EmployeeTelNull(t *testing.T) { // Tel ไม่ตรง format

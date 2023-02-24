@@ -86,7 +86,7 @@ function MemberCreate() {
     EvidenceID: 0,
 
   });
-  const [Bdate, setBdate] = React.useState<Date | null>(null);
+  const [Bdate, setBdate] = React.useState<Date | null>(null); //วันเกิด
 
   const [gender, setGender] = React.useState<GenderInterface[]>([]);
 

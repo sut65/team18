@@ -56,7 +56,7 @@ function EmployeeEdit() {
   // --------------------------------------------ลบข้อมูล------------------------------------------------
   async function DeleteEmployee() {
     //localStorage.clear();
-    window.location.href = "/employee_show"; //หน้าขาว
+    window.location.href = "/employee_show";
     const apiUrl = "http://localhost:8080";
     const requestOptions = {
       method: "DELETE",
@@ -202,7 +202,7 @@ function EmployeeEdit() {
       Tel: employee_Id.Tel,
       Email: employee_Id.Email,
       Password: employee_Id.Password,
-      DOB: new Date(),
+      DOB: date,
       GenderID:
         typeof employee_Id.GenderID === "string"
           ? parseInt(employee_Id.GenderID)

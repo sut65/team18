@@ -34,7 +34,7 @@ type Member struct {
 	Name     string `gorm:"uniqueIndex" valid:"required~กรุณากรอกชื่อ-นามสกุล"`
 	Email    string `gorm:"uniqueIndex" valid:"email, required~Email: กรุณากรอกอีเมล"`
 	Password string `valid:"minstringlength(6)~Passwordต้องมีอย่างน้อย6ตัว, required~กรุณากรอกPassword"`
-	Bdate    time.Time
+	Bdate    time.Time // วันเกิด
 	Age      int `valid:"range(15|100)~อายุไม่ต่ำกว่า 15"`
 	// TypemID ทำหน้าที่เป็น FK
 	TypemID *uint

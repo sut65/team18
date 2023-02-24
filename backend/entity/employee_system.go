@@ -24,10 +24,10 @@ type Role struct {
 type Employee struct {
 	gorm.Model
 	Name     string `valid:"required~กรุณากรอกชื่อ-นามสกุล"`
-	Tel      string `valid:"matches(^\\d{10}$)~Tel does not validate as matches(^\\d{10}$), required~กรุณากรอกเบอร์โทร"`
+	Tel      string `valid:"matches(^\\d{10}$)~โปรดตรวจสอบความถูกต้องของเบอร์โทร, required~กรุณากรอกเบอร์โทร"`
 	Email    string `gorm:"uniqueIndex" valid:"email, required~Email: กรุณากรอกอีเมล"`
 	Password string `valid:"minstringlength(6)~Passwordต้องมีอย่างน้อย6ตัว, required~กรุณากรอกPassword"`
-	DOB      time.Time 
+	DOB      time.Time //วันเกิด
 
 	GenderID *uint
 	Gender   Gender `gorm:"references:id" valid:"-"`

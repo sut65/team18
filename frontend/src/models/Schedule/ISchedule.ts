@@ -27,5 +27,7 @@ export interface ScheduleInterface {
 	PlaceID?: number;
 	Place?: PlaceInterface;
 
+	Detail?: string;
+
 	Record_Time?: Date | null;
 }

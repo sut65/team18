@@ -9,8 +9,8 @@ export interface MemberInterface {
     Name?: string;
     Email?: string;
     Password?: string;
-    Bdate?:Date | null;
-    Age?: number;
+    Bdate?:Date | null; //วันเกิด
+    Age?: number; 
 
     GenderID?: number;
     Gender?: GenderInterface;

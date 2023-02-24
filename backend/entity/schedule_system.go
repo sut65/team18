@@ -47,6 +47,6 @@ type Schedule struct {
 	PlaceID  *uint
 	Place  Place  `gorm:"references:id" valid:"-"`
 
-	Note	string `valid:"maxstringlength(50)~กรอกข้อมูลไม่เกิน50ตัวอักษร, required~Note cannot be blank, "`
+	Detail	string `valid:"maxstringlength(50)~กรอกข้อมูลไม่เกิน50ตัวอักษร, required~Detail cannot be blank"`
 	Record_Time time.Time
 }

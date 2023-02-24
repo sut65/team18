@@ -128,6 +128,9 @@ function ScheduleShow() {
                 <TableCell align="center" width="1%">
                   วัน
                 </TableCell>
+                <TableCell align="center" width="5%">
+                  รายละเอียดงานที่ทำ
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -142,6 +145,7 @@ function ScheduleShow() {
                   <TableCell align="center">{schedule.Time?.Range}</TableCell>
                   <TableCell align="center">{schedule.Place?.Locate}</TableCell>
                   <TableCell align="center">{schedule.Ocd?.Days}</TableCell>
+                  <TableCell align="center">{schedule.Detail}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

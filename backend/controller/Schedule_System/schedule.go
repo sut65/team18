@@ -3,7 +3,7 @@ package controller
 import (
 	"net/http"
 
-	//"github.com/asaskevich/govalidator"
+	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
 	"github.com/sut65/team18/entity"
 )
@@ -27,6 +27,12 @@ func CreateSchedule(c *gin.Context) { // c รับข้อมูลมาจ�
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+
+		//แทรกvilid
+		if _, err := govalidator.ValidateStruct(employee); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
 
 	//tx.RowsAffected == 0 คือมัน err
 	// : ค้นหา duty ด้วย id
@@ -73,7 +79,14 @@ func CreateSchedule(c *gin.Context) { // c รับข้อมูลมาจ�
 		Ocd:         ocd,
 		Time:        time,
 		Place:       place,
+		Detail:      schedule.Detail,
 		Record_Time: schedule.Record_Time,
+	}
+
+	// ขั้นตอนการ validate
+	if _, err := govalidator.ValidateStruct(ps); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
 	}
 
 	// : บันทึก
@@ -155,6 +168,7 @@ func UpdateSchedule(c *gin.Context) {
 		return
 	}
 
+	//-------Id ของ Combobox------------------------
 	var employee entity.Employee
 	var role entity.Role
 	var duty entity.Duty
@@ -170,7 +184,7 @@ func UpdateSchedule(c *gin.Context) {
 
 	// : ค้นหา ocd ด้วย id
 	if tx := entity.DB().Where("id = ?", newSchedule.OcdID).First(&ocd); tx.RowsAffected == 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Role not found"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Day not found"})
 		return
 	}
 
@@ -208,7 +222,7 @@ func UpdateSchedule(c *gin.Context) {
 
 
 	// TextField
-	
+	schedule.Detail = newSchedule.Detail
 
 	if err := entity.DB().Save(&schedule).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
