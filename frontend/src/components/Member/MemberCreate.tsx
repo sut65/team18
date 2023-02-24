@@ -254,13 +254,15 @@ function MemberCreate() {
         </Snackbar>
 
         <Paper sx={{ marginTop: 2 }}>
-          <Typography sx={{ marginLeft: 30, marginTop: 3, padding: 1 }}
+          <Typography sx={{  padding: 1 }}
 
             component="h2"
 
             variant="h4"
 
             color="#FEAC3F"
+
+            align="center"
 
             gutterBottom
 

@@ -372,27 +372,33 @@ function MemberEdit() {
           </ThemeProvider>
           <Divider />
 
+          <Grid item xs={4}>
+            <Grid container spacing={1}  >
+              <Grid item xs={12} >
 
-          <Grid item xs={6} sx={{ padding: 2, marginTop: 0, }} >
-            <p>ชื่อ-นามสกุล</p>
+                <Grid item xs={6} sx={{ padding: 2, marginTop: 0, }} >
+                  <p>ชื่อ-นามสกุล</p>
 
-            <FormControl fullWidth variant="outlined" >
+                  <FormControl fullWidth variant="outlined" >
 
-              <TextField
+                    <TextField
 
-                id="Name"
+                      id="Name"
 
-                variant="outlined"
+                      variant="outlined"
 
-                type="string"
+                      type="string"
 
-                size="medium"
+                      size="medium"
 
-                value={user?.Name || ""}
+                      value={user?.Name || ""}
 
-                onChange={handleInputChange}
-              />
-            </FormControl>
+                      onChange={handleInputChange}
+                    />
+                  </FormControl>
+                </Grid>
+              </Grid>
+            </Grid>
           </Grid>
 
           {/* อีเมล */}
@@ -442,7 +448,7 @@ function MemberEdit() {
 
                 size="medium"
 
-                value={user?.Password}
+                value={user?.Password || ""}
 
                 onChange={handleInputChange}
 

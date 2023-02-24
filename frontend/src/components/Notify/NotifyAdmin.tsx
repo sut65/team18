@@ -13,7 +13,7 @@ import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRo
 import moment from "moment";
 import { MemberInterface } from "../../models/IMember";
 import { NotifyInterface } from "../../models/INotify";
-
+import ConstructionIcon from '@mui/icons-material/Construction';
 
 
 
@@ -99,9 +99,12 @@ function NotifyShowad() {
 
                                 component="h2"
 
-                                variant="h6"
+                                variant="h5"
+
+                                align="center"
 
                                 color="primary"
+                                
 
                                 gutterBottom
 
@@ -114,17 +117,17 @@ function NotifyShowad() {
                     </Box>
                 </Box>
                 <div>
-                    <Container maxWidth="lg">
+                    <Container maxWidth="lg" sx={{ bgcolor: '#ffecb3' }}>
                         <div style={{ height: 500, width: "100%", marginTop: "20px" }}>
                             <TableContainer >
-                                <Table aria-label="simple table">
-                                    <TableHead>
+                                <Table aria-label="simple table" >
+                                    <TableHead >
                                         {/* หัวข้อตาราง */}
-                                        <TableRow>
-                                            <TableCell align="center" width="10%"> ID </TableCell>
+                                        <TableRow >
+                                            <TableCell align="center" width="5%"> ID </TableCell>
                                             <TableCell align="center" width="20%"> ชื่อผู้แจ้งข้อมูล </TableCell>
-                                            <TableCell align="center" width="20%"> ชนิดของอุปกรณ์ </TableCell>
-                                            <TableCell align="center" width="20%"> รหัสของอุปกรณ์ </TableCell>
+                                            <TableCell align="center" width="15%"> ชนิดของอุปกรณ์ </TableCell>
+                                            <TableCell align="center" width="15%"> รหัสของอุปกรณ์ </TableCell>
                                             <TableCell align="center" width="20%"> วันที่แจ้ง </TableCell>
                                             <TableCell align="center" width="30%"> ปัญหาพบ </TableCell>
                                         </TableRow>

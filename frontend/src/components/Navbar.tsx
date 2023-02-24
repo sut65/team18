@@ -136,6 +136,7 @@ function Navbar() {
   const menuemployee = [
     { name: "หน้าแรก", icon: <HomeIcon />, path: "/login" },
     { name: "บันทึกตารางงานพนักงาน", icon: <EventNoteIcon />, path: "/schedule_show", },
+    { name: "ข้อมูลสมาชิก", icon: <PersonIcon />, path: "/member_shows", },
     { name: "ข้อมูลสถานกีฬา", icon: <SportsBasketballIcon />, path: "/place" },
     { name: "ข้อมูลอุปกรณ์กีฬา", icon: <SportsCricketTwoToneIcon />, path: "/equipment_shows", },
     { name: "ข้อมูลการแจ้งซ่อมอุปกรณ์ชำรุด", icon: <BuildTwoToneIcon />, path: "/notify_shows", },
@@ -144,6 +145,7 @@ function Navbar() {
   const menuadmin = [
     { name: "หน้าแรก", icon: <HomeIcon />, path: "/login" },
     { name: "ข้อมูลพนักงาน", icon: <BadgeIcon />, path: "/employee_show", },
+    { name: "ข้อมูลสมาชิก", icon: <PersonIcon />, path: "/member_shows", },
     { name: "ข่าว", icon: <EventNoteIcon />, path: "/news_create", },
   ]
   const menutrainer = [
