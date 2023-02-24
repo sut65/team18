@@ -265,7 +265,7 @@ function MemberS() {
                 </ThemeProvider>
 
 
-                <Paper>
+                <Paper sx={{ bgcolor: "#fffde7" }}>
 
                     <ThemeProvider theme={theme}>
                         <Typography sx={{ marginLeft: 40, padding: 1, marginTop: 0 }}
@@ -305,7 +305,8 @@ function MemberS() {
                     </Grid>
 
                     {/* อีเมล */}
-                    <Grid item xs={6} sx={{ padding: 2, marginTop: -3 }}>
+                    <Grid container spacing={3} sx={{ padding: 2, marginTop: -7, }} item xs={12}>
+                    <Grid item xs={6} sx={{ padding: 2 }}>
 
                         <p>Email</p>
 
@@ -336,7 +337,7 @@ function MemberS() {
 
 
                     {/* password */}
-                    <Grid item xs={6} sx={{ padding: 2, marginTop: -3, }}>
+                    <Grid item xs={6} sx={{ padding: 2 }}>
 
                         <p>Password</p>
 
@@ -362,6 +363,7 @@ function MemberS() {
 
                         </FormControl>
 
+                    </Grid>
                     </Grid>
 
                     <Grid container spacing={3} sx={{ padding: 2, marginTop: -7, }}>
