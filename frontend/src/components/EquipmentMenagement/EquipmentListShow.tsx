@@ -128,6 +128,7 @@ const getToken = localStorage.getItem("token");
                                         <TableRow>
                                             <TableCell align="center" width="5%"> ID </TableCell>
                                             <TableCell align="center" width="20%"> รายละเอียดอุปกรณ์ </TableCell>
+                                            <TableCell align="center" width="20%"> ชนิดอุปกรณ์ </TableCell>
                                             <TableCell align="center" width="20%"> ผู้บันทึก </TableCell>
                                             <TableCell align="center" width="20%"> วันที่บันทึก </TableCell>
                                         </TableRow>
