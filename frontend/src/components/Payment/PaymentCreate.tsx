@@ -253,7 +253,7 @@ function PaymentCreate() {
             }}
           >
             <Box sx={{ paddingX: 2, paddingY: 1 }} >
-              <Typography component="h2" variant="h4" color="primary" gutterBottom
+              <Typography component="h2" variant="h4" color="primary" gutterBottom fontFamily= 'Prompt'
               style={{ color: "#424242"}}
               >
                 ระบบชำระเงิน

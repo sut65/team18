@@ -163,6 +163,11 @@ func UpdateNews(c *gin.Context) {
 		return
 	}
 
+	if _, err := govalidator.ValidateStruct(news); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
 	if tx := entity.DB().Where("id = ?", news.ID).First(&ne); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "watchvideo not found"})
 		return
