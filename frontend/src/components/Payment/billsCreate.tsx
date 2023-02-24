@@ -168,14 +168,14 @@ function BillCreate() {
             <Alert onClose={handleClose} severity="success">
               เลือกรายการชำระสำเร็จ
               <Button
-                style={{ marginLeft: 10, width: 250, float: "right" }}
+                sx={{ marginLeft: 10, width: 250, float: "right", bgcolor: "#c8e6c9"}}
                 variant="contained"
                 color="primary"
                 component={RouterLink}
                 to="/payment_create"
               >
                 <Typography
-                  color="secondary"
+                  style={{ color: "#424242" }}
                 >
                   คลิกทีนี้ เพื่อทำรายการต่อ
                 </Typography>
@@ -196,8 +196,8 @@ function BillCreate() {
             <Box flexGrow={1}>
               <Typography
                 component="h2"
-                variant="h6"
-                color="primary"
+                variant="h5"
+                style={{ color: "#2196f3" }}
                 gutterBottom
               >
                 รายการชำระเงิน
@@ -242,7 +242,7 @@ function BillCreate() {
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <Button
-                    style={{ marginTop: 10, width: 170, float: "right" }}
+                    sx={{  width: 170, float: "right", bgcolor: "#2196f3" }}
                     onClick={saveBill}
                     variant="contained"
                     color="primary"

@@ -88,13 +88,7 @@ function PaymentCreate() {
     }
   };
 
-  const getBills = async () => {
-    let res = await GetBillByID();
-    if (res) {
-      setBills(res);
-    }
-  };
-
+ 
   useEffect(() => {
     const getToken = localStorage.getItem("token");
     if (getToken) {

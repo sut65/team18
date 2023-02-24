@@ -139,7 +139,7 @@ function Navbar() {
     { name: "ข้อมูลสถานกีฬา", icon: <SportsBasketballIcon />, path: "/place" },
     { name: "ข้อมูลอุปกรณ์กีฬา", icon: <SportsCricketTwoToneIcon />, path: "/equipment_shows", },
     { name: "ข้อมูลการแจ้งซ่อมอุปกรณ์ชำรุด", icon: <BuildTwoToneIcon />, path: "/notify_shows", },
-    { name: "ข่าวประชาสัมพันธ์", icon: <NewspaperTwoToneIcon />, path: "/news", },
+    { name: "ข่าวประชาสัมพันธ์", icon: <NewspaperTwoToneIcon />, path: "/news_update", },
   ]
   const menuadmin = [
     { name: "หน้าแรก", icon: <HomeIcon />, path: "/login" },

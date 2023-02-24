@@ -31,15 +31,15 @@ const theme = createTheme({
 function MenuShow() {
 
 
-    async function wlogin()  {
-        localStorage.setItem("login",  "want login");
+    async function wlogin() {
+        localStorage.setItem("login", "want login");
     }
-    
+
 
     return (
         <ThemeProvider theme={theme}>
             <div>
-                                <Box
+                <Box
                     sx={{
                         width: 'auto',
                         height: "100vh",
@@ -54,16 +54,16 @@ function MenuShow() {
                     <div id='from-page' className='form-page'>
                         <div id='from-frame' className='from-frame'>
                             <div id="logo" className='logo'>
-                            <Box
-                                sx={{
-                                    width: 400,
-                                    height: 400,
-                                    backgroundColor: 'primary',
-                                    backgroundSize: "cover",
-                                    backgroundImage: `url(${logo3})`,
-                                }}
-                            >
-                            </Box>
+                                <Box
+                                    sx={{
+                                        width: 400,
+                                        height: 400,
+                                        backgroundColor: 'primary',
+                                        backgroundSize: "cover",
+                                        backgroundImage: `url(${logo3})`,
+                                    }}
+                                >
+                                </Box>
                             </div>
 
                             <Stack direction="column" spacing={3}>

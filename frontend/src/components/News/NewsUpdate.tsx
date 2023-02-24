@@ -10,6 +10,9 @@ import { NewsTypeInterface } from "../../models/INews/INewsType";
 import { NewsInterface } from "../../models/INews/INews";
 import { CreateNews, GetNews, GetNewsbys, GetNewstype, GetRecipient, UpdateNews } from "../../services/NewsHttpClientService";
 import { EmployeeInterface } from "../../models/IEmployee";
+import PostAddIcon from '@mui/icons-material/PostAdd';
+import { Link as RouterLink } from "react-router-dom";
+
 
 
 //สี
@@ -18,13 +21,17 @@ import { EmployeeInterface } from "../../models/IEmployee";
 const theme = createTheme({
     palette: {
         primary: {
-            main: green[400],
+            main: "#FEAC3F",
         },
         secondary: {
-            main: '#e8f5e9',
+            main: "#ff3d00"
         },
+        text: {
+            primary: "#1B2420",
+            secondary: "#1B2420"
+        }
     },
-});
+})
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props,
@@ -48,7 +55,7 @@ function NewsUpdate() {
     const [nnews, setNnews] = React.useState<Partial<NewsInterface>>({
         EmployeeID: 0
     });
-  
+
     const [error, setError] = React.useState(false);
     const [success, setSuccess] = React.useState(false);
     const [message, setAlertMessage] = React.useState("");
@@ -92,12 +99,12 @@ function NewsUpdate() {
     //-----------------------------------------handle------------------------------
 
     const onChange = async (event: SelectChangeEvent) => {
-        const id = event.target.value 
+        const id = event.target.value
         let res = await GetNewsbys(id);
         if (res) {
             setNnews(res);
         }
-      };
+    };
 
     const handleInputChange = (
         event: React.ChangeEvent<{ id?: string; value: any }>
@@ -121,33 +128,33 @@ function NewsUpdate() {
     const handleChange = (event: SelectChangeEvent) => {
         const name = event.target.name as keyof typeof nnews;
         setNnews({
-          ...nnews,
-          [name]: event.target.value,
+            ...nnews,
+            [name]: event.target.value,
         });
-      }; 
-   
-      function Delete() {
-        
+    };
+
+    function Delete() {
+
         const apiUrl = "http://localhost:8080";
         const requestOptions = {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(nnews.ID),
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(nnews.ID),
         };
-        fetch(`${apiUrl}/news/${JSON.stringify(nnews.ID)}`,requestOptions)
-          .then((response) => response.json())
-          .then((res) => {
-            if (res.data) {
-              setSuccess(true);
-              window.location.reload()
-            } else {
-              setError(true);
-            }
-          });
-        }
+        fetch(`${apiUrl}/news/${JSON.stringify(nnews.ID)}`, requestOptions)
+            .then((response) => response.json())
+            .then((res) => {
+                if (res.data) {
+                    setSuccess(true);
+                    window.location.reload()
+                } else {
+                    setError(true);
+                }
+            });
+    }
 
 
 
@@ -172,8 +179,8 @@ function NewsUpdate() {
         let res = await UpdateNews(data);
         if (res) {
             setSuccess(true);
-        } else {   
-           setError(true);
+        } else {
+            setError(true);
         }
     }
 
@@ -181,7 +188,7 @@ function NewsUpdate() {
 
     return (
         <ThemeProvider theme={theme}>
-            <Container maxWidth="md" style={{ marginTop: 0 }}>
+            <Container maxWidth="md" sx={{ marginTop: 0 }}>
                 {/* ----------------------------Alert------------------------ */}
                 <Snackbar
                     id="success"
@@ -205,21 +212,35 @@ function NewsUpdate() {
                         ไม่สามารถทำได้ กรุณาลองใหม่
                     </Alert>
                 </Snackbar>
-               
+
                 {/* ---------------------------------------------------------------------------------------------------- */}
                 <Paper>
                     <Box
                         display="flex"
                         sx={{
                             marginTop: 2,
+                            bgcolor: "#ff9100",
                         }}
                     >
                         <Box sx={{ paddingX: 2, paddingY: 1 }}>
-                            <Typography component="h2" variant="h6" color="primary" gutterBottom
+                            <Typography component="h2" variant="h5" color="primary" gutterBottom
+                                style={{ color: "#f5f5f5" }}
                             >
-                                ระบบบันทึกข่าวสาร
+                                ข่าวสารทั้งหมด
                             </Typography>
                         </Box>
+                        <Button
+                            sx={{ marginTop: 0, width: 170, float: "right", bgcolor: "#ffa000", }}
+                            variant="contained"
+                            component={RouterLink} to="/news_create"
+                        >
+                            <PostAddIcon style={{ color: "#f5f5f5" }}/>
+                            <Typography
+                                style={{ color: "#f5f5f5" }}
+                            >
+                                เพิ่มข่าวสาร
+                            </Typography>
+                        </Button>
                     </Box>
 
                     <Divider color="primary" />
@@ -231,7 +252,7 @@ function NewsUpdate() {
                         </Grid>
                         <Grid item xs={4}>
                             <FormControl fullWidth variant="outlined">
-                            <Select
+                                <Select
                                     value={nnews.ID + ""}
                                     onChange={onChange}
                                     inputProps={{
@@ -325,7 +346,7 @@ function NewsUpdate() {
                                             setNnews({
                                                 ...nnews,
                                                 SDate: newValue,
-                                              });
+                                            });
                                         }}
                                     />
 
@@ -353,7 +374,7 @@ function NewsUpdate() {
                                             setNnews({
                                                 ...nnews,
                                                 DDate: newValue,
-                                              });
+                                            });
                                         }}
                                     />
 
@@ -374,7 +395,7 @@ function NewsUpdate() {
                                     }}
                                 >
                                     <MenuItem aria-label="None" value={""} >
-                                             {nnews.RecipientID}
+                                        {nnews.RecipientID}
                                     </MenuItem>
                                     {recipient.map((item: RecipientInterface) => (
                                         <MenuItem value={item.ID}>
@@ -428,12 +449,14 @@ function NewsUpdate() {
                     <Grid container spacing={3} sx={{ padding: 2 }}>
                         <Grid item xs={6} >
                             <Button
-                                style={{ marginLeft: 0, marginTop: 10, width: 170, }}
+                                sx={{ marginLeft: 0, marginTop: 5, width: 170, bgcolor: "#eeeeee" }}
+                                onClick={() => {
+                                    window.location.href = "/news_update";
+                                }}
                                 variant="contained"
-                                color="primary"
                             >
                                 <Typography
-                                    color="secondary"
+                                    style={{ color: "#424242" }}
                                 >
                                     Cancle
                                 </Typography>
@@ -441,36 +464,36 @@ function NewsUpdate() {
                         </Grid>
                         <Grid item xs={6}>
                             <Button
-                                style={{ marginTop: 10, width: 170, float: "right" }}
+                                sx={{ marginTop: 5, width: 170, float: "right", bgcolor: "#2196f3" }}
                                 onClick={submit}
                                 variant="contained"
-                                color="primary"
+
                             >
                                 <Typography
-                                    color="secondary"
+                                    style={{ color: "#f5f5f5" }}
                                 >
                                     Save
                                 </Typography>
                             </Button>
-                        </Grid>   
+                        </Grid>
                     </Grid>
                     <Grid container spacing={1} sx={{ padding: 2 }}>
-                    <Grid item xs={12}>
-                    <Button
-                                style={{ marginTop: 0, width: 170, float: "right" }}
+                        <Grid item xs={12}>
+                            <Button
+                                sx={{ marginTop: 0, width: 170, float: "right", bgcolor: "#e53935", }}
                                 onClick={Delete}
                                 variant="contained"
-                                color="primary"
+
                             >
                                 <Typography
-                                    color="secondary"
+                                    style={{ color: "#f5f5f5" }}
                                 >
                                     Delete
                                 </Typography>
                             </Button>
-                            </Grid>
+                        </Grid>
                     </Grid>
-                    
+
 
                 </Paper>
             </Container>

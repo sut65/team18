@@ -25,6 +25,8 @@ import {
     UpdateEquipmentBooking,
     ListEquipmentBookingMember
 } from "../../services/EquipmentHttpClientService";
+import { PlaceInterface } from "../../models/IPlace";
+import { GetPlace } from "../../services/HttpClientService";
 const theme = createTheme({
     palette: {
         primary: {
@@ -40,27 +42,29 @@ const theme = createTheme({
     },
 })
 function EquipmentBookingEdit() {
+    const [DateBooking, setDateBooking] = React.useState<Date | null>(null);
     const [equipmentBookingList, setEquipmentBookingList] = React.useState<Partial<EquipmentBookingListInterface>>({
         EquipmentListID: 0,
         MemberID: 0,
+        PlaceID: 0,
         DateBooking: new Date(),
 
     });
-    const [DateBooking, setDateBooking] = React.useState<Date | null>(null);
     const [equipmentList, setEquipmentList] = useState<EquipmentListInterface[]>([]);
-    
-    const [member, setMember] =React.useState<MemberInterface>({});
-    
+    const [place, setPlace] = useState<PlaceInterface[]>([]);
+
+    const [member, setMember] = React.useState<MemberInterface>({});
+
     const [success, setSuccess] = useState(false);
-    
+
     const [error, setError] = useState(false);
-    
+
     const [message, setAlertMessage] = React.useState("");
-    
+
     const [ar, setAletDelete] = React.useState(false);
     const [booking_member, setBooking_member] = React.useState<EquipmentBookingListInterface[]>([]);
 
-    const listEquipmentBookingMember = async (id:any) => {
+    const listEquipmentBookingMember = async (id: any) => {
         let res = await ListEquipmentBookingMember(id);
         if (res) {
             setBooking_member(res);
@@ -105,6 +109,13 @@ function EquipmentBookingEdit() {
         }
     };
 
+    const getPlace = async () => {
+        let res = await GetPlace();
+        if (res) {
+            setPlace(res);
+        }
+    };
+
     useEffect(() => {
         const getToken = localStorage.getItem("token");
         if (getToken) {
@@ -112,6 +123,7 @@ function EquipmentBookingEdit() {
             setMember(x);
             listEquipmentBookingMember(x.ID);
         }
+        getPlace();
         getEquipmentList();
     }, []);
 
@@ -154,12 +166,13 @@ function EquipmentBookingEdit() {
             let data = {
 
                 ID: res.ID,
-                
+
 
                 MemberID: res.ID,
 
 
                 EquipmentListID: res.ID,
+                PlcaeID: res.ID,
                 DateBooking: new Date(),
 
             };
@@ -175,8 +188,9 @@ function EquipmentBookingEdit() {
     async function submit() {
         let data = {
             ID: equipmentBookingList.ID,
-            MemberID: member?.ID,
             EquipmentListID: convertType(equipmentBookingList.EquipmentListID),
+            PlaceID: convertType(equipmentBookingList.PlaceID),
+            MemberID: member?.ID,
             DateBooking: DateBooking,
         };
         console.log("submit")
@@ -327,7 +341,7 @@ function EquipmentBookingEdit() {
                     <Grid container spacing={3} sx={{ padding: 2, marginTop: -7, }}>
 
                         <Grid item xs={6}>
-                            <p>ชนิดของอุปกรณ์</p>
+                            <p>อุปกรณ์</p>
 
                             <FormControl fullWidth variant="outlined">
                                 <Select
@@ -340,10 +354,32 @@ function EquipmentBookingEdit() {
 
                                 >
                                     <option aria-label="None" value="">
-                                        กรุณาเลือกชนิดอุปกรณ์
+                                        กรุณาเลือกอุปกรณ์
                                     </option>
                                     {equipmentList.map((item: EquipmentListInterface) => (
                                         <option value={item.ID}>{item.Detail}</option>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <p>สถานที่รับอุปกรณ์</p>
+
+                            <FormControl fullWidth variant="outlined">
+                                <Select
+                                    native
+                                    value={equipmentBookingList.PlaceID}
+                                    onChange={handleChange}
+                                    inputProps={{
+                                        name: "EquipmentListID",
+                                    }}
+
+                                >
+                                    <option aria-label="None" value="">
+                                        กรุณาเลือกสถานที่
+                                    </option>
+                                    {place.map((item: PlaceInterface) => (
+                                        <option value={item.ID}>{item.Locate}</option>
                                     ))}
                                 </Select>
                             </FormControl>
@@ -355,14 +391,13 @@ function EquipmentBookingEdit() {
 
                             <FormControl fullWidth variant="outlined">
 
-                                <p>วันที่บันทึก</p>
+                                <p>วันที่จอง</p>
 
                                 <LocalizationProvider dateAdapter={AdapterDateFns}>
 
                                     <DatePicker
 
                                         value={equipmentBookingList.DateBooking}
-
                                         onChange={(newValue) => {
                                             setEquipmentBookingList({
                                                 ...equipmentBookingList,
