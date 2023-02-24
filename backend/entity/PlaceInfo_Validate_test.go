@@ -8,6 +8,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
+
 func TestPlaceAll(t *testing.T) { //กรณีข้อมูลถูกทั้งหมด
 	g := NewGomegaWithT(t)
 
