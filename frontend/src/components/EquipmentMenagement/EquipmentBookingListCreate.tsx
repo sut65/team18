@@ -17,7 +17,7 @@ import { EquipmentListInterface } from "../../models/EquipmentList/IEquipmentLis
 import { MemberInterface } from "../../models/IMember";
 
 import { MenuItem, TextField } from "@mui/material";
-import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
+import { LocalizationProvider, DatePicker, DateTimePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { GetMember } from "../../services/NotifyHttpCS";
 import {
@@ -209,7 +209,7 @@ function EquipmentBookingListCreate() {
           <FormControl fullWidth variant="outlined">
               <p>วันที่รับอุปกรณ์</p>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
+                <DateTimePicker
                   value={DateBooking}
                   onChange={(newValue) => {
                     setDateBooking(newValue);

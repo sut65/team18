@@ -25,6 +25,6 @@ func init() {
 
 	govalidator.CustomTypeTagMap.Set("notPastBooking", func(i interface{}, context interface{}) bool {
 		t := i.(time.Time)
-		return t.After(time.Now().Add(time.Minute * -1000))
+		return t.After(time.Now().Add(time.Minute * -30))
 	})
 }

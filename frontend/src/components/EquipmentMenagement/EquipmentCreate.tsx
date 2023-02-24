@@ -17,7 +17,7 @@ import { EquipmentNameInterface } from "../../models/EquipmentList/IEquipmentNam
 import { RunNumberInterface } from "../../models/EquipmentList/IRunNumber";
 
 import { MenuItem, TextField } from "@mui/material";
-import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
+import { LocalizationProvider, DatePicker, DateTimePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { EmployeeInterface } from "../../models/IEmployee";
 import { GetEmployee } from "../../services/HttpClientService";
@@ -85,6 +85,7 @@ const [error, setError] = useState(false);
 
 
   console.log(equipmentList);
+  console.log(DateTime);
   
   const handleChange = (event: SelectChangeEvent) => {
     const name = event.target.name as keyof typeof equipmentList;
@@ -242,7 +243,7 @@ const [error, setError] = useState(false);
             <FormControl fullWidth variant="outlined">
               <p>วันที่และเวลา</p>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
+                <DateTimePicker
                   value={DateTime}
                   onChange={(newValue) => {
                     setDateTime(newValue);
