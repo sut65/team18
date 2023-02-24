@@ -5,10 +5,12 @@ import React, { useEffect } from "react";
 import { NewsInterface } from "../../models/INews/INews";
 import { GetNewsbys } from "../../services/NewsHttpClientService";
 import Link from '@mui/material/Link';
-
+import './News.css';
 
 const theme = createTheme({
+
     palette: {
+        
         primary: {
             main: "#FEAC3F",
         },
@@ -48,6 +50,7 @@ function News() {
             <Container maxWidth="lg" style={{ marginTop: 0 }}>
                 <Grid item xs={12} >
                     <Typography
+                        fontFamily= 'Prompt'
                         component="h2"
                         variant="h3"
                     >
@@ -56,6 +59,7 @@ function News() {
                     <Grid container spacing={3} sx={{ padding: 2 }}>
                         <Grid item xs={6} >
                             <Typography
+                                fontFamily= 'Prompt'
                                 component="h2"
                                 variant="h6"
                                 style={{ color: "#757575" }}
@@ -65,6 +69,7 @@ function News() {
                         </Grid>
                         <Grid item xs={6} >
                             <Typography
+                                fontFamily= 'Prompt'
                                 component="h2"
                                 variant="h6"
                                 style={{ color: "#757575", float: "right" }}
@@ -79,6 +84,7 @@ function News() {
             <Container maxWidth="lg" style={{ marginTop: 50 }}>
                 <Box sx={{ bgcolor: '#fff8e1', height: '50vh', padding: 2 }}>
                     <Typography
+                        fontFamily= 'Prompt'
                         component="h2"
                         variant="h6"
                         style={{ color: "#212121", marginLeft: 25 }}
@@ -95,6 +101,7 @@ function News() {
                     }}
                 >
                     <Typography
+                        fontFamily= 'Prompt'
                         component="h2"
                         variant="h6"
                     >

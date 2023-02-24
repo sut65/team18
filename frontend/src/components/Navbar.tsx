@@ -195,7 +195,7 @@ function Navbar() {
               <MenuIcon />
             </IconButton>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-              <Typography variant="h6" color="secondary" noWrap component="div">
+              <Typography variant="h6" color="secondary" noWrap component="div" fontFamily= 'Gloock'>
                 Sports Center
               </Typography>
               <MenuItem onClick={SignOut}><LogoutIcon style={{ marginRight: ".5rem" }} />Log out</MenuItem>
