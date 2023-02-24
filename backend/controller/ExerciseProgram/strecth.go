@@ -25,7 +25,7 @@ func CreateStretch(c *gin.Context) {
 func GetStretch(c *gin.Context) {
 	var Stretch entity.Stretch
 	id := c.Param("id")
-	if err := entity.DB().Raw("SELECT * FROM stretchs WHERE id = ?", id).Scan(&Stretch).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM stretches WHERE id = ?", id).Scan(&Stretch).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
